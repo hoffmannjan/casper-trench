@@ -39,7 +39,7 @@
     }
 
     .label {
-        @apply text-[#8F9398];
+        @apply text-color-grey-footer-label;
     }
 
     .value {

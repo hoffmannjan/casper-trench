@@ -11,6 +11,11 @@ module.exports = {
 			},
 			light: {
 				// light theme colors
+			},
+			colors: {
+				color: {
+					'grey-footer-label': '#8F9398'
+				}
 			}
 		}
 	},
