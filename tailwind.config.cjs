@@ -16,7 +16,11 @@ module.exports = {
 				color: {
 					'border-header-stats': '#79E1ED',
 					'divider-header-stats': '#F2F3F5',
-					'title-header-stats': '#CFCFCF'
+					'title-header-stats': '#CFCFCF',
+					'filter-dropdown-button-bg': '#091872',
+					'filter-bg': '#09145A',
+					'search-btn-blue': '#173FA2',
+					'search-btn-green': '#0C8D94'
 				}
 			}
 		}
