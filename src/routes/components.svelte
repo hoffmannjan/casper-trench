@@ -1,5 +1,9 @@
 <script>
-    import Header from "$components/Header/index.svelte";
+	import Filter from '$lib/components/Header/Filter.svelte';
+	import Header from '$components/Header/index.svelte';
 </script>
 
-<Header />
+<div class="p-16">
+	<Header />
+	<Filter />
+</div>

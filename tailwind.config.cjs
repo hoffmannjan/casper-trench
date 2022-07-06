@@ -11,6 +11,14 @@ module.exports = {
 			},
 			light: {
 				// light theme colors
+			},
+			colors: {
+				color: {
+					'filter-dropdown-button-bg': '#091872',
+					'filter-bg': '#09145A',
+					'search-btn-blue': '#173FA2',
+					'search-btn-green': '#0C8D94'
+				}
 			}
 		}
 	},
