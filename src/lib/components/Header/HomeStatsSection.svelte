@@ -95,7 +95,7 @@
     }
 
     .stat-column {
-        @apply w-[clamp(100px,17.86vw,17.86vw)] h-full;
+        @apply w-[clamp(100px,17.86vw,17.86vw)] h-full leading-none;
     }
 
     .stat-column > div {
@@ -115,14 +115,14 @@
     }
 
     .title {
-        @apply text-[clamp(10px,0.95vw,0.95vw)] text-[#CFCFCF];
+        @apply text-[clamp(8px,0.95vw,0.95vw)] text-[#CFCFCF] mb-[clamp(2px,0.5vw,0.5vw)];
     }
 
     .value {
-        @apply text-[clamp(14px,1.67vw,1.67vw)] text-white font-medium;
+        @apply text-[clamp(14px,1.67vw,1.67vw)] text-white font-medium mb-[clamp(2px,0.4vw,0.4vw)];
     }
 
     .detail {
-        @apply text-[clamp(12px,1.07vw,1.07vw)] text-white;
+        @apply text-[clamp(10px,1.07vw,1.07vw)] text-white;
     }
 </style>
