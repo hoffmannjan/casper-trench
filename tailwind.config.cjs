@@ -11,6 +11,13 @@ module.exports = {
 			},
 			light: {
 				// light theme colors
+			},
+			colors: {
+				color: {
+					'grey-footer-link': '#ADBDCC',
+					'grey-footer-title': '#FFF9F5',
+					'hover-footer-link': '#099b91'
+				}
 			}
 		}
 	},

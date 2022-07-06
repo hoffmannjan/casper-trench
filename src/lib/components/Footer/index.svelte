@@ -133,15 +133,15 @@ import TwitterIcon from "$lib/icons/TwitterIcon.svelte";
     }
 
     .links {
-        @apply flex flex-col gap-[clamp(8px,1.19vw,1.19vw)] text-[clamp(8px,1.19vw,1.19vw)] text-[#ADBDCC];
+        @apply flex flex-col gap-[clamp(8px,1.19vw,1.19vw)] text-[clamp(8px,1.19vw,1.19vw)] text-color-grey-footer-link;
     }
 
     .title {
-        @apply font-bold text-[#FFF9F5] mb-[clamp(4px,0.36vw,0.36vw)];
+        @apply font-bold text-color-grey-footer-title mb-[clamp(4px,0.36vw,0.36vw)];
     }
 
     .link {
-        @apply cursor-pointer hover:text-[#099b91] min-w-max;
+        @apply cursor-pointer hover:text-color-hover-footer-link min-w-max;
     }
 
     .link-section {
