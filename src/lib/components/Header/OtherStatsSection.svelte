@@ -75,14 +75,14 @@
     }
 
     .title {
-        @apply text-[clamp(10px,0.70vw,0.70vw)] text-[#CFCFCF] mb-[clamp(2px,0.3vw,0.3vw)];
+        @apply text-[clamp(8px,0.70vw,0.70vw)] text-[#CFCFCF] mb-[clamp(2px,0.3vw,0.3vw)];
     }
 
     .value {
-        @apply text-[clamp(14px,1.43vw,1.43vw)] text-white font-medium mb-[clamp(2px,0.24vw,0.24vw)];
+        @apply text-[clamp(10px,1.43vw,1.43vw)] text-white font-medium mb-[clamp(2px,0.24vw,0.24vw)];
     }
 
     .detail {
-        @apply text-[clamp(12px,0.75vw,0.75vw)] text-white;
+        @apply text-[clamp(8px,0.75vw,0.75vw)] text-white;
     }
 </style>
