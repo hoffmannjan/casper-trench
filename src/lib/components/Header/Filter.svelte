@@ -1,6 +1,8 @@
 <script>
     import NavbarChevron from "$lib/icons/NavbarChevron.svelte";
-import SearchIcon from "$lib/icons/SearchIcon.svelte";
+    import SearchIcon from "$lib/icons/SearchIcon.svelte";
+
+    export let value = "";
 </script>
 
 <div class="filter">
@@ -13,7 +15,7 @@ import SearchIcon from "$lib/icons/SearchIcon.svelte";
         </div>
     </div>
 
-    <input type="text" name="filter" placeholder="Search by Address / Txn Hash / Block / Token / Ens">
+    <input type="text" name="filter" placeholder="Search by Address / Txn Hash / Block / Token / Ens" bind:value>
 
     <div class="search">
         <div class="search-icon">
