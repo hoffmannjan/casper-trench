@@ -14,7 +14,17 @@ module.exports = {
 			},
 			colors: {
 				color: {
-					'grey-footer-label': '#8F9398'
+					'grey-footer-label': '#8F9398',
+					'grey-footer-link': '#ADBDCC',
+					'grey-footer-title': '#FFF9F5',
+					'hover-footer-link': '#099b91',
+					'border-header-stats': '#79E1ED',
+					'divider-header-stats': '#F2F3F5',
+					'title-header-stats': '#CFCFCF',
+					'filter-dropdown-button-bg': '#091872',
+					'filter-bg': '#09145A',
+					'search-btn-blue': '#173FA2',
+					'search-btn-green': '#0C8D94'
 				}
 			}
 		}

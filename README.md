@@ -8,14 +8,14 @@ Sveltekit + Tailwindcss + Typescript
 
 > \*Feel free to substitute `npm` with `pnpm` or `yarn`.
 
-|                              |                                                                    |
-| ---------------------------- | ------------------------------------------------------------------ |
-| Install                      | · `npm install`                                                    |
-| Develop                      | · `npm run dev`                                                    |
-| Develop and Open browser tab | · `npm run dev -- --open`                                          |
-| Build                        | · `npm run build` => Builds site ready for vercel deployment	    |
-| Preview                      | · `npm run preview` => Previews built site                         |
-| Check                        | · `npm run check` => Does a type check across the project          |
+|                              |                                                              |
+| ---------------------------- | ------------------------------------------------------------ |
+| Install                      | · `npm install`                                              |
+| Develop                      | · `npm run dev`                                              |
+| Develop and Open browser tab | · `npm run dev -- --open`                                    |
+| Build                        | · `npm run build` => Builds site ready for vercel deployment |
+| Preview                      | · `npm run preview` => Previews built site                   |
+| Check                        | · `npm run check` => Does a type check across the project    |
 
 ## Recommended IDE Setup
 
@@ -37,11 +37,12 @@ Other directories such as the `utils` are present utility functions used across 
 
 - `lib`
   When working in the lib directory, it is important to ensure that only `.svelte` files are in this directory. In particular, these need to be structured using the parent page as the name of the directory. We should have several directories depending on which types of svelte files are included in them. For instance;
+
   - `pages` - These are entire pages rendered across the site and would ideally eventually become routes (or imported into routes). In this case, these are likely aggregations or combinations of files already in the icons, components, or sections directories.
   - `components` - These are repeated components such as buttons, dropdowns, and others that can be reused in other files across the application.
   - `icons` - These are ideally svgs pasted into svelte files to make sure that they do not require additional fetch requests on the user's end as they are bundled in the resulting html code.
   - `sections` - These are entire sections (often aggregations of components) such as showcase sections, carousels, contact forms, and such that can be used separately but can also be included in the page where they'll be rendered.
-  
+
   Please note that the naming convention for the files in the lib directory is; `{parentDirectory}/index.svelte` for the main component being exported but for the rest also at the same level or related to the page, icon, etc, these can have their own names.
 
 - `routes`
@@ -57,7 +58,7 @@ Other directories such as the `utils` are present utility functions used across 
 
 ## Styling
 
-When working with styles, one has the choice of either adding the styles in the html or styles section. However, its recommended to use the styles section and limiting the length of the styles to improve readability. 
+When working with styles, one has the choice of either adding the styles in the html or styles section. However, its recommended to use the styles section and limiting the length of the styles to improve readability.
 In some cases, such as when using darkmode in sveltekit and tailwind css, one is required to make the styles global. In these instances, and others, it is recommended to wrap the selector with the `:local()`. As shown in the example below, the classes are organized in a readable manner and can be easily maintained in the future.
 
 ```postcss
