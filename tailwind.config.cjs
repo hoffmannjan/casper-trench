@@ -16,7 +16,14 @@ module.exports = {
 				color: {
 					'grey-footer-link': '#ADBDCC',
 					'grey-footer-title': '#FFF9F5',
-					'hover-footer-link': '#099b91'
+					'hover-footer-link': '#099b91',
+					'border-header-stats': '#79E1ED',
+					'divider-header-stats': '#F2F3F5',
+					'title-header-stats': '#CFCFCF',
+					'filter-dropdown-button-bg': '#091872',
+					'filter-bg': '#09145A',
+					'search-btn-blue': '#173FA2',
+					'search-btn-green': '#0C8D94'
 				}
 			}
 		}
