@@ -125,7 +125,7 @@ import TwitterIcon from "$lib/icons/TwitterIcon.svelte";
 
     .casper-live > .logo {
         @apply h-[clamp(16px,1.96vw,1.96vw)] w-[clamp(50px,8vw,8vw)];
-        @apply mb-[clamp(16px,2.26vw,2.26vw)];
+        @apply mb-[clamp(16px,2.26vw,2.26vw)] translate-y-[-0.95vw];
     }
 
     .bg {
