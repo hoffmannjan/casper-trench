@@ -11,6 +11,13 @@ module.exports = {
 			},
 			light: {
 				// light theme colors
+			},
+			colors: {
+				color: {
+					'border-header-stats': '#79E1ED',
+					'divider-header-stats': '#F2F3F5',
+					'title-header-stats': '#CFCFCF'
+				}
 			}
 		}
 	},
