@@ -31,7 +31,7 @@
     }
 
     .bg {
-        @apply absolute top-0 bottom-0 left-0 right-0 -z-10 hidden w-full h-full md:block;
+        @apply absolute inset-0 -z-10 hidden w-full h-full md:block;
     }
 
     .powered-by {
