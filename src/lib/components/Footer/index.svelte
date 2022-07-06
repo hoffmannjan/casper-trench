@@ -13,7 +13,6 @@ import TwitterIcon from "$lib/icons/TwitterIcon.svelte";
         class="bg"
         draggable="false"
     />
-
     <div class="arcadia-section">
         <div class="logo">
             <ArcadiaLogo />
@@ -60,7 +59,7 @@ import TwitterIcon from "$lib/icons/TwitterIcon.svelte";
     </div>
 
     <div class="casper-live">
-        <div class="logo">a
+        <div class="logo">
             <CsprLiveLogo />
         </div>
         <div class="link-section">
@@ -108,6 +107,10 @@ import TwitterIcon from "$lib/icons/TwitterIcon.svelte";
 </div>
 
 <style lang='postcss'>
+    .bg {
+        @apply absolute inset-0 hidden w-full h-full md:block -z-10;
+    }
+
     .footer {
         @apply relative py-[clamp(16px,3.33vw,3.33vw)] flex;
         /* remove */
@@ -125,11 +128,7 @@ import TwitterIcon from "$lib/icons/TwitterIcon.svelte";
 
     .casper-live > .logo {
         @apply h-[clamp(16px,1.96vw,1.96vw)] w-[clamp(50px,8vw,8vw)];
-        @apply mb-[clamp(16px,2.26vw,2.26vw)] translate-y-[-0.95vw];
-    }
-
-    .bg {
-        @apply absolute top-0 bottom-0 left-0 right-0 -z-10 hidden w-full h-full md:block;
+        @apply mb-[clamp(16px,2.26vw,2.26vw)];
     }
 
     .links {
