@@ -1,13 +1,15 @@
 <script>
-    import Navbar from './Navbar.svelte';
-    import Filter from '$lib/components/Header/Filter.svelte';
-    import HomeStatsSection from "./HomeStatsSection.svelte";   
+    import OtherStatsSection from "./OtherStatsSection.svelte";
+import Navbar from './Navbar.svelte';
+import Filter from '$lib/components/Header/Filter.svelte';
+import HomeStatsSection from "./HomeStatsSection.svelte";   
 </script>
 
 <div class="header">
-	<Navbar />
+    <Navbar />
     <Filter />
     <HomeStatsSection />
+    <OtherStatsSection />
 </div>
 
 <style lang="postcss">
