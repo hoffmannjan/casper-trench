@@ -3,19 +3,32 @@
 	import Navbar from './Navbar.svelte';
 	import Filter from '$lib/components/Header/Filter.svelte';
 	import HomeStatsSection from './HomeStatsSection.svelte';
+
+	export let isHome = false;
 </script>
 
 <div class="header">
 	<Navbar />
-	<Filter />
-	<HomeStatsSection />
-	<OtherStatsSection />
+	{#if isHome}
+		<Filter />
+		<HomeStatsSection />
+	{:else}
+		<div class="header-flex">
+			<OtherStatsSection />
+			<Filter />
+		</div>
+	{/if}
 </div>
 
 <style lang="postcss">
 	.header {
-		@apply flex flex-col gap-y-[3vw];
+		@apply flex flex-col gap-y-[2vw];
 		@apply sm:p-4 md:px-[clamp(16px,3.57vw,3.57vw)] md:py-[clamp(16px,0.95vw,0.95vw)];
-		@apply bg-[url("/images/png/header-bg.png")] bg-no-repeat bg-center bg-auto;
+		@apply bg-no-repeat bg-center bg-auto;
+		background: url("/images/png/header-bg.png") center/cover;
+	}
+
+	.header-flex {
+		@apply flex items-center justify-between;
 	}
 </style>
