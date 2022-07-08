@@ -25,7 +25,7 @@
 <div class="wrapper">
     <div class="progress-circle" style="{cssVarStyles}"/>
     <div class="value">
-        {progress * 100}%
+        {(progress * 100).toFixed(0)}%
     </div>
 </div>
   

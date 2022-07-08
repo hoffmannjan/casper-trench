@@ -12,7 +12,8 @@
 	import AmountCost from "$lib/components/TableData/AmountCost.svelte";
 	import FromToAccountHash from "$lib/components/TableData/FromToAccountHash.svelte";
 	import AmountChange from "$lib/components/TableData/AmountChange.svelte";
-import Status from "$lib/components/TableData/Status.svelte";
+	import Status from "$lib/components/TableData/Status.svelte";
+	import Weight from "$lib/components/TableData/Weight.svelte";
 </script>
 
 <div class="components">
@@ -56,7 +57,7 @@ import Status from "$lib/components/TableData/Status.svelte";
 			<td><AmountCost cspr="31,821,243" cashValue="921,232.02"/></td>
 			<td><TxHash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4" color="yellow"/></td>
 			<td><ContractText type="Transfer"/></td>
-			<td>Header 6</td>
+			<td><Weight /></td>
 		</tr>
 	</table>
 </div>

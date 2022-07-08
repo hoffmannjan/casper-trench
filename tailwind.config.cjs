@@ -29,7 +29,9 @@ module.exports = {
 					'tooltip-border': '#F2F2F2',
 					'arcadia-yellow': '#FECA00',
 					'arcadia-green': '#31DE91',
-					'arcadia-red': '#FF313F'
+					'arcadia-red': '#FF313F',
+					'progress-bg': '#D9D9D9',
+					'progress-bar': '#0021A5'
 				}
 			}
 		}
