@@ -18,6 +18,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 			<th>Header 3</th>
 			<th>Header 4</th>
 			<th>Header 5</th>
+			<th>Header 6</th>
 		</tr>
 		<div class="divider table-header-border"/>
 		<tr>
@@ -26,6 +27,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 			<td><BlockHeight blockDate={Date.parse("July 8, 2022, 12:47")} blockHeight="861,306"/></td>
 			<td><Contract text="Contracts"/></td>
 			<td>Header 5</td>
+			<td>Header 6</td>
 		</tr>
 		<tr>
 			<td><Validator /></td>
@@ -33,6 +35,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 			<td><PublicKey activeDate={Date.parse("July 8, 2022, 14:47")} hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4'/></td>
 			<td><Rank rank={1}/></td>
 			<td>Header 5</td>
+			<td>Header 6</td>
 		</tr>
 		<tr>
 			<td><Hash hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4' noOfCharacters={10} variant='right'/></td>
@@ -40,6 +43,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 			<td><BalanceTransferrable cspr="31,821,243" cashValue="921,232.02"/></td>
 			<td>Header 4</td>
 			<td>Header 5</td>
+			<td>Header 6</td>
 		</tr>
 		<tr>
 			<td class='center'><Hash hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4' noOfCharacters={10}/></td>
@@ -47,6 +51,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 			<td>Header 3</td>
 			<td>Header 4</td>
 			<td>Header 5</td>
+			<td>Header 6</td>
 		</tr>
 	</table>
 </div>
