@@ -1,19 +1,19 @@
 <script>
-import BlockHeight from "$lib/components/TableData/BlockHeight.svelte";
-import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
-import Contract from "$lib/components/TableData/Contract.svelte";
-import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable.svelte";
-
-import Hash from "$lib/components/TableData/Hash.svelte";
-import PublicKey from "$lib/components/TableData/PublicKey.svelte";
-import Rank from "$lib/components/TableData/Rank.svelte";
-import Validator from "$lib/components/TableData/Validator.svelte";
-import TxHash from "$lib/components/TableData/TxHash.svelte";
-import ContractText from "$lib/components/TableData/ContractText.svelte";
-import AmountCost from "$lib/components/TableData/AmountCost.svelte";
-import FromToAccountHash from "$lib/components/TableData/FromToAccountHash.svelte";
-
+	import BlockHeight from "$lib/components/TableData/BlockHeight.svelte";
+	import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
+	import Contract from "$lib/components/TableData/Contract.svelte";
+	import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable.svelte";
+	import Hash from "$lib/components/TableData/Hash.svelte";
+	import PublicKey from "$lib/components/TableData/PublicKey.svelte";
+	import Rank from "$lib/components/TableData/Rank.svelte";
+	import Validator from "$lib/components/TableData/Validator.svelte";
+	import TxHash from "$lib/components/TableData/TxHash.svelte";
+	import ContractText from "$lib/components/TableData/ContractText.svelte";
+	import AmountCost from "$lib/components/TableData/AmountCost.svelte";
+	import FromToAccountHash from "$lib/components/TableData/FromToAccountHash.svelte";
+	import AmountChange from "$lib/components/TableData/AmountChange.svelte";
 </script>
+
 <div class="components">
 	<table>
 		<tr>
@@ -30,7 +30,7 @@ import FromToAccountHash from "$lib/components/TableData/FromToAccountHash.svelt
 			<td><CircleProgressBar progress={0.94} /></td>
 			<td><BlockHeight blockDate={Date.parse("July 8, 2022, 12:47")} blockHeight="861,306"/></td>
 			<td><Contract text="Contracts"/></td>
-			<td>Header 5</td>
+			<td><AmountChange cspr='16,324,232.03423' isUp/></td>
 			<td><FromToAccountHash /></td>
 		</tr>
 		<tr>
@@ -38,7 +38,7 @@ import FromToAccountHash from "$lib/components/TableData/FromToAccountHash.svelt
 			<td><CircleProgressBar progress={0.96} /></td>
 			<td><PublicKey activeDate={Date.parse("July 8, 2022, 14:47")} hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4'/></td>
 			<td><Rank rank={1}/></td>
-			<td>Header 5</td>
+			<td><AmountChange cspr='16,324,232.03423'/></td>
 			<td>Header 6</td>
 		</tr>
 		<tr>

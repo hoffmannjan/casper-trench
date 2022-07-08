@@ -28,7 +28,8 @@ module.exports = {
 					'table-header': '#425466',
 					'tooltip-border': '#F2F2F2',
 					'arcadia-yellow': '#FECA00',
-					'arcadia-green': '#31DE91'
+					'arcadia-green': '#31DE91',
+					'arcadia-red': '#FF313F'
 				}
 			}
 		}
