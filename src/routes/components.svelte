@@ -3,6 +3,7 @@ import BlockHeight from "$lib/components/TableData/BlockHeight.svelte";
 import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
 
 import Hash from "$lib/components/TableData/Hash.svelte";
+import PublicKey from "$lib/components/TableData/PublicKey.svelte";
 import Validator from "$lib/components/TableData/Validator.svelte";
 
 </script>
@@ -26,7 +27,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 		<tr>
 			<td><Validator /></td>
 			<td><CircleProgressBar progress={0.96} /></td>
-			<td>Header 3</td>
+			<td><PublicKey /></td>
 			<td>Header 4</td>
 			<td>Header 5</td>
 		</tr>
