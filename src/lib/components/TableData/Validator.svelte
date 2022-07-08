@@ -11,7 +11,7 @@
         <img src={imgUrl} alt="validator-icon">
     </div>
     <div class="details">
-        <Hash hash={hash} variant='right'/>
+        <Hash {hash} variant='right'/>
         <div class="name">
             {name}
         </div>

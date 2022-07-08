@@ -26,7 +26,8 @@ module.exports = {
 					'search-btn-blue': '#173FA2',
 					'search-btn-green': '#0C8D94',
 					'table-header': '#425466',
-					'tooltip-border': '#F2F2F2'
+					'tooltip-border': '#F2F2F2',
+					'arcadia-yellow': '#FECA00'
 				}
 			}
 		}

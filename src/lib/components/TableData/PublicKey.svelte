@@ -25,7 +25,7 @@
 </script>
 
 <div class="block-height">
-    <Hash hash={hash} noOfCharacters={10} variant='right'/>
+    <Hash {hash} noOfCharacters={10} variant='right'/>
     <div class="time-ago">
         Active {textString} ago
     </div>

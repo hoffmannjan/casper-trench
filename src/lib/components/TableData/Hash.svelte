@@ -3,12 +3,13 @@
 
     export let hash = "";
     export let variant: 'center' | 'right' = 'center';
+    export let color: 'green' | 'yellow' = 'green';
     export let noOfCharacters = 5;
 
     let showHash = false;
 </script>
 
-<div class="tooltip hash tooltip-icon" class:right={variant == 'right'} style={`--tooltip: '${hash}'`} on:mouseenter={() => showHash = true} on:mouseleave={() => showHash = false}>
+<div class="tooltip hash tooltip-icon {color}" class:right={variant == 'right'} style={`--tooltip: '${hash}'`} on:mouseenter={() => showHash = true} on:mouseleave={() => showHash = false}>
     {#if showHash}
         <div class="pointer" transition:scale></div>
     {/if}
@@ -17,8 +18,16 @@
 
 <style lang='postcss'>
     .hash {
-        @apply text-center text-color-hover-footer-link text-[clamp(10px,1.07vw,1.07vw)];
+        @apply text-center text-[clamp(10px,1.07vw,1.07vw)];
         @apply max-w-max;
+    }
+
+    .green {
+        @apply text-color-hover-footer-link;
+    }
+
+    .yellow {
+        @apply text-color-arcadia-yellow;
     }
 
     .tooltip {
