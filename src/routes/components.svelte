@@ -10,6 +10,7 @@ import Rank from "$lib/components/TableData/Rank.svelte";
 import Validator from "$lib/components/TableData/Validator.svelte";
 import TxHash from "$lib/components/TableData/TxHash.svelte";
 import ContractText from "$lib/components/TableData/ContractText.svelte";
+import AmountCost from "$lib/components/TableData/AmountCost.svelte";
 
 </script>
 <div class="components">
@@ -50,7 +51,7 @@ import ContractText from "$lib/components/TableData/ContractText.svelte";
 		<tr>
 			<td class='center'><Hash hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4' noOfCharacters={10}/></td>
 			<td><CircleProgressBar progress={1} /></td>
-			<td>Header 3</td>
+			<td><AmountCost cspr="31,821,243" cashValue="921,232.02"/></td>
 			<td><TxHash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4" color="yellow"/></td>
 			<td><ContractText type="Transfer"/></td>
 			<td>Header 6</td>
