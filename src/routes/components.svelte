@@ -1,4 +1,6 @@
 <script>
+import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
+
 import Hash from "$lib/components/TableData/Hash.svelte";
 
 </script>
@@ -14,7 +16,7 @@ import Hash from "$lib/components/TableData/Hash.svelte";
 		<div class="divider table-header-border"/>
 		<tr>
 			<td><Hash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4"/></td>
-			<td>Header 2</td>
+			<td><CircleProgressBar progress={0.94} /></td>
 			<td>Header 3</td>
 			<td>Header 4</td>
 			<td>Header 5</td>
