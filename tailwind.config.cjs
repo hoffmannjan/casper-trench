@@ -31,7 +31,9 @@ module.exports = {
 					'arcadia-green': '#31DE91',
 					'arcadia-red': '#FF313F',
 					'progress-bg': '#D9D9D9',
-					'progress-bar': '#0021A5'
+					'progress-bar': '#0021A5',
+					'paginator-border': '#DADADA',
+					'black-text': '#1A1919'
 				}
 			}
 		}

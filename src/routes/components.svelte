@@ -14,6 +14,7 @@
 	import AmountChange from "$lib/components/TableData/AmountChange.svelte";
 	import Status from "$lib/components/TableData/Status.svelte";
 	import Weight from "$lib/components/TableData/Weight.svelte";
+	import Paginator from '$lib/components/Paginator/index.svelte';
 </script>
 
 <div class="components">
@@ -60,6 +61,7 @@
 			<td><Weight /></td>
 		</tr>
 	</table>
+	<Paginator />
 </div>
 
 <style lang='postcss'>
