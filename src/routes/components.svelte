@@ -1,3 +1,7 @@
+<script>
+import Hash from "$lib/components/TableData/Hash.svelte";
+
+</script>
 <div class="components">
 	<table>
 		<tr>
@@ -9,7 +13,7 @@
 		</tr>
 		<div class="divider table-header-border"/>
 		<tr>
-			<td>Header 1</td>
+			<td><Hash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4"/></td>
 			<td>Header 2</td>
 			<td>Header 3</td>
 			<td>Header 4</td>
@@ -45,7 +49,7 @@
 	}
 
 	table {
-		@apply w-full relative;
+		@apply table-auto w-full relative;
 	}
 
 	.divider {
@@ -60,5 +64,6 @@
 
 	td {
 		@apply py-[clamp(8px,1.19vw,1.19vw)];
+		@apply text-[clamp(10px,1.07vw,1.07vw)];
 	}
 </style>
