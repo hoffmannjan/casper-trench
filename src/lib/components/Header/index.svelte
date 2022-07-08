@@ -3,8 +3,9 @@
 	import Navbar from './Navbar.svelte';
 	import Filter from '$lib/components/Header/Filter.svelte';
 	import HomeStatsSection from './HomeStatsSection.svelte';
+	import { page } from '$app/stores';
 
-	export let isHome = false;
+	let isHome = $page.url.pathname === '/';
 </script>
 
 <div class="header">
