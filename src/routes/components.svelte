@@ -1,6 +1,7 @@
 <script>
 import BlockHeight from "$lib/components/TableData/BlockHeight.svelte";
 import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
+import Contract from "$lib/components/TableData/Contract.svelte";
 
 import Hash from "$lib/components/TableData/Hash.svelte";
 import PublicKey from "$lib/components/TableData/PublicKey.svelte";
@@ -21,7 +22,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 			<td class='center'><Hash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4"/></td>
 			<td><CircleProgressBar progress={0.94} /></td>
 			<td><BlockHeight blockDate={Date.parse("July 8, 2022, 12:47")} blockHeight="861,306"/></td>
-			<td>Header 4</td>
+			<td><Contract text="Contracts"/></td>
 			<td>Header 5</td>
 		</tr>
 		<tr>
