@@ -5,6 +5,7 @@ import Contract from "$lib/components/TableData/Contract.svelte";
 
 import Hash from "$lib/components/TableData/Hash.svelte";
 import PublicKey from "$lib/components/TableData/PublicKey.svelte";
+import Rank from "$lib/components/TableData/Rank.svelte";
 import Validator from "$lib/components/TableData/Validator.svelte";
 
 </script>
@@ -29,7 +30,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 			<td><Validator /></td>
 			<td><CircleProgressBar progress={0.96} /></td>
 			<td><PublicKey /></td>
-			<td>Header 4</td>
+			<td><Rank rank={1}/></td>
 			<td>Header 5</td>
 		</tr>
 		<tr>
