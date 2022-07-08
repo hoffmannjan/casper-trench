@@ -97,7 +97,7 @@
 	}
 
 	.link {
-		@apply cursor-pointer hover:text-color-hover-footer-link min-w-max;
+		@apply cursor-pointer hover:text-color-hover-footer-link w-max;
 	}
 
 	.link-section {
