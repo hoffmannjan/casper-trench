@@ -3,6 +3,7 @@ import BlockHeight from "$lib/components/TableData/BlockHeight.svelte";
 import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
 
 import Hash from "$lib/components/TableData/Hash.svelte";
+import Validator from "$lib/components/TableData/Validator.svelte";
 
 </script>
 <div class="components">
@@ -23,22 +24,22 @@ import Hash from "$lib/components/TableData/Hash.svelte";
 			<td>Header 5</td>
 		</tr>
 		<tr>
-			<td>Header 1</td>
-			<td>Header 2</td>
+			<td><Validator /></td>
+			<td><CircleProgressBar progress={0.96} /></td>
 			<td>Header 3</td>
 			<td>Header 4</td>
 			<td>Header 5</td>
 		</tr>
 		<tr>
 			<td>Header 1</td>
-			<td>Header 2</td>
+			<td><CircleProgressBar progress={0.98} /></td>
 			<td>Header 3</td>
 			<td>Header 4</td>
 			<td>Header 5</td>
 		</tr>
 		<tr>
 			<td>Header 1</td>
-			<td>Header 2</td>
+			<td><CircleProgressBar progress={1} /></td>
 			<td>Header 3</td>
 			<td>Header 4</td>
 			<td>Header 5</td>
@@ -61,12 +62,12 @@ import Hash from "$lib/components/TableData/Hash.svelte";
 	}
 
 	th {
-		@apply py-[clamp(8px,1.19vw,1.19vw)];
+		@apply py-[clamp(8px,0.5vw,0.5vw)];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)];
+		@apply py-[clamp(8px,0.5vw,0.5vw)];
 		@apply text-[clamp(10px,1.07vw,1.07vw)];
 	}
 </style>

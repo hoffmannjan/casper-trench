@@ -2,11 +2,12 @@
     import { scale } from 'svelte/transition';
 
     export let hash = "";
+    export let variant: 'center' | 'right' = 'center';
 
     let showHash = false;
 </script>
 
-<div class="tooltip hash tooltip-icon" style={`--tooltip: '${hash}'`} on:mouseenter={() => showHash = true} on:mouseleave={() => showHash = false}>
+<div class="tooltip hash tooltip-icon" class:right={variant == 'right'} style={`--tooltip: '${hash}'`} on:mouseenter={() => showHash = true} on:mouseleave={() => showHash = false}>
     {#if showHash}
         <div class="pointer" transition:scale></div>
     {/if}
@@ -52,4 +53,8 @@
         @apply transform rotate-45;
         @apply bg-white absolute mt-[-1.56vw];
     }
+
+	.right::before {
+		@apply translate-x-[8.33vw];
+	}
 </style>
