@@ -1,4 +1,5 @@
 <script>
+import BlockHeight from "$lib/components/TableData/BlockHeight.svelte";
 import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
 
 import Hash from "$lib/components/TableData/Hash.svelte";
@@ -17,7 +18,7 @@ import Hash from "$lib/components/TableData/Hash.svelte";
 		<tr>
 			<td><Hash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4"/></td>
 			<td><CircleProgressBar progress={0.94} /></td>
-			<td>Header 3</td>
+			<td><BlockHeight blockDate={Date.parse("July 8, 2022, 12:47")} blockHeight="861,306"/></td>
 			<td>Header 4</td>
 			<td>Header 5</td>
 		</tr>
