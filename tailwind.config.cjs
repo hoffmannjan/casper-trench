@@ -24,7 +24,8 @@ module.exports = {
 					'filter-dropdown-button-bg': '#091872',
 					'filter-bg': '#09145A',
 					'search-btn-blue': '#173FA2',
-					'search-btn-green': '#0C8D94'
+					'search-btn-green': '#0C8D94',
+					'table-header': '#425466'
 				}
 			}
 		}

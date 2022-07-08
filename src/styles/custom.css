@@ -11,3 +11,12 @@
 		),
 		linear-gradient(296.24deg, rgba(22, 58, 162, 0.3) 3.67%, rgba(10, 148, 146, 0.3) 98.49%);
 }
+
+.table-header-border {
+	background: linear-gradient(
+			282.35deg,
+			rgba(78, 101, 234, 0.5) 9.11%,
+			rgba(22, 62, 161, 0.2) 33.03%
+		),
+		linear-gradient(95.4deg, rgba(121, 225, 237, 0.5) 9.28%, rgba(120, 222, 235, 0.2) 42.1%);
+}
