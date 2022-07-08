@@ -19,7 +19,7 @@
 
     .text {
         @apply absolute;
-        @apply text-[clamp(8px,0.89vw,0.89vw)];
+        @apply text-[clamp(8px,0.89vw,0.89vw)] text-color-grey-footer-label;
     }
 </style>
     
