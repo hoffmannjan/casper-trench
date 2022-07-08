@@ -3,7 +3,7 @@
 
     export let hash = "";
     export let variant: 'center' | 'right' = 'center';
-    export let color: 'green' | 'yellow' = 'green';
+    export let color: 'green' | 'yellow' | 'text' = 'text';
     export let noOfCharacters = 5;
 
     let showHash = false;
@@ -22,12 +22,16 @@
         @apply max-w-max;
     }
 
-    .green {
+    .text {
         @apply text-color-hover-footer-link;
     }
 
     .yellow {
         @apply text-color-arcadia-yellow;
+    }
+
+    .green {
+        @apply text-color-arcadia-green;
     }
 
     .tooltip {

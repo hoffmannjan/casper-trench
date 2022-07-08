@@ -27,7 +27,8 @@ module.exports = {
 					'search-btn-green': '#0C8D94',
 					'table-header': '#425466',
 					'tooltip-border': '#F2F2F2',
-					'arcadia-yellow': '#FECA00'
+					'arcadia-yellow': '#FECA00',
+					'arcadia-green': '#31DE91'
 				}
 			}
 		}

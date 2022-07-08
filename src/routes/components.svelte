@@ -11,6 +11,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 import TxHash from "$lib/components/TableData/TxHash.svelte";
 import ContractText from "$lib/components/TableData/ContractText.svelte";
 import AmountCost from "$lib/components/TableData/AmountCost.svelte";
+import FromToAccountHash from "$lib/components/TableData/FromToAccountHash.svelte";
 
 </script>
 <div class="components">
@@ -30,7 +31,7 @@ import AmountCost from "$lib/components/TableData/AmountCost.svelte";
 			<td><BlockHeight blockDate={Date.parse("July 8, 2022, 12:47")} blockHeight="861,306"/></td>
 			<td><Contract text="Contracts"/></td>
 			<td>Header 5</td>
-			<td>Header 6</td>
+			<td><FromToAccountHash /></td>
 		</tr>
 		<tr>
 			<td><Validator /></td>
