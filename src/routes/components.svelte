@@ -67,6 +67,7 @@
 <style lang='postcss'>
 	.components {
 		@apply p-[clamp(16px,3.57vw,3.57vw)];
+		@apply flex flex-col gap-[1vw];
 	}
 
 	table {
