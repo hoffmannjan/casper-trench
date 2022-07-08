@@ -17,7 +17,7 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 		</tr>
 		<div class="divider table-header-border"/>
 		<tr>
-			<td><Hash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4"/></td>
+			<td class='center'><Hash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4"/></td>
 			<td><CircleProgressBar progress={0.94} /></td>
 			<td><BlockHeight blockDate={Date.parse("July 8, 2022, 12:47")} blockHeight="861,306"/></td>
 			<td>Header 4</td>
@@ -31,14 +31,14 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 			<td>Header 5</td>
 		</tr>
 		<tr>
-			<td>Header 1</td>
+			<td><Hash hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4' noOfCharacters={10} variant='right'/></td>
 			<td><CircleProgressBar progress={0.98} /></td>
 			<td>Header 3</td>
 			<td>Header 4</td>
 			<td>Header 5</td>
 		</tr>
 		<tr>
-			<td>Header 1</td>
+			<td class='center'><Hash hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4' noOfCharacters={10}/></td>
 			<td><CircleProgressBar progress={1} /></td>
 			<td>Header 3</td>
 			<td>Header 4</td>
@@ -68,6 +68,10 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 
 	td {
 		@apply py-[clamp(8px,0.5vw,0.5vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)];
+		@apply text-[clamp(10px,1.07vw,1.07vw)] min-w-max;
+	}
+
+	.center {
+		@apply flex justify-center;
 	}
 </style>

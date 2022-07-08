@@ -3,6 +3,7 @@
 
     export let hash = "";
     export let variant: 'center' | 'right' = 'center';
+    export let noOfCharacters = 5;
 
     let showHash = false;
 </script>
@@ -11,13 +12,13 @@
     {#if showHash}
         <div class="pointer" transition:scale></div>
     {/if}
-    {`${hash.substring(0, 5)}...${hash.substring(hash.length - 5)}`}
+    {`${hash.substring(0, noOfCharacters)}...${hash.substring(hash.length - noOfCharacters)}`}
 </div>
 
 <style lang='postcss'>
     .hash {
         @apply text-center text-color-hover-footer-link text-[clamp(10px,1.07vw,1.07vw)];
-        @apply max-w-max mx-auto;
+        @apply max-w-max;
     }
 
     .tooltip {
@@ -55,6 +56,6 @@
     }
 
 	.right::before {
-		@apply translate-x-[8.33vw];
+		@apply translate-x-[5vw];
 	}
 </style>
