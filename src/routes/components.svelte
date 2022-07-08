@@ -2,6 +2,7 @@
 import BlockHeight from "$lib/components/TableData/BlockHeight.svelte";
 import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
 import Contract from "$lib/components/TableData/Contract.svelte";
+import CryptoCashValue from "$lib/components/TableData/CryptoCashValue.svelte";
 
 import Hash from "$lib/components/TableData/Hash.svelte";
 import PublicKey from "$lib/components/TableData/PublicKey.svelte";
@@ -29,14 +30,14 @@ import Validator from "$lib/components/TableData/Validator.svelte";
 		<tr>
 			<td><Validator /></td>
 			<td><CircleProgressBar progress={0.96} /></td>
-			<td><PublicKey /></td>
+			<td><PublicKey activeDate={Date.parse("July 8, 2022, 14:47")} hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4'/></td>
 			<td><Rank rank={1}/></td>
 			<td>Header 5</td>
 		</tr>
 		<tr>
 			<td><Hash hash='cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4' noOfCharacters={10} variant='right'/></td>
 			<td><CircleProgressBar progress={0.98} /></td>
-			<td>Header 3</td>
+			<td><CryptoCashValue cspr="31,821,243" cashValue="921,232.02"/></td>
 			<td>Header 4</td>
 			<td>Header 5</td>
 		</tr>
