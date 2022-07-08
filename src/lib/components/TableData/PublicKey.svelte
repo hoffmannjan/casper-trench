@@ -16,7 +16,7 @@
     } else if (time.days >= 1) {
         textString = `${time.days === 1 ? "a" : time.days} ${time.days === 1 ? "day" : "days"}`
     } else if (time.hours >= 1) {
-        textString = `${time.hours === 1 ? "a" : time.hours} ${time.hours === 1 ? "hour" : "hours"}`
+        textString = `${time.hours === 1 ? "an" : time.hours} ${time.hours === 1 ? "hour" : "hours"}`
     } else if (time.minutes >= 1) {
         textString = `${time.minutes === 1 ? "a" : time.minutes} ${time.minutes === 1 ? "minute" : "minutes"}`
     } else {
