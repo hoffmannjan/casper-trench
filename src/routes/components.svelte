@@ -9,6 +9,7 @@ import PublicKey from "$lib/components/TableData/PublicKey.svelte";
 import Rank from "$lib/components/TableData/Rank.svelte";
 import Validator from "$lib/components/TableData/Validator.svelte";
 import TxHash from "$lib/components/TableData/TxHash.svelte";
+import ContractText from "$lib/components/TableData/ContractText.svelte";
 
 </script>
 <div class="components">
@@ -43,7 +44,7 @@ import TxHash from "$lib/components/TableData/TxHash.svelte";
 			<td><CircleProgressBar progress={0.98} /></td>
 			<td><BalanceTransferrable cspr="31,821,243" cashValue="921,232.02"/></td>
 			<td><TxHash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4" color="green"/></td>
-			<td>Header 5</td>
+			<td><ContractText type="Delegate"/></td>
 			<td>Header 6</td>
 		</tr>
 		<tr>
@@ -51,7 +52,7 @@ import TxHash from "$lib/components/TableData/TxHash.svelte";
 			<td><CircleProgressBar progress={1} /></td>
 			<td>Header 3</td>
 			<td><TxHash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4" color="yellow"/></td>
-			<td>Header 5</td>
+			<td><ContractText type="Transfer"/></td>
 			<td>Header 6</td>
 		</tr>
 	</table>
