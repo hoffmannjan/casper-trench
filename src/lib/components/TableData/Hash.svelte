@@ -1,40 +1,46 @@
-<script lang='ts'>
-    import { scale } from 'svelte/transition';
+<script lang="ts">
+	import { scale } from 'svelte/transition';
 
-    export let hash = "";
-    export let variant: 'center' | 'right' = 'center';
-    export let color: 'green' | 'yellow' | 'text' = 'text';
-    export let noOfCharacters = 5;
+	export let hash = '';
+	export let variant: 'center' | 'right' = 'center';
+	export let color: 'green' | 'yellow' | 'text' = 'text';
+	export let noOfCharacters = 5;
 
-    let showHash = false;
+	let showHash = false;
 </script>
 
-<div class="tooltip hash tooltip-icon {color}" class:right={variant == 'right'} style={`--tooltip: '${hash}'`} on:mouseenter={() => showHash = true} on:mouseleave={() => showHash = false}>
-    {#if showHash}
-        <div class="pointer" transition:scale></div>
-    {/if}
-    {`${hash.substring(0, noOfCharacters)}...${hash.substring(hash.length - noOfCharacters)}`}
+<div
+	class="tooltip hash tooltip-icon {color}"
+	class:right={variant == 'right'}
+	style={`--tooltip: '${hash}'`}
+	on:mouseenter={() => (showHash = true)}
+	on:mouseleave={() => (showHash = false)}
+>
+	{#if showHash}
+		<div class="pointer" transition:scale />
+	{/if}
+	{`${hash.substring(0, noOfCharacters)}...${hash.substring(hash.length - noOfCharacters)}`}
 </div>
 
-<style lang='postcss'>
-    .hash {
-        @apply text-center text-[clamp(10px,1.07vw,1.07vw)];
-        @apply max-w-max;
-    }
+<style lang="postcss">
+	.hash {
+		@apply text-center text-[clamp(10px,1.07vw,1.07vw)];
+		@apply max-w-max;
+	}
 
-    .text {
-        @apply text-color-hover-footer-link;
-    }
+	.text {
+		@apply text-color-hover-footer-link;
+	}
 
-    .yellow {
-        @apply text-color-arcadia-yellow;
-    }
+	.yellow {
+		@apply text-color-arcadia-yellow;
+	}
 
-    .green {
-        @apply text-color-arcadia-green;
-    }
+	.green {
+		@apply text-color-arcadia-green;
+	}
 
-    .tooltip {
+	.tooltip {
 		@apply relative flex justify-center;
 	}
 
@@ -51,8 +57,8 @@
 	.tooltip-icon::before {
 		@apply w-max;
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
-        @apply text-[clamp(8px,0.95vw,0.95vw)] text-color-table-header;
-        @apply rounded-[0.625vw] bg-white p-[0.71vw] z-10;
+		@apply text-[clamp(8px,0.95vw,0.95vw)] text-color-table-header;
+		@apply rounded-[0.625vw] bg-white p-[0.71vw] z-10;
 		content: var(--tooltip);
 	}
 
@@ -61,12 +67,12 @@
 		@apply scale-100;
 	}
 
-    .pointer {
-        @apply border-[clamp(1px,0.06vw,0.06vw)] border-solid border-color-tooltip-border;
-        @apply h-[1.56vw] w-[1.56vw];
-        @apply transform rotate-45;
-        @apply bg-white absolute mt-[-1.56vw];
-    }
+	.pointer {
+		@apply border-[clamp(1px,0.06vw,0.06vw)] border-solid border-color-tooltip-border;
+		@apply h-[1.56vw] w-[1.56vw];
+		@apply transform rotate-45;
+		@apply bg-white absolute mt-[-1.56vw];
+	}
 
 	.right::before {
 		@apply translate-x-[5vw];
