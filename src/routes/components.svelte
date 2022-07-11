@@ -15,7 +15,8 @@
 	import Status from '$lib/components/TableData/Status.svelte';
 	import Weight from '$lib/components/TableData/Weight.svelte';
 	import Paginator from '$lib/components/Paginator/index.svelte';
-import Button from '$lib/components/Reusables/Button.svelte';
+	import Button from '$lib/components/Reusables/Button.svelte';
+	import EyeIcon from '$lib/icons/EyeIcon.svelte';
 </script>
 
 <div class="components">
@@ -77,18 +78,21 @@ import Button from '$lib/components/Reusables/Button.svelte';
 	</table>
 	<Paginator />
 	<div class="buttons">
-		<Button gradient>
-			View all Validators
-		</Button>
-		<Button outline>
-			View all Validators
-		</Button>
-		<Button solid>
-			Mainnet
-		</Button>
+		<Button gradient>View all Validators</Button>
+		<Button outline>View all Validators</Button>
+		<Button solid>Mainnet</Button>
 		<Button translucent>
-			Show
+			<div class="show-button">
+				<div class="text">Show</div>
+				<div class="icon">
+					<EyeIcon />
+				</div>
+			</div>
 		</Button>
+	</div>
+	<div class="buttons">
+		<Button block>Blocks #928323</Button>
+		<Button block active>Blocks #928323</Button>
 	</div>
 </div>
 
@@ -123,5 +127,9 @@ import Button from '$lib/components/Reusables/Button.svelte';
 
 	.buttons {
 		@apply flex gap-[1vw] items-center justify-center;
+	}
+
+	.show-button {
+		@apply flex items-center gap-[0.3vw];
 	}
 </style>
