@@ -76,9 +76,20 @@ import Button from '$lib/components/Reusables/Button.svelte';
 		</tr>
 	</table>
 	<Paginator />
-	<Button gradient>
-		View all Validators
-	</Button>
+	<div class="buttons">
+		<Button gradient>
+			View all Validators
+		</Button>
+		<Button outline>
+			View all Validators
+		</Button>
+		<Button solid>
+			Mainnet
+		</Button>
+		<Button translucent>
+			Show
+		</Button>
+	</div>
 </div>
 
 <style lang="postcss">
@@ -108,5 +119,9 @@ import Button from '$lib/components/Reusables/Button.svelte';
 
 	.center {
 		@apply flex justify-center;
+	}
+
+	.buttons {
+		@apply flex gap-[1vw] items-center justify-center;
 	}
 </style>
