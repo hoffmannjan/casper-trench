@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
 	import BlockHeight from '$lib/components/TableData/BlockHeight.svelte';
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
 	import Contract from '$lib/components/TableData/Contract.svelte';
@@ -17,6 +17,11 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
+	import Switch from '$lib/components/Reusables/Switch.svelte';
+
+	let options: string[] = ['Historical Balance', 'Transaction', 'Transfer'];
+	let selectedIndex = 0;
+	$: console.log(options[selectedIndex]);
 </script>
 
 <div class="components">
@@ -94,6 +99,7 @@
 		<Button block>Blocks #928323</Button>
 		<Button block active>Blocks #928323</Button>
 	</div>
+	<Switch {options} bind:selected={selectedIndex}/>
 </div>
 
 <style lang="postcss">
