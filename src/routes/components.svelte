@@ -15,6 +15,7 @@
 	import Status from '$lib/components/TableData/Status.svelte';
 	import Weight from '$lib/components/TableData/Weight.svelte';
 	import Paginator from '$lib/components/Paginator/index.svelte';
+import Button from '$lib/components/Reusables/Button.svelte';
 </script>
 
 <div class="components">
@@ -75,6 +76,9 @@
 		</tr>
 	</table>
 	<Paginator />
+	<Button gradient>
+		View all Validators
+	</Button>
 </div>
 
 <style lang="postcss">
