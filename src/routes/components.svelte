@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
 	import BlockHeight from '$lib/components/TableData/BlockHeight.svelte';
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
 	import Contract from '$lib/components/TableData/Contract.svelte';
@@ -15,6 +15,13 @@
 	import Status from '$lib/components/TableData/Status.svelte';
 	import Weight from '$lib/components/TableData/Weight.svelte';
 	import Paginator from '$lib/components/Paginator/index.svelte';
+	import Button from '$lib/components/Reusables/Button.svelte';
+	import EyeIcon from '$lib/icons/EyeIcon.svelte';
+	import Switch from '$lib/components/Reusables/Switch.svelte';
+
+	let options: string[] = ['Historical Balance', 'Transaction', 'Transfer'];
+	let selectedIndex = 0;
+	$: console.log(options[selectedIndex]);
 </script>
 
 <div class="components">
@@ -75,6 +82,24 @@
 		</tr>
 	</table>
 	<Paginator />
+	<div class="buttons">
+		<Button gradient>View all Validators</Button>
+		<Button outline>View all Validators</Button>
+		<Button solid>Mainnet</Button>
+		<Button translucent>
+			<div class="show-button">
+				<div class="text">Show</div>
+				<div class="icon">
+					<EyeIcon />
+				</div>
+			</div>
+		</Button>
+	</div>
+	<div class="buttons">
+		<Button block>Blocks #928323</Button>
+		<Button block active>Blocks #928323</Button>
+	</div>
+	<Switch {options} bind:selected={selectedIndex}/>
 </div>
 
 <style lang="postcss">
@@ -104,5 +129,13 @@
 
 	.center {
 		@apply flex justify-center;
+	}
+
+	.buttons {
+		@apply flex gap-[1vw] items-center justify-center;
+	}
+
+	.show-button {
+		@apply flex items-center gap-[0.3vw];
 	}
 </style>

@@ -33,7 +33,8 @@ module.exports = {
 					'progress-bg': '#D9D9D9',
 					'progress-bar': '#0021A5',
 					'paginator-border': '#DADADA',
-					'black-text': '#1A1919'
+					'black-text': '#1A1919',
+					'translucent-green': '#E5F8F6'
 				}
 			}
 		}

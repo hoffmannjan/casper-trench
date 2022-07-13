@@ -20,3 +20,7 @@
 		),
 		linear-gradient(95.4deg, rgba(121, 225, 237, 0.5) 9.28%, rgba(120, 222, 235, 0.2) 42.1%);
 }
+
+.button-border-gradient {
+	background: linear-gradient(279.34deg, #1737a380 -24.82%, #099b9180 96.63%);
+}
