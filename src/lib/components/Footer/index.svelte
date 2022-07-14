@@ -1,6 +1,6 @@
 <script>
 	import ArcadiaLogo from '$lib/icons/ArcadiaLogo.svelte';
-	import CsprLiveLogo from '$lib/icons/CsprLiveLogo.svelte';
+	import CasperTrenchLogo from '$lib/icons/CasperTrenchLogo.svelte';
 	import DiscordIcon from '$lib/icons/DiscordIcon.svelte';
 	import TelegramIcon from '$lib/icons/TelegramIcon.svelte';
 	import TwitterIcon from '$lib/icons/TwitterIcon.svelte';
@@ -33,7 +33,7 @@
 
 	<div class="casper-live">
 		<div class="logo">
-			<CsprLiveLogo />
+			<CasperTrenchLogo />
 		</div>
 		<div class="link-section">
 			<div class="links">
@@ -84,7 +84,7 @@
 	}
 
 	.casper-live > .logo {
-		@apply h-[clamp(16px,1.96vw,1.96vw)] w-[clamp(50px,8vw,8vw)];
+		@apply h-[clamp(16px,2.44vw,2.44vw)] w-[clamp(50px,10.42vw,10.42vw)];
 		@apply mb-[clamp(16px,2.26vw,2.26vw)];
 	}
 
