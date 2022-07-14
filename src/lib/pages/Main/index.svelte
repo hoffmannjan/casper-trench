@@ -1,42 +1,16 @@
 <script lang="ts">
-	// External Package imports
-	import { Jumper } from 'svelte-loading-spinners';
-
-	// Svelte imports
-	import Heading from '$components/Heading.svelte';
-	import Icon from '$components/Icon.svelte';
-	import OcchioLogo from '$icons/OcchioLogo.svelte';
+	// import LatestBlocks from '$lib/sections/HomePage/LatestBlocks.svelte';
+	import TopValidators from '$lib/sections/HomePage/TopValidators.svelte';
 </script>
 
-<main>
-	<!-- Example of image component -->
-	<Icon slot="img" class="h-12 w-12 mt-3 mb-1">
-		<img src="/images/png/logo.png" alt="JEM LOGO" />
-	</Icon>
-
-	<!-- Example of Icon svg -->
-	<Icon slot="svg" class="h-24 w-24 my-1">
-		<OcchioLogo />
-	</Icon>
-
-	<!-- Heading (H1) Component Example -->
-	<!-- You don't have to add class prop -->
-	<Heading>Occhio Studios - Base Project</Heading>
-
-	<!-- Example with class prop -->
-	<Heading class="text-xs my-3">Init Project</Heading>
-
-	<!-- Loader -->
-	<Jumper size="60" color="#FF3E00" unit="px" duration="1s" />
-</main>
+<section>
+	<TopValidators />
+	<TopValidators />
+</section>
 
 <style lang="postcss">
-	* {
-		@apply text-center;
-		font-family: 'Inter', sans-serif;
-	}
-
-	main {
-		@apply flex h-screen w-screen justify-center items-center flex-col;
+	section {
+		@apply w-full;
+		@apply flex flex-col md:flex-row items-center justify-between gap-[clamp(30px,6.7vw,6.7vw)];
 	}
 </style>
