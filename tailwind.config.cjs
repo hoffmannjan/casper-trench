@@ -4,20 +4,12 @@ module.exports = {
 	darkMode: false, // or 'media' or 'class' => use depending on dark mode approach
 	theme: {
 		extend: {
-			// Extend colors and themes here
-			// If no dark or light theme is available, you can add colors directly to extend
-			dark: {
-				// Dark Theme colors
-			},
-			light: {
-				// light theme colors
-			},
 			colors: {
 				color: {
 					'grey-footer-label': '#8F9398',
 					'grey-footer-link': '#ADBDCC',
 					'grey-footer-title': '#FFF9F5',
-					'hover-footer-link': '#099b91',
+					'hover-footer-link': '#099B91',
 					'border-header-stats': '#79E1ED',
 					'divider-header-stats': '#F2F3F5',
 					'title-header-stats': '#CFCFCF',
@@ -36,6 +28,9 @@ module.exports = {
 					'black-text': '#1A1919',
 					'translucent-green': '#E5F8F6'
 				}
+			},
+			fontFamily: {
+				yantramanav: "'Yantramanav', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'"
 			}
 		}
 	},

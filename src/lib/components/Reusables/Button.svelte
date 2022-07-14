@@ -11,7 +11,7 @@
 </script>
 
 {#if block}
-	<div class="block" class:active>
+	<button class="block" class:active on:click>
 		<div class="icon">
 			{#if active}
 				<ActiveBlockIcon />
@@ -20,9 +20,9 @@
 			{/if}
 		</div>
 		<slot />
-	</div>
+	</button>
 {:else}
-	<div
+	<button
 		class="button"
 		class:gradient
 		class:outline
@@ -34,7 +34,7 @@
 		<div class="content">
 			<slot />
 		</div>
-	</div>
+	</button>
 {/if}
 
 <style lang="postcss">

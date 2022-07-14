@@ -1,19 +1,33 @@
-<script>
+<script lang="ts">
 	import Hash from './Hash.svelte';
 
-	export let imgUrl = 'https://tienthuattoan.com/asset/logo/logo-256.png';
-	export let name = 'Everstake';
-	export let hash = 'cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4';
+	export let imgUrl: string;
+	export let name: string;
+	export let hash: string;
 </script>
 
 <div class="validator">
 	<div class="icon">
-		<img src={imgUrl} alt="validator-icon" />
+		{#if imgUrl}
+			<img src={imgUrl} alt="validator-icon" />
+		{:else}
+			<!-- TODO update as in design -->
+			<div
+				class="bg-gray-100 rounded-full border border-green-200 w-full h-[clamp(16px,2vw,2vw)]"
+			/>
+		{/if}
 	</div>
 	<div class="details">
-		<Hash {hash} variant="right" />
+		<a href="/validators/{hash}">
+			<Hash {hash} variant="right" />
+		</a>
 		<div class="name">
-			{name}
+			{#if name}
+				{name}
+			{:else}
+				<!-- TODO update as in design -->
+				- - -
+			{/if}
 		</div>
 	</div>
 </div>
