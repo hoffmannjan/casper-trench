@@ -27,6 +27,7 @@
 			{:else}
 				<!-- TODO update as in design -->
 				- - -
+				<!-- No name -->
 			{/if}
 		</div>
 	</div>
@@ -46,6 +47,7 @@
 	}
 
 	.name {
+		@apply text-color-grey-footer-label;
 		@apply mt-[clamp(2px,0.24vw,0.24vw)];
 	}
 </style>
