@@ -1,74 +1,109 @@
-<div class="home-stats-section header-stats-background">
-	<div class="stat-column">
-		<div class="top">
-			<div class="title">BLOCK HEIGHT</div>
-			<div class="value">
-				{'861,309'}
+<script lang="ts">
+	import { getEconomics, getStats } from '$utils/api';
+	import { onMount } from 'svelte';
+	import { isLoading } from '$stores/loading';
+	import type { Economics } from '$utils/types/economics';
+	import type { Stats } from '$utils/types/stats';
+	import { millisToFormat, timeAgo } from '$utils/converters';
+	let economics: Economics;
+	let stats: Stats;
+	let totalTransfers = 0;
+	let lastBlockHeightUpdate;
+	onMount(async () => {
+		$isLoading = true;
+		economics = await getEconomics();
+		stats = await getStats();
+		lastBlockHeightUpdate = timeAgo(millisToFormat(Date.now()));
+		// Calculate total transfers
+		if (stats && stats.transfers.length > 0) {
+			stats.transfers.forEach((transfer) => {
+				totalTransfers += transfer[1];
+			});
+		}
+		$isLoading = false;
+	});
+</script>
+
+{#if economics && stats}
+	<div class="home-stats-section header-stats-background">
+		<div class="stat-column">
+			<div class="top">
+				<div class="title">BLOCK HEIGHT</div>
+				<div class="value">
+					{economics.block_height.toLocaleString('en')}
+				</div>
+				<div class="detail">
+					<!-- TODO get latest block time -->
+					{'55 sec ago'}
+				</div>
 			</div>
-			<div class="detail">
-				{'55 sec ago'}
+			<div class="bottom">
+				<div class="title">CSPR PRICE</div>
+				<div class="value">
+					${Math.floor(stats.price * 10000) / 10000}
+				</div>
+				<div class="detail">
+					${stats.marketcap.toLocaleString('en')} Market Cap
+				</div>
 			</div>
 		</div>
-		<div class="bottom">
-			<div class="title">CSPR PRICE</div>
-			<div class="value">
-				{'$0.0264'}
+
+		<div class="vt" />
+
+		<div class="stat-column">
+			<div class="top">
+				<div class="title">ACTIVE VALIDATORS</div>
+				<div class="value">
+					{economics.total_active_validators}
+				</div>
+				<div class="detail">
+					out of {economics.total_bid_validators} active bids
+				</div>
 			</div>
-			<div class="detail">
-				{'$135,498,998 Market Cap'}
+			<div class="bottom">
+				<div class="title">CIRCULATING SUPPLY</div>
+				<div class="value">
+					{parseFloat(economics.circulating_supply.substring(0, 10)).toLocaleString('en')}
+				</div>
+				<div class="detail">
+					{(
+						(parseFloat(economics.circulating_supply) / parseFloat(economics.total_supply)) *
+						100
+					).toFixed(2)}% of {parseFloat(economics.total_supply.substring(0, 11)).toLocaleString(
+						'en'
+					)}
+				</div>
 			</div>
+		</div>
+
+		<div class="vt" />
+
+		<div class="stat-column">
+			<!-- TODO Get total stake bonded -->
+			<div class="top">
+				<div class="title">TOTAL STAKE BONDED</div>
+				<div class="value">
+					{'8,255,902,991'}
+				</div>
+				<div class="detail">
+					{'75.50% of Total Supply'}
+				</div>
+			</div>
+			<div class="bottom">
+				<div class="title">TOTAL TRANSFERS</div>
+				<div class="value">
+					{totalTransfers.toLocaleString('en')}
+				</div>
+			</div>
+		</div>
+
+		<div class="vt" />
+
+		<div class="graph">
+			<!-- Graph goes here -->
 		</div>
 	</div>
-
-	<div class="vt" />
-
-	<div class="stat-column">
-		<div class="top">
-			<div class="title">ACTIVE VALIDATORS</div>
-			<div class="value">
-				{'100'}
-			</div>
-			<div class="detail">
-				{'out of 119 active bids'}
-			</div>
-		</div>
-		<div class="bottom">
-			<div class="title">CIRCULATING SUPPLY</div>
-			<div class="value">
-				{'5,140,696,711'}
-			</div>
-			<div class="detail">
-				{'47.0% of 10,934,884,629'}
-			</div>
-		</div>
-	</div>
-
-	<div class="vt" />
-
-	<div class="stat-column">
-		<div class="top">
-			<div class="title">TOTAL STAKE BONDED</div>
-			<div class="value">
-				{'8,255,902,991'}
-			</div>
-			<div class="detail">
-				{'75.50% of Total Supply'}
-			</div>
-		</div>
-		<div class="bottom">
-			<div class="title">TOTAL TRANSFERS</div>
-			<div class="value">
-				{'8,221,2423'}
-			</div>
-		</div>
-	</div>
-
-	<div class="vt" />
-
-	<div class="graph">
-		<!-- Graph goes here -->
-	</div>
-</div>
+{/if}
 
 <style lang="postcss">
 	.home-stats-section {
