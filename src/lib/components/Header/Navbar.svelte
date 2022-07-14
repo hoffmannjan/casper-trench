@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CsprLiveLogo from '$lib/icons/CsprLiveLogo.svelte';
+	import CasperTrenchLogo from '$lib/icons/CasperTrenchLogo.svelte';
 	import NavbarChevron from '$lib/icons/NavbarChevron.svelte';
 	import UserIcon from '$lib/icons/UserIcon.svelte';
 
@@ -66,7 +66,7 @@
 
 <div class="navbar">
 	<div class="logo">
-		<CsprLiveLogo />
+		<CasperTrenchLogo />
 	</div>
 	<div class="nav-items">
 		{#each navItems as navItem}
@@ -105,7 +105,7 @@
 	}
 
 	.logo {
-		@apply h-[clamp(16px,1.96vw,1.96vw)];
+		@apply h-[clamp(16px,2.44vw,2.44vw)] w-[clamp(50px,10.42vw,10.42vw)];
 	}
 
 	.chevron {
