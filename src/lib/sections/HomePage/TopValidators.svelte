@@ -3,12 +3,15 @@
 
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
-	import Validator from '$lib/components/TableData/Validator.svelte';
+	import ValidatorElement from '$lib/components/TableData/Validator.svelte';
 	import { getTopValidators } from '$utils/api';
+	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
 	let validators;
 	onMount(async () => {
+		$isLoading = true;
 		validators = await getTopValidators();
+		$isLoading = false;
 	});
 </script>
 
@@ -28,7 +31,7 @@
 			{#each validators.era_validators.validators as validator}
 				<tr>
 					<td
-						><Validator
+						><ValidatorElement
 							imgUrl={validator.information?.icon}
 							name={validator.information?.name}
 							hash={validator.public_key}

@@ -2,6 +2,9 @@
 	import BottomFooter from '$components/BottomFooter/index.svelte';
 	import Footer from '$components/Footer/index.svelte';
 	import Header from '$components/Header/index.svelte';
+	import SvelteLoader from '$components/SvelteLoader/index.svelte';
+	import Toast from '$components/Toast/index.svelte';
+	import { isLoading } from '$stores/loading';
 
 	import '$styles/tailwind.css';
 	import '$styles/custom.css';
@@ -17,6 +20,11 @@
 </main>
 <Footer />
 <BottomFooter />
+
+<Toast />
+{#if $isLoading}
+	<SvelteLoader />
+{/if}
 
 <style lang="postcss">
 	main {

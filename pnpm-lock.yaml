@@ -5,6 +5,7 @@ specifiers:
   '@sveltejs/kit': next
   '@typescript-eslint/eslint-plugin': ^5.27.0
   '@typescript-eslint/parser': ^5.27.0
+  '@zerodevx/svelte-toast': ^0.7.2
   autoprefixer: ^10.4.2
   axios: ^0.27.2
   cssnano: ^5.0.17
@@ -28,10 +29,11 @@ specifiers:
   vite: ^2.9.13
 
 dependencies:
+  '@zerodevx/svelte-toast': 0.7.2
   axios: 0.27.2
 
 devDependencies:
-  '@sveltejs/adapter-vercel': 1.0.0-next.60
+  '@sveltejs/adapter-vercel': 1.0.0-next.61
   '@sveltejs/kit': 1.0.0-next.372_svelte@3.46.4+vite@2.9.13
   '@typescript-eslint/eslint-plugin': 5.30.5_62dff7fskezlqki6cuisgc4jsa
   '@typescript-eslint/parser': 5.30.5_m32fwjepeyylyephxtubzxm4ui
@@ -215,10 +217,10 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@sveltejs/adapter-vercel/1.0.0-next.60:
+  /@sveltejs/adapter-vercel/1.0.0-next.61:
     resolution:
       {
-        integrity: sha512-Xq+gaxQ2iKvP9G+7C8+r4xScMOUEhBouDEFyLCOzKrwmd+JWBzCl1N0qKeKm71MbR7l4YJn8J+e7105j8x+RXA==
+        integrity: sha512-eqL1JovBPtM1h6MFoFHup2MSyR38jUPpZvU2qIozAZJ4MThiOwT6Jyd89znJ3vaSSpRXaQ+GEBs+XDSTpQKJBA==
       }
     dependencies:
       '@vercel/nft': 0.20.1
@@ -498,6 +500,13 @@ packages:
       - encoding
       - supports-color
     dev: true
+
+  /@zerodevx/svelte-toast/0.7.2:
+    resolution:
+      {
+        integrity: sha512-vWiY6IqsstcOoQ8PFBuFuxgPkj1JFAGhUF9gC7wLx7c5A9SSfdtxWs/39ekGSIeyJK0yqWhTcmzGrCEWSELzDw==
+      }
+    dev: false
 
   /abbrev/1.1.1:
     resolution:
