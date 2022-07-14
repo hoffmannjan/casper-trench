@@ -1,26 +1,10 @@
 <script lang="ts">
-	import { millisToFormat } from '$utils/converters';
+	import { millisToFormat, timeAgo } from '$utils/converters';
 
-	export let blockDate = Date.parse('July 8, 2022, 12:47');
-	export let blockHeight = '861,306';
-
+	export let blockDate: number;
+	export let blockHeight: string;
 	const diff = Date.now() - blockDate;
-
-	const time = millisToFormat(diff);
-	let textString = '';
-	if (time.years >= 1) {
-		textString = `${time.years} ${time.years === 1 ? 'year' : 'years'}`;
-	} else if (time.months >= 1) {
-		textString = `${time.months} ${time.months === 1 ? 'month' : 'months'}`;
-	} else if (time.days >= 1) {
-		textString = `${time.days} ${time.days === 1 ? 'day' : 'days'}`;
-	} else if (time.hours >= 1) {
-		textString = `${time.hours} ${time.hours === 1 ? 'hour' : 'hours'}`;
-	} else if (time.minutes >= 1) {
-		textString = `${time.minutes} ${time.minutes === 1 ? 'minute' : 'minutes'}`;
-	} else {
-		textString = `${time.seconds} ${time.seconds === 1 ? 'second' : 'seconds'}`;
-	}
+	const textString = timeAgo(millisToFormat(diff));
 </script>
 
 <div class="block-height">

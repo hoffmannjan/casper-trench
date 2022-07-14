@@ -39,7 +39,7 @@
 					>
 					<td class="text-color-table-header">{block.header.era_id}</td>
 					<td> <a href="/blocks/{block.hash}"><Hash hash={block.hash} /></a></td>
-                    <!-- TODO confirm deploys -->
+					<!-- TODO confirm deploys -->
 					<td><CircleProgressBar progress={0.97} /></td>
 				</tr>
 			{/each}
