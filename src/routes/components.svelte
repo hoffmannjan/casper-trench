@@ -1,4 +1,6 @@
 <script>
+	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
+
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import SampleComponent1 from '$lib/components/TabMenu/SampleComponent1.svelte';
 	import SampleComponent2 from '$lib/components/TabMenu/SampleComponent2.svelte';
@@ -16,6 +18,7 @@
 </script>
 
 <div class="components">
+	<Tooltip text="Hello World"/>
 	<TabMenu {menuOptions} />
 </div>
 
