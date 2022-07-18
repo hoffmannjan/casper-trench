@@ -10,11 +10,13 @@
 	const pageOptions = [
 		{
 			name: 'Validators',
-			dropdown: ['Current Era', 'Next era']
+			dropdown: ['Current Era', 'Next era'],
+      selectedDropdown: ""
 		},
 		{
 			name: 'Validators Auction',
-			dropdown: []
+			dropdown: [],
+      selectedDropdown: ""
 		}
 	];
 
@@ -64,12 +66,14 @@
 </script>
 
 <div class="content">
+
 	<Switch
 		options={pageOptions}
 		bind:selected={currentPage}
 		outlined
 		on:dropdown-option-clicked={(e) => {
 			if (e.detail.optionIndex !== 0) {
+        //Load Auction Data Here
 				return;
 			}
 			if (e.detail.dropdownIndex === 0) {
@@ -79,9 +83,57 @@
 			}
 		}}
 	/>
-
+  
 	{#if currentPage === 0}
-		lol
+		<table>
+			<tr>
+				<th class="rank">Rank</th>
+				<th class="validators">Validators</th>
+				<th class="fee">
+					<div class="header-wrapper">
+						<div class="text">Fee</div>
+						<TableSorter />
+					</div>
+				</th>
+				<th>
+					<div class="header-wrapper">
+						<div class="text">Delegators</div>
+						<TableSorter />
+					</div>
+				</th>
+				<th class="stake">
+					<div class="header-wrapper justify-center">
+						<div class="text">Total Stake</div>
+						<Tooltip text="Total Stake tooltip" />
+						<TableSorter />
+					</div>
+				</th>
+				<th class="self">Self %</th>
+				<th class="network-perc">% Of Network</th>
+				<th class="performance">
+					<div class="header-wrapper">
+						<div class="text">Performance</div>
+						<Tooltip text="Performance tooltip" />
+					</div>
+				</th>
+			</tr>
+			<div class="divider table-header-border" />
+			{#each validators as validator}
+				<tr>
+					<td class="rank-val">{validator.rank}</td>
+					<td class="validators"
+						><Validator imgUrl={validator.imgUrl} hash={validator.hash} name={validator.name} /></td
+					>
+					<td class="grey">{(validator.fee * 100).toFixed(2)}%</td>
+					<td>{validator.delegators.toLocaleString()}</td>
+					<td class="stake">{validator.totalStake.toLocaleString()} CSPR</td>
+					<td class="grey self">{(validator.self * 100).toFixed(2)}%</td>
+					<td class="grey network-perc">{(validator.percOfNetwork * 100).toFixed(2)}%</td>
+					<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
+				</tr>
+			{/each}
+		</table>
+		<Paginator />
 	{:else}
 		<table>
 			<tr>
