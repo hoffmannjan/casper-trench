@@ -24,7 +24,7 @@
 
 	let selectDropdownOption = (i: number, o:number) => {
 		selected = i;
-		dispatch('dropdownOptionClicked', {
+		dispatch('dropdown-option-clicked', {
 			optionIndex: i,
 			dropdownIndex: o
 		});
