@@ -134,7 +134,7 @@
 		@apply rounded-[0.6vw];
 		@apply bg-white;
 		@apply mt-[0.89vw] py-[0.83vw] px-[1.07vw];
-		@apply shadow-[0px_0px_11px_0px_rgba(0,0,0,0.1)];
+		@apply shadow-[0px_0px_0.65vw_0px_rgba(0,0,0,0.1)];
 	}
 
 	.dropdown-option {
