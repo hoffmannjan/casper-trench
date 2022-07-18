@@ -36,6 +36,7 @@
 <style lang="postcss">
 	.validator {
 		@apply flex items-center justify-start gap-[clamp(8px,0.95vw,0.95vw)];
+		@apply text-left;
 	}
 
 	.icon {
