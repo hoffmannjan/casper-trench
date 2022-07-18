@@ -128,14 +128,13 @@
 
 	.dropdown {
 		@apply absolute z-50;
-		@apply text-color-table-header text-opacity-50;
+		@apply text-color-table-header text-opacity-50 text-[clamp(10px,1.07vw,1.07vw)];
 		@apply flex flex-col gap-[0.4vw];
 		@apply min-w-max;
 		@apply rounded-[0.6vw];
 		@apply bg-white;
 		@apply mt-[0.89vw] py-[0.83vw] px-[1.07vw];
-
-		box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.05);
+		@apply shadow-[0px_0px_11px_0px_rgba(0,0,0,0.1)];
 	}
 
 	.dropdown-option {
@@ -144,6 +143,6 @@
 	}
 
 	.dropdown-option.selected-drop {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link font-medium;
 	}
 </style>
