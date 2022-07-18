@@ -76,7 +76,7 @@
 					</div>
 				</th>
 				<th class="stake">
-					<div class="header-wrapper">
+					<div class="header-wrapper justify-center">
 						<div class="text">Total Stake</div>
 						<!-- <Tooltip /> -->
 						<!-- <TableSorter /> -->
