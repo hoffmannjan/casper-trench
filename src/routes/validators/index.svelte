@@ -179,6 +179,6 @@
 	}
 
 	.header-wrapper {
-		@apply flex items-center;
+		@apply flex items-center gap-[0.48vw];
 	}
 </style>
