@@ -18,7 +18,7 @@
 </script>
 
 <div class="components">
-	<Tooltip text="Hello World"/>
+	<Tooltip text="Hello World" />
 	<TabMenu {menuOptions} />
 </div>
 
