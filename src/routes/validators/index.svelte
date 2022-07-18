@@ -11,12 +11,12 @@
 		{
 			name: 'Validators',
 			dropdown: ['Current Era', 'Next era'],
-      selectedDropdown: ""
+            selectedDropdown: ""
 		},
 		{
 			name: 'Validators Auction',
 			dropdown: [],
-      selectedDropdown: ""
+            selectedDropdown: ""
 		}
 	];
 
