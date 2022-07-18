@@ -15,8 +15,8 @@
 	import Status from '$lib/components/TableData/Status.svelte';
 	import Weight from '$lib/components/TableData/Weight.svelte';
 	import Paginator from '$lib/components/Paginator/index.svelte';
-import TableSorter from '../Reusables/TableSorter.svelte';
-import Tooltip from '../Reusables/Tooltip.svelte';
+	import TableSorter from '../Reusables/TableSorter.svelte';
+	import Tooltip from '../Reusables/Tooltip.svelte';
 </script>
 
 <table>
