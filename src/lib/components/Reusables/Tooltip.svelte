@@ -5,7 +5,7 @@
 </script>
 
 <div class="tooltip">
-	<div class={`tooltip-icon`} style={`--tooltip: '${text}'`}>
+	<div class="tooltip-icon" style="--tooltip: '{text}'">
 		<TooltipIcon />
 	</div>
 </div>
