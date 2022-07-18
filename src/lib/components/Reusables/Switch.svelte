@@ -42,30 +42,6 @@
 		});
 		dropdowns[optionIndex] = false;
 	}
-
-	const buttonClickHandler = (optionIndex: number) => {
-		if (options[optionIndex].dropdown.length > 0) {
-			if (!dropdowns[optionIndex]) {
-				dropdowns.forEach((_, i) => (dropdowns[i] = false));
-				dropdowns[optionIndex] = true;
-				return;
-			} else {
-				dropdowns[optionIndex] = false;
-				return;
-			}
-		}
-		selectOption(optionIndex);
-	};
-
-	let selectDropdownOption = (i: number, o:number) => {
-		selected = i;
-		dispatch('dropdown-option-clicked', {
-			optionIndex: i,
-			dropdownIndex: o
-		});
-		dropdowns[i] = false;
-	}
-
 	const buttonClickHandler = (index: number) => {
 		if (options[index].dropdown.length > 0) {
 			if (!dropdowns[index]) {
