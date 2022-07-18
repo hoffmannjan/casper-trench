@@ -8,41 +8,53 @@
 	export let options: {
 		name: string;
 		dropdown: string[];
+		selectedDropdown: string;
 	}[] = [];
 	export let selected = 0;
 	export let outlined = false;
 
 	let dropdowns: boolean[] = [];
 	dropdowns = [];
-	options.forEach((_) => {
+	options.forEach((option) => {
 		dropdowns.push(false);
+		option.selectedDropdown = option.dropdown[0];
 	});
 
-	let selectOption = (i: number) => {
-		selected = i;
+	let selectOption = (optionIndex: number) => {
+		selected = optionIndex;
+		options.forEach(option => {
+			option.selectedDropdown = "";
+		})
+		dropdowns.forEach((_, i) => (dropdowns[i] = false));
 	};
 
-	let selectDropdownOption = (i: number, o:number) => {
-		selected = i;
+	let selectDropdownOption = (optionIndex: number, dropdownIndex:number) => {
+		options.forEach((option, index) => {
+			if (optionIndex != index) {
+				option.selectedDropdown = "";
+			}
+		})
+		selected = optionIndex;
+		options[optionIndex].selectedDropdown = options[optionIndex].dropdown[dropdownIndex];
 		dispatch('dropdownOptionClicked', {
-			optionIndex: i,
-			dropdownIndex: o
+			optionIndex,
+			dropdownIndex
 		});
-		dropdowns[i] = false;
+		dropdowns[optionIndex] = false;
 	}
 
-	const buttonClickHandler = (index: number) => {
-		if (options[index].dropdown.length > 0) {
-			if (!dropdowns[index]) {
+	const buttonClickHandler = (optionIndex: number) => {
+		if (options[optionIndex].dropdown.length > 0) {
+			if (!dropdowns[optionIndex]) {
 				dropdowns.forEach((_, i) => (dropdowns[i] = false));
-				dropdowns[index] = true;
+				dropdowns[optionIndex] = true;
 				return;
 			} else {
-				dropdowns[index] = false;
+				dropdowns[optionIndex] = false;
 				return;
 			}
 		}
-		selectOption(index);
+		selectOption(optionIndex);
 	};
 </script>
 
@@ -61,11 +73,11 @@
 			</div>
 			{#if dropdowns[i]}
 				<div class="dropdown" transition:slide>
-					{#each option.dropdown as option, index}
-						<div class="dropdown-option" on:click={() => {
+					{#each option.dropdown as dropdownOption, index}
+						<div class="dropdown-option" class:selected-drop={option.selectedDropdown === dropdownOption} on:click={() => {
 							selectDropdownOption(i, index);
 						}}>
-							{option}
+							{dropdownOption}
 						</div>
 					{/each}
 				</div>
@@ -115,14 +127,23 @@
 	}
 
 	.dropdown {
-		@apply absolute;
-		@apply text-black text-center;
+		@apply absolute z-50;
+		@apply text-color-table-header text-opacity-50;
 		@apply flex flex-col gap-[0.4vw];
-		@apply w-full;
+		@apply min-w-max;
+		@apply rounded-[0.6vw];
+		@apply bg-white;
+		@apply mt-[0.89vw] py-[0.83vw] px-[1.07vw];
+
+		box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.05);
 	}
 
 	.dropdown-option {
 		@apply hover:text-color-hover-footer-link;
 		@apply cursor-pointer;
+	}
+
+	.dropdown-option.selected-drop {
+		@apply text-color-hover-footer-link;
 	}
 </style>

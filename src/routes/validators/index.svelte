@@ -9,11 +9,13 @@
 	const pageOptions = [
 		{
 			name: 'Validators',
-			dropdown: ['Current Era', 'Next era']
+			dropdown: ['Current Era', 'Next era'],
+            selectedDropdown: ""
 		},
 		{
 			name: 'Validators Auction',
-			dropdown: []
+			dropdown: [],
+            selectedDropdown: ""
 		}
 	];
 
