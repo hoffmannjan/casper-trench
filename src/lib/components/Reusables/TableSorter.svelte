@@ -10,13 +10,13 @@
 	export let ascendingHandler = () => {
 		ascendingSelected = true;
 		descendingSelected = false;
-		dispatch('sortAscend');
+		dispatch('sort-ascend');
 	};
 
 	export let descendingHandler = () => {
 		ascendingSelected = false;
 		descendingSelected = true;
-		dispatch('sortDescend');
+		dispatch('sort-descend');
 	};
 </script>
 
@@ -36,6 +36,9 @@
 <style lang="postcss">
 	.table-sorter {
 		@apply flex flex-col gap-[0.42vw];
+	}
+	.icon{
+		@apply w-[clamp(10px,0.7vw,0.7vw)] h-[clamp(10px,0.35vw,0.35vw)]
 	}
 
 	.ascending > .icon {
