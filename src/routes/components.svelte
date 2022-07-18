@@ -23,10 +23,10 @@
 	<div class="flex gap-[1vw]">
 		<Tooltip text="Hello World" />
 		<TableSorter
-			on:sortAscend={() => {
+			on:sort-ascend={() => {
 				console.log('Sort Ascending Order');
 			}}
-			on:sortDescend={() => {
+			on:sort-descend={() => {
 				console.log('Sort Ascending Order');
 			}}
 		/>
