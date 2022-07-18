@@ -2,8 +2,10 @@
 	import Switch from '$lib/components/Reusables/Switch.svelte';
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
 	import Validator from '$lib/components/TableData/Validator.svelte';
-    import Paginator from '$lib/components/Paginator/index.svelte';
-    
+	import Paginator from '$lib/components/Paginator/index.svelte';
+	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
+	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
+
 	const pageOptions = [
 		{
 			name: 'Validators',
@@ -68,20 +70,20 @@
 				<th class="fee">
 					<div class="header-wrapper">
 						<div class="text">Fee</div>
-						<!-- <TableSorter /> -->
+						<TableSorter />
 					</div>
 				</th>
 				<th>
 					<div class="header-wrapper">
 						<div class="text">Delegators</div>
-						<!-- <TableSorter /> -->
+						<TableSorter />
 					</div>
 				</th>
 				<th class="stake">
 					<div class="header-wrapper justify-center">
 						<div class="text">Total Stake</div>
-						<!-- <Tooltip /> -->
-						<!-- <TableSorter /> -->
+						<Tooltip />
+						<TableSorter />
 					</div>
 				</th>
 				<th class="self">Self %</th>
@@ -89,7 +91,7 @@
 				<th class="performance">
 					<div class="header-wrapper">
 						<div class="text">Performance</div>
-						<!-- <Tooltip /> -->
+						<Tooltip />
 					</div>
 				</th>
 			</tr>
@@ -109,7 +111,7 @@
 				</tr>
 			{/each}
 		</table>
-        <Paginator />
+		<Paginator />
 	{:else}
 		Lol
 	{/if}
