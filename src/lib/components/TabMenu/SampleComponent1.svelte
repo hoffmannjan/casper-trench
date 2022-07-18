@@ -15,11 +15,16 @@
 	import Status from '$lib/components/TableData/Status.svelte';
 	import Weight from '$lib/components/TableData/Weight.svelte';
 	import Paginator from '$lib/components/Paginator/index.svelte';
+import TableSorter from '../Reusables/TableSorter.svelte';
+import Tooltip from '../Reusables/Tooltip.svelte';
 </script>
 
 <table>
 	<tr>
-		<th>Header 1</th>
+		<th class="sort-tooltip-column">Header 1
+			<Tooltip text="Hello"/>
+			<TableSorter/>
+		</th>
 		<th>Header 2</th>
 		<th>Header 3</th>
 		<th>Header 4</th>
@@ -98,4 +103,8 @@
 	.center {
 		@apply flex justify-center;
 	}
+	.sort-tooltip-column{
+		@apply flex flex-row items-center gap-x-[0.5vw];
+	}
+	
 </style>

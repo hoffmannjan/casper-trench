@@ -1,4 +1,6 @@
 <script>
+	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
+
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
@@ -18,7 +20,17 @@
 </script>
 
 <div class="components">
-	<Tooltip text="Hello World" />
+	<div class="flex gap-[1vw]">
+		<Tooltip text="Hello World" />
+		<TableSorter
+			on:sort-ascend={() => {
+				console.log('Sort Ascending Order');
+			}}
+			on:sort-descend={() => {
+				console.log('Sort Ascending Order');
+			}}
+		/>
+	</div>
 	<TabMenu {menuOptions} />
 </div>
 
