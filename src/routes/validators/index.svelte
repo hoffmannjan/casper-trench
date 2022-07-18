@@ -1,8 +1,10 @@
 <script>
     import Switch from "$lib/components/Reusables/Switch.svelte";
     import CircleProgressBar from "$lib/components/TableData/CircleProgressBar.svelte";
-import Status from "$lib/components/TableData/Status.svelte";
+    import Status from "$lib/components/TableData/Status.svelte";
     import Validator from "$lib/components/TableData/Validator.svelte";
+    import Paginator from '$lib/components/Paginator/index.svelte';
+
     const pageOptions = [
         {
             name: 'Validators',
@@ -120,6 +122,7 @@ import Status from "$lib/components/TableData/Status.svelte";
                 </tr>
             {/each}
         </table>
+        <Paginator />
     {/if}
 </div>
 
