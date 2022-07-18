@@ -26,7 +26,8 @@ import Status from "$lib/components/TableData/Status.svelte";
             self: 0.0004,
             percOfNetwork: 0.0656,
             performance: 0.96,
-            rank: 1
+            rank: 1,
+            status: "Active"
         },
         {
             imgUrl: "https://foreststaking.com/svg.svg",
@@ -38,7 +39,8 @@ import Status from "$lib/components/TableData/Status.svelte";
             self: 0.0004,
             percOfNetwork: 0.0656,
             performance: 0.98,
-            rank: 2
+            rank: 2,
+            status: "Active"
         },
         {
             imgUrl: "https://foreststaking.com/svg.svg",
@@ -50,7 +52,8 @@ import Status from "$lib/components/TableData/Status.svelte";
             self: 0.0004,
             percOfNetwork: 0.0656,
             performance: 1,
-            rank: 3
+            rank: 3,
+            status: "Inactive"
         },
     ];
 </script>
@@ -107,7 +110,7 @@ import Status from "$lib/components/TableData/Status.svelte";
                 <tr>
                     <td class='rank-val'>{validator.rank}</td>
                     <td class='validators'><Validator imgUrl={validator.imgUrl} hash={validator.hash} name={validator.name}/></td>
-                    <td class='status'><Status status='Active'/></td>
+                    <td class='status'><Status status={validator.status}/></td>
                     <td class='grey'>{(validator.fee * 100).toFixed(2)}%</td>
                     <td>{(validator.delegators).toLocaleString()}</td>
                     <td class='stake'>{(validator.totalStake).toLocaleString()} CSPR</td>
