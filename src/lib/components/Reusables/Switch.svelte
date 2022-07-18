@@ -56,6 +56,29 @@
 		}
 		selectOption(optionIndex);
 	};
+
+	let selectDropdownOption = (i: number, o:number) => {
+		selected = i;
+		dispatch('dropdown-option-clicked', {
+			optionIndex: i,
+			dropdownIndex: o
+		});
+		dropdowns[i] = false;
+	}
+
+	const buttonClickHandler = (index: number) => {
+		if (options[index].dropdown.length > 0) {
+			if (!dropdowns[index]) {
+				dropdowns.forEach((_, i) => (dropdowns[i] = false));
+				dropdowns[index] = true;
+				return;
+			} else {
+				dropdowns[index] = false;
+				return;
+			}
+		}
+		selectOption(index);
+	};
 </script>
 
 <div class="switch" class:outlined>

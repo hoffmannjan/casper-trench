@@ -1,6 +1,7 @@
 <script>
 	import Switch from '$lib/components/Reusables/Switch.svelte';
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
+	import Status from '$lib/components/TableData/Status.svelte';
 	import Validator from '$lib/components/TableData/Validator.svelte';
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
@@ -10,12 +11,12 @@
 		{
 			name: 'Validators',
 			dropdown: ['Current Era', 'Next era'],
-            selectedDropdown: ""
+      selectedDropdown: ""
 		},
 		{
 			name: 'Validators Auction',
 			dropdown: [],
-            selectedDropdown: ""
+      selectedDropdown: ""
 		}
 	];
 
@@ -32,7 +33,8 @@
 			self: 0.0004,
 			percOfNetwork: 0.0656,
 			performance: 0.96,
-			rank: 1
+			rank: 1,
+			status: 'Active'
 		},
 		{
 			imgUrl: 'https://foreststaking.com/svg.svg',
@@ -44,7 +46,8 @@
 			self: 0.0004,
 			percOfNetwork: 0.0656,
 			performance: 0.98,
-			rank: 2
+			rank: 2,
+			status: 'Active'
 		},
 		{
 			imgUrl: 'https://foreststaking.com/svg.svg',
@@ -56,14 +59,31 @@
 			self: 0.0004,
 			percOfNetwork: 0.0656,
 			performance: 1,
-			rank: 3
+			rank: 3,
+			status: 'Inactive'
 		}
 	];
 </script>
 
 <div class="content">
-	<Switch options={pageOptions} bind:selected={currentPage} outlined />
 
+	<Switch
+		options={pageOptions}
+		bind:selected={currentPage}
+		outlined
+		on:dropdown-option-clicked={(e) => {
+			if (e.detail.optionIndex !== 0) {
+        //Load Auction Data Here
+				return;
+			}
+			if (e.detail.dropdownIndex === 0) {
+				//Load Current Era Data
+			} else {
+				//Load Next Era Data
+			}
+		}}
+	/>
+  
 	{#if currentPage === 0}
 		<table>
 			<tr>
@@ -84,7 +104,7 @@
 				<th class="stake">
 					<div class="header-wrapper justify-center">
 						<div class="text">Total Stake</div>
-						<Tooltip />
+						<Tooltip text="Total Stake tooltip" />
 						<TableSorter />
 					</div>
 				</th>
@@ -93,7 +113,7 @@
 				<th class="performance">
 					<div class="header-wrapper">
 						<div class="text">Performance</div>
-						<Tooltip />
+						<Tooltip text="Performance tooltip" />
 					</div>
 				</th>
 			</tr>
@@ -115,7 +135,57 @@
 		</table>
 		<Paginator />
 	{:else}
-		Lol
+		<table>
+			<tr>
+				<th class="rank">Rank</th>
+				<th class="validators">Validators</th>
+				<th class="status">Status</th>
+				<th class="fee">
+					<div class="header-wrapper">
+						<div class="text">Fee</div>
+						<TableSorter />
+					</div>
+				</th>
+				<th>
+					<div class="header-wrapper">
+						<div class="text">Delegators</div>
+						<TableSorter />
+					</div>
+				</th>
+				<th class="stake">
+					<div class="header-wrapper justify-center">
+						<div class="text">Total Stake</div>
+						<Tooltip text="Total Stake tooltip" />
+						<TableSorter />
+					</div>
+				</th>
+				<th class="self">Self %</th>
+				<th class="network-perc">% Of Network</th>
+				<th class="performance">
+					<div class="header-wrapper">
+						<div class="text">Performance</div>
+						<Tooltip text="Performance tooltip" />
+					</div>
+				</th>
+			</tr>
+			<div class="divider table-header-border" />
+			{#each validators as validator}
+				<tr>
+					<td class="rank-val">{validator.rank}</td>
+					<td class="validators"
+						><Validator imgUrl={validator.imgUrl} hash={validator.hash} name={validator.name} /></td
+					>
+					<td class="status"><Status status={validator.status} /></td>
+					<td class="grey">{(validator.fee * 100).toFixed(2)}%</td>
+					<td>{validator.delegators.toLocaleString()}</td>
+					<td class="stake">{validator.totalStake.toLocaleString()} CSPR</td>
+					<td class="grey self">{(validator.self * 100).toFixed(2)}%</td>
+					<td class="grey network-perc">{(validator.percOfNetwork * 100).toFixed(2)}%</td>
+					<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
+				</tr>
+			{/each}
+		</table>
+		<Paginator />
 	{/if}
 </div>
 
@@ -182,5 +252,10 @@
 
 	.header-wrapper {
 		@apply flex items-center gap-[0.48vw];
+	}
+
+	.status {
+		@apply text-center;
+		@apply flex justify-center;
 	}
 </style>
