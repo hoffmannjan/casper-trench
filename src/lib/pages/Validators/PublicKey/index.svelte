@@ -1,8 +1,22 @@
 <script>
+    import DelegatorsTab from '$lib/components/Validators/DelegatorsTab.svelte';
     import StatisticsCard from '$lib/components/Validators/StatisticsCard.svelte';
 	import ValidatorCard from '$lib/components/Validators/ValidatorCard.svelte';
+    import VerifiedBlocksTab from '$lib/components/Validators/VerifiedBlocksTab.svelte';
+	import TabMenu from '$lib/components/TabMenu/index.svelte';
 
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
+
+    let menuOptions = [
+		{
+			title: 'Delegators',
+			component: DelegatorsTab
+		},
+		{
+			title: 'Verified Blocks',
+			component: VerifiedBlocksTab
+		}
+	];
 
 	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 	let imgSrc =
@@ -33,6 +47,19 @@
     };
     let commisionRate = 0.05;
     let performance = 0.94;
+
+    //Sample Data
+    let sampleDelegators = [
+		{
+			
+		},
+		{
+			
+		},
+		{
+			
+		}
+	];
 </script>
 
 <div class="main">
@@ -52,7 +79,7 @@
         <StatisticsCard {publickKey} {validatorRewards} {delegatorRewards} {totalStake} {selfStake} {commisionRate} {performance}/>
     </div>
 
-    <!-- Delegators and verified blocks tabs go here-->
+    <TabMenu {menuOptions} />
 </div>
 
 <style lang="postcss">
