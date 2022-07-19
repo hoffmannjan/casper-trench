@@ -2,33 +2,20 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Weight from '../TableData/Weight.svelte';
 
-	export let delegators = [
-		{
-			rank: 'self stake',
-			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			to: 16324232.03423,
-			weight: 0.3245
-		},
-		{
-			rank: '1',
-			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			to: 16324232.03423,
-			weight: 0.3245
-		},
-		{
-			rank: '2',
-			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			to: 16324232.03423,
-			weight: 0.3245
-		}
-	];
-    
-    export let delagators = 2342;
+    export let props = {
+        delegators: [],
+        totalDelagators: []
+    };
+
+    // You could also just pass the hash and get delegators from the api if thats possible.
+
+	let delegators = props.delegators;
+    let totalDelagators = props.totalDelagators;
 </script>
 
 <div class="delegators-tab">
     <div class="total">
-        Total {delagators} delegators
+        Total {totalDelagators} delegators
     </div>
 	<table>
 		<tr>

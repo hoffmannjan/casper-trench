@@ -7,17 +7,6 @@
 
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 
-	let menuOptions = [
-		{
-			title: 'Delegators',
-			component: DelegatorsTab
-		},
-		{
-			title: 'Verified Blocks',
-			component: VerifiedBlocksTab
-		}
-	];
-
 	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 	let imgSrc =
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Gnomelogo-footprint.svg/1200px-Gnomelogo-footprint.svg.png';
@@ -49,7 +38,40 @@
 	let performance = 0.94;
 
 	//Sample Data
-	let sampleDelegators = [{}, {}, {}];
+    let delegators = [
+		{
+			rank: 'self stake',
+			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
+			to: 16324232.03423,
+			weight: 0.3245
+		},
+		{
+			rank: '1',
+			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
+			to: 16324232.03423,
+			weight: 0.3245
+		},
+		{
+			rank: '2',
+			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
+			to: 16324232.03423,
+			weight: 0.3245
+		}
+	];
+    let totalDelagators = 2342;
+
+    let menuOptions = [
+		{
+			title: 'Delegators',
+			component: DelegatorsTab,
+            props: {delegators, totalDelagators}
+		},
+		{
+			title: 'Verified Blocks',
+			component: VerifiedBlocksTab,
+            props: {}
+		}
+	];
 </script>
 
 <div class="main">
