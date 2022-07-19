@@ -21,9 +21,10 @@
 
 <table>
 	<tr>
-		<th class="sort-tooltip-column">Header 1
-			<Tooltip text="Hello"/>
-			<TableSorter/>
+		<th class="sort-tooltip-column"
+			>Header 1
+			<Tooltip text="Hello" />
+			<TableSorter />
 		</th>
 		<th>Header 2</th>
 		<th>Header 3</th>
@@ -103,8 +104,7 @@
 	.center {
 		@apply flex justify-center;
 	}
-	.sort-tooltip-column{
+	.sort-tooltip-column {
 		@apply flex flex-row items-center gap-x-[0.5vw];
 	}
-	
 </style>
