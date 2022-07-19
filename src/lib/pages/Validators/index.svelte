@@ -124,11 +124,11 @@
 					<td class="validators"
 						><Validator imgUrl={validator.imgUrl} hash={validator.hash} name={validator.name} /></td
 					>
-					<td class="grey">{(validator.fee * 100).toFixed(2)}%</td>
+					<td class="grey">{(parseFloat(validator.fee.toFixed(2)) * 100).toFixed(2)}%</td>
 					<td>{validator.delegators.toLocaleString()}</td>
-					<td class="stake">{validator.totalStake.toLocaleString()} CSPR</td>
-					<td class="grey self">{(validator.self * 100).toFixed(2)}%</td>
-					<td class="grey network-perc">{(validator.percOfNetwork * 100).toFixed(2)}%</td>
+					<td class="stake">{parseFloat(validator.totalStake.toFixed(5)).toLocaleString()} CSPR</td>
+					<td class="grey self">{(parseFloat(validator.self.toFixed(2)) * 100).toFixed(2)}%</td>
+					<td class="grey network-perc">{(parseFloat(validator.percOfNetwork.toFixed(2)) * 100).toFixed(2)}%</td>
 					<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
 				</tr>
 			{/each}
@@ -176,11 +176,11 @@
 						><Validator imgUrl={validator.imgUrl} hash={validator.hash} name={validator.name} /></td
 					>
 					<td class="status"><Status status={validator.status} /></td>
-					<td class="grey">{(validator.fee * 100).toFixed(2)}%</td>
+					<td class="grey">{(parseFloat(validator.fee.toFixed(2)) * 100).toFixed(2)}%</td>
 					<td>{validator.delegators.toLocaleString()}</td>
-					<td class="stake">{validator.totalStake.toLocaleString()} CSPR</td>
-					<td class="grey self">{(validator.self * 100).toFixed(2)}%</td>
-					<td class="grey network-perc">{(validator.percOfNetwork * 100).toFixed(2)}%</td>
+					<td class="stake">{parseFloat(validator.totalStake.toFixed(5)).toLocaleString()} CSPR</td>
+					<td class="grey self">{(parseFloat(validator.self.toFixed(2)) * 100).toFixed(2)}%</td>
+					<td class="grey network-perc">{(parseFloat(validator.percOfNetwork.toFixed(2)) * 100).toFixed(2)}%</td>
 					<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
 				</tr>
 			{/each}
