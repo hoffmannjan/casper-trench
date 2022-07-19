@@ -6,9 +6,9 @@
 	const dispatch = createEventDispatcher();
 
 	export let options: {
-		name: string;
-		dropdown: string[];
-		selectedDropdown: string;
+		name?: string;
+		dropdown?: string[];
+		selectedDropdown?: string;
 	}[] = [];
 	export let selected = 0;
 	export let outlined = false;
@@ -22,26 +22,26 @@
 
 	let selectOption = (optionIndex: number) => {
 		selected = optionIndex;
-		options.forEach(option => {
-			option.selectedDropdown = "";
-		})
+		options.forEach((option) => {
+			option.selectedDropdown = '';
+		});
 		dropdowns.forEach((_, i) => (dropdowns[i] = false));
 	};
 
-	let selectDropdownOption = (optionIndex: number, dropdownIndex:number) => {
+	let selectDropdownOption = (optionIndex: number, dropdownIndex: number) => {
 		options.forEach((option, index) => {
 			if (optionIndex != index) {
-				option.selectedDropdown = "";
+				option.selectedDropdown = '';
 			}
-		})
+		});
 		selected = optionIndex;
 		options[optionIndex].selectedDropdown = options[optionIndex].dropdown[dropdownIndex];
-		dispatch('dropdownOptionClicked', {
+		dispatch('dropdown-option-clicked', {
 			optionIndex,
 			dropdownIndex
 		});
 		dropdowns[optionIndex] = false;
-	}
+	};
 	const buttonClickHandler = (index: number) => {
 		if (options[index].dropdown.length > 0) {
 			if (!dropdowns[index]) {
@@ -73,9 +73,13 @@
 			{#if dropdowns[i]}
 				<div class="dropdown" transition:slide>
 					{#each option.dropdown as dropdownOption, index}
-						<div class="dropdown-option" class:selected-drop={option.selectedDropdown === dropdownOption} on:click={() => {
-							selectDropdownOption(i, index);
-						}}>
+						<div
+							class="dropdown-option"
+							class:selected-drop={option.selectedDropdown === dropdownOption}
+							on:click={() => {
+								selectDropdownOption(i, index);
+							}}
+						>
 							{dropdownOption}
 						</div>
 					{/each}

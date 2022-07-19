@@ -48,3 +48,15 @@ export const getLatestBlocks = async () => {
 			notifyError('Could not fetch latest blocks');
 		});
 };
+
+export const getEraValidators = async () => {
+	return await axios
+		.get(`${casperStatsBaseURL}/state/get-era-validators`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch era validators');
+		});
+};
