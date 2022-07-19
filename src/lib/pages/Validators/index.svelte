@@ -11,12 +11,12 @@
 		{
 			name: 'Validators',
 			dropdown: ['Current Era', 'Next era'],
-            selectedDropdown: ""
+			selectedDropdown: ''
 		},
 		{
 			name: 'Validators Auction',
 			dropdown: [],
-            selectedDropdown: ""
+			selectedDropdown: ''
 		}
 	];
 
@@ -66,14 +66,13 @@
 </script>
 
 <div class="content">
-
 	<Switch
 		options={pageOptions}
 		bind:selected={currentPage}
 		outlined
 		on:dropdown-option-clicked={(e) => {
 			if (e.detail.optionIndex !== 0) {
-        //Load Auction Data Here
+				//Load Auction Data Here
 				return;
 			}
 			if (e.detail.dropdownIndex === 0) {
@@ -83,7 +82,7 @@
 			}
 		}}
 	/>
-  
+
 	{#if currentPage === 0}
 		<table>
 			<tr>
@@ -128,7 +127,9 @@
 					<td>{validator.delegators.toLocaleString()}</td>
 					<td class="stake">{parseFloat(validator.totalStake.toFixed(5)).toLocaleString()} CSPR</td>
 					<td class="grey self">{(parseFloat(validator.self.toFixed(2)) * 100).toFixed(2)}%</td>
-					<td class="grey network-perc">{(parseFloat(validator.percOfNetwork.toFixed(2)) * 100).toFixed(2)}%</td>
+					<td class="grey network-perc"
+						>{(parseFloat(validator.percOfNetwork.toFixed(2)) * 100).toFixed(2)}%</td
+					>
 					<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
 				</tr>
 			{/each}
@@ -180,7 +181,9 @@
 					<td>{validator.delegators.toLocaleString()}</td>
 					<td class="stake">{parseFloat(validator.totalStake.toFixed(5)).toLocaleString()} CSPR</td>
 					<td class="grey self">{(parseFloat(validator.self.toFixed(2)) * 100).toFixed(2)}%</td>
-					<td class="grey network-perc">{(parseFloat(validator.percOfNetwork.toFixed(2)) * 100).toFixed(2)}%</td>
+					<td class="grey network-perc"
+						>{(parseFloat(validator.percOfNetwork.toFixed(2)) * 100).toFixed(2)}%</td
+					>
 					<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
 				</tr>
 			{/each}

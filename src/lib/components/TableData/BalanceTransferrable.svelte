@@ -13,7 +13,7 @@
 	</div>
 	{#if percentageFooter}
 		<div class="value-cash">
-			${(cashValue * 100)}%
+			${cashValue * 100}%
 		</div>
 	{:else}
 		<div class="value-cash">

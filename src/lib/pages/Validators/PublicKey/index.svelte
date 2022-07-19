@@ -1,13 +1,13 @@
 <script>
-    import DelegatorsTab from '$lib/components/Validators/DelegatorsTab.svelte';
-    import StatisticsCard from '$lib/components/Validators/StatisticsCard.svelte';
+	import DelegatorsTab from '$lib/components/Validators/DelegatorsTab.svelte';
+	import StatisticsCard from '$lib/components/Validators/StatisticsCard.svelte';
 	import ValidatorCard from '$lib/components/Validators/ValidatorCard.svelte';
-    import VerifiedBlocksTab from '$lib/components/Validators/VerifiedBlocksTab.svelte';
+	import VerifiedBlocksTab from '$lib/components/Validators/VerifiedBlocksTab.svelte';
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 
-    let menuOptions = [
+	let menuOptions = [
 		{
 			title: 'Delegators',
 			component: DelegatorsTab
@@ -28,38 +28,28 @@
 	let facebook = '/';
 	let telegram = '/';
 	let github = '/';
-    let publickKey = "01b205c2bd03ce19cd2876ccc21a3566c407b631f3e714532ce0c9956bbac85811";
-    let validatorRewards = {
-        cspr: 31821243,
-        cashValue: 921232.02
-    };
-    let delegatorRewards = {
-        cspr: 31821243,
-        cashValue: 921232.02
-    };
-    let totalStake = {
-        cspr: 31821243,
-        cashValue: 921232.02
-    };
-    let selfStake = {
-        cspr: 31821243,
-        percentage: 0.0006
-    };
-    let commisionRate = 0.05;
-    let performance = 0.94;
+	let publickKey = '01b205c2bd03ce19cd2876ccc21a3566c407b631f3e714532ce0c9956bbac85811';
+	let validatorRewards = {
+		cspr: 31821243,
+		cashValue: 921232.02
+	};
+	let delegatorRewards = {
+		cspr: 31821243,
+		cashValue: 921232.02
+	};
+	let totalStake = {
+		cspr: 31821243,
+		cashValue: 921232.02
+	};
+	let selfStake = {
+		cspr: 31821243,
+		percentage: 0.0006
+	};
+	let commisionRate = 0.05;
+	let performance = 0.94;
 
-    //Sample Data
-    let sampleDelegators = [
-		{
-			
-		},
-		{
-			
-		},
-		{
-			
-		}
-	];
+	//Sample Data
+	let sampleDelegators = [{}, {}, {}];
 </script>
 
 <div class="main">
@@ -75,11 +65,19 @@
 		</div>
 	</div>
 	<div class="header-content">
-        <ValidatorCard {imgSrc} {status} {website} {email} {twitter} {facebook} {telegram} {github} />
-        <StatisticsCard {publickKey} {validatorRewards} {delegatorRewards} {totalStake} {selfStake} {commisionRate} {performance}/>
-    </div>
+		<ValidatorCard {imgSrc} {status} {website} {email} {twitter} {facebook} {telegram} {github} />
+		<StatisticsCard
+			{publickKey}
+			{validatorRewards}
+			{delegatorRewards}
+			{totalStake}
+			{selfStake}
+			{commisionRate}
+			{performance}
+		/>
+	</div>
 
-    <TabMenu {menuOptions} />
+	<TabMenu {menuOptions} />
 </div>
 
 <style lang="postcss">
@@ -101,10 +99,10 @@
 
 	.copy-icon {
 		@apply w-[1.96vw] h-[1.96vw];
-        @apply cursor-pointer;
+		@apply cursor-pointer;
 	}
 
-    .header-content {
-        @apply flex justify-between;
-    }
+	.header-content {
+		@apply flex justify-between;
+	}
 </style>
