@@ -1,4 +1,6 @@
 <script>
+import { goto } from '$app/navigation';
+
 	import Paginator from '$lib/components/Paginator/index.svelte';
 import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 import Contract from '$lib/components/TableData/Contract.svelte';
@@ -22,7 +24,8 @@ import Rank from '$lib/components/TableData/Rank.svelte';
                 cash: 921232.02
             },
             txnCount: 4819627,
-            staked: 4819627
+            staked: 4819627,
+            hash: "020232ee96sdfghasf52g25g25ghsrt254gf7b75e0158"
         },
         {
             contractText: "",
@@ -37,7 +40,8 @@ import Rank from '$lib/components/TableData/Rank.svelte';
                 cash: 921232.02
             },
             txnCount: 4819627,
-            staked: 4819627
+            staked: 4819627,
+            hash: "020232ee96sdfghasf52g25g25ghsrt254gf7b75e0158"
         },
         {
             contractText: "",
@@ -52,7 +56,8 @@ import Rank from '$lib/components/TableData/Rank.svelte';
                 cash: 921232.02
             },
             txnCount: 4819627,
-            staked: 4819627
+            staked: 4819627,
+            hash: "020232ee96sdfghasf52g25g25ghsrt254gf7b75e0158"
         }
     ];
 </script>
@@ -80,7 +85,7 @@ import Rank from '$lib/components/TableData/Rank.svelte';
                 <td>
                     <PublicKey text={account.name} activeDate={account.lastActive}/>
                 </td>
-                <td><Hash hash="020232ee96sdfghasf52g25g25ghsrt254gf7b75e0158" noOfCharacters={10}/></td>
+                <td><Hash hash={account.hash} noOfCharacters={10} on:click={() => { goto(`/blocks/top-accounts/${account.hash}`) }}/></td>
                 <td><BalanceTransferrable cspr={account.balance.cspr} cashValue={account.balance.cash} /></td>
                 <td><BalanceTransferrable cspr={account.transferable.cspr} cashValue={account.transferable.cash} /></td>
                 <td class="right">{account.txnCount.toLocaleString()}</td>
