@@ -2,7 +2,7 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Weight from '../TableData/Weight.svelte';
 
-	let sampleDelegators = [
+	export let sampleDelegators = [
 		{
 			rank: 'self stake',
 			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
@@ -22,9 +22,14 @@
 			weight: 0.3245
 		}
 	];
+    
+    export let delagators = 2342;
 </script>
 
 <div class="delegators-tab">
+    <div class="total">
+        Total {delagators} delegators
+    </div>
 	<table>
 		<tr>
 			<th class="rank">Rank</th>
@@ -98,4 +103,9 @@
 	.key {
 		@apply text-color-hover-footer-link;
 	}
+
+    .total {
+        @apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+        @apply mb-[2.38vw];
+    }
 </style>
