@@ -4,7 +4,7 @@
 
     export let props = {
         delegators: [],
-        totalDelagators: []
+        totalDelagators: 0
     };
 
     // You could also just pass the hash and get delegators from the api if thats possible.
