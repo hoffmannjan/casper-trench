@@ -2,7 +2,7 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Weight from '../TableData/Weight.svelte';
 
-	export let sampleDelegators = [
+	export let delegators = [
 		{
 			rank: 'self stake',
 			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
@@ -38,7 +38,7 @@
 			<th class="weight"> % Weight </th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#each sampleDelegators as delegator}
+		{#each delegators as delegator}
 			<tr>
 				<td class:rank-val={delegator.rank.length === 1}>{delegator.rank}</td>
 				<td class="key">{delegator.key}</td>
