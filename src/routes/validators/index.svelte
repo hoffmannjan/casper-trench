@@ -10,6 +10,7 @@
 	import { onMount } from 'svelte';
 	import type { EraValidator } from '$utils/types/validator';
 	import { getEraValidators } from '$utils/api';
+	import { tableSort } from '$utils/sort';
 
 	let pageOptions: { name: string; dropdown?: string[]; selectedDropdown?: string }[] = [
 		{
@@ -32,7 +33,7 @@
 		delegators: number;
 		name: string;
 		icon: string;
-	}[];
+	}[] = [];
 	let totalEraStake: string;
 	let eraValidators: EraValidator;
 	onMount(async () => {
@@ -64,6 +65,12 @@
 				totalEraStake = era.total_stake;
 			}
 		});
+	};
+
+	const sortValidators = (direction: 'asc' | 'desc', field: string) => {
+		// console.log(validators[0][field])
+		validators = tableSort(direction, validators, field);
+		// console.log("Sorted: ",tableSort(direction, validators, field))
 	};
 </script>
 
@@ -98,14 +105,18 @@
 				<th>
 					<div class="header-wrapper">
 						<div class="text">Delegators</div>
-						<TableSorter />
+						<TableSorter
+							on:sort={(e) => sortValidators(e.detail?.direction, 'delegators')}
+						/>
 					</div>
 				</th>
 				<th class="stake">
 					<div class="header-wrapper justify-center">
 						<div class="text">Total Stake</div>
 						<Tooltip text="Total Stake tooltip" />
-						<TableSorter />
+						<TableSorter
+							on:sort={(e) => sortValidators(e.detail?.direction, 'weight')}
+						/>
 					</div>
 				</th>
 				<th class="self">Self %</th>
@@ -176,7 +187,7 @@
 			</tr>
 			<div class="divider table-header-border" />
 			{#each validators as validator}
-				<tr>
+				<!-- <tr>
 					<td class="rank-val">{validator.rank}</td>
 					<td class="validators"
 						><Validator imgUrl={validator.imgUrl} hash={validator.hash} name={validator.name} /></td
@@ -188,7 +199,7 @@
 					<td class="grey self">{(validator.self * 100).toFixed(2)}%</td>
 					<td class="grey network-perc">{(validator.percOfNetwork * 100).toFixed(2)}%</td>
 					<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
-				</tr>
+				</tr> -->
 			{/each}
 		</table>
 		<Paginator />

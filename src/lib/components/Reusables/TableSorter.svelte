@@ -10,13 +10,13 @@
 	export let ascendingHandler = () => {
 		ascendingSelected = true;
 		descendingSelected = false;
-		dispatch('sort-ascend');
+		dispatch('sort',{direction:'asc'});
 	};
 
 	export let descendingHandler = () => {
 		ascendingSelected = false;
 		descendingSelected = true;
-		dispatch('sort-descend');
+		dispatch('sort',{direction:'desc'});
 	};
 </script>
 
