@@ -1,6 +1,9 @@
 <script>
-    import StatisticsCard from '$lib/components/Validators/StatisticsCard.svelte';
+	import DelegatorsTab from '$lib/components/Validators/DelegatorsTab.svelte';
+	import StatisticsCard from '$lib/components/Validators/StatisticsCard.svelte';
 	import ValidatorCard from '$lib/components/Validators/ValidatorCard.svelte';
+	import VerifiedBlocksTab from '$lib/components/Validators/VerifiedBlocksTab.svelte';
+	import TabMenu from '$lib/components/TabMenu/index.svelte';
 
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 
@@ -14,25 +17,61 @@
 	let facebook = '/';
 	let telegram = '/';
 	let github = '/';
-    let publickKey = "01b205c2bd03ce19cd2876ccc21a3566c407b631f3e714532ce0c9956bbac85811";
-    let validatorRewards = {
-        cspr: 31821243,
-        cashValue: 921232.02
-    };
-    let delegatorRewards = {
-        cspr: 31821243,
-        cashValue: 921232.02
-    };
-    let totalStake = {
-        cspr: 31821243,
-        cashValue: 921232.02
-    };
-    let selfStake = {
-        cspr: 31821243,
-        percentage: 0.0006
-    };
-    let commisionRate = 0.05;
-    let performance = 0.94;
+	let publickKey = '01b205c2bd03ce19cd2876ccc21a3566c407b631f3e714532ce0c9956bbac85811';
+	let validatorRewards = {
+		cspr: 31821243,
+		cashValue: 921232.02
+	};
+	let delegatorRewards = {
+		cspr: 31821243,
+		cashValue: 921232.02
+	};
+	let totalStake = {
+		cspr: 31821243,
+		cashValue: 921232.02
+	};
+	let selfStake = {
+		cspr: 31821243,
+		percentage: 0.0006
+	};
+	let commisionRate = 0.05;
+	let performance = 0.94;
+
+	//Sample Data
+    let delegators = [
+		{
+			rank: 'self stake',
+			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
+			to: 16324232.03423,
+			weight: 0.3245
+		},
+		{
+			rank: '1',
+			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
+			to: 16324232.03423,
+			weight: 0.3245
+		},
+		{
+			rank: '2',
+			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
+			to: 16324232.03423,
+			weight: 0.3245
+		}
+	];
+    let totalDelagators = 2342;
+
+    let menuOptions = [
+		{
+			title: 'Delegators',
+			component: DelegatorsTab,
+            props: {delegators, totalDelagators}
+		},
+		{
+			title: 'Verified Blocks',
+			component: VerifiedBlocksTab,
+            props: {}
+		}
+	];
 </script>
 
 <div class="main">
@@ -48,11 +87,19 @@
 		</div>
 	</div>
 	<div class="header-content">
-        <ValidatorCard {imgSrc} {status} {website} {email} {twitter} {facebook} {telegram} {github} />
-        <StatisticsCard {publickKey} {validatorRewards} {delegatorRewards} {totalStake} {selfStake} {commisionRate} {performance}/>
-    </div>
+		<ValidatorCard {imgSrc} {status} {website} {email} {twitter} {facebook} {telegram} {github} />
+		<StatisticsCard
+			{publickKey}
+			{validatorRewards}
+			{delegatorRewards}
+			{totalStake}
+			{selfStake}
+			{commisionRate}
+			{performance}
+		/>
+	</div>
 
-    <!-- Delegators and verified blocks tabs go here-->
+	<TabMenu {menuOptions} />
 </div>
 
 <style lang="postcss">
@@ -74,10 +121,10 @@
 
 	.copy-icon {
 		@apply w-[1.96vw] h-[1.96vw];
-        @apply cursor-pointer;
+		@apply cursor-pointer;
 	}
 
-    .header-content {
-        @apply flex justify-between;
-    }
+	.header-content {
+		@apply flex justify-between;
+	}
 </style>
