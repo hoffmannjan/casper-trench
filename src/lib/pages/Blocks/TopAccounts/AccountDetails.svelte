@@ -1,7 +1,13 @@
 <script>
-	import Overview from '$lib/components/Blocks/TopAccounts/AccountDetails/Overview.svelte';
-	import StakeInfo from '$lib/components/Blocks/TopAccounts/AccountDetails/StakeInfo.svelte';
-	import TransferTab from '$lib/components/Blocks/TopAccounts/AccountDetails/TransferTab.svelte';
+	import Overview from '$lib/components/Accounts/Overview.svelte';
+	import StakeInfo from '$lib/components/Accounts/StakeInfo.svelte';
+
+	import StakingTab from '$lib/components/Accounts/StakingTab.svelte';
+	import TokensTab from '$lib/components/Accounts/TokensTab.svelte';
+	import TransactionsTab from '$lib/components/Accounts/TransactionsTab.svelte';
+	import TransferTab from '$lib/components/Accounts/TransferTab.svelte';
+	import EarningTab from '$lib/components/Accounts/EarningTab.svelte';
+
 
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
@@ -12,31 +18,31 @@
 	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 
 	let menuOptions = [
-	    {
-	        title: "Transfer",
-	        component: TransferTab,
-            props: {}
-	    },
-        {
-	        title: "Transactions",
-	        component: "",
-            props: {}
-	    },
-        {
-	        title: "Staking",
-	        component: "",
-            props: {}
-	    },
-        {
-	        title: "Earning",
-	        component: "",
-            props: {}
-	    },
-        {
-	        title: "Tokens",
-	        component: "",
-            props: {}
-	    }
+		{
+			title: 'Transfer',
+			component: TransferTab,
+			props: {}
+		},
+		{
+			title: 'Transactions',
+			component: TransactionsTab,
+			props: {}
+		},
+		{
+			title: 'Staking',
+			component: StakingTab,
+			props: {}
+		},
+		{
+			title: 'Earning',
+			component: EarningTab,
+			props: {}
+		},
+		{
+			title: 'Tokens',
+			component: TokensTab,
+			props: {}
+		}
 	];
 </script>
 
@@ -104,5 +110,6 @@
 
 	.info {
 		@apply flex justify-between;
+		@apply mb-[3.51vw];
 	}
 </style>
