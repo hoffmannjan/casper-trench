@@ -46,7 +46,7 @@
 	let transactionsPerPage = 10;
 </script>
 
-<div class="delegators-tab">
+<div class="transactions-tab">
 	<div class="total">
 		Latest {transactionsPerPage} Transactions
 	</div>
@@ -121,10 +121,6 @@
 	.total {
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[2.38vw];
-	}
-
-	.hash {
-		@apply text-color-hover-footer-link;
 	}
 
 	.right {

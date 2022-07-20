@@ -71,7 +71,7 @@
 	let tokensPerPage = 10;
 </script>
 
-<div class="delegators-tab">
+<div class="tokens-tab">
 	<div class="total">
 		Latest {tokensPerPage} Transactions
 	</div>

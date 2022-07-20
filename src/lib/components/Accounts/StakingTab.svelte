@@ -96,7 +96,7 @@ import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 <div class="switch-container">
     <Switch outlined options={switchOptions} bind:selected/>
 </div>
-<div class="delegators-tab">
+<div class="staking-tab">
 	<div class="total">
 		Latest {transactionsPerPage} Transactions
 	</div>
@@ -184,10 +184,6 @@ import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 		@apply mb-[2.38vw];
 	}
 
-	.hash {
-		@apply text-color-hover-footer-link;
-	}
-
 	.right {
 		@apply text-right;
 	}
@@ -195,10 +191,6 @@ import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 	.time {
 		@apply align-top;
 		@apply min-w-max;
-	}
-
-	.right-flex {
-		@apply flex justify-end;
 	}
 
     .value-crypto {
