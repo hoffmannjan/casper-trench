@@ -3,11 +3,12 @@
 
 	export let isFrom = true;
 	export let cspr = '16,324,232.03423';
+	export let hash = "cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4";
 </script>
 
 <div class="from-to-hash">
 	<Hash
-		hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4"
+		{hash}
 		noOfCharacters={6}
 		color={`${isFrom ? 'text' : 'green'}`}
 	/>

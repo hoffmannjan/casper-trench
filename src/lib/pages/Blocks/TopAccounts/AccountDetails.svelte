@@ -1,6 +1,7 @@
 <script>
 	import Overview from '$lib/components/Blocks/TopAccounts/AccountDetails/Overview.svelte';
 	import StakeInfo from '$lib/components/Blocks/TopAccounts/AccountDetails/StakeInfo.svelte';
+	import TransferTab from '$lib/components/Blocks/TopAccounts/AccountDetails/TransferTab.svelte';
 
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
@@ -13,7 +14,7 @@
 	let menuOptions = [
 	    {
 	        title: "Transfer",
-	        component: "",
+	        component: TransferTab,
             props: {}
 	    },
         {
