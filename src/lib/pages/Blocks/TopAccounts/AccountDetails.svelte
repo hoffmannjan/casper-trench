@@ -1,6 +1,6 @@
 <script>
-import Overview from '$lib/components/Blocks/TopAccounts/AccountDetails/Overview.svelte';
-import StakeInfo from '$lib/components/Blocks/TopAccounts/AccountDetails/StakeInfo.svelte';
+	import Overview from '$lib/components/Blocks/TopAccounts/AccountDetails/Overview.svelte';
+	import StakeInfo from '$lib/components/Blocks/TopAccounts/AccountDetails/StakeInfo.svelte';
 
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
@@ -11,11 +11,11 @@ import StakeInfo from '$lib/components/Blocks/TopAccounts/AccountDetails/StakeIn
 	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 
 	// let menuOptions = [
-    //     {
-    //         title: "hello",
-    //         component: ""
-    //     }
-    // ];
+	//     {
+	//         title: "hello",
+	//         component: ""
+	//     }
+	// ];
 </script>
 
 <div class="main">
@@ -41,10 +41,10 @@ import StakeInfo from '$lib/components/Blocks/TopAccounts/AccountDetails/StakeIn
 		</div>
 	</div>
 
-    <div class="info">
-        <Overview />
-        <StakeInfo />
-    </div>
+	<div class="info">
+		<Overview />
+		<StakeInfo />
+	</div>
 
 	<!-- <TabMenu {menuOptions} /> -->
 </div>
@@ -80,12 +80,12 @@ import StakeInfo from '$lib/components/Blocks/TopAccounts/AccountDetails/StakeIn
 		@apply h-[0.95vw] w-[0.95vw];
 	}
 
-    .header {
-        @apply flex gap-[1.31vw] max-h-max;
+	.header {
+		@apply flex gap-[1.31vw] max-h-max;
 		@apply mb-[1.79vw];
-    }
+	}
 
-    .info {
-        @apply flex justify-between;
-    }
+	.info {
+		@apply flex justify-between;
+	}
 </style>
