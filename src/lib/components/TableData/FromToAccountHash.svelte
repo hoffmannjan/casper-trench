@@ -2,7 +2,7 @@
 	import Hash from './Hash.svelte';
 
 	export let isFrom = true;
-	export let cspr = '16,324,232.03423';
+	export let cspr = 16324232.03423;
 	export let hash = "cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4";
 </script>
 
@@ -14,7 +14,7 @@
 	/>
 	<div class="value-crypto">
 		<div class="crypto">
-			{cspr}
+			{parseFloat(cspr.toFixed(5)).toLocaleString()}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>

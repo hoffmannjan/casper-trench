@@ -57,4 +57,8 @@
 		@apply p-[2.38vw];
 		@apply rounded-[0.6vw] rounded-tl-none;
 	}
+
+	.selector {
+		@apply w-full h-[0.24vw];
+	}
 </style>
