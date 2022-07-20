@@ -10,7 +10,7 @@
 	import { onMount } from 'svelte';
 	import type { EraValidator, ValidatorAuction } from '$utils/types/validator';
 	import { getAuctionBids, getEraValidators } from '$utils/api';
-	import { tableSort } from '$utils/sort';
+	import {  tableSort } from '$utils/sort';
 
 	let pageOptions: { name: string; dropdown?: string[]; selectedDropdown?: string }[] = [
 		{
@@ -115,8 +115,9 @@
 	};
 
 	const sortBids = (direction: 'asc' | 'desc', field: string) => {
-		validators = tableSort(direction, bids, field);
+		bids = tableSort(direction, bids, field);
 	};
+	
 </script>
 
 <div class="content">
@@ -205,7 +206,7 @@
 						<div class="header-wrapper">
 							<div class="text">Fee</div>
 							<TableSorter
-								on:sort={(e) => sortBids(e.detail?.direction, 'delegation_rate')}
+								on:sort={(e) => sortBids(e.detail?.direction, 'bid.delegation_rate')}
 							/>
 						</div>
 					</th>
@@ -213,7 +214,7 @@
 						<div class="header-wrapper">
 							<div class="text">Delegators</div>
 							<TableSorter
-								on:sort={(e) => sortBids(e.detail?.direction, 'number_of_delegators')}
+								on:sort={(e) => sortBids(e.detail?.direction, 'bid.number_of_delegators')}
 							/>
 						</div>
 					</th>
