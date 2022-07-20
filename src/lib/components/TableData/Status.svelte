@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let status: 'Active' | 'Inactive' = 'Active';
+	export let inactive: boolean;
+	$: status = inactive ? 'Inactive' : 'Active';
 </script>
 
 <div class="status {status.toLowerCase()}">

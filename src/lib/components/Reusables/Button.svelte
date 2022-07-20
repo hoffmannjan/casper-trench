@@ -8,6 +8,7 @@
 	export let translucent = false;
 	export let block = false;
 	export let active = false;
+	export let red = false;
 </script>
 
 {#if block}
@@ -28,6 +29,7 @@
 		class:outline
 		class:solid
 		class:translucent
+		class:red
 		class:button-border-gradient={gradient}
 		on:click
 	>
@@ -40,7 +42,7 @@
 <style lang="postcss">
 	.button {
 		@apply w-max h-max;
-		@apply text-[clamp(10px,1.07vw,1.07vw)];
+		@apply text-[clamp(10px,1vw,1vw)];
 		@apply cursor-pointer;
 	}
 
@@ -51,7 +53,7 @@
 	}
 
 	.gradient > .content {
-		@apply py-[clamp(16px,1.12vw,1.12vw)] px-[clamp(20px,1.43vw,1.43vw)];
+		@apply py-[clamp(16px,0.71vw,0.71vw)] px-[clamp(20px,1.43vw,1.43vw)];
 		@apply bg-white;
 		@apply rounded-[clamp(4px,0.48vw,0.48vw)];
 	}
@@ -93,5 +95,16 @@
 
 	.block.active {
 		@apply font-bold text-color-hover-footer-link;
+	}
+
+	.red {
+		@apply border-[0.06vw] border-color-arcadia-red;
+		@apply py-[clamp(8px,0.71vw,0.71vw)] px-[clamp(8px,0.95vw,0.95vw)];
+		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
+		@apply text-color-arcadia-red;
+	}
+
+	.red > .content {
+		@apply border-none;
 	}
 </style>

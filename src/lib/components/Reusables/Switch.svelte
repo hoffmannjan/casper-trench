@@ -65,7 +65,7 @@
 					{option.name}
 				</div>
 				{#if option.dropdown.length > 0}
-					<div class="icon">
+					<div class="icon" class:flipped={dropdowns[i]}>
 						<SwitchChevron />
 					</div>
 				{/if}
@@ -103,7 +103,7 @@
 		@apply text-color-grey-footer-label;
 		@apply rounded-[clamp(4px,0.48vw,0.48vw)];
 		@apply transition-all duration-300;
-		@apply flex items-center gap-[0.625vw];
+		@apply flex items-center gap-[0.6vw];
 	}
 
 	.selected {
@@ -114,6 +114,11 @@
 
 	.icon {
 		@apply w-[0.54vw] h-[0.33vw];
+		@apply transition-all;
+	}
+
+	.flipped {
+		@apply transform rotate-180;
 	}
 
 	.outlined > div > .button {
@@ -123,6 +128,7 @@
 		@apply text-color-hover-footer-link;
 		@apply bg-white;
 		@apply border-color-hover-footer-link border-[clamp(1px,0.06vw,0.06vw)];
+		@apply pl-[0.95vw] pr-[1.31vw] py-[0.77vw] rounded-[0.3vw];
 	}
 
 	.wrapper {
@@ -137,7 +143,7 @@
 		@apply rounded-[0.6vw];
 		@apply bg-white;
 		@apply mt-[0.89vw] py-[0.83vw] px-[1.07vw];
-		@apply shadow-[0px_0px_11px_0px_rgba(0,0,0,0.1)];
+		@apply shadow-[0px_0px_0.65vw_0px_rgba(0,0,0,0.1)];
 	}
 
 	.dropdown-option {

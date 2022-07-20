@@ -15,6 +15,7 @@
 	style={`--tooltip: '${hash}'`}
 	on:mouseenter={() => (showHash = true)}
 	on:mouseleave={() => (showHash = false)}
+	on:click
 >
 	{#if showHash}
 		<div class="pointer" transition:scale />

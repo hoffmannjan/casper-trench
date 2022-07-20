@@ -27,7 +27,7 @@
 		{/each}
 	</div>
 	<div class="content">
-		<svelte:component this={menuOptions[selected].component} />
+		<svelte:component this={menuOptions[selected].component} props={menuOptions[selected].props} />
 	</div>
 </div>
 
@@ -39,6 +39,7 @@
 	.option {
 		@apply px-[0.6vw];
 		@apply cursor-pointer;
+		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
 	}
 
 	.text {
@@ -48,6 +49,7 @@
 	.selected {
 		@apply border-[clamp(1px,0.15vw,0.15vw)] border-b-0 border-color-tooltip-border border-opacity-100;
 		@apply rounded-[0.6vw] rounded-b-none;
+		@apply text-color-table-header font-medium;
 	}
 
 	.content {
