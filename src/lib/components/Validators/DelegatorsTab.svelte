@@ -2,21 +2,21 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Weight from '../TableData/Weight.svelte';
 
-    export let props = {
-        delegators: [],
-        totalDelagators: 0
-    };
+	export let props = {
+		delegators: [],
+		totalDelagators: 0
+	};
 
-    // You could also just pass the hash and get delegators from the api if thats possible.
+	// You could also just pass the hash and get delegators from the api if thats possible.
 
 	let delegators = props.delegators;
-    let totalDelagators = props.totalDelagators;
+	let totalDelagators = props.totalDelagators;
 </script>
 
 <div class="delegators-tab">
-    <div class="total">
-        Total {totalDelagators} delegators
-    </div>
+	<div class="total">
+		Total {totalDelagators} delegators
+	</div>
 	<table>
 		<tr>
 			<th class="rank">Rank</th>
@@ -91,8 +91,8 @@
 		@apply text-color-hover-footer-link;
 	}
 
-    .total {
-        @apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
-        @apply mb-[2.38vw];
-    }
+	.total {
+		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply mb-[2.38vw];
+	}
 </style>

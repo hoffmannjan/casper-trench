@@ -38,7 +38,7 @@
 	let performance = 0.94;
 
 	//Sample Data
-    let delegators = [
+	let delegators = [
 		{
 			rank: 'self stake',
 			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
@@ -58,7 +58,7 @@
 			weight: 0.3245
 		}
 	];
-    let totalDelagators = 2342;
+	let totalDelagators = 2342;
 
 	let blocks = [
 		{
@@ -67,37 +67,37 @@
 			age: 1658226343000,
 			transactions: 0,
 			transfer: 0,
-			hash: "9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79"
-        },
+			hash: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79'
+		},
 		{
 			id: 916322,
 			era: 5519,
 			age: 1658224906000,
 			transactions: 0,
 			transfer: 0,
-			hash: "9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79"
-        },
+			hash: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79'
+		},
 		{
 			id: 916322,
 			era: 5519,
 			age: 1628225906000,
 			transactions: 0,
 			transfer: 0,
-			hash: "9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79"
-        }
-	]
+			hash: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79'
+		}
+	];
 	let blocksPerPage = 20;
 
-    let menuOptions = [
+	let menuOptions = [
 		{
 			title: 'Delegators',
 			component: DelegatorsTab,
-            props: {delegators, totalDelagators}
+			props: { delegators, totalDelagators }
 		},
 		{
 			title: 'Verified Blocks',
 			component: VerifiedBlocksTab,
-            props: {blocks, blocksPerPage}
+			props: { blocks, blocksPerPage }
 		}
 	];
 </script>

@@ -20,9 +20,13 @@
 	</div>
 	<div class="details">
 		<a href="/validators/{hash}">
-			<Hash {hash} variant="right" on:click={()=> {
-				goto(`/validators/${hash}`);
-			}}/>
+			<Hash
+				{hash}
+				variant="right"
+				on:click={() => {
+					goto(`/validators/${hash}`);
+				}}
+			/>
 		</a>
 		<div class="name">
 			{#if name}
