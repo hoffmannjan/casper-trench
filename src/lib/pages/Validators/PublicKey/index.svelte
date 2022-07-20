@@ -154,5 +154,6 @@
 
 	.header-content {
 		@apply flex justify-between;
+		@apply mb-[3.51vw];
 	}
 </style>
