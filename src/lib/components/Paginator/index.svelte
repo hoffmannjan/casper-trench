@@ -1,38 +1,86 @@
-<script>
+<script lang="ts">
 	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
 	import ShowRow from './ShowRow.svelte';
 
 	let page = 1;
-	let totalPages = 86132;
-	let showTotalRows = true;
+	let itemsPerPage: number;
+	let startIndex = 0;
+	export let showTotalRows = true;
+	export let items: {}[] = [];
+	export let pagedItems: {}[] = [];
+	const pageItems = () => {
+		pagedItems = items.filter((item, index) => {
+			if (index >= startIndex && index < startIndex + itemsPerPage) {
+				return item;
+			}
+		});
+	};
+	$: items && itemsPerPage && pageItems();
+	$: totalPages = items && pageItems && Math.ceil(items.length / itemsPerPage);
 </script>
 
 <div class="paginator">
 	{#if showTotalRows}
-		<div class="total">861,317 total rows</div>
+		<div class="total">{items && items.length} total rows</div>
 	{:else}
-		<ShowRow />
+		<ShowRow bind:itemsPerPage />
 	{/if}
 	<div class="paginator-buttons">
 		{#if showTotalRows}
-			<ShowRow />
+			<ShowRow bind:itemsPerPage />
 		{/if}
 		<div class="actual-paginator">
-			<div class="button">First</div>
-			<div class="button">
+			<button
+				type="button"
+				on:click={() => {
+					startIndex = 0;
+					page = 1;
+					pageItems();
+				}}
+				class="button">First</button
+			>
+			<button
+				type="button"
+				on:click={() => {
+					if (page > 1) {
+						page--;
+						startIndex -= itemsPerPage;
+						pageItems();
+					}
+				}}
+				class="button"
+			>
 				<div class="icon">
 					<PaginatorChevron />
 				</div>
-			</div>
+			</button>
 			<div class="text">
 				Page {page} of {totalPages.toLocaleString()}
 			</div>
-			<div class="button">
+			<button
+				type="button"
+				on:click={() => {
+					if (page < totalPages) {
+						page++;
+						startIndex += itemsPerPage;
+						pageItems();
+					}
+				}}
+				class="button"
+			>
 				<div class="icon right">
 					<PaginatorChevron />
 				</div>
-			</div>
-			<div class="button">Last</div>
+			</button>
+			<button
+				type="button"
+				on:click={() => {
+					page = totalPages;
+					startIndex = (totalPages - 1) * itemsPerPage;
+					pageItems();
+				}}
+				class="button">Last</button
+			>
 		</div>
 	</div>
 </div>

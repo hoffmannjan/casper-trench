@@ -1,5 +1,4 @@
-<script>
-	import Validators from '$lib/pages/Validators/index.svelte';
+<script lang="ts">
+import Validators from '$pages/Validators/index.svelte'
 </script>
-
-<Validators />
+<Validators/>
