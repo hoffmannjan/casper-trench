@@ -10,12 +10,33 @@
 
 	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 
-	// let menuOptions = [
-	//     {
-	//         title: "hello",
-	//         component: ""
-	//     }
-	// ];
+	let menuOptions = [
+	    {
+	        title: "Transfer",
+	        component: "",
+            props: {}
+	    },
+        {
+	        title: "Transactions",
+	        component: "",
+            props: {}
+	    },
+        {
+	        title: "Staking",
+	        component: "",
+            props: {}
+	    },
+        {
+	        title: "Earning",
+	        component: "",
+            props: {}
+	    },
+        {
+	        title: "Tokens",
+	        component: "",
+            props: {}
+	    }
+	];
 </script>
 
 <div class="main">
@@ -46,7 +67,7 @@
 		<StakeInfo />
 	</div>
 
-	<!-- <TabMenu {menuOptions} /> -->
+	<TabMenu {menuOptions} />
 </div>
 
 <style lang="postcss">
@@ -69,11 +90,6 @@
 	.copy-icon {
 		@apply w-[1.96vw] h-[1.96vw];
 		@apply cursor-pointer;
-	}
-
-	.header-content {
-		@apply flex justify-between;
-		@apply mb-[3.51vw];
 	}
 
 	.trusted-icon {

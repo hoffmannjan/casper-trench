@@ -52,24 +52,6 @@
 		@apply align-top;
 	}
 
-	.copy-icon {
-		@apply w-[1.96vw] h-[1.96vw];
-		@apply cursor-pointer;
-	}
-
-	.address-value {
-		@apply flex;
-	}
-
-	.text {
-		@apply break-words;
-		@apply max-w-[25.65vw];
-	}
-
-	.hash {
-		@apply text-color-hover-footer-link;
-	}
-
 	.extras {
 		@apply ml-[0.23vw] mr-[1.25vw];
 	}
