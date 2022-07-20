@@ -28,7 +28,7 @@ import Rank from '$lib/components/TableData/Rank.svelte';
             hash: "020232ee96sdfghasf52g25g25ghsrt254gf7b75e0158"
         },
         {
-            contractText: "",
+            contractText: "Contracts",
             name: "Everstake",
             lastActive: Date.parse('July 19, 2022, 14:47'),
             balance: {
