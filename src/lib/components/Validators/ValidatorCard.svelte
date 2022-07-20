@@ -9,7 +9,8 @@
 
 	import Button from '../Reusables/Button.svelte';
 
-    export let imgSrc = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Gnomelogo-footprint.svg/1200px-Gnomelogo-footprint.svg.png';
+	export let imgSrc =
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Gnomelogo-footprint.svg/1200px-Gnomelogo-footprint.svg.png';
 	export let status = 'Active';
 	export let website = 'https://everstake.one/';
 	export let email = 'inbox@everstake.one';
@@ -80,9 +81,8 @@
 	</div>
 </div>
 
-
-<style lang='postcss'>
-    .validator-card {
+<style lang="postcss">
+	.validator-card {
 		@apply flex flex-col items-center;
 		@apply pt-[3.39vw] pb-[3.21vw] px-[2.68vw];
 		@apply w-[32.32vw];

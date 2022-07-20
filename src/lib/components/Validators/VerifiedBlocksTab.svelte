@@ -1,22 +1,22 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
-    import { millisToFormat, timeAgo } from '$utils/converters';
+	import { millisToFormat, timeAgo } from '$utils/converters';
 
-    export let props = {
-        blocks: [],
-        blocksPerPage: 0
-    };
+	export let props = {
+		blocks: [],
+		blocksPerPage: 0
+	};
 
-    // You could also just pass the hash and get blocks from the api if thats possible.
+	// You could also just pass the hash and get blocks from the api if thats possible.
 
 	let blocks = props.blocks;
-    let blocksPerPage = props.blocksPerPage;
+	let blocksPerPage = props.blocksPerPage;
 </script>
 
 <div class="delegators-tab">
-    <div class="total">
-        {blocksPerPage} blocks per page
-    </div>
+	<div class="total">
+		{blocksPerPage} blocks per page
+	</div>
 	<table>
 		<tr>
 			<th class="block">Block</th>
@@ -29,12 +29,12 @@
 		<div class="divider table-header-border" />
 		{#each blocks as block}
 			<tr>
-				<td class='block'>{block.id}</td>
-                <td>{block.era}</td>
-                <td>{`${timeAgo(millisToFormat(Date.now() - block.age))} ago`}</td>
-                <td>{block.transactions}</td>
-                <td>{block.transfer}</td>
-                <td class="hash right">{block.hash}</td>
+				<td class="block">{block.id}</td>
+				<td>{block.era}</td>
+				<td>{`${timeAgo(millisToFormat(Date.now() - block.age))} ago`}</td>
+				<td>{block.transactions}</td>
+				<td>{block.transfer}</td>
+				<td class="hash right">{block.hash}</td>
 			</tr>
 		{/each}
 	</table>
@@ -62,20 +62,20 @@
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-    .block {
-        @apply px-0;
-    }
+	.block {
+		@apply px-0;
+	}
 
-    .total {
-        @apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
-        @apply mb-[2.38vw];
-    }
+	.total {
+		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply mb-[2.38vw];
+	}
 
-    .hash {
+	.hash {
 		@apply text-color-hover-footer-link;
-    }
+	}
 
-    .right {
-        @apply text-right;
-    }
+	.right {
+		@apply text-right;
+	}
 </style>

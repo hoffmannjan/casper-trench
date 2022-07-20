@@ -27,7 +27,7 @@
 		{/each}
 	</div>
 	<div class="content">
-		<svelte:component this={menuOptions[selected].component} props={menuOptions[selected].props}/>
+		<svelte:component this={menuOptions[selected].component} props={menuOptions[selected].props} />
 	</div>
 </div>
 

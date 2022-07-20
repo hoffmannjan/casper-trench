@@ -4,7 +4,7 @@
 
 	export let activeDate = Date.parse('July 8, 2022, 14:47');
 	export let hash = '';
-	export let text = "";
+	export let text = '';
 
 	const diff = Date.now() - activeDate;
 	const textString = aTimeAgo(diff);

@@ -60,3 +60,15 @@ export const getEraValidators = async () => {
 			notifyError('Could not fetch era validators');
 		});
 };
+
+export const getAuctionBids = async () => {
+	return await axios
+		.get(`${casperStatsBaseURL}/state/get-bids`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch auction bids');
+		});
+};
