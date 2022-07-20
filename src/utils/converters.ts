@@ -56,3 +56,29 @@ export const timeAgo = (time: {
 	}
 	return textString;
 };
+
+export const aTimeAgo = (diff: number): string => {
+	const time = millisToFormat(diff);
+
+	let textString = '';
+	if (time.years >= 1) {
+		textString = `${time.years === 1 ? 'a' : time.years} ${time.years === 1 ? 'year' : 'years'}`;
+	} else if (time.months >= 1) {
+		textString = `${time.months === 1 ? 'a' : time.months} ${
+			time.months === 1 ? 'month' : 'months'
+		}`;
+	} else if (time.days >= 1) {
+		textString = `${time.days === 1 ? 'a' : time.days} ${time.days === 1 ? 'day' : 'days'}`;
+	} else if (time.hours >= 1) {
+		textString = `${time.hours === 1 ? 'an' : time.hours} ${time.hours === 1 ? 'hour' : 'hours'}`;
+	} else if (time.minutes >= 1) {
+		textString = `${time.minutes === 1 ? 'a' : time.minutes} ${
+			time.minutes === 1 ? 'minute' : 'minutes'
+		}`;
+	} else {
+		textString = `${time.seconds === 1 ? 'a' : time.seconds} ${
+			time.seconds === 1 ? 'second' : 'seconds'
+		}`;
+	}
+	return textString;
+};
