@@ -34,12 +34,19 @@
 		name: string;
 		icon: string;
 	}[] = [];
+
+	let displayedValidators: {
+		public_key: string;
+		weight: string;
+		delegators: number;
+		name: string;
+		icon: string;
+	}[] = [];
 	let totalEraStake: string;
 	let eraValidators: EraValidator;
 	onMount(async () => {
 		$isLoading = true;
 		eraValidators = await getEraValidators();
-		// console.log(eraValidators);
 		if (eraValidators) {
 			// Populate the dropdown with era IDs as the items
 			eraValidators.auction_state.era_validators.forEach((eraValidator, i) => {
@@ -68,9 +75,7 @@
 	};
 
 	const sortValidators = (direction: 'asc' | 'desc', field: string) => {
-		// console.log(validators[0][field])
 		validators = tableSort(direction, validators, field);
-		// console.log("Sorted: ",tableSort(direction, validators, field))
 	};
 </script>
 
@@ -91,66 +96,64 @@
 		}}
 	/>
 
-	{#if currentPage === 0 && validators && validators.length > 0}
-		<table>
-			<tr>
-				<th class="rank">Rank</th>
-				<th class="validators">Validators</th>
-				<th class="fee">
-					<div class="header-wrapper">
-						<div class="text">Fee</div>
-						<TableSorter />
-					</div>
-				</th>
-				<th>
-					<div class="header-wrapper">
-						<div class="text">Delegators</div>
-						<TableSorter
-							on:sort={(e) => sortValidators(e.detail?.direction, 'delegators')}
-						/>
-					</div>
-				</th>
-				<th class="stake">
-					<div class="header-wrapper justify-center">
-						<div class="text">Total Stake</div>
-						<Tooltip text="Total Stake tooltip" />
-						<TableSorter
-							on:sort={(e) => sortValidators(e.detail?.direction, 'weight')}
-						/>
-					</div>
-				</th>
-				<th class="self">Self %</th>
-				<th class="network-perc">% Of Network</th>
-				<th class="performance">
-					<div class="header-wrapper">
-						<div class="text">Performance</div>
-						<Tooltip text="Performance tooltip" />
-					</div>
-				</th>
-			</tr>
-			<div class="divider table-header-border" />
-			{#each validators as validator, i}
+	{#if currentPage === 0}
+		{#if displayedValidators && displayedValidators.length > 0}
+			<table>
 				<tr>
-					<td class="rank-val">{i + 1}</td>
-					<td class="validators"
-						><Validator
-							imgUrl={validator.icon}
-							hash={validator.public_key}
-							name={validator.name}
-						/></td
-					>
-					<td class="grey">{10}%</td>
-					<td>{validator.delegators.toLocaleString()}</td>
-					<td class="stake"
-						>{parseFloat(validator.weight.substring(0, 9)).toLocaleString('en')} CSPR</td
-					>
-					<td class="grey self">{0.04}%</td>
-					<td class="grey network-perc">{calculateNetworkPercentage(validator.weight)}%</td>
-					<td class="performance"><CircleProgressBar progress={0.25} /></td>
+					<th class="rank">Rank</th>
+					<th class="validators">Validators</th>
+					<th class="fee">
+						<div class="header-wrapper">
+							<div class="text">Fee</div>
+							<TableSorter />
+						</div>
+					</th>
+					<th>
+						<div class="header-wrapper">
+							<div class="text">Delegators</div>
+							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'delegators')} />
+						</div>
+					</th>
+					<th class="stake">
+						<div class="header-wrapper justify-center">
+							<div class="text">Total Stake</div>
+							<Tooltip text="Total Stake tooltip" />
+							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'weight')} />
+						</div>
+					</th>
+					<th class="self">Self %</th>
+					<th class="network-perc">% Of Network</th>
+					<th class="performance">
+						<div class="header-wrapper">
+							<div class="text">Performance</div>
+							<Tooltip text="Performance tooltip" />
+						</div>
+					</th>
 				</tr>
-			{/each}
-		</table>
-		<Paginator />
+				<div class="divider table-header-border" />
+				{#each displayedValidators as validator, i}
+					<tr>
+						<td class="rank-val">{i + 1}</td>
+						<td class="validators"
+							><Validator
+								imgUrl={validator.icon}
+								hash={validator.public_key}
+								name={validator.name}
+							/></td
+						>
+						<td class="grey">{10}%</td>
+						<td>{validator.delegators.toLocaleString()}</td>
+						<td class="stake"
+							>{parseFloat(validator.weight.substring(0, 9)).toLocaleString('en')} CSPR</td
+						>
+						<td class="grey self">{0.04}%</td>
+						<td class="grey network-perc">{calculateNetworkPercentage(validator.weight)}%</td>
+						<td class="performance"><CircleProgressBar progress={0.25} /></td>
+					</tr>
+				{/each}
+			</table>
+		{/if}
+		<Paginator bind:items={validators} bind:pagedItems={displayedValidators} />
 	{:else}
 		<table>
 			<tr>
