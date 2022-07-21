@@ -92,6 +92,7 @@
 <style lang="postcss">
 	table {
 		@apply table-auto w-full relative;
+        @apply hidden md:table;
 	}
 
 	.divider {
@@ -100,13 +101,13 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[2vw];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] md:px-[2vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[2vw];
+		@apply py-[clamp(8px,1.19vw,1.19vw)] md:px-[2vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
@@ -120,7 +121,7 @@
 
 	.total {
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
-		@apply mb-[2.38vw];
+		@apply mb-[clamp(4px,2.38vw,2.38vw)];
 	}
 
 	.right {

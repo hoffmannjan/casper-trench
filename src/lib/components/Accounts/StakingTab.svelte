@@ -153,6 +153,7 @@ import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 <style lang="postcss">
 	table {
 		@apply table-auto w-full relative;
+        @apply hidden md:table;
 	}
 
 	.divider {
@@ -161,13 +162,13 @@ import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[2vw];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] md:px-[2vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[2vw];
+		@apply py-[clamp(8px,1.19vw,1.19vw)] md:px-[2vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
@@ -212,17 +213,17 @@ import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 
     .switch-container {
         @apply flex justify-center;
-        @apply mb-[1.31vw];
+        @apply mb-[clamp(4px,1.31vw,1.31vw)];
     }
 
     .empty-icon {
-        @apply w-[2.08vw] h-[2.08vw];
+        @apply w-[clamp(16px,2.08vw,2.08vw)] h-[clamp(16px,2.08vw,2.08vw)];
     }
 
     .empty {
-        @apply h-[23.81vw] w-full;
+        @apply h-[23.81vh] md:h-[23.81vw] w-full;
         @apply flex items-center justify-center;
-        @apply text-[clamp(8px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
+        @apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
     }
 
     .empty > div {

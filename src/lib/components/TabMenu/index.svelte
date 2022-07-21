@@ -37,13 +37,13 @@
 	}
 
 	.option {
-		@apply px-[0.6vw];
+		@apply px-[0.6vh] md:px-[0.6vw];
 		@apply cursor-pointer;
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
 	}
 
 	.text {
-		@apply px-[clamp(20px,2.14vw,2.14vw)] py-[clamp(16px,1.19vw,1.19vw)];
+		@apply px-[clamp(10px,2.14vw,2.14vw)] py-[clamp(8px,1.19vw,1.19vw)];
 	}
 
 	.selected {
@@ -59,6 +59,6 @@
 	}
 
 	.selector {
-		@apply w-full h-[0.24vw];
+		@apply w-full h-[0.24vh] md:h-[0.24vw];
 	}
 </style>

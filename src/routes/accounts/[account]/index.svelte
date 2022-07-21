@@ -1,5 +1,5 @@
 <script>
-	import AccountDetails from '$lib/pages/Blocks/TopAccounts/AccountDetails.svelte';
+	import AccountDetails from '$lib/pages/Accounts/AccountDetails.svelte';
 </script>
 
 <AccountDetails />

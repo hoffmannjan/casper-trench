@@ -65,7 +65,7 @@
 
 <style lang="postcss">
 	.bg {
-		@apply absolute inset-0 hidden w-full h-full md:block -z-10;
+		@apply absolute inset-0 w-full h-full -z-10;
 	}
 
 	.footer {
@@ -84,7 +84,7 @@
 	}
 
 	.casper-live > .logo {
-		@apply h-[clamp(16px,2.44vw,2.44vw)] w-[clamp(50px,10.42vw,10.42vw)];
+		@apply h-[clamp(25px,2.44vw,2.44vw)] w-[clamp(90px,10.42vw,10.42vw)];
 		@apply mb-[clamp(16px,2.26vw,2.26vw)];
 	}
 
