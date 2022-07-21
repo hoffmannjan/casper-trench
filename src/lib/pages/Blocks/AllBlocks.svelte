@@ -1,4 +1,6 @@
 <script>
+import { goto } from '$app/navigation';
+
 	import Paginator from '$lib/components/Paginator/index.svelte';
     import Hash from '$lib/components/TableData/Hash.svelte';
     import Validator from '$lib/components/TableData/Validator.svelte';
@@ -72,7 +74,9 @@
                 </td>
 				<td class="center">
                     <div class="wrapper">
-                        <Hash hash={block.hash}/>
+                        <Hash hash={block.hash} on:click={() => {
+							goto(`/blocks/${block.hash}`);
+						}}/>
                     </div>
                 </td>
 				<td>
