@@ -1,5 +1,6 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
+import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 import AmountCost from '$lib/components/TableData/AmountCost.svelte';
 import ContractText from '$lib/components/TableData/ContractText.svelte';
 import Hash from '$lib/components/TableData/Hash.svelte';
@@ -65,7 +66,12 @@ import { millisToFormat, timeAgo } from '$utils/converters';
 			<th class="block">Tx Hash</th>
 			<th>Block Hash</th>
 			<th>Public Key</th>
-			<th class="center">Age</th>
+			<th class="center sorter">
+				<div class="text">
+					Age
+				</div>
+				<TableSorter />
+			</th>
 			<th>Contract</th>
 			<th class="right">Amount</th>
 			<th class="right"> Cost</th>
@@ -85,7 +91,7 @@ import { millisToFormat, timeAgo } from '$utils/converters';
                     <Hash hash={transaction.publicKey}/>
                 </td>
 				<td class="center age">
-                    {`${timeAgo(millisToFormat(Date.now() - transaction.age))} ago`}
+					{`${timeAgo(millisToFormat(Date.now() - transaction.age))} ago`}
                 </td>
 				<td>
                     <ContractText />
@@ -149,6 +155,10 @@ import { millisToFormat, timeAgo } from '$utils/converters';
 
 	.age {
 		@apply text-color-grey-footer-label;
+	}
+
+	.sorter {
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] justify-center;
 	}
 
 	.wrapper-center {
