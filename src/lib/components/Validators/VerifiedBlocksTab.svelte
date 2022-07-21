@@ -1,16 +1,26 @@
-<script>
+<script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
+	import { isLoading } from '$stores/loading';
+	import { getProposerBlocks } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
+	import type { ProposerBlocks } from '$utils/types/block';
+	import { onMount } from 'svelte';
 
-	export let props = {
-		blocks: [],
-		blocksPerPage: 0
+	export let props: {
+		validatorPublicKey: string;
 	};
+	let blocksPerPage:number= 20;
+	let blocks: ProposerBlocks[];
+	onMount(async () => {
+		await fetchProposerBlocks();
+	});
 
-	// You could also just pass the hash and get blocks from the api if thats possible.
-
-	let blocks = props.blocks;
-	let blocksPerPage = props.blocksPerPage;
+	const fetchProposerBlocks = async () => {
+		$isLoading = true;
+		blocks = await getProposerBlocks(props.validatorPublicKey, blocksPerPage, 0);
+		console.log(blocks);
+		$isLoading = false;
+	};
 </script>
 
 <div class="delegators-tab">
@@ -27,18 +37,20 @@
 			<th class="right">Block Hash</th>
 		</tr>
 		<div class="divider table-header-border" />
+		{#if blocks && blocks.length>0}
 		{#each blocks as block}
 			<tr>
-				<td class="block">{block.id}</td>
+				<td class="block">{block.height}</td>
 				<td>{block.era}</td>
-				<td>{`${timeAgo(millisToFormat(Date.now() - block.age))} ago`}</td>
-				<td>{block.transactions}</td>
-				<td>{block.transfer}</td>
+				<td>{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}</td>
+				<td>{block.deploys}</td>
+				<td>{block.transfers}</td>
 				<td class="hash right">{block.hash}</td>
 			</tr>
 		{/each}
+		{/if}
 	</table>
-	<Paginator />
+	<!-- <Paginator /> -->
 </div>
 
 <style lang="postcss">
