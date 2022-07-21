@@ -113,10 +113,6 @@
 		@apply px-0;
 	}
 
-	.right {
-		@apply text-right;
-	}
-
 	.wrapper {
         @apply flex justify-center;
 	}
@@ -127,11 +123,6 @@
 
 	.age {
 		@apply text-color-grey-footer-label;
-	}
-
-	.wrapper-center {
-		@apply flex items-center;
-		@apply md:h-[3vw];
 	}
 
 	.black {
