@@ -1,23 +1,31 @@
-<script>
-	export let cspr = 31821243;
-	export let cashValue = 921232.02;
-	export let percentageFooter = false;
+<script lang="ts">
+	import { getStats } from '$utils/api';
+	import type { Stats } from '$utils/types/stats';
+	import { onMount } from 'svelte';
+
+	export let cspr: number;
+	let cashValue: number=0;
+	export let selfStakePercentage:number=0;
+	onMount(async () => {
+		const stats: Stats = await getStats();
+		cashValue = cspr * stats.price;
+	});
 </script>
 
 <div class="crypto-cash">
 	<div class="value-crypto">
 		<div class="crypto">
-			{parseFloat(cspr.toFixed(5)).toLocaleString()}
+			{parseFloat(cspr.toFixed(5)).toLocaleString('en')}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>
-	{#if percentageFooter}
+	{#if selfStakePercentage>0}
 		<div class="value-cash">
-			${cashValue * 100}%
+			{selfStakePercentage}%
 		</div>
 	{:else}
 		<div class="value-cash">
-			${parseFloat(cashValue.toFixed(2)).toLocaleString()}
+			${parseFloat(cashValue.toFixed(2)).toLocaleString('en')}
 		</div>
 	{/if}
 </div>

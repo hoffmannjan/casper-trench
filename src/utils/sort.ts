@@ -1,7 +1,6 @@
 // TODO explore cleaner ways of implementation
 export const tableSort = (direction: 'asc' | 'desc', items: {}[], sortElement: string): any => {
 	const nestedFields = sortElement.split('.');
-	console.log(nestedFields);
 	items.sort((a, b) => {
 		switch (nestedFields.length) {
 			case 1:

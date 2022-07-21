@@ -1,38 +1,20 @@
-<script>
+<script lang="ts">
 	import DelegatorsTab from '$lib/components/Validators/DelegatorsTab.svelte';
 	import StatisticsCard from '$lib/components/Validators/StatisticsCard.svelte';
 	import ValidatorCard from '$lib/components/Validators/ValidatorCard.svelte';
 	import VerifiedBlocksTab from '$lib/components/Validators/VerifiedBlocksTab.svelte';
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
-
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
+	import type { ValidatorDetails } from '$utils/types/validator';
+	import { isLoading } from '$stores/loading';
+	import { onMount } from 'svelte';
+	import { getStats, getValidator } from '$utils/api';
+	import { page } from '$app/stores';
+	import type { Stats } from '$utils/types/stats';
 
-	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
-	let imgSrc =
-		'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Gnomelogo-footprint.svg/1200px-Gnomelogo-footprint.svg.png';
-	let status = 'Active';
-	let website = 'https://everstake.one/';
-	let email = 'inbox@everstake.one';
-	let twitter = '/';
-	let facebook = '/';
-	let telegram = '/';
-	let github = '/';
-	let publickKey = '01b205c2bd03ce19cd2876ccc21a3566c407b631f3e714532ce0c9956bbac85811';
 	let validatorRewards = {
 		cspr: 31821243,
 		cashValue: 921232.02
-	};
-	let delegatorRewards = {
-		cspr: 31821243,
-		cashValue: 921232.02
-	};
-	let totalStake = {
-		cspr: 31821243,
-		cashValue: 921232.02
-	};
-	let selfStake = {
-		cspr: 31821243,
-		percentage: 0.0006
 	};
 	let commisionRate = 0.05;
 	let performance = 0.94;
@@ -100,34 +82,38 @@
 			props: { blocks, blocksPerPage }
 		}
 	];
+
+	let validator: ValidatorDetails;
+	let stats: Stats;
+	onMount(async () => {
+		$isLoading = true;
+		validator = await getValidator($page.params.public_key);
+		stats = await getStats();
+		console.log(validator);
+		$isLoading = false;
+	});
 </script>
 
 <div class="main">
-	<div class="address">
-		<div class="title">Address</div>
-		<div class="value">
-			<div class="text">
-				{address}
-			</div>
-			<div class="copy-icon">
-				<CopyIcon />
+	{#if validator && stats}
+		<div class="address">
+			<div class="title">Address</div>
+			<div class="value">
+				<div class="text">
+					{validator.public_key}
+				</div>
+				<div class="copy-icon">
+					<CopyIcon />
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="header-content">
-		<ValidatorCard {imgSrc} {status} {website} {email} {twitter} {facebook} {telegram} {github} />
-		<StatisticsCard
-			{publickKey}
-			{validatorRewards}
-			{delegatorRewards}
-			{totalStake}
-			{selfStake}
-			{commisionRate}
-			{performance}
-		/>
-	</div>
+		<div class="header-content">
+			<ValidatorCard inactive={validator.bid.inactive} information={validator.information} />
+			<StatisticsCard {validator} />
+		</div>
 
-	<TabMenu {menuOptions} />
+		<TabMenu {menuOptions} />
+	{/if}
 </div>
 
 <style lang="postcss">
@@ -153,7 +139,7 @@
 	}
 
 	.header-content {
-		@apply flex justify-between;
+		@apply flex flex-col md:flex-row gap-y-[clamp(10px,1vw,1vw)] justify-between;
 		@apply mb-[3.51vw];
 	}
 </style>
