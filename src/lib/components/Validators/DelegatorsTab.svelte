@@ -64,7 +64,7 @@
 			{/each}
 		{/if}
 	</table>
-	<Paginator bind:items={delegators} bind:pagedItems={displayedDelegators} />
+	<Paginator showTotalRows={false} bind:items={delegators} bind:pagedItems={displayedDelegators} />
 </div>
 
 <style lang="postcss">

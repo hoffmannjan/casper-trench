@@ -1,15 +1,16 @@
 <script lang="ts">
 	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
+	import { createEventDispatcher } from 'svelte';
 	import ShowRow from './ShowRow.svelte';
-
+	const dispatch = createEventDispatcher();
 	let page = 1;
-	
-	export let itemsPerPage: number;
+
+	export let itemsPerPage = 10;
 	export let startIndex = 0;
 	export let showTotalRows = true;
 	export let items: {}[] = [];
 	export let pagedItems: {}[] = [];
-	// export let apiPaginator:boolean=false;
+	export let apiPaginator = false;
 	const pageItems = () => {
 		pagedItems = items.filter((item, index) => {
 			if (index >= startIndex && index < startIndex + itemsPerPage) {
@@ -37,7 +38,7 @@
 				on:click={() => {
 					startIndex = 0;
 					page = 1;
-					pageItems();
+					apiPaginator ? dispatch('load-page') : pageItems();
 				}}
 				class="button">First</button
 			>
@@ -47,7 +48,7 @@
 					if (page > 1) {
 						page--;
 						startIndex -= itemsPerPage;
-						pageItems();
+						apiPaginator ? dispatch('load-page') : pageItems();
 					}
 				}}
 				class="button"
@@ -57,15 +58,24 @@
 				</div>
 			</button>
 			<div class="text">
-				Page {page} of {totalPages.toLocaleString()}
+				Page {page}
+				{#if !apiPaginator}
+					of {totalPages.toLocaleString()}
+				{/if}
 			</div>
 			<button
 				type="button"
 				on:click={() => {
-					if (page < totalPages) {
+					if (apiPaginator && items && items.length > 0) {
 						page++;
 						startIndex += itemsPerPage;
-						pageItems();
+						dispatch('load-page');
+					} else {
+						if (page < totalPages) {
+							page++;
+							startIndex += itemsPerPage;
+							pageItems();
+						}
 					}
 				}}
 				class="button"
@@ -77,6 +87,7 @@
 			<button
 				type="button"
 				on:click={() => {
+					if (apiPaginator) return;
 					page = totalPages;
 					startIndex = (totalPages - 1) * itemsPerPage;
 					pageItems();

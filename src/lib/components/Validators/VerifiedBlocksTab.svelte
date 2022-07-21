@@ -9,7 +9,8 @@
 	export let props: {
 		validatorPublicKey: string;
 	};
-	let blocksPerPage:number= 20;
+	let blocksPerPage: number = 10;
+	let startIndex = 0;
 	let blocks: ProposerBlocks[];
 	onMount(async () => {
 		await fetchProposerBlocks();
@@ -17,10 +18,17 @@
 
 	const fetchProposerBlocks = async () => {
 		$isLoading = true;
-		blocks = await getProposerBlocks(props.validatorPublicKey, blocksPerPage, 0);
-		console.log(blocks);
+		blocks = await getProposerBlocks(props.validatorPublicKey, blocksPerPage, startIndex);
+		// console.log(blocks);
 		$isLoading = false;
 	};
+	$: if (blocksPerPage) {
+		console.log(blocksPerPage, startIndex);
+		startIndex = 0;
+		setTimeout(async () => {
+			await fetchProposerBlocks();
+		}, 1);
+	}
 </script>
 
 <div class="delegators-tab">
@@ -37,20 +45,27 @@
 			<th class="right">Block Hash</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#if blocks && blocks.length>0}
-		{#each blocks as block}
-			<tr>
-				<td class="block">{block.height}</td>
-				<td>{block.era}</td>
-				<td>{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}</td>
-				<td>{block.deploys}</td>
-				<td>{block.transfers}</td>
-				<td class="hash right">{block.hash}</td>
-			</tr>
-		{/each}
+		{#if blocks && blocks.length > 0}
+			{#each blocks as block}
+				<tr>
+					<td class="block">{block.height}</td>
+					<td>{block.era}</td>
+					<td>{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}</td>
+					<td>{block.deploys}</td>
+					<td>{block.transfers}</td>
+					<td class="hash right">{block.hash}</td>
+				</tr>
+			{/each}
 		{/if}
 	</table>
-	<!-- <Paginator /> -->
+	<Paginator
+		showTotalRows={false}
+		bind:itemsPerPage={blocksPerPage}
+		apiPaginator
+		bind:items={blocks}
+		bind:startIndex
+		on:load-page={async () => await fetchProposerBlocks()}
+	/>
 </div>
 
 <style lang="postcss">

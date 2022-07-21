@@ -18,8 +18,6 @@
 		delegatee: string;
 	}[] = [];
 
-	
-
 	let menuOptions = [
 		{
 			title: 'Delegators',
@@ -29,7 +27,7 @@
 		{
 			title: 'Verified Blocks',
 			component: VerifiedBlocksTab,
-			props: { validatorPublicKey:$page.params.public_key }
+			props: { validatorPublicKey: $page.params.public_key }
 		}
 	];
 
