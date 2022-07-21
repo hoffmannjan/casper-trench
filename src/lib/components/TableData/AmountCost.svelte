@@ -5,10 +5,10 @@
 
 <div class="crypto-cash">
 	<div class="value-crypto">
-		{cspr} CSPR
+		{parseFloat(cspr.toFixed(2)).toLocaleString('en')} CSPR
 	</div>
 	<div class="value-cash">
-		${cashValue}
+		${parseFloat(cashValue.toFixed(2)).toLocaleString('en')}
 	</div>
 </div>
 
