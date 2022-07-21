@@ -2,6 +2,7 @@
 import { goto } from '$app/navigation';
 
 	import Paginator from '$lib/components/Paginator/index.svelte';
+import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
     import Hash from '$lib/components/TableData/Hash.svelte';
     import Validator from '$lib/components/TableData/Validator.svelte';
     import { millisToFormat, timeAgo } from '$utils/converters';
@@ -50,10 +51,30 @@ import { goto } from '$app/navigation';
 	<div class="title">Blocks</div>
 	<table>
 		<tr>
-			<th class="block">Block Height</th>
-			<th>Era</th>
-			<th class="center">Transaction</th>
-			<th class="center">Age</th>
+			<th class="block">
+				<div class="sorter">
+					<div class="text">Block Height</div>
+					<TableSorter />
+				</div>
+			</th>
+			<th>
+				<div class="sorter">
+					<div class="text">Era</div>
+					<TableSorter />
+				</div>
+			</th>
+			<th class="center">
+				<div class="sorter">
+					<div class="text">Transaction</div>
+					<TableSorter />
+				</div>
+			</th>
+			<th class="center">
+				<div class="sorter">
+					<div class="text">Age</div>
+					<TableSorter />
+				</div>
+			</th>
 			<th class="center">Block Hash</th>
 			<th>Validators</th>
 		</tr>
@@ -135,5 +156,13 @@ import { goto } from '$app/navigation';
 
 	.era {
 		@apply text-color-grey-footer-label;
+	}
+
+	.sorter {
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
+	}
+
+	.center > .sorter {
+		@apply justify-center;
 	}
 </style>
