@@ -72,3 +72,14 @@ export const getAuctionBids = async () => {
 			notifyError('Could not fetch auction bids');
 		});
 };
+export const getValidator = async (address: string) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/state/get-validator/${address}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch validator details');
+		});
+};

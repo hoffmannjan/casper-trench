@@ -75,3 +75,31 @@ export type ValidatorAuction = {
 		}[];
 	};
 };
+
+export type ValidatorDetails = {
+	public_key: string;
+	bid: {
+		bonding_purse: string;
+		staked_amount: string;
+		delegation_rate: number;
+		delegators: {
+			public_key: string;
+			staked_amount: number;
+			bonding_purse: string;
+			delegatee: string;
+		}[];
+		inactive: boolean;
+		total_stake: string;
+	};
+	information: {
+		name: string;
+		email: string;
+		icon: string;
+		website: string;
+		links: {
+			tag: string;
+			link: string;
+		}[];
+		details: string;
+	};
+};

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import FacebookGreenLogo from '$lib/icons/FacebookGreenLogo.svelte';
 
 	import GithubGreenLogo from '$lib/icons/GithubGreenLogo.svelte';
@@ -9,83 +9,87 @@
 
 	import Button from '../Reusables/Button.svelte';
 
-	export let imgSrc =
-		'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Gnomelogo-footprint.svg/1200px-Gnomelogo-footprint.svg.png';
-	export let status = 'Active';
-	export let website = 'https://everstake.one/';
-	export let email = 'inbox@everstake.one';
-	export let twitter = '/';
-	export let facebook = '/';
-	export let telegram = '/';
-	export let github = '/';
+	export let inactive: boolean;
+	export let information: {
+		name: string;
+		email: string;
+		icon: string;
+		website: string;
+		links: {
+			tag: string;
+			link: string;
+		}[];
+		details: string;
+	};
 </script>
 
-<div class="validator-card">
-	<div class="logo" class:inactive={status !== 'Active'}>
-		<img src={imgSrc} alt="validator-logo" />
-		{#if status === 'Active'}
-			<div class="online-dot" />
-		{/if}
-	</div>
-	<div class="name-wrapper">
-		<div class="name">Everstake</div>
-		<div class="verified-icon">
-			<VerifiedIcon />
+{#if information}
+	<div class="validator-card">
+		<div class="logo" class:inactive>
+			<img src={information.icon} alt="validator-logo" />
+			{#if !inactive}
+				<div class="online-dot" />
+			{/if}
 		</div>
-	</div>
-	<div class="details">
-		Reliable and experienced staking service provider from Ukraine. Everstake helps institutional
-		investors and regular token holders to profit off their crypto assets. We operate in a wide
-		range of Proof of Stake blockchains, providing our customers with numerous options to choose
-		from. Visit our website for more details.
-	</div>
-	<div class="extras">
-		<div class="labels-values">
-			<div class="label">Website</div>
-			<div class="label">Email</div>
-			<div class="label">Socials</div>
+		<div class="name-wrapper">
+			<div class="name">{information.name}</div>
+			<div class="verified-icon">
+				<VerifiedIcon />
+			</div>
 		</div>
-		<div class="validator-values">
-			<a class="value" href={website}>
-				<div class="text">
-					{website}
-				</div>
-				<div class="icon">
-					<OpenIcon />
-				</div>
-			</a>
-			<div class="value">
-				<a href="mailto:{email}" class="text">
-					{email}
+		<div class="details">
+			{information.details}
+		</div>
+		<div class="extras">
+			<div class="labels-values">
+				<div class="label">Website</div>
+				<div class="label">Email</div>
+				<div class="label">Socials</div>
+			</div>
+			<div class="validator-values">
+				<a class="value" href={information.website}>
+					<div class="text">
+						{information.website}
+					</div>
+					<div class="open-icon">
+						<OpenIcon />
+					</div>
 				</a>
-			</div>
-			<div class="socials">
-				{#if twitter.length > 0}
-					<a href={twitter} class="social"><TwitterGreenLogo /></a>
-				{/if}
-				{#if facebook.length > 0}
-					<a href={facebook} class="social"><FacebookGreenLogo /></a>
-				{/if}
-				{#if telegram.length > 0}
-					<a href={telegram} class="social"><TelegramGreenLogo /></a>
-				{/if}
-				{#if github.length > 0}
-					<a href={github} class="social"><GithubGreenLogo /></a>
-				{/if}
+				<div class="value">
+					<a href="mailto:{information.email}" class="text">
+						{information.email}
+					</a>
+				</div>
+				<div class="socials">
+					{#each information.links as link}
+						{#if link.tag === 'Twitter'}
+							<a href={link.link} class="social"><TwitterGreenLogo /></a>
+						{/if}
+						{#if link.tag === 'Facebook'}
+							<a href={link.link} class="social"><FacebookGreenLogo /></a>
+						{/if}
+						{#if link.tag === 'Telegram'}
+							<a href={link.link} class="social"><TelegramGreenLogo /></a>
+						{/if}
+						{#if link.tag === 'Github'}
+							<a href={link.link} class="social"><GithubGreenLogo /></a>
+						{/if}
+					{/each}
+				</div>
 			</div>
 		</div>
+		<div class="buttons">
+			<Button gradient>Delegate</Button>
+			<Button red>Undelegate</Button>
+		</div>
 	</div>
-	<div class="buttons">
-		<Button gradient>Delegate</Button>
-		<Button red>Undelegate</Button>
-	</div>
-</div>
+{/if}
 
 <style lang="postcss">
 	.validator-card {
 		@apply flex flex-col items-center;
 		@apply pt-[3.39vw] pb-[3.21vw] px-[2.68vw];
-		@apply w-[32.32vw];
+		@apply w-full md:w-[32.32vw];
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
 		@apply rounded-[0.89vw];
@@ -118,7 +122,8 @@
 		@apply transform translate-y-[-0.55vw] translate-x-[-0.55vw] z-30;
 	}
 
-	.verified-icon {
+	.verified-icon,
+	.open-icon {
 		@apply w-[1.31vw] h-[1.31vw];
 	}
 
@@ -128,16 +133,16 @@
 	}
 
 	.name {
-		@apply font-medium text-[1.55vw] text-color-table-header;
+		@apply font-medium text-[clamp(16px,1.55vw,1.55vw)] text-color-table-header;
 	}
 
 	.details {
-		@apply text-color-table-header text-[0.95vw];
+		@apply text-color-table-header text-[clamp(12px,0.95vw,0.95vw)];
 		@apply mb-[1.19vw];
 	}
 
 	.labels-values > .label {
-		@apply font-bold text-[1.07vw] text-color-grey-footer-label;
+		@apply font-bold text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
 	}
 
 	.validator-values > .value {
@@ -158,7 +163,7 @@
 	}
 
 	.validator-values > .value {
-		@apply flex gap-[0.48vw];
+		@apply flex flex-row items-center gap-[0.48vw];
 	}
 
 	.validator-values > .value > .text {
