@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<title>Casper Trench</title>
+	<title>Caspertrench</title>
 </svelte:head>
 
 <Header />
