@@ -83,3 +83,21 @@ export const getValidator = async (address: string) => {
 			notifyError('Could not fetch validator details');
 		});
 };
+
+export const getProposerBlocks = async (address: string, count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/chain/get-proposer-blocks`, {
+			params: {
+				validator: address,
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch validator details');
+		});
+};

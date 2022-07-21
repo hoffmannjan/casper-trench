@@ -3,11 +3,13 @@
 	import ShowRow from './ShowRow.svelte';
 
 	let page = 1;
-	let itemsPerPage: number;
-	let startIndex = 0;
+	
+	export let itemsPerPage: number;
+	export let startIndex = 0;
 	export let showTotalRows = true;
 	export let items: {}[] = [];
 	export let pagedItems: {}[] = [];
+	// export let apiPaginator:boolean=false;
 	const pageItems = () => {
 		pagedItems = items.filter((item, index) => {
 			if (index >= startIndex && index < startIndex + itemsPerPage) {

@@ -18,3 +18,12 @@ export type Block = {
 		timestamp: string;
 	};
 };
+
+export type ProposerBlocks = {
+	hash: string;
+	height: number;
+	timestamp: string;
+	era: number;
+	deploys: number;
+	transfers: number;
+};
