@@ -1,4 +1,8 @@
 <script lang="ts">
+import BlockProofs from '$lib/components/Blocks/BlockProofs.svelte';
+
+import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
+
 	import Button from '$lib/components/Reusables/Button.svelte';
     import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
     import EyeIcon from '$lib/icons/EyeIcon.svelte';
@@ -21,11 +25,11 @@
         {
             hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a",
             from: {
-                imgUrl: "",
+                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
                 hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
             },
             to: {
-                imgUrl: "",
+                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
                 hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
             },
             value: 931
@@ -33,11 +37,11 @@
         {
             hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a",
             from: {
-                imgUrl: "",
+                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
                 hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
             },
             to: {
-                imgUrl: "",
+                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
                 hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
             },
             value: 931
@@ -45,18 +49,67 @@
         {
             hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a",
             from: {
-                imgUrl: "",
+                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
                 hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
             },
             to: {
-                imgUrl: "",
+                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
                 hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
             },
             value: 931
         }
     ];
 
-
+    let proofs = [
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+        {
+            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
+            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
+        },
+    ]
 
     let showTransactions = false;
     let showProofs = false;
@@ -140,7 +193,7 @@
                             </div>
                         </div>
                         {#if showTransactions}
-                            <!-- Show Transactions -->
+                            <TransactionsTable {transactions}/>
                         {/if}
                     </td>
 				</tr>
@@ -170,7 +223,7 @@
                             </div>
                         </div>
                         {#if showProofs}
-                            <!-- Show Proofs -->
+                            <BlockProofs {proofs}/>
                         {/if}
                     </td>
 				</tr>
@@ -224,7 +277,7 @@
 	.value {
 		@apply text-[clamp(16px,1.07vw,1.07vw)];
 		@apply flex flex-col gap-[0.24vw];
-		@apply min-w-max;
+		@apply w-full;
 	}
 
 	td {
