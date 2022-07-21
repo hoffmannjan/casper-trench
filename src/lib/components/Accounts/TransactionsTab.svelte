@@ -92,7 +92,6 @@
 <style lang="postcss">
 	table {
 		@apply table-auto w-full relative;
-        @apply hidden md:table;
 	}
 
 	.divider {

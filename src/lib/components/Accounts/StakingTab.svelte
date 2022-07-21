@@ -153,7 +153,6 @@ import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 <style lang="postcss">
 	table {
 		@apply table-auto w-full relative;
-        @apply hidden md:table;
 	}
 
 	.divider {
