@@ -1,12 +1,16 @@
 <script lang="ts">
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
-	import type { Stats } from '$utils/types/stats';
 	import type { ValidatorDetails } from '$utils/types/validator';
 	import BalanceTransferrable from '../TableData/BalanceTransferrable.svelte';
 	import CircleProgressBar from '../TableData/CircleProgressBar.svelte';
 
 	export let validator: Partial<ValidatorDetails>;
-	const selfStakePercentage=parseFloat(((parseFloat(validator.bid.staked_amount)/parseFloat(validator.bid.total_stake))*100).toFixed(2))
+	const selfStakePercentage = parseFloat(
+		(
+			(parseFloat(validator.bid.staked_amount) / parseFloat(validator.bid.total_stake)) *
+			100
+		).toFixed(2)
+	);
 </script>
 
 <div class="statistics-card">
@@ -25,30 +29,37 @@
 		<tr>
 			<td class="label">Total Validator Rewards</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><BalanceTransferrable cspr={156324232.03423} /></td>
+			<td class="value"><BalanceTransferrable cspr={156324232.03423} />PH</td>
 		</tr>
 		<tr>
 			<td class="label">Total Delegator Rewards</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><BalanceTransferrable cspr={156324232.03423} /></td>
+			<td class="value"><BalanceTransferrable cspr={156324232.03423} />PH</td>
 		</tr>
 		<tr>
 			<td class="label">Total Stake</td>
-			<td class="value"><BalanceTransferrable cspr={parseFloat(validator.bid.total_stake.substring(0,9))} /></td>
+			<td class="value"
+				><BalanceTransferrable cspr={parseFloat(validator.bid.total_stake.substring(0, 9))} /></td
+			>
 		</tr>
 		<tr>
 			<td class="label">Self Stake</td>
-			<td class="value"><BalanceTransferrable cspr={parseFloat(validator.bid.staked_amount.substring(0,9))} {selfStakePercentage}/></td>
+			<td class="value"
+				><BalanceTransferrable
+					cspr={parseFloat(validator.bid.staked_amount.substring(0, 9))}
+					{selfStakePercentage}
+				/></td
+			>
 		</tr>
 		<tr>
 			<td class="label">Commission Rate</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value commission">{(5).toFixed(2)}%</td>
+			<td class="value commission">{(5).toFixed(2)}% PH</td>
 		</tr>
 		<tr>
 			<td class="label">Performance</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><CircleProgressBar progress={1} /></td>
+			<td class="value"><CircleProgressBar progress={1} />PH</td>
 		</tr>
 	</table>
 </div>

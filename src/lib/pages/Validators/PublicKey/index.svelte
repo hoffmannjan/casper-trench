@@ -8,39 +8,15 @@
 	import type { ValidatorDetails } from '$utils/types/validator';
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
-	import { getStats, getValidator } from '$utils/api';
+	import { getValidator } from '$utils/api';
 	import { page } from '$app/stores';
-	import type { Stats } from '$utils/types/stats';
 
-	let validatorRewards = {
-		cspr: 31821243,
-		cashValue: 921232.02
-	};
-	let commisionRate = 0.05;
-	let performance = 0.94;
-
-	//Sample Data
-	let delegators = [
-		{
-			rank: 'self stake',
-			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			to: 16324232.03423,
-			weight: 0.3245
-		},
-		{
-			rank: '1',
-			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			to: 16324232.03423,
-			weight: 0.3245
-		},
-		{
-			rank: '2',
-			key: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			to: 16324232.03423,
-			weight: 0.3245
-		}
-	];
-	let totalDelagators = 2342;
+	let delegators: {
+		public_key: string;
+		staked_amount: number;
+		bonding_purse: string;
+		delegatee: string;
+	}[] = [];
 
 	let blocks = [
 		{
@@ -74,7 +50,7 @@
 		{
 			title: 'Delegators',
 			component: DelegatorsTab,
-			props: { delegators, totalDelagators }
+			props: { delegators }
 		},
 		{
 			title: 'Verified Blocks',
@@ -84,18 +60,24 @@
 	];
 
 	let validator: ValidatorDetails;
-	let stats: Stats;
 	onMount(async () => {
 		$isLoading = true;
 		validator = await getValidator($page.params.public_key);
-		stats = await getStats();
-		console.log(validator);
+		menuOptions[0].props.delegators = validator && validator.bid.delegators;
+		menuOptions[0].props.delegators.unshift({
+			public_key: validator.public_key,
+			staked_amount: parseFloat(validator.bid.staked_amount),
+			bonding_purse: validator.bid.bonding_purse,
+			delegatee: ''
+		});
+		menuOptions[0].props['totalStake'] = validator && validator.bid.total_stake;
+		menuOptions[0].props['validatorPublicKey'] = validator && validator.public_key;
 		$isLoading = false;
 	});
 </script>
 
 <div class="main">
-	{#if validator && stats}
+	{#if validator}
 		<div class="address">
 			<div class="title">Address</div>
 			<div class="value">
