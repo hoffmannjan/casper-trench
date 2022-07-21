@@ -1,47 +1,70 @@
-<script>
+<script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Weight from '../TableData/Weight.svelte';
 
-	export let props = {
-		delegators: [],
-		totalDelagators: 0
+	export let props: {
+		delegators: {
+			public_key: string;
+			staked_amount: number;
+			bonding_purse: string;
+			delegatee: string;
+		}[];
+		totalStake: string;
+		validatorPublicKey: string;
 	};
 
-	// You could also just pass the hash and get delegators from the api if thats possible.
-
+	let displayedDelegators: {
+		public_key: string;
+		staked_amount: number;
+		bonding_purse: string;
+		delegatee: string;
+	}[];
 	let delegators = props.delegators;
-	let totalDelagators = props.totalDelagators;
+	let totalDelagators = delegators.length;
 </script>
 
 <div class="delegators-tab">
 	<div class="total">
-		Total {totalDelagators} delegators
+		{#if delegators}
+			Total {totalDelagators} delegators
+		{:else}
+			Total 0 delegators{/if}
 	</div>
 	<table>
 		<tr>
 			<th class="rank">Rank</th>
 			<th>Delegators (Public key)</th>
-			<th class="to"> To (Account Hash) </th>
+			<!-- TODO confirm is staked amount -->
+			<!-- <th class="to"> To (Account Hash) </th> -->
+			<th class="to">Staked Amount</th>
 			<th class="weight"> % Weight </th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#each delegators as delegator}
-			<tr>
-				<td class:rank-val={delegator.rank.length === 1}>{delegator.rank}</td>
-				<td class="key">{delegator.key}</td>
-				<td class="to">
-					<div class="value-crypto">
-						<div class="crypto">
-							{parseFloat(delegator.to.toFixed(5)).toLocaleString()}
+		{#if displayedDelegators && displayedDelegators.length > 0}
+			{#each displayedDelegators as delegator, i}
+				<tr>
+					{#if props.validatorPublicKey === delegator.public_key}
+						<td>Self Stake</td>
+					{:else}
+						<td class:rank-val={i === 0}>{i}</td>
+					{/if}
+					<td class="key">{delegator.public_key}</td>
+					<td class="to">
+						<div class="value-crypto">
+							<div class="crypto">
+								{delegator.staked_amount.toLocaleString('en')}
+							</div>
+							<div class="cspr">CSPR</div>
 						</div>
-						<div class="cspr">CSPR</div>
-					</div>
-				</td>
-				<td class="weight"><Weight value={delegator.weight} /></td>
-			</tr>
-		{/each}
+					</td>
+					<td class="weight"
+						><Weight value={delegator.staked_amount / parseFloat(props.totalStake)} /></td
+					>
+				</tr>
+			{/each}
+		{/if}
 	</table>
-	<Paginator />
+	<Paginator bind:items={delegators} bind:pagedItems={displayedDelegators} />
 </div>
 
 <style lang="postcss">

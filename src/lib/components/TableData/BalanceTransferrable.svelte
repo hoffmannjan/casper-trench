@@ -4,8 +4,8 @@
 	import { onMount } from 'svelte';
 
 	export let cspr: number;
-	let cashValue: number=0;
-	export let selfStakePercentage:number=0;
+	let cashValue: number = 0;
+	export let selfStakePercentage: number = 0;
 	onMount(async () => {
 		const stats: Stats = await getStats();
 		cashValue = cspr * stats.price;
@@ -19,7 +19,7 @@
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>
-	{#if selfStakePercentage>0}
+	{#if selfStakePercentage > 0}
 		<div class="value-cash">
 			{selfStakePercentage}%
 		</div>
