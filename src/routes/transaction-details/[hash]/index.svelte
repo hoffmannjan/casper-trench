@@ -73,7 +73,7 @@ import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable
 
 				<tr>
 					<td class="label">Block Height</td>
-					<td class="value">{blockHeight}</td>
+					<td class="value green">{blockHeight}</td>
 				</tr>
 
 				<tr>
