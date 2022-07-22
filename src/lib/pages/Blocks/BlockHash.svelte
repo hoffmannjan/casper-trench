@@ -336,7 +336,7 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 	}
 
     .eye-icon {
-        @apply w-[1.19vw];
+        @apply w-[1.19vh] md:w-[1.19vw];
     }
 
     .proofs-button {
