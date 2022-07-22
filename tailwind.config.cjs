@@ -26,7 +26,8 @@ module.exports = {
 					'progress-bar': '#0021A5',
 					'paginator-border': '#DADADA',
 					'black-text': '#1A1919',
-					'translucent-green': '#E5F8F6'
+					'translucent-green': '#E5F8F6',
+					'network-background': '#B8B9B9'
 				}
 			},
 			fontFamily: {
