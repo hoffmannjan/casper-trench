@@ -1,6 +1,13 @@
 <script>
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
+
+	export let type = "";
+	export let available = 0;
+	export let balance = 0;
+	export let publicKey = "";
+	export let hash = "";
+
 </script>
 
 <div class="overview">
@@ -10,19 +17,19 @@
 			<tr>
 				<td class="label"> Address type </td>
 				<td class="value">
-					{'Public Key'}
+					{type}
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Available </td>
 				<td class="value">
-					<BalanceTransferrable cspr={156324232.03423} cashValue={921232.02} />
+					<BalanceTransferrable cspr={available} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Balance </td>
 				<td class="value">
-					<BalanceTransferrable cspr={156324232.03423} cashValue={921232.02} />
+					<BalanceTransferrable cspr={balance} />
 				</td>
 			</tr>
 			<tr>
@@ -30,7 +37,7 @@
 				<td class="value">
 					<div class="address-value">
 						<div class="text">
-							{'012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b'}
+							{publicKey}
 						</div>
 						<div class="copy-icon">
 							<CopyIcon />
@@ -43,7 +50,7 @@
 				<td class="value">
 					<div class="address-value hash">
 						<div class="text">
-							{'012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b'}
+							{hash}
 						</div>
 						<div class="copy-icon">
 							<CopyIcon />

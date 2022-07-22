@@ -1,5 +1,9 @@
 <script>
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
+
+	export let stakeAmount = 0;
+	export let unstaking = 0;
+	export let reward = 0;
 </script>
 
 <div class="overview">
@@ -9,19 +13,19 @@
 			<tr>
 				<td class="label"> Stake Amount </td>
 				<td class="value">
-					<BalanceTransferrable cspr={156324232.03423} cashValue={921232.02} />
+					<BalanceTransferrable cspr={stakeAmount} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Unstaking </td>
 				<td class="value">
-					<BalanceTransferrable cspr={156324232.03423} cashValue={921232.02} />
+					<BalanceTransferrable cspr={unstaking}/>
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Reward </td>
 				<td class="value">
-					<BalanceTransferrable cspr={156324232.03423} cashValue={921232.02} />
+					<BalanceTransferrable cspr={reward} />
 				</td>
 			</tr>
 		</table>
