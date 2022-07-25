@@ -3,7 +3,7 @@
 	import AmountChange from '$lib/components/TableData/AmountChange.svelte';
 	import FromToAccountHash from '$lib/components/TableData/FromToAccountHash.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-	import type { Transfers } from '$utils/types/transfers';
+	import type { Transfer } from '$utils/types/transfer';
 	import { getAccountTransfers } from '$utils/api';
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
