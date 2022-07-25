@@ -158,44 +158,11 @@ import EyeIcon from '$lib/icons/EyeIcon.svelte';
 		@apply mb-[2.38vw];
 	}
 
-	.hash {
-		@apply text-color-hover-footer-link;
-	}
-
-	.right {
-		@apply text-right;
-	}
-
-    .tooltip {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
-	}
-
     .token {
         @apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
     }
 
     .token > img {
         @apply w-[1.61vh] h-[1.61vh] md:w-[1.61vw] md:h-[1.61vw];
-    }
-
-    .eye {
-        @apply py-[clamp(4px,0.42vw,0.42vw)] px-[clamp(2px,0.3vw,0.3vw)];
-        @apply rounded-[0.3vh] md:rounded-[0.3vw];
-        @apply bg-color-translucent-green;
-    }
-
-    .eye > .icon {
-        @apply w-[clamp(12px,0.95vw,0.95vw)];
-    }
-
-    .method {
-        @apply bg-color-translucent-blue;
-        @apply px-[clamp(4px,0.42vw,0.42vw)] py-[clamp(2px,0.3vw,0.3vw)];
-        @apply max-w-max;
-        @apply text-color-arcadia-blue;
-    }
-
-    .to {
-        @apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
     }
 </style>
