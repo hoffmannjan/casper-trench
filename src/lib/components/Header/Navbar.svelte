@@ -96,9 +96,8 @@
 	}
 
 	.nav-items {
-		@apply flex gap-[clamp(16px,1.79vw,1.79vw)];
+		@apply hidden md:flex gap-[clamp(16px,1.79vw,1.79vw)];
 		@apply text-white text-opacity-50 text-[clamp(10px,0.83vw,0.83vw)];
-		@apply hidden md:block;
 	}
 
 	.nav-item {
