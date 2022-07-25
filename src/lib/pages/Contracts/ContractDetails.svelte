@@ -8,21 +8,24 @@
     import CrossIcon from '$lib/icons/CrossIcon.svelte';
     import WarningMessageIcon from '$lib/icons/WarningMessageIcon.svelte';
     import { slide } from 'svelte/transition';
+    import ContractTransactions from './ContractTabs/ContractTransactions.svelte';
+    import ContractErc20Tokens from './ContractTabs/ContractERC20Tokens.svelte';
+    import ContractTokens from './ContractTabs/ContractTokens.svelte';
 
 	let menuOptions = [
 		{
 			title: 'Transactions',
-			component: "",
+			component: ContractTransactions,
 			props: {}
 		},
 		{
 			title: 'ERC 20 Tokens',
-			component: "",
+			component: ContractErc20Tokens,
 			props: {}
 		},
 		{
 			title: 'Tokens',
-			component: "",
+			component: ContractTokens,
 			props: {}
 		}
 	];
@@ -169,6 +172,7 @@
         @apply bg-color-translucent-red;
         @apply rounded-[clamp(4px,0.48vw,0.48vw)];
         @apply mb-[1.79vw];
+        @apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
     }
 
     .close-icon {

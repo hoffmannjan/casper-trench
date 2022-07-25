@@ -29,7 +29,9 @@ module.exports = {
 					'translucent-green': '#E5F8F6',
 					'network-background': '#B8B9B9',
 					'translucent-red': '#FFEDEE',
-					'translucent-yellow': '#FFFBEA'
+					'translucent-yellow': '#FFFBEA',
+					'translucent-blue': '#F5F7FF',
+					'arcadia-blue': '#1735A3'
 				}
 			},
 			fontFamily: {
