@@ -1,9 +1,27 @@
+<script lang="ts">
+import { isLoading } from "$stores/loading";
+import { getEconomics, getStats } from "$utils/api";
+import type { Economics } from "$utils/types/economics";
+import type { Stats } from "$utils/types/stats";
+
+import { onMount } from "svelte";
+let stats:Stats
+let economics:Economics
+onMount(async()=>{
+	$isLoading=true;
+	stats=await getStats();
+	economics=await getEconomics()
+	$isLoading=false;
+})
+</script>
+{#if economics && stats}
 <div class="home-stats-section header-stats-background">
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>
 		<div class="value">
-			{'861,309'}
+			{economics.block_height.toLocaleString('en')}
 		</div>
+		<!-- TODO get latest block time -->
 		<div class="detail">
 			{'55 sec ago'}
 		</div>
@@ -14,10 +32,10 @@
 	<div class="stat-column">
 		<div class="title">APY</div>
 		<div class="value">
-			{'10.60%'}
+			{economics.APY.toFixed(2)}%
 		</div>
 		<div class="detail">
-			{'Annual Percentage Yield'}
+			Annual Percentage Yield
 		</div>
 	</div>
 
@@ -26,10 +44,10 @@
 	<div class="stat-column">
 		<div class="title">CSPR PRICE</div>
 		<div class="value">
-			{'$0.0264'}
+			${Math.floor(stats.price * 10000) / 10000}
 		</div>
 		<div class="detail">
-			{'$135,498,998 Market Cap'}
+			${stats.marketcap.toLocaleString('en')} Market Cap
 		</div>
 	</div>
 
@@ -38,13 +56,19 @@
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
 		<div class="value">
-			{'5,140,696,711'}
+			{parseFloat(economics.circulating_supply.substring(0, 10)).toLocaleString('en')}
 		</div>
 		<div class="detail">
-			{'47.0% of 10,934,884,629'}
+			{(
+				(parseFloat(economics.circulating_supply) / parseFloat(economics.total_supply)) *
+				100
+			).toFixed(2)}% of {parseFloat(economics.total_supply.substring(0, 11)).toLocaleString(
+				'en'
+			)}
 		</div>
 	</div>
 </div>
+{/if}
 
 <style lang="postcss">
 	.home-stats-section {

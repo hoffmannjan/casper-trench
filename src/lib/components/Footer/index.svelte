@@ -22,7 +22,7 @@
 				<a href="/" class="link"> Privacy Policy </a>
 			</div>
 			<div class="links">
-				<div class="title">About Caspertrench</div>
+				<div class="title">About Casper.trench</div>
 				<a href="/" class="link"> Github </a>
 				<a href="/" class="link"> License </a>
 				<a href="/" class="link"> Changelog </a>
