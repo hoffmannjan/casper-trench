@@ -44,7 +44,7 @@
 		{
 			text: 'Validators',
 			link: '/validators',
-			dropdown:[]
+			dropdown: []
 		},
 		{
 			text: 'Top Accounts',
@@ -77,10 +77,10 @@
 		{#each navItems as navItem}
 			<div class="nav-item">
 				<div class="text" class:selected={navItem.text.toLowerCase() === selected}>
-					{#if navItem.dropdown.length > 0}	
-					{navItem.text}
+					{#if navItem.dropdown.length > 0}
+						{navItem.text}
 					{:else}
-					<a href={navItem.link}>{navItem.text}</a>
+						<a href={navItem.link}>{navItem.text}</a>
 					{/if}
 				</div>
 				{#if navItem.dropdown.length > 0}
