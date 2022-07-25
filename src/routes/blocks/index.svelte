@@ -1,5 +1,5 @@
 <script>
-	import AllBlocks from '$lib/pages/Blocks/AllBlocks.svelte';
+	import Blocks from '$lib/pages/Blocks/index.svelte';
 </script>
 
-<AllBlocks />
+<Blocks />
