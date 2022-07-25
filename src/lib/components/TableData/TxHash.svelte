@@ -9,7 +9,7 @@
 </script>
 
 <div class="tx-hash">
-	<Hash {hash} {color} variant={right ? "right" : "center"}/>
+	<Hash {hash} {color} variant={right ? 'right' : 'center'} />
 	<div class="icon">
 		{#if color === 'green'}
 			<GreenCheckMarkIcon />

@@ -44,11 +44,11 @@
 		}
 	];
 
-	let type = "Public Key";
+	let type = 'Public Key';
 	let available = 156324232.03423;
 	let balance = 156324232.03423;
-	let publicKey = "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b";
-	let hash = "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b";
+	let publicKey = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
+	let hash = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 
 	let stakeAmount = 156324232.03423;
 	let unstaking = 156324232.03423;
@@ -79,8 +79,8 @@
 	</div>
 
 	<div class="info">
-		<Overview {type} {available} {balance} {publicKey} {hash}/>
-		<StakeInfo {stakeAmount} {unstaking} {reward}/>
+		<Overview {type} {available} {balance} {publicKey} {hash} />
+		<StakeInfo {stakeAmount} {unstaking} {reward} />
 	</div>
 
 	<TabMenu {menuOptions} />

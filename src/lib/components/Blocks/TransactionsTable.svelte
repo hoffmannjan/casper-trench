@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Hash from '../TableData/Hash.svelte';
-    import { slide } from "svelte/transition";
+	import { slide } from 'svelte/transition';
 
 	export let transactions = [];
 </script>
@@ -17,27 +17,27 @@
 		{#if transactions && transactions.length > 0}
 			{#each transactions as transaction, i}
 				<tr>
-					<td><Hash hash={transaction.hash} noOfCharacters={10}/></td>
+					<td><Hash hash={transaction.hash} noOfCharacters={10} /></td>
 					<td>
-                        <div class="account">
-                            <img src={transaction.from.imgUrl} alt="to-account-logo">
-                            <Hash hash={transaction.from.hash} noOfCharacters={10}/>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="account">
-                            <img src={transaction.to.imgUrl} alt="to-account-logo">
-                            <Hash hash={transaction.to.hash} noOfCharacters={10}/>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="value-crypto">
-                            <div class="crypto">
-                                {transaction.value}
-                            </div>
-                            <div class="cspr">CSPR</div>
-                        </div>
-                    </td>
+						<div class="account">
+							<img src={transaction.from.imgUrl} alt="to-account-logo" />
+							<Hash hash={transaction.from.hash} noOfCharacters={10} />
+						</div>
+					</td>
+					<td>
+						<div class="account">
+							<img src={transaction.to.imgUrl} alt="to-account-logo" />
+							<Hash hash={transaction.to.hash} noOfCharacters={10} />
+						</div>
+					</td>
+					<td>
+						<div class="value-crypto">
+							<div class="crypto">
+								{transaction.value}
+							</div>
+							<div class="cspr">CSPR</div>
+						</div>
+					</td>
 				</tr>
 			{/each}
 		{/if}
@@ -78,16 +78,16 @@
 		@apply text-color-grey-footer-label;
 	}
 
-    .account {
-        @apply flex items-center gap-[clamp(4px,0.36vw,0.36vw)];
-    }
+	.account {
+		@apply flex items-center gap-[clamp(4px,0.36vw,0.36vw)];
+	}
 
-    .account > img {
-        @apply w-[1.67vh] h-[1.67vh] md:w-[1.67vw] md:h-[1.67vw];
-        @apply rounded-full;
-    }
+	.account > img {
+		@apply w-[1.67vh] h-[1.67vh] md:w-[1.67vw] md:h-[1.67vw];
+		@apply rounded-full;
+	}
 
-    .value-crypto {
+	.value-crypto {
 		@apply flex items-center gap-[clamp(2px,0.24vw,0.24vw)];
 		@apply text-color-arcadia-red;
 	}
@@ -100,7 +100,7 @@
 		@apply text-[clamp(8px,0.83vw,0.83vw)];
 	}
 
-    .right {
-        @apply text-right;
-    }
+	.right {
+		@apply text-right;
+	}
 </style>

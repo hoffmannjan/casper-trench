@@ -1,8 +1,8 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-    import Hash from '../TableData/Hash.svelte';
-    import TransactionStatus from '../TableData/TransactionStatus.svelte';
+	import Hash from '../TableData/Hash.svelte';
+	import TransactionStatus from '../TableData/TransactionStatus.svelte';
 
 	// export let props = {};
 
@@ -12,35 +12,35 @@
 			time: Date.parse('July 20, 2022 14:05'),
 			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
 			fee: 16324232.03423,
-            status: "Success"
+			status: 'Success'
 		},
-        {
+		{
 			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
 			time: Date.parse('July 20, 2022 14:05'),
 			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-            fee: 16324232.03423,
-            status: "Success"
+			fee: 16324232.03423,
+			status: 'Success'
 		},
-        {
+		{
 			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
 			time: Date.parse('July 20, 2022 14:05'),
 			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-            fee: 16324232.03423,
-            status: "Insufficient funds"
+			fee: 16324232.03423,
+			status: 'Insufficient funds'
 		},
-        {
+		{
 			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
 			time: Date.parse('July 20, 2022 14:05'),
 			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-            fee: 16324232.03423,
-            status: "Success"
+			fee: 16324232.03423,
+			status: 'Success'
 		},
-        {
+		{
 			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
 			time: Date.parse('July 20, 2022 14:05'),
 			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-            fee: 16324232.03423,
-            status: "Success"
+			fee: 16324232.03423,
+			status: 'Success'
 		}
 	];
 	let transactionsPerPage = 10;
@@ -64,25 +64,25 @@
 				<td class="block">{transaction.id}</td>
 				<td class="time">{`${timeAgo(millisToFormat(Date.now() - transaction.time))} ago`}</td>
 				<td>
-                    <div class="right-flex">
-						<Hash color='black' hash={transaction.from}/>
+					<div class="right-flex">
+						<Hash color="black" hash={transaction.from} />
 					</div>
-                </td>
+				</td>
 				<td>
-                    <div class="value-crypto">
+					<div class="value-crypto">
 						<div class="crypto">
 							{parseFloat(transaction.fee.toFixed(5)).toLocaleString()}
 						</div>
 						<div class="cspr">CSPR</div>
 					</div>
-                </td>
+				</td>
 				<td>
 					<div class="wrapper">
-                        <TransactionStatus success={transaction.status.toLowerCase() === "success"}>
-                            {transaction.status}
-                        </TransactionStatus>
-                    </div>
-                </td>
+						<TransactionStatus success={transaction.status.toLowerCase() === 'success'}>
+							{transaction.status}
+						</TransactionStatus>
+					</div>
+				</td>
 			</tr>
 		{/each}
 	</table>
@@ -136,7 +136,7 @@
 		@apply flex justify-end;
 	}
 
-    .value-crypto {
+	.value-crypto {
 		@apply flex items-center justify-end gap-[clamp(2px,0.24vw,0.24vw)];
 		@apply text-right text-[clamp(8px,0.83vw,0.83vw)];
 	}
@@ -149,7 +149,7 @@
 		@apply text-color-grey-footer-label;
 	}
 
-    .wrapper {
-        @apply flex justify-end;
-    }
+	.wrapper {
+		@apply flex justify-end;
+	}
 </style>
