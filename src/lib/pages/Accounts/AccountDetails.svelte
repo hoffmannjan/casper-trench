@@ -91,7 +91,7 @@
 	{#if account && type}
 		<div class="info">
 			<Overview {account} {type} />
-			<StakeInfo {account}/>
+			<StakeInfo {account} />
 		</div>
 		<TabMenu {menuOptions} />
 	{/if}

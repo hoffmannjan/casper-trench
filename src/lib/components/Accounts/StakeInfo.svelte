@@ -1,7 +1,7 @@
 <script lang="ts">
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
-import { parseStringValue } from '$utils/converters';
-import type { Account } from '$utils/types/account'
+	import { parseStringValue } from '$utils/converters';
+	import type { Account } from '$utils/types/account';
 
 	export let account: Account;
 </script>
