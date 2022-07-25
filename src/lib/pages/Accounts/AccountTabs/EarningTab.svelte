@@ -1,58 +1,36 @@
-<script>
-	// export let props = {};
+<script lang="ts">
+	import type { Reward } from '$utils/types/reward';
+	import { onMount } from 'svelte';
+	import { isLoading } from '$stores/loading';
+	import { getAccountEraRewards, getAccountRewards, getStats } from '$utils/api';
+	import { page } from '$app/stores';
+	import Paginator from '$lib/components/Paginator/index.svelte';
+	import { parseStringValue } from '$utils/converters';
+	import type { Stats } from '$utils/types/stats';
 
-	let earnings = [
-		{
-			date: new Date('July 20, 2022'),
-			reward: {
-				cspr: 31821243,
-				cash: 921232.02
-			}
-		},
-		{
-			date: new Date('July 20, 2022'),
-			reward: {
-				cspr: 31821243,
-				cash: 921232.02
-			}
-		},
-		{
-			date: new Date('July 20, 2022'),
-			reward: {
-				cspr: 31821243,
-				cash: 921232.02
-			}
-		},
-		{
-			date: new Date('July 20, 2022'),
-			reward: {
-				cspr: 31821243,
-				cash: 921232.02
-			}
-		},
-		{
-			date: new Date('July 20, 2022'),
-			reward: {
-				cspr: 31821243,
-				cash: 921232.02
-			}
-		},
-		{
-			date: new Date('July 20, 2022'),
-			reward: {
-				cspr: 31821243,
-				cash: 921232.02
-			}
-		},
-		{
-			date: new Date('July 20, 2022'),
-			reward: {
-				cspr: 31821243,
-				cash: 921232.02
-			}
-		}
-	];
+	let earnings: Reward[];
+	let eraRewards = [];
+	let eraRewardsPerPage = 1000;
 	let earningsPerPage = 10;
+	let startIndex = 0;
+	let stats: Stats;
+	onMount(async () => {
+		stats = await getStats();
+		await fetchRewards();
+	});
+
+	const fetchRewards = async () => {
+		$isLoading = true;
+		earnings = await getAccountRewards($page.params?.address, earningsPerPage, startIndex);
+		eraRewards = await getAccountEraRewards($page.params.address, eraRewardsPerPage);
+		// console.log(eraRewards)
+		$isLoading = false;
+	};
+	$: if (earningsPerPage) {
+		setTimeout(async () => {
+			await fetchRewards();
+		}, 1);
+	}
 </script>
 
 <div class="earnings-tab">
@@ -65,23 +43,35 @@
 			<th>Reward</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#each earnings as earning}
-			<tr>
-				<td>{earning.date.toLocaleDateString()}</td>
-				<td>
-					<div class="value-crypto">
-						<div class="crypto">
-							{parseFloat(earning.reward.cspr.toFixed(5)).toLocaleString()}
+		{#if earnings && earnings.length > 0}
+			{#each earnings as earning}
+				<tr>
+					<td>{new Date(earning.date).toLocaleDateString()}</td>
+					<td>
+						<div class="value-crypto">
+							<div class="crypto">
+								{parseFloat(parseStringValue(earning.reward).toFixed(2)).toLocaleString('en')}
+							</div>
+							<div class="cspr">CSPR</div>
+							<div class="cash">
+								${parseFloat(
+									(parseStringValue(earning.reward) * stats.price).toFixed(2)
+								).toLocaleString('en')}
+							</div>
 						</div>
-						<div class="cspr">CSPR</div>
-						<div class="cash">
-							${parseFloat(earning.reward.cash.toFixed(5)).toLocaleString()}
-						</div>
-					</div>
-				</td>
-			</tr>
-		{/each}
+					</td>
+				</tr>
+			{/each}
+		{/if}
 	</table>
+	<Paginator
+		showTotalRows={false}
+		bind:itemsPerPage={earningsPerPage}
+		apiPaginator
+		bind:items={earnings}
+		bind:startIndex
+		on:load-page={async () => await fetchRewards()}
+	/>
 </div>
 
 <style lang="postcss">

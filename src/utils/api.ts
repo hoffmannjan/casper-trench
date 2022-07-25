@@ -161,7 +161,7 @@ export const getAccountTransfers = async (account: string, count: number, start:
 		});
 };
 
-export const getAccountTransactions = async (account: string, count: number, start: number) => {
+export const getAccountDeploys = async (account: string, count: number, start: number) => {
 	return await axios
 		.get(`${casperStatsBaseURL}/account/get-deploys`, {
 			params: {
@@ -176,5 +176,40 @@ export const getAccountTransactions = async (account: string, count: number, sta
 		.catch((err) => {
 			console.log(err);
 			notifyError('Could not fetch account transactions');
+		});
+};
+
+export const getAccountRewards = async (account: string, count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/get-rewards`, {
+			params: {
+				account,
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch account earnings');
+		});
+};
+
+export const getAccountEraRewards = async (account: string, count: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/get-era-reward`, {
+			params: {
+				account,
+				count
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch account era earnings');
 		});
 };
