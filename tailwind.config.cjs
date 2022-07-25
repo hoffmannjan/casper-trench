@@ -27,7 +27,9 @@ module.exports = {
 					'paginator-border': '#DADADA',
 					'black-text': '#1A1919',
 					'translucent-green': '#E5F8F6',
-					'network-background': '#B8B9B9'
+					'network-background': '#B8B9B9',
+					'translucent-red': '#FFEDEE',
+					'translucent-yellow': '#FFFBEA'
 				}
 			},
 			fontFamily: {
