@@ -90,7 +90,7 @@
 						hash={account.hash}
 						noOfCharacters={10}
 						on:click={() => {
-							goto(`/blocks/top-accounts/${account.hash}`);
+							goto(`/accounts/${account.hash}`);
 						}}
 					/></td
 				>

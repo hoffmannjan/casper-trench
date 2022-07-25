@@ -3,13 +3,13 @@
 	import UpChangeIcon from '$lib/icons/UpChangeIcon.svelte';
 
 	export let isUp = false;
-	export let cspr = '16,324,232.03423';
+	export let cspr = 16324232.03423;
 </script>
 
 <div class="amount-change">
 	<div class="value-crypto" class:isUp>
 		<div class="crypto">
-			{cspr}
+			{parseFloat(cspr.toFixed(5)).toLocaleString()}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>
