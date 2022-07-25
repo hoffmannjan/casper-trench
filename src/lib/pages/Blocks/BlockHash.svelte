@@ -183,10 +183,11 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 					<td class="label">Transaction</td>
 					<td class="value">
                         <div class="transaction-button green" on:click={() => {
-                            showTransactions = !showTransactions
+                            showTransactions = transactions && transactions.length>0 &&!showTransactions
                         }}>
+                        
                             <div class="text">
-                                {transactions.length} Transaction{`${transactions.length === 1 ? "" : "s"}`}
+                                {transactions.length ||0} Transaction{`${transactions.length === 1 ? "" : "s"}`}
                             </div>
                             <div class="icon" class:flipped={showTransactions}>
                                 <SwitchChevron />
@@ -208,7 +209,11 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
                             showProofs = !showProofs
                         }}>
                             <div class="text">
+                                {#if !showProofs}
                                 Show
+                                {:else}
+                                Hide
+                                {/if}
                             </div>
                             <div class="eye-icon">
                                 {#if !showProofs}
