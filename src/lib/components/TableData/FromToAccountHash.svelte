@@ -1,16 +1,16 @@
-<script>
+<script lang="ts">
 	import Hash from './Hash.svelte';
 
-	export let isFrom = true;
-	export let cspr = 16324232.03423;
-	export let hash = 'cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4';
+	export let isFrom = false;
+	export let cspr: number;
+	export let hash: string;
 </script>
 
 <div class="from-to-hash">
 	<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'text' : 'green'}`} />
 	<div class="value-crypto">
 		<div class="crypto">
-			{parseFloat(cspr.toFixed(5)).toLocaleString()}
+			{cspr.toFixed(5).toLocaleString('en')}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>

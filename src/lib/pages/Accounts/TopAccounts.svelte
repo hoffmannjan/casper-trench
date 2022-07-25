@@ -54,17 +54,14 @@
 						</div>
 					</td>
 					<td>
-						<PublicKey hash={account.public_key_hex} activeDate={Date.parse(account.active_date)} />
+						<a href="/accounts/{account.public_key_hex}">
+							<PublicKey
+								hash={account.public_key_hex}
+								activeDate={Date.parse(account.active_date)}
+							/>
+						</a>
 					</td>
-					<td
-						><Hash
-							hash={account.account_hash}
-							noOfCharacters={10}
-							on:click={() => {
-								goto(`/accounts/${account.account_hash}`);
-							}}
-						/></td
-					>
+					<td><Hash hash={account.account_hash} noOfCharacters={10} /></td>
 					<td><BalanceTransferrable cspr={parseFloat(account.balance.substring(0, 10))} /></td>
 					<td><BalanceTransferrable cspr={parseFloat(account.transferrable.substring(0, 9))} /></td>
 					<!-- TODO Remove placeholder -->

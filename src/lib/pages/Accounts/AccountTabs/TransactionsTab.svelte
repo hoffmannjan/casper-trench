@@ -1,8 +1,8 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-	import Hash from '../TableData/Hash.svelte';
-	import TransactionStatus from '../TableData/TransactionStatus.svelte';
+	import Hash from '../../../components/TableData/Hash.svelte';
+	import TransactionStatus from '../../../components/TableData/TransactionStatus.svelte';
 
 	// export let props = {};
 

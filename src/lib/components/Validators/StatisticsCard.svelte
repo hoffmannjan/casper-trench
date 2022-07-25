@@ -1,8 +1,8 @@
 <script lang="ts">
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import type { ValidatorDetails } from '$utils/types/validator';
-	import BalanceTransferrable from '../TableData/BalanceTransferrable.svelte';
-	import CircleProgressBar from '../TableData/CircleProgressBar.svelte';
+	import BalanceTransferrable from '$components/TableData/BalanceTransferrable.svelte';
+	import CircleProgressBar from '$components/TableData/CircleProgressBar.svelte';
 
 	export let validator: Partial<ValidatorDetails>;
 	const selfStakePercentage = parseFloat(

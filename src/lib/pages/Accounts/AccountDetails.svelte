@@ -1,26 +1,21 @@
 <script lang="ts">
 	import Overview from '$lib/components/Accounts/Overview.svelte';
 	import StakeInfo from '$lib/components/Accounts/StakeInfo.svelte';
-
-	import StakingTab from '$lib/components/Accounts/StakingTab.svelte';
-	import TokensTab from '$lib/components/Accounts/TokensTab.svelte';
-	import TransactionsTab from '$lib/components/Accounts/TransactionsTab.svelte';
-	import TransferTab from '$lib/components/Accounts/TransferTab.svelte';
-	import EarningTab from '$lib/components/Accounts/EarningTab.svelte';
-
+	import StakingTab from '$lib/pages/Accounts/AccountTabs/StakingTab.svelte';
+	import TokensTab from '$lib/pages/Accounts/AccountTabs/TokensTab.svelte';
+	import TransactionsTab from '$lib/pages/Accounts/AccountTabs/TransactionsTab.svelte';
+	import TransferTab from '$lib/pages/Accounts/AccountTabs/TransferTab.svelte';
+	import EarningTab from '$lib/pages/Accounts/AccountTabs/EarningTab.svelte';
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
-
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import TrustedIcon from '$lib/icons/TrustedIcon.svelte';
 	import { onMount } from 'svelte';
 	import { isLoading } from '$stores/loading';
 	import type { Account } from '$utils/types/account';
-	import { getAccount, getTopAccounts, getType } from '$utils/api';
+	import { getAccount, getType } from '$utils/api';
 	import { page } from '$app/stores';
 	import type { Type } from '$utils/types/type';
-
-	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 
 	let menuOptions = [
 		{
@@ -49,18 +44,12 @@
 			props: {}
 		}
 	];
-
-	let stakeAmount = 156324232.03423;
-	let unstaking = 156324232.03423;
-	let reward = 156324232.03423;
 	let account: Account;
 	let type: Type;
 	onMount(async () => {
 		$isLoading = true;
 		account = await getAccount($page.params?.address);
 		type = await getType($page.params?.address);
-		console.log(type);
-		console.log(account);
 		$isLoading = false;
 	});
 </script>

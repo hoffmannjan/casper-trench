@@ -2,9 +2,9 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-	import Switch from '../Reusables/Switch.svelte';
-	import TransactionStatus from '../TableData/TransactionStatus.svelte';
-	import Validator from '../TableData/Validator.svelte';
+	import Switch from '$components/Reusables/Switch.svelte';
+	import TransactionStatus from '$components/TableData/TransactionStatus.svelte';
+	import Validator from '$components/TableData/Validator.svelte';
 
 	//sample data
 	const stakingHistory = [

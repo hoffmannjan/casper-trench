@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
-	import Weight from '../TableData/Weight.svelte';
+	import Weight from '$components/TableData/Weight.svelte';
 
 	export let props: {
 		delegators: {
