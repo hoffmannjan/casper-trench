@@ -98,6 +98,23 @@ export const getProposerBlocks = async (address: string, count: number, start: n
 		})
 		.catch((err) => {
 			console.log(err);
-			notifyError('Could not fetch validator details');
+			notifyError('Could not fetch verified blocks');
+		});
+};
+
+export const getTopAccounts = async (count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/get-rich-accounts`, {
+			params: {
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch top accounts');
 		});
 };

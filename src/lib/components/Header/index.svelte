@@ -5,7 +5,7 @@
 	import HomeStatsSection from './HomeStatsSection.svelte';
 	import { page } from '$app/stores';
 
-	$:isHome = $page.url.pathname === '/';
+	$: isHome = $page.url.pathname === '/';
 </script>
 
 <div class="header">

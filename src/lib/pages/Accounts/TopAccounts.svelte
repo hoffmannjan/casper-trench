@@ -1,65 +1,35 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
-
 	import Paginator from '$lib/components/Paginator/index.svelte';
+	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import Contract from '$lib/components/TableData/Contract.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import PublicKey from '$lib/components/TableData/PublicKey.svelte';
 	import Rank from '$lib/components/TableData/Rank.svelte';
+	import { isLoading } from '$stores/loading';
+	import { getAuctionBids, getTopAccounts } from '$utils/api';
+	import type { TopAccounts } from '$utils/types/account';
+	import type { ValidatorAuction } from '$utils/types/validator';
+	import { onMount } from 'svelte';
+	let accountsPerPage = 10;
+	let startIndex = 0;
+	let topAccounts: TopAccounts[];
 
-	// You could also just pass the hash and get blocks from the api if thats possible.
+	onMount(async () => {
+		await fetchTopAccounts();
+	});
 
-	let accounts = [
-		{
-			contractText: '',
-			name: 'Everstake',
-			lastActive: Date.parse('July 19, 2022, 14:47'),
-			balance: {
-				cspr: 31821243,
-				cash: 921232.02
-			},
-			transferable: {
-				cspr: 31821243,
-				cash: 921232.02
-			},
-			txnCount: 4819627,
-			staked: 4819627,
-			hash: '020232ee96sdfghasf52g25g25ghsrt254gf7b75e0158'
-		},
-		{
-			contractText: 'Contracts',
-			name: 'Everstake',
-			lastActive: Date.parse('July 19, 2022, 14:47'),
-			balance: {
-				cspr: 31821243,
-				cash: 921232.02
-			},
-			transferable: {
-				cspr: 31821243,
-				cash: 921232.02
-			},
-			txnCount: 4819627,
-			staked: 4819627,
-			hash: '020232ee96sdfghasf52g25g25ghsrt254gf7b75e0158'
-		},
-		{
-			contractText: '',
-			name: 'Everstake',
-			lastActive: Date.parse('July 19, 2022, 14:47'),
-			balance: {
-				cspr: 31821243,
-				cash: 921232.02
-			},
-			transferable: {
-				cspr: 31821243,
-				cash: 921232.02
-			},
-			txnCount: 4819627,
-			staked: 4819627,
-			hash: '020232ee96sdfghasf52g25g25ghsrt254gf7b75e0158'
-		}
-	];
+	const fetchTopAccounts = async () => {
+		$isLoading = true;
+		topAccounts = await getTopAccounts(accountsPerPage, startIndex);
+		$isLoading = false;
+	};
+	$: if (accountsPerPage) {
+		setTimeout(async () => {
+			await fetchTopAccounts();
+		}, 1);
+	}
 </script>
 
 <div class="delegators-tab">
@@ -71,45 +41,50 @@
 			<th>Account hash</th>
 			<th>Balance</th>
 			<th>Transferable</th>
-			<th class="right">Txn count</th>
+			<th class="right flex items-center gap-1">Txn count <PlaceHolderIndicator /></th>
 			<th class="right">Staked</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#each accounts as account, i}
-			<tr>
-				<td class="block">
-					<div class="wrapper">
-						<Rank rank={i + 1} />
-						<Contract text={account.contractText} />
-					</div>
-				</td>
-				<td>
-					<PublicKey text={account.name} activeDate={account.lastActive} />
-				</td>
-				<td
-					><Hash
-						hash={account.hash}
-						noOfCharacters={10}
-						on:click={() => {
-							goto(`/accounts/${account.hash}`);
-						}}
-					/></td
-				>
-				<td
-					><BalanceTransferrable cspr={account.balance.cspr} cashValue={account.balance.cash} /></td
-				>
-				<td
-					><BalanceTransferrable
-						cspr={account.transferable.cspr}
-						cashValue={account.transferable.cash}
-					/></td
-				>
-				<td class="right">{account.txnCount.toLocaleString()}</td>
-				<td class="right">{account.staked.toLocaleString()}</td>
-			</tr>
-		{/each}
+		{#if topAccounts && topAccounts.length > 0}
+			{#each topAccounts as account, i}
+				<tr>
+					<td class="block">
+						<div class="wrapper">
+							<Rank rank={i + 1} />
+							<Contract text="" />
+						</div>
+					</td>
+					<td>
+						<PublicKey hash={account.public_key_hex} activeDate={Date.parse(account.active_date)} />
+					</td>
+					<td
+						><Hash
+							hash={account.account_hash}
+							noOfCharacters={10}
+							on:click={() => {
+								goto(`/accounts/${account.account_hash}`);
+							}}
+						/></td
+					>
+					<td><BalanceTransferrable cspr={parseFloat(account.balance.substring(0, 10))} /></td>
+					<td><BalanceTransferrable cspr={parseFloat(account.transferrable.substring(0, 9))} /></td>
+					<!-- TODO Remove placeholder -->
+					<td class="right">{'4,819,627'}</td>
+					<td class="right"
+						>{parseFloat(account.staked_amount.substring(0, 9)).toLocaleString('en')}</td
+					>
+				</tr>
+			{/each}
+		{/if}
 	</table>
-	<Paginator />
+	<Paginator
+		showTotalRows={false}
+		bind:itemsPerPage={accountsPerPage}
+		apiPaginator
+		bind:items={topAccounts}
+		bind:startIndex
+		on:load-page={async () => await fetchTopAccounts()}
+	/>
 </div>
 
 <style lang="postcss">
@@ -130,6 +105,7 @@
 		@apply py-[clamp(8px,0.5vw,0.5vw)];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
+		/* @apply flex flex-row; */
 	}
 
 	td {

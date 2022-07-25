@@ -19,12 +19,9 @@
 	const fetchProposerBlocks = async () => {
 		$isLoading = true;
 		blocks = await getProposerBlocks(props.validatorPublicKey, blocksPerPage, startIndex);
-		// console.log(blocks);
 		$isLoading = false;
 	};
 	$: if (blocksPerPage) {
-		console.log(blocksPerPage, startIndex);
-		startIndex = 0;
 		setTimeout(async () => {
 			await fetchProposerBlocks();
 		}, 1);
