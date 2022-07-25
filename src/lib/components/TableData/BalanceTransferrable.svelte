@@ -32,16 +32,16 @@
 
 <style lang="postcss">
 	.crypto-cash {
-		@apply text-right text-[clamp(8px,0.83vw,0.83vw)];
+		@apply text-right text-[clamp(10px,0.83vw,0.83vw)];
 		@apply max-w-max;
 	}
 
 	.value-crypto {
-		@apply flex items-center gap-[clamp(2px,0.24vw,0.24vw)];
+		@apply flex items-center gap-[clamp(4px,0.24vw,0.24vw)];
 	}
 
 	.crypto {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.value-cash {

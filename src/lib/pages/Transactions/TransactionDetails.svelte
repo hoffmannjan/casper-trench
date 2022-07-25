@@ -3,70 +3,70 @@
 
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import TrustedIcon from '$lib/icons/TrustedIcon.svelte';
-    import Overview from '$lib/components/Transactions/Overview.svelte';
-    import TokenTransferred from '$lib/components/Transactions/TokenTransferred.svelte';
+	import Overview from '$lib/components/Transactions/Overview.svelte';
+	import TokenTransferred from '$lib/components/Transactions/TokenTransferred.svelte';
 
 	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
-    
-    let transfers = [
-        {
-            toHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            fromHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            tokenName: "Dai Stablecoin (DAI)",
-            tokenValue: 350000000,
-            tokenLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png",
-        },
-        {
-            toHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            fromHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            tokenName: "Dai Stablecoin (DAI)",
-            tokenValue: 350000000,
-            tokenLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png",
-        },
-        {
-            toHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            fromHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            tokenName: "Dai Stablecoin (DAI)",
-            tokenValue: 350000000,
-            tokenLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png",
-        },
-        {
-            toHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            fromHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            tokenName: "Dai Stablecoin (DAI)",
-            tokenValue: 350000000,
-            tokenLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png",
-        },
-        {
-            toHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            fromHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            tokenName: "Dai Stablecoin (DAI)",
-            tokenValue: 350000000,
-            tokenLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png",
-        },
-        {
-            toHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            fromHash: "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b",
-            tokenName: "Dai Stablecoin (DAI)",
-            tokenValue: 350000000,
-            tokenLogo: "https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png",
-        }
-    ];
 
-    let hash = "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b";
-    let network = "Mainnet";
-    let transactionStatus = "success";
+	let transfers = [
+		{
+			toHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			fromHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			tokenName: 'Dai Stablecoin (DAI)',
+			tokenValue: 350000000,
+			tokenLogo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png'
+		},
+		{
+			toHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			fromHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			tokenName: 'Dai Stablecoin (DAI)',
+			tokenValue: 350000000,
+			tokenLogo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png'
+		},
+		{
+			toHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			fromHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			tokenName: 'Dai Stablecoin (DAI)',
+			tokenValue: 350000000,
+			tokenLogo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png'
+		},
+		{
+			toHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			fromHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			tokenName: 'Dai Stablecoin (DAI)',
+			tokenValue: 350000000,
+			tokenLogo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png'
+		},
+		{
+			toHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			fromHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			tokenName: 'Dai Stablecoin (DAI)',
+			tokenValue: 350000000,
+			tokenLogo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png'
+		},
+		{
+			toHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			fromHash: '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b',
+			tokenName: 'Dai Stablecoin (DAI)',
+			tokenValue: 350000000,
+			tokenLogo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png'
+		}
+	];
+
+	let hash = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
+	let network = 'Mainnet';
+	let transactionStatus = 'success';
 	let block = 145332323;
 	let timestamp = Date.parse('July 22, 2022 14:46');
-    let nonce = 9;
-    let value = 0;
-    let gasUsed = 6434234;
-    let gasPrice = 48.293;
-    let gasLimit = 10000000;
-    let fee = 0.338;
-    let rawInput = "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b";
-    let callerAddress = "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b";
-    let contactAddress = "012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b";
+	let nonce = 9;
+	let value = 0;
+	let gasUsed = 6434234;
+	let gasPrice = 48.293;
+	let gasLimit = 10000000;
+	let fee = 0.338;
+	let rawInput = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
+	let callerAddress = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
+	let contactAddress = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 </script>
 
 <div class="main">
@@ -93,11 +93,26 @@
 	</div>
 
 	<div class="info">
-		<Overview {hash} {transactionStatus} {network} {block} {timestamp} {nonce} {value} {gasUsed} {gasPrice} {gasLimit} {fee} {rawInput} {callerAddress} {contactAddress}/>
-        <TokenTransferred {transfers}/>
+		<Overview
+			{hash}
+			{transactionStatus}
+			{network}
+			{block}
+			{timestamp}
+			{nonce}
+			{value}
+			{gasUsed}
+			{gasPrice}
+			{gasLimit}
+			{fee}
+			{rawInput}
+			{callerAddress}
+			{contactAddress}
+		/>
+		<TokenTransferred {transfers} />
 	</div>
 
-    <!-- TODO: Function Trace -->
+	<!-- TODO: Function Trace -->
 </div>
 
 <style lang="postcss">

@@ -1,14 +1,14 @@
 <script>
-	export let cspr = '31,821,243';
-	export let cashValue = '921,232.02';
+	export let cspr = 31821243;
+	export let cashValue = 921232.02;
 </script>
 
 <div class="crypto-cash">
 	<div class="value-crypto">
-		{cspr} CSPR
+		{parseFloat(cspr.toFixed(2)).toLocaleString('en')} CSPR
 	</div>
 	<div class="value-cash">
-		${cashValue}
+		${parseFloat(cashValue.toFixed(2)).toLocaleString('en')}
 	</div>
 </div>
 
