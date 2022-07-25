@@ -33,18 +33,23 @@
 	}[] = [
 		{
 			text: 'Home',
-			link: '',
+			link: '/',
 			dropdown: []
 		},
 		{
-			text: 'Blockchain',
-			link: '',
-			dropdown: dropdownTest
+			text: 'Blocks',
+			link: '/blocks',
+			dropdown: []
 		},
 		{
 			text: 'Validators',
-			link: '',
-			dropdown: dropdownTest
+			link: '/validators',
+			dropdown:[]
+		},
+		{
+			text: 'Top Accounts',
+			link: '/accounts/top-accounts',
+			dropdown: []
 		},
 		{
 			text: 'Tokens',
@@ -65,14 +70,18 @@
 </script>
 
 <div class="navbar">
-	<div class="logo">
+	<a href="/" class="logo">
 		<CasperTrenchLogo />
-	</div>
+	</a>
 	<div class="nav-items">
 		{#each navItems as navItem}
 			<div class="nav-item">
 				<div class="text" class:selected={navItem.text.toLowerCase() === selected}>
+					{#if navItem.dropdown.length > 0}	
 					{navItem.text}
+					{:else}
+					<a href={navItem.link}>{navItem.text}</a>
+					{/if}
 				</div>
 				{#if navItem.dropdown.length > 0}
 					<div class="chevron">
