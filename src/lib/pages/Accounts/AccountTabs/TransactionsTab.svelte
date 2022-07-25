@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import { isLoading } from '$stores/loading';
 	import { page } from '$app/stores';
-	import { getAccountTransactions } from '$utils/api';
+	import { getAccountDeploys } from '$utils/api';
 
 	let transactions: Transaction[];
 	let transactionsPerPage = 10;
@@ -18,11 +18,7 @@
 
 	const fetchTransactions = async () => {
 		$isLoading = true;
-		transactions = await getAccountTransactions(
-			$page.params?.address,
-			transactionsPerPage,
-			startIndex
-		);
+		transactions = await getAccountDeploys($page.params?.address, transactionsPerPage, startIndex);
 		$isLoading = false;
 	};
 	$: if (transactionsPerPage) {
