@@ -8,13 +8,12 @@
 	import PublicKey from '$lib/components/TableData/PublicKey.svelte';
 	import Rank from '$lib/components/TableData/Rank.svelte';
 	import { isLoading } from '$stores/loading';
-	import { getAuctionBids, getTopAccounts } from '$utils/api';
-	import type { TopAccounts } from '$utils/types/account';
-	import type { ValidatorAuction } from '$utils/types/validator';
+	import { getTopAccounts } from '$utils/api';
+	import type { TopAccount } from '$utils/types/account';
 	import { onMount } from 'svelte';
 	let accountsPerPage = 10;
 	let startIndex = 0;
-	let topAccounts: TopAccounts[];
+	let topAccounts: TopAccount[];
 
 	onMount(async () => {
 		await fetchTopAccounts();

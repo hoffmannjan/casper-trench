@@ -1,3 +1,7 @@
+<script lang="ts">
+	export let text: string;
+</script>
+
 <svg
 	width="33"
 	height="33"
@@ -5,6 +9,9 @@
 	viewBox="0 0 33 33"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
+	on:click={() => {
+		navigator.clipboard && navigator.clipboard.writeText(text);
+	}}
 >
 	<circle cx="16.5" cy="16.5" r="16.5" fill="#F4F5F5" />
 	<path

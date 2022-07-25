@@ -72,6 +72,7 @@ export const getAuctionBids = async () => {
 			notifyError('Could not fetch auction bids');
 		});
 };
+
 export const getValidator = async (address: string) => {
 	return await axios
 		.get(`${casperStatsBaseURL}/state/get-validator/${address}`)
@@ -81,6 +82,29 @@ export const getValidator = async (address: string) => {
 		.catch((err) => {
 			console.log(err);
 			notifyError('Could not fetch validator details');
+		});
+};
+
+export const getAccount = async (address: string) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/get-account/${address}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch account details');
+		});
+};
+export const getType = async (address: string) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/info/get-type/${address}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch type');
 		});
 };
 

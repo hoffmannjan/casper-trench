@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Overview from '$lib/components/Accounts/Overview.svelte';
 	import StakeInfo from '$lib/components/Accounts/StakeInfo.svelte';
 
@@ -13,6 +13,12 @@
 
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import TrustedIcon from '$lib/icons/TrustedIcon.svelte';
+	import { onMount } from 'svelte';
+	import { isLoading } from '$stores/loading';
+	import type { Account } from '$utils/types/account';
+	import { getAccount, getTopAccounts, getType } from '$utils/api';
+	import { page } from '$app/stores';
+	import type { Type } from '$utils/types/type';
 
 	let address = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
 
@@ -44,15 +50,19 @@
 		}
 	];
 
-	let type = 'Public Key';
-	let available = 156324232.03423;
-	let balance = 156324232.03423;
-	let publicKey = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
-	let hash = '012bac1d0ff9240ff0b7b06d555815640497861619ca12583ddef434885416e69b';
-
 	let stakeAmount = 156324232.03423;
 	let unstaking = 156324232.03423;
 	let reward = 156324232.03423;
+	let account: Account;
+	let type: Type;
+	onMount(async () => {
+		$isLoading = true;
+		account = await getAccount($page.params?.address);
+		type = await getType($page.params?.address);
+		console.log(type);
+		console.log(account);
+		$isLoading = false;
+	});
 </script>
 
 <div class="main">
@@ -69,21 +79,22 @@
 			</div>
 			<div class="value">
 				<div class="text">
-					{address}
+					{$page.params?.address}
 				</div>
 				<div class="copy-icon">
-					<CopyIcon />
+					<CopyIcon text={$page.params?.address} />
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="info">
-		<Overview {type} {available} {balance} {publicKey} {hash} />
-		<StakeInfo {stakeAmount} {unstaking} {reward} />
-	</div>
-
-	<TabMenu {menuOptions} />
+	{#if account && type}
+		<div class="info">
+			<Overview {account} {type} />
+			<StakeInfo {account} />
+		</div>
+		<TabMenu {menuOptions} />
+	{/if}
 </div>
 
 <style lang="postcss">
