@@ -63,6 +63,9 @@
 </script>
 
 <div class="delegators-tab">
+	<div class="title">
+		Rich List
+	</div>
 	<table>
 		<tr>
 			<th class="block">Rank</th>
@@ -114,6 +117,10 @@
 <style lang="postcss">
 	table {
 		@apply table-auto w-full relative;
+	}
+
+	.title {
+		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
 	}
 
 	.divider {

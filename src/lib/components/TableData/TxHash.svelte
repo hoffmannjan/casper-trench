@@ -5,10 +5,11 @@
 
 	export let hash = '';
 	export let color: 'green' | 'yellow' = 'green';
+	export let right = false;
 </script>
 
 <div class="tx-hash">
-	<Hash {hash} {color} />
+	<Hash {hash} {color} variant={right ? "right" : "center"}/>
 	<div class="icon">
 		{#if color === 'green'}
 			<GreenCheckMarkIcon />
