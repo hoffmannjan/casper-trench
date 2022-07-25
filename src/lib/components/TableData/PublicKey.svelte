@@ -12,7 +12,7 @@
 
 <div class="block-height">
 	{#if hash.length > 0}
-		<Hash {hash} noOfCharacters={10} variant="right" />
+		<Hash {hash} noOfCharacters={10} variant="right" on:click/>
 	{:else}
 		<div class="text">
 			{text}

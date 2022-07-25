@@ -3,7 +3,7 @@
 
 	export let hash = '';
 	export let variant: 'center' | 'right' = 'center';
-	export let color: 'green' | 'yellow' | 'text' = 'text';
+	export let color: 'green' | 'yellow' | 'text' | 'black' = 'text';
 	export let noOfCharacters = 5;
 
 	let showHash = false;
@@ -39,6 +39,10 @@
 
 	.green {
 		@apply text-color-arcadia-green;
+	}
+
+	.black {
+		@apply text-color-table-header;
 	}
 
 	.tooltip {

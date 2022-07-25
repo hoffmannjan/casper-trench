@@ -21,7 +21,7 @@
 	}
 
 	.bg {
-		@apply absolute inset-0 -z-10 hidden w-full h-full md:block;
+		@apply absolute inset-0 -z-10 w-full h-full block;
 	}
 
 	.powered-by {

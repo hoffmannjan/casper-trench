@@ -38,7 +38,7 @@
 		<td><CircleProgressBar progress={0.94} /></td>
 		<td><BlockHeight blockDate={Date.parse('July 8, 2022, 12:47')} blockHeight="861,306" /></td>
 		<td><Contract text="Contracts" /></td>
-		<td><AmountChange cspr="16,324,232.03423" isUp /></td>
+		<td><AmountChange cspr={16324232.03423} isUp /></td>
 		<td><FromToAccountHash /></td>
 	</tr>
 	<tr>
@@ -51,7 +51,7 @@
 			/></td
 		>
 		<td><Rank rank={1} /></td>
-		<td><AmountChange cspr="16,324,232.03423" /></td>
+		<td><AmountChange cspr={16324232.03423} /></td>
 		<td><Status status="Active" /></td>
 	</tr>
 	<tr>
@@ -63,7 +63,7 @@
 			/></td
 		>
 		<td><CircleProgressBar progress={0.98} /></td>
-		<td><BalanceTransferrable cspr="31,821,243" cashValue="921,232.02" /></td>
+		<td><BalanceTransferrable cspr={31821243} cashValue={921232.02} /></td>
 		<td><TxHash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4" color="green" /></td>
 		<td><ContractText type="Delegate" /></td>
 		<td><Status status="Inactive" /></td>
@@ -73,7 +73,7 @@
 			><Hash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4" noOfCharacters={10} /></td
 		>
 		<td><CircleProgressBar progress={1} /></td>
-		<td><AmountCost cspr="31,821,243" cashValue="921,232.02" /></td>
+		<td><AmountCost cspr={31821243} cashValue={921232.02} /></td>
 		<td><TxHash hash="cn9824n08cn280nch2n40hc0h81hh4b0h18h40h18h4" color="yellow" /></td>
 		<td><ContractText type="Transfer" /></td>
 		<td><Weight /></td>

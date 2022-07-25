@@ -63,6 +63,9 @@
 </script>
 
 <div class="delegators-tab">
+	<div class="title">
+		Rich List
+	</div>
 	<table>
 		<tr>
 			<th class="block">Rank</th>
@@ -90,7 +93,7 @@
 						hash={account.hash}
 						noOfCharacters={10}
 						on:click={() => {
-							goto(`/blocks/top-accounts/${account.hash}`);
+							goto(`/accounts/${account.hash}`);
 						}}
 					/></td
 				>
@@ -114,6 +117,10 @@
 <style lang="postcss">
 	table {
 		@apply table-auto w-full relative;
+	}
+
+	.title {
+		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
 	}
 
 	.divider {

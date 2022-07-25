@@ -101,7 +101,7 @@
 		@apply p-[clamp(8px,0.6vw,0.6vw)];
 		@apply border-color-progress-bg border-[clamp(1px,0.06vw,0.06vw)];
 		@apply text-color-grey-footer-label;
-		@apply rounded-[clamp(4px,0.48vw,0.48vw)];
+		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply transition-all duration-300;
 		@apply flex items-center gap-[0.6vw];
 	}

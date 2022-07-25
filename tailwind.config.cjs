@@ -27,8 +27,8 @@ module.exports = {
 					'paginator-border': '#DADADA',
 					'black-text': '#1A1919',
 					'translucent-green': '#E5F8F6',
-					'translucent-green': '#E5F8F6',
-					'ago-background': '#F3F3F3'
+					'ago-background': '#F3F3F3',
+					'proof-num-background': '#F7F7F7'
 				}
 			},
 			fontFamily: {

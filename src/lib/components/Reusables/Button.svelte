@@ -90,7 +90,7 @@
 	.block {
 		@apply flex flex-col items-center gap-[clamp(4px,0.48vw,0.48vw)];
 		@apply cursor-pointer;
-		@apply text-color-grey-footer-label;
+		@apply text-color-grey-footer-label text-[clamp(10px,1vw,1vw)];
 	}
 
 	.block.active {
