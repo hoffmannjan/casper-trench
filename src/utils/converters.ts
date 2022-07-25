@@ -82,3 +82,24 @@ export const aTimeAgo = (diff: number): string => {
 	}
 	return textString;
 };
+export const processType = (type: string): string => {
+	switch (type) {
+		case 'PUBLIC_KEY_HEX':
+			return 'Public Key';
+		case 'BLOCK_HEIGHT':
+			return 'Block Height';
+		case 'BLOCK_HASH':
+			return 'Block Hash';
+		case 'DEPLOY_HEX':
+			return 'Deploy Hex';
+		case 'TRANSFER_HEX':
+			return 'Transfer Hex';
+		case 'VALIDATOR':
+			return 'Validator';
+		default:
+			return 'Unknown';
+	}
+};
+export const parseStringValue = (value: string): number => {
+	return parseFloat(value) / 1000000000;
+};

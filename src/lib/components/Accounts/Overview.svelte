@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
+	import { parseStringValue, processType } from '$utils/converters';
+	import type { Account } from '$utils/types/account';
+	import type { Type } from '$utils/types/type';
 
-	export let type = '';
-	export let available = 0;
-	export let balance = 0;
-	export let publicKey = '';
-	export let hash = '';
+	export let type: Type;
+	export let account: Account;
 </script>
 
 <div class="overview">
@@ -16,19 +16,19 @@
 			<tr>
 				<td class="label"> Address type </td>
 				<td class="value">
-					{type}
+					{processType(type.type)}
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Available </td>
 				<td class="value">
-					<BalanceTransferrable cspr={available} />
+					<BalanceTransferrable cspr={parseStringValue(account.transferrable)} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Balance </td>
 				<td class="value">
-					<BalanceTransferrable cspr={balance} />
+					<BalanceTransferrable cspr={parseStringValue(account.balance)} />
 				</td>
 			</tr>
 			<tr>
@@ -36,10 +36,10 @@
 				<td class="value">
 					<div class="address-value">
 						<div class="text">
-							{publicKey}
+							{account.public_key_hex}
 						</div>
 						<div class="copy-icon">
-							<CopyIcon />
+							<CopyIcon text={account.public_key_hex} />
 						</div>
 					</div>
 				</td>
@@ -49,10 +49,10 @@
 				<td class="value">
 					<div class="address-value hash">
 						<div class="text">
-							{hash}
+							{account.account_hash}
 						</div>
 						<div class="copy-icon">
-							<CopyIcon />
+							<CopyIcon text={account.account_hash} />
 						</div>
 					</div>
 				</td>

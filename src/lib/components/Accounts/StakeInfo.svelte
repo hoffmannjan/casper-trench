@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
+import { parseStringValue } from '$utils/converters';
+import type { Account } from '$utils/types/account'
 
-	export let stakeAmount = 0;
-	export let unstaking = 0;
-	export let reward = 0;
+	export let account: Account;
 </script>
 
 <div class="overview">
@@ -13,19 +13,19 @@
 			<tr>
 				<td class="label"> Stake Amount </td>
 				<td class="value">
-					<BalanceTransferrable cspr={stakeAmount} />
+					<BalanceTransferrable cspr={parseStringValue(account.total_staked)} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Unstaking </td>
 				<td class="value">
-					<BalanceTransferrable cspr={unstaking} />
+					<BalanceTransferrable cspr={parseStringValue(account.unbonding)} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Reward </td>
 				<td class="value">
-					<BalanceTransferrable cspr={reward} />
+					<BalanceTransferrable cspr={parseStringValue(account.total_reward)} />
 				</td>
 			</tr>
 		</table>
