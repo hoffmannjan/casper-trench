@@ -10,7 +10,7 @@
 	<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'text' : 'green'}`} />
 	<div class="value-crypto">
 		<div class="crypto">
-			{cspr.toFixed(5).toLocaleString('en')}
+			{cspr.toFixed(5)}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>

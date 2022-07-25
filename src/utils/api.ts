@@ -160,3 +160,21 @@ export const getAccountTransfers = async (account: string, count: number, start:
 			notifyError('Could not fetch account transfers');
 		});
 };
+
+export const getAccountTransactions = async (account: string, count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/get-deploys`, {
+			params: {
+				account,
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch account transactions');
+		});
+};

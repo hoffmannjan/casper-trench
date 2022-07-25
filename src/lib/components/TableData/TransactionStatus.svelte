@@ -25,7 +25,7 @@
 
 <style lang="postcss">
 	.transaction-status {
-		@apply text-[1.07vw];
+		@apply text-[1.07vw] capitalize;
 		@apply flex items-center gap-[0.36vw];
 		@apply text-color-arcadia-yellow;
 	}

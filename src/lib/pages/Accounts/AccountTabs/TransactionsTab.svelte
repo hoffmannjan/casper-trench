@@ -1,49 +1,35 @@
-<script>
+<script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-	import Hash from '../../../components/TableData/Hash.svelte';
-	import TransactionStatus from '../../../components/TableData/TransactionStatus.svelte';
+	import Hash from '$components/TableData/Hash.svelte';
+	import TransactionStatus from '$components/TableData/TransactionStatus.svelte';
+	import type { Transaction } from '$utils/types/transaction';
+	import { onMount } from 'svelte';
+	import { isLoading } from '$stores/loading';
+	import { page } from '$app/stores';
+	import { getAccountTransactions } from '$utils/api';
 
-	// export let props = {};
-
-	let transactions = [
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-			fee: 16324232.03423,
-			status: 'Success'
-		},
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-			fee: 16324232.03423,
-			status: 'Success'
-		},
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-			fee: 16324232.03423,
-			status: 'Insufficient funds'
-		},
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-			fee: 16324232.03423,
-			status: 'Success'
-		},
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			from: '18afc5g355bn32622h26h2hh6222h26292a5c',
-			fee: 16324232.03423,
-			status: 'Success'
-		}
-	];
+	let transactions: Transaction[];
 	let transactionsPerPage = 10;
+	let startIndex = 0;
+	onMount(async () => {
+		await fetchTransactions();
+	});
+
+	const fetchTransactions = async () => {
+		$isLoading = true;
+		transactions = await getAccountTransactions(
+			$page.params?.address,
+			transactionsPerPage,
+			startIndex
+		);
+		$isLoading = false;
+	};
+	$: if (transactionsPerPage) {
+		setTimeout(async () => {
+			await fetchTransactions();
+		}, 1);
+	}
 </script>
 
 <div class="transactions-tab">
@@ -59,34 +45,45 @@
 			<th class="right">Status</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#each transactions as transaction}
-			<tr>
-				<td class="block">{transaction.id}</td>
-				<td class="time">{`${timeAgo(millisToFormat(Date.now() - transaction.time))} ago`}</td>
-				<td>
-					<div class="right-flex">
-						<Hash color="black" hash={transaction.from} />
-					</div>
-				</td>
-				<td>
-					<div class="value-crypto">
-						<div class="crypto">
-							{parseFloat(transaction.fee.toFixed(5)).toLocaleString()}
+		{#if transactions && transactions.length > 0}
+			{#each transactions as transaction}
+				<tr>
+					<td class="block">{transaction.deploy_hash}</td>
+					<td class="time"
+						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago`}</td
+					>
+					<td>
+						<div class="right-flex">
+							<Hash color="black" hash={transaction.hash} />
 						</div>
-						<div class="cspr">CSPR</div>
-					</div>
-				</td>
-				<td>
-					<div class="wrapper">
-						<TransactionStatus success={transaction.status.toLowerCase() === 'success'}>
-							{transaction.status}
-						</TransactionStatus>
-					</div>
-				</td>
-			</tr>
-		{/each}
+					</td>
+					<td>
+						<div class="value-crypto">
+							<div class="crypto">
+								{parseFloat(transaction.gas_price.toFixed(5)).toLocaleString('en')}
+							</div>
+							<div class="cspr">CSPR</div>
+						</div>
+					</td>
+					<td>
+						<div class="wrapper">
+							<TransactionStatus success={transaction.status.toLowerCase() === 'success'}>
+								{transaction.status}
+							</TransactionStatus>
+						</div>
+					</td>
+				</tr>
+			{/each}
+		{/if}
 	</table>
-	<Paginator />
+	<Paginator
+		showTotalRows={false}
+		bind:itemsPerPage={transactionsPerPage}
+		apiPaginator
+		bind:items={transactions}
+		bind:startIndex
+		on:load-page={async () => await fetchTransactions()}
+	/>
 </div>
 
 <style lang="postcss">
