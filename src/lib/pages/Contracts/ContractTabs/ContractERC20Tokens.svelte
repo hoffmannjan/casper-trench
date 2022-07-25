@@ -1,10 +1,6 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
-import TableFilter from '$lib/components/Reusables/TableFilter.svelte';
-import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
-import Contract from '$lib/components/TableData/Contract.svelte';
-import Hash from '$lib/components/TableData/Hash.svelte';
-import EyeIcon from '$lib/icons/EyeIcon.svelte';
+    import Hash from '$lib/components/TableData/Hash.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
 
 	export let props: {
