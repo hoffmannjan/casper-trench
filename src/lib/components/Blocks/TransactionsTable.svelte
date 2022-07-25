@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Hash from '../TableData/Hash.svelte';
+	import Hash from '$components/TableData/Hash.svelte';
 	import { slide } from 'svelte/transition';
 
 	export let transactions = [];

@@ -1,7 +1,7 @@
 <script>
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
 
-	import Hash from '../TableData/Hash.svelte';
+	import Hash from '$components/TableData/Hash.svelte';
 
 	export let transfers = [];
 </script>
