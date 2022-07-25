@@ -1,6 +1,7 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
+    import Hash from '$lib/components/TableData/Hash.svelte';
     import LightningIcon from '$lib/icons/LightningIcon.svelte';
     import SettingsIcon from '$lib/icons/SettingsIcon.svelte';
     import VersionWarningIcon from '$lib/icons/VersionWarningIcon.svelte';
@@ -82,7 +83,7 @@
 		{#each contracts as contract}
 			<tr>
 				<td class="block hash">
-                    {contract.address.substring(0, 20)}...
+                    <Hash hash={contract.address} noOfCharacters={20} start variant='right'/>
                 </td>
                 <td class="grey">{contract.name}</td>
                 <td>{contract.type}</td>

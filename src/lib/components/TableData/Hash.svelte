@@ -5,6 +5,7 @@
 	export let variant: 'center' | 'right' = 'center';
 	export let color: 'green' | 'yellow' | 'text' | 'black' = 'text';
 	export let noOfCharacters = 5;
+	export let start = false;
 
 	let showHash = false;
 </script>
@@ -20,7 +21,11 @@
 	{#if showHash}
 		<div class="pointer" transition:scale />
 	{/if}
-	{`${hash.substring(0, noOfCharacters)}...${hash.substring(hash.length - noOfCharacters)}`}
+	{#if !start}
+		{`${hash.substring(0, noOfCharacters)}...${hash.substring(hash.length - noOfCharacters)}`}
+	{:else}
+		{`${hash.substring(0, noOfCharacters)}...`}
+	{/if}
 </div>
 
 <style lang="postcss">
