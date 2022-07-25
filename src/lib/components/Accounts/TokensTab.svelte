@@ -1,72 +1,72 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-    import Hash from '../TableData/Hash.svelte';
-    import TransactionStatus from '../TableData/TransactionStatus.svelte';
+	import Hash from '../TableData/Hash.svelte';
+	import TransactionStatus from '../TableData/TransactionStatus.svelte';
 
 	// export let props = {};
 
 	let tokens = [
 		{
-            contract: {
-                hash: "72059g35b25789bg129bg219bg529gg0f26e",
-                name: "WISeKey"
-            },
-            id: "6220aeafdcfaaaa5a645uy789tu8t8h028h8980",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s products",
-            standard: "CEP47"
-        },
-        {
-            contract: {
-                hash: "72059g35b25789bg129bg219bg529gg0f26e",
-                name: "WISeKey"
-            },
-            id: "6220aeafdcfaaaa5a645uy789tu8t8h028h8980",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s products",
-            standard: "CEP47"
-        },
-        {
-            contract: {
-                hash: "72059g35b25789bg129bg219bg529gg0f26e",
-                name: ""
-            },
-            id: "6220aeafdcfaaaa5a645uy789tu8t8h028h8980",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s products",
-            standard: "CEP47"
-        },
-        {
-            contract: {
-                hash: "72059g35b25789bg129bg219bg529gg0f26e",
-                name: ""
-            },
-            id: "6220aeafdcfaaaa5a645uy789tu8t8h028h8980",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s products",
-            standard: "CEP47"
-        },
-        {
-            contract: {
-                hash: "72059g35b25789bg129bg219bg529gg0f26e",
-                name: "WISeKey"
-            },
-            id: "6220aeafdcfaaaa5a645uy789tu8t8h028h8980",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s products",
-            standard: "CEP47"
-        },
-        {
-            contract: {
-                hash: "72059g35b25789bg129bg219bg529gg0f26e",
-                name: "WISeKey"
-            },
-            id: "6220aeafdcfaaaa5a645uy789tu8t8h028h8980",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s products",
-            standard: "CEP47"
-        },
+			contract: {
+				hash: '72059g35b25789bg129bg219bg529gg0f26e',
+				name: 'WISeKey'
+			},
+			id: '6220aeafdcfaaaa5a645uy789tu8t8h028h8980',
+			name: 'Brooke Shield : The Tree',
+			description: 'This photo comes straight from Brooke Shield’s products',
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				hash: '72059g35b25789bg129bg219bg529gg0f26e',
+				name: 'WISeKey'
+			},
+			id: '6220aeafdcfaaaa5a645uy789tu8t8h028h8980',
+			name: 'Brooke Shield : The Tree',
+			description: 'This photo comes straight from Brooke Shield’s products',
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				hash: '72059g35b25789bg129bg219bg529gg0f26e',
+				name: ''
+			},
+			id: '6220aeafdcfaaaa5a645uy789tu8t8h028h8980',
+			name: 'Brooke Shield : The Tree',
+			description: 'This photo comes straight from Brooke Shield’s products',
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				hash: '72059g35b25789bg129bg219bg529gg0f26e',
+				name: ''
+			},
+			id: '6220aeafdcfaaaa5a645uy789tu8t8h028h8980',
+			name: 'Brooke Shield : The Tree',
+			description: 'This photo comes straight from Brooke Shield’s products',
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				hash: '72059g35b25789bg129bg219bg529gg0f26e',
+				name: 'WISeKey'
+			},
+			id: '6220aeafdcfaaaa5a645uy789tu8t8h028h8980',
+			name: 'Brooke Shield : The Tree',
+			description: 'This photo comes straight from Brooke Shield’s products',
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				hash: '72059g35b25789bg129bg219bg529gg0f26e',
+				name: 'WISeKey'
+			},
+			id: '6220aeafdcfaaaa5a645uy789tu8t8h028h8980',
+			name: 'Brooke Shield : The Tree',
+			description: 'This photo comes straight from Brooke Shield’s products',
+			standard: 'CEP47'
+		}
 	];
 	let tokensPerPage = 10;
 </script>
@@ -87,16 +87,16 @@
 		{#each tokens as token}
 			<tr>
 				<td class="block">
-                    <div class="wrapper">
-                        <Hash hash={token.contract.hash}/>
-                        <div class="text">
-                            {token.contract.name}
-                        </div>
-                    </div>
-                </td>
+					<div class="wrapper">
+						<Hash hash={token.contract.hash} />
+						<div class="text">
+							{token.contract.name}
+						</div>
+					</div>
+				</td>
 				<td class="hash">{`${token.id.substring(0, 20)}...`}</td>
 				<td>{token.name}</td>
-				<td class='desc'>{`${token.description.substring(0, 50)}...`}</td>
+				<td class="desc">{`${token.description.substring(0, 50)}...`}</td>
 				<td>{token.standard}</td>
 			</tr>
 		{/each}
@@ -142,13 +142,13 @@
 		@apply text-color-hover-footer-link;
 	}
 
-    .wrapper {
-        @apply text-color-table-header;
-        @apply md:h-[2.8vw];
-        @apply flex flex-col justify-center;
-    }
+	.wrapper {
+		@apply text-color-table-header;
+		@apply md:h-[2.8vw];
+		@apply flex flex-col justify-center;
+	}
 
-    .desc {
-        @apply text-color-grey-footer-label;
-    }
+	.desc {
+		@apply text-color-grey-footer-label;
+	}
 </style>

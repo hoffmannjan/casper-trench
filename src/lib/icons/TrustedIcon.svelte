@@ -1,4 +1,11 @@
-<svg width="17" height="18" class='h-full w-full' viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg
+	width="17"
+	height="18"
+	class="h-full w-full"
+	viewBox="0 0 17 18"
+	fill="none"
+	xmlns="http://www.w3.org/2000/svg"
+>
 	<mask
 		id="mask0_272_3732"
 		style="mask-type:alpha"

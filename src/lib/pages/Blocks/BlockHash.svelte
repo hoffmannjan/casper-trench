@@ -1,15 +1,15 @@
 <script lang="ts">
-import BlockProofs from '$lib/components/Blocks/BlockProofs.svelte';
+	import BlockProofs from '$lib/components/Blocks/BlockProofs.svelte';
 
-import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
+	import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 
 	import Button from '$lib/components/Reusables/Button.svelte';
-    import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
-    import EyeIcon from '$lib/icons/EyeIcon.svelte';
-    import SwitchChevron from '$lib/icons/SwitchChevron.svelte';
-    import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
+	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
+	import EyeIcon from '$lib/icons/EyeIcon.svelte';
+	import SwitchChevron from '$lib/icons/SwitchChevron.svelte';
+	import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-    import { slide } from "svelte/transition";
+	import { slide } from 'svelte/transition';
 
 	let blockHeight = 928323;
 	let era = '5508';
@@ -19,101 +19,112 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 		name: 'Ghost Staking',
 		hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
 	};
-    let blockHash = "01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31";
-    let stateRoofHash = "01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31";
-    let transactions = [
-        {
-            hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a",
-            from: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
-            },
-            to: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
-            },
-            value: 931
-        },
-        {
-            hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a",
-            from: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
-            },
-            to: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
-            },
-            value: 931
-        },
-        {
-            hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a",
-            from: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
-            },
-            to: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                hash: "805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a"
-            },
-            value: 931
-        }
-    ];
+	let blockHash = '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31';
+	let stateRoofHash = '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31';
+	let transactions = [
+		{
+			hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a',
+			from: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
+			},
+			to: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
+			},
+			value: 931
+		},
+		{
+			hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a',
+			from: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
+			},
+			to: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
+			},
+			value: 931
+		},
+		{
+			hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a',
+			from: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
+			},
+			to: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
+			},
+			value: 931
+		}
+	];
 
-    let proofs = [
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-        {
-            publicKey: "01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee",
-            signature: "01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905"
-        },
-    ]
+	let proofs = [
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		},
+		{
+			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
+			signature:
+				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
+		}
+	];
 
-    let showTransactions = false;
-    let showProofs = false;
-
+	let showTransactions = false;
+	let showProofs = false;
 </script>
 
 <div class="block-hash">
@@ -156,23 +167,23 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 					<td class="label">Validated by</td>
 					<td class="value">
 						<div class="validator">
-                            <div class="logo">
-                                <img src={validator.imgUrl} alt="validator-icon">
-                            </div>
-                            <div class="dets">
-                                <div class="name">
-                                    <div class="text">
-                                        {validator.name}
-                                    </div>
-                                    <div class="verified-icon">
-                                        <VerifiedIcon />
-                                    </div>
-                                </div>
-                                <div class="hash">
-                                    {validator.hash}
-                                </div>
-                            </div>
-                        </div>
+							<div class="logo">
+								<img src={validator.imgUrl} alt="validator-icon" />
+							</div>
+							<div class="dets">
+								<div class="name">
+									<div class="text">
+										{validator.name}
+									</div>
+									<div class="verified-icon">
+										<VerifiedIcon />
+									</div>
+								</div>
+								<div class="hash">
+									{validator.hash}
+								</div>
+							</div>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -182,21 +193,23 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 				<tr>
 					<td class="label">Transaction</td>
 					<td class="value">
-                        <div class="transaction-button green" on:click={() => {
-                            showTransactions = transactions && transactions.length>0 &&!showTransactions
-                        }}>
-                        
-                            <div class="text">
-                                {transactions.length ||0} Transaction{`${transactions.length === 1 ? "" : "s"}`}
-                            </div>
-                            <div class="icon" class:flipped={showTransactions}>
-                                <SwitchChevron />
-                            </div>
-                        </div>
-                        {#if showTransactions}
-                            <TransactionsTable {transactions}/>
-                        {/if}
-                    </td>
+						<div
+							class="transaction-button green"
+							on:click={() => {
+								showTransactions = transactions && transactions.length > 0 && !showTransactions;
+							}}
+						>
+							<div class="text">
+								{transactions.length || 0} Transaction{`${transactions.length === 1 ? '' : 's'}`}
+							</div>
+							<div class="icon" class:flipped={showTransactions}>
+								<SwitchChevron />
+							</div>
+						</div>
+						{#if showTransactions}
+							<TransactionsTable {transactions} />
+						{/if}
+					</td>
 				</tr>
 				<tr>
 					<td class="label">State Roof Hash</td>
@@ -205,32 +218,35 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 				<tr>
 					<td class="label">Proofs</td>
 					<td class="value">
-                        <div class="proofs-button green" on:click={() => {
-                            showProofs = !showProofs
-                        }}>
-                            <div class="text">
-                                {#if !showProofs}
-                                Show
-                                {:else}
-                                Hide
-                                {/if}
-                            </div>
-                            <div class="eye-icon">
-                                {#if !showProofs}
-                                    <div transition:slide>
-                                        <EyeIcon />
-                                    </div>
-                                {:else}
-                                    <div transition:slide>
-                                        <CrossedEyeIcon />
-                                    </div>
-                                {/if}
-                            </div>
-                        </div>
-                        {#if showProofs}
-                            <BlockProofs {proofs}/>
-                        {/if}
-                    </td>
+						<div
+							class="proofs-button green"
+							on:click={() => {
+								showProofs = !showProofs;
+							}}
+						>
+							<div class="text">
+								{#if !showProofs}
+									Show
+								{:else}
+									Hide
+								{/if}
+							</div>
+							<div class="eye-icon">
+								{#if !showProofs}
+									<div transition:slide>
+										<EyeIcon />
+									</div>
+								{:else}
+									<div transition:slide>
+										<CrossedEyeIcon />
+									</div>
+								{/if}
+							</div>
+						</div>
+						{#if showProofs}
+							<BlockProofs {proofs} />
+						{/if}
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -302,36 +318,36 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
 		@apply p-[clamp(16px,1.19vw,1.19vw)];
 		@apply rounded-[0.6vh] md:rounded-[0.6vw];
-        @apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
+		@apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
 	}
 
-    .logo {
-        @apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
-    }
+	.logo {
+		@apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
+	}
 
-    .logo > img {
-        @apply rounded-full;
-    }
+	.logo > img {
+		@apply rounded-full;
+	}
 
-    .name {
-        @apply flex items-center gap-[clamp(8px,0.5vw,0.5vw)];
-    }
+	.name {
+		@apply flex items-center gap-[clamp(8px,0.5vw,0.5vw)];
+	}
 
-    .verified-icon {
-        @apply w-[1.31vh] h-[1.31vh] md:w-[1.31vw] md:h-[1.31vw];
-    }
+	.verified-icon {
+		@apply w-[1.31vh] h-[1.31vh] md:w-[1.31vw] md:h-[1.31vw];
+	}
 
-    .dets > .hash {
-        @apply text-color-hover-footer-link;
-    }
+	.dets > .hash {
+		@apply text-color-hover-footer-link;
+	}
 
-    .transaction-button {
-        @apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
-        @apply cursor-pointer;
-        @apply max-w-max;
-    }
+	.transaction-button {
+		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
+		@apply cursor-pointer;
+		@apply max-w-max;
+	}
 
-    .icon {
+	.icon {
 		@apply w-[0.54vw] h-[0.33vw];
 		@apply transition-all;
 	}
@@ -340,16 +356,16 @@ import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 		@apply transform rotate-180;
 	}
 
-    .eye-icon {
-        @apply w-[1.19vh] md:w-[1.19vw];
-    }
+	.eye-icon {
+		@apply w-[1.19vh] md:w-[1.19vw];
+	}
 
-    .proofs-button {
-        @apply flex items-center gap-[0.3vw];
-        @apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
-        @apply bg-color-translucent-green;
-        @apply rounded-[0.3vh] md:rounded-[0.3vw];
-        @apply max-w-max;
-        @apply cursor-pointer;
-    }
+	.proofs-button {
+		@apply flex items-center gap-[0.3vw];
+		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
+		@apply bg-color-translucent-green;
+		@apply rounded-[0.3vh] md:rounded-[0.3vw];
+		@apply max-w-max;
+		@apply cursor-pointer;
+	}
 </style>

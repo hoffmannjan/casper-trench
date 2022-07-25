@@ -1,50 +1,50 @@
 <script>
-import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	import Paginator from '$lib/components/Paginator/index.svelte';
-import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
-    import Hash from '$lib/components/TableData/Hash.svelte';
-    import Validator from '$lib/components/TableData/Validator.svelte';
-    import { millisToFormat, timeAgo } from '$utils/converters';
+	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
+	import Hash from '$lib/components/TableData/Hash.svelte';
+	import Validator from '$lib/components/TableData/Validator.svelte';
+	import { millisToFormat, timeAgo } from '$utils/converters';
 
 	let blocks = [
-        {
-            blockHeight: 861308,
-            era: "5268",
-            transaction: 1,
-            age: Date.parse("July 21, 2022"),
-            hash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            validator: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                name: "Ghost Staking",
-                hash: "01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31"
-            }
-        },
 		{
-            blockHeight: 861308,
-            era: "5268",
-            transaction: 1,
-            age: Date.parse("July 21, 2022"),
-            hash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            validator: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                name: "Ghost Staking",
-                hash: "01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31"
-            }
-        },
+			blockHeight: 861308,
+			era: '5268',
+			transaction: 1,
+			age: Date.parse('July 21, 2022'),
+			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			validator: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				name: 'Ghost Staking',
+				hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
+			}
+		},
 		{
-            blockHeight: 861308,
-            era: "5268",
-            transaction: 1,
-            age: Date.parse("July 21, 2022"),
-            hash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            validator: {
-                imgUrl: "https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg",
-                name: "Ghost Staking",
-                hash: "01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31"
-            }
-        }
-    ];
+			blockHeight: 861308,
+			era: '5268',
+			transaction: 1,
+			age: Date.parse('July 21, 2022'),
+			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			validator: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				name: 'Ghost Staking',
+				hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
+			}
+		},
+		{
+			blockHeight: 861308,
+			era: '5268',
+			transaction: 1,
+			age: Date.parse('July 21, 2022'),
+			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			validator: {
+				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
+				name: 'Ghost Staking',
+				hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
+			}
+		}
+	];
 </script>
 
 <div class="delegators-tab">
@@ -83,26 +83,33 @@ import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 			<tr>
 				<td class="block black">
 					{block.blockHeight.toLocaleString()}
-                </td>
+				</td>
 				<td class="era">
-                    {block.era}
-                </td>
+					{block.era}
+				</td>
 				<td class="center black">
-                    {block.transaction}
-                </td>
+					{block.transaction}
+				</td>
 				<td class="center age">
-                    {`${timeAgo(millisToFormat(Date.now() - block.age))} ago`}
-                </td>
+					{`${timeAgo(millisToFormat(Date.now() - block.age))} ago`}
+				</td>
 				<td class="center">
-                    <div class="wrapper">
-                        <Hash hash={block.hash} on:click={() => {
-							goto(`/blocks/${block.hash}`);
-						}}/>
-                    </div>
-                </td>
+					<div class="wrapper">
+						<Hash
+							hash={block.hash}
+							on:click={() => {
+								goto(`/blocks/${block.hash}`);
+							}}
+						/>
+					</div>
+				</td>
 				<td>
-                    <Validator imgUrl={block.validator.imgUrl} name={block.validator.name} hash={block.validator.hash}/>
-                </td>
+					<Validator
+						imgUrl={block.validator.imgUrl}
+						name={block.validator.name}
+						hash={block.validator.hash}
+					/>
+				</td>
 			</tr>
 		{/each}
 	</table>
@@ -139,7 +146,7 @@ import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	}
 
 	.wrapper {
-        @apply flex justify-center;
+		@apply flex justify-center;
 	}
 
 	.center {

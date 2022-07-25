@@ -1,62 +1,62 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
-import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
-import AmountCost from '$lib/components/TableData/AmountCost.svelte';
-import ContractText from '$lib/components/TableData/ContractText.svelte';
-import Hash from '$lib/components/TableData/Hash.svelte';
-import TxHash from '$lib/components/TableData/TxHash.svelte';
-import { millisToFormat, timeAgo } from '$utils/converters';
+	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
+	import AmountCost from '$lib/components/TableData/AmountCost.svelte';
+	import ContractText from '$lib/components/TableData/ContractText.svelte';
+	import Hash from '$lib/components/TableData/Hash.svelte';
+	import TxHash from '$lib/components/TableData/TxHash.svelte';
+	import { millisToFormat, timeAgo } from '$utils/converters';
 
 	let transactions = [
-        {
-            hash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            status: "success",
-            blockHash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            publicKey: "a6df6n92478n279v25n75292v5v9v25d1693",
-            age: Date.parse("July 21, 2022 16:54"),
-            contract: "",
-            amount: {
-                cspr: 934863,
-                cash: 24736.64
-            },
-            cost: {
-                cspr: 934863,
-                cash: 24736.64
-            }
-        },
 		{
-            hash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            status: "success",
-            blockHash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            publicKey: "a6df6n92478n279v25n75292v5v9v25d1693",
-            age: Date.parse("July 21, 2022 16:54"),
-            contract: "",
-            amount: {
-                cspr: 934863,
-                cash: 24736.64
-            },
-            cost: {
-                cspr: 934863,
-                cash: 24736.64
-            }
-        },
+			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			status: 'success',
+			blockHash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			publicKey: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			age: Date.parse('July 21, 2022 16:54'),
+			contract: '',
+			amount: {
+				cspr: 934863,
+				cash: 24736.64
+			},
+			cost: {
+				cspr: 934863,
+				cash: 24736.64
+			}
+		},
 		{
-            hash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            status: "success",
-            blockHash: "a6df6n92478n279v25n75292v5v9v25d1693",
-            publicKey: "a6df6n92478n279v25n75292v5v9v25d1693",
-            age: Date.parse("July 21, 2022 16:54"),
-            contract: "",
-            amount: {
-                cspr: 934863,
-                cash: 24736.64
-            },
-            cost: {
-                cspr: 934863,
-                cash: 24736.64
-            }
-        }
-    ];
+			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			status: 'success',
+			blockHash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			publicKey: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			age: Date.parse('July 21, 2022 16:54'),
+			contract: '',
+			amount: {
+				cspr: 934863,
+				cash: 24736.64
+			},
+			cost: {
+				cspr: 934863,
+				cash: 24736.64
+			}
+		},
+		{
+			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			status: 'success',
+			blockHash: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			publicKey: 'a6df6n92478n279v25n75292v5v9v25d1693',
+			age: Date.parse('July 21, 2022 16:54'),
+			contract: '',
+			amount: {
+				cspr: 934863,
+				cash: 24736.64
+			},
+			cost: {
+				cspr: 934863,
+				cash: 24736.64
+			}
+		}
+	];
 </script>
 
 <div class="delegators-tab">
@@ -67,9 +67,7 @@ import { millisToFormat, timeAgo } from '$utils/converters';
 			<th>Block Hash</th>
 			<th>Public Key</th>
 			<th class="center sorter">
-				<div class="text">
-					Age
-				</div>
+				<div class="text">Age</div>
 				<TableSorter />
 			</th>
 			<th>Contract</th>
@@ -81,31 +79,35 @@ import { millisToFormat, timeAgo } from '$utils/converters';
 			<tr>
 				<td class="block">
 					<div class="wrapper-center">
-						<TxHash hash={transaction.hash} color={transaction.status.toLowerCase() === "success" ? "green" : "yellow"} right/>
+						<TxHash
+							hash={transaction.hash}
+							color={transaction.status.toLowerCase() === 'success' ? 'green' : 'yellow'}
+							right
+						/>
 					</div>
-                </td>
+				</td>
 				<td>
-                    <Hash hash={transaction.blockHash}/>
-                </td>
+					<Hash hash={transaction.blockHash} />
+				</td>
 				<td>
-                    <Hash hash={transaction.publicKey}/>
-                </td>
+					<Hash hash={transaction.publicKey} />
+				</td>
 				<td class="center age">
 					{`${timeAgo(millisToFormat(Date.now() - transaction.age))} ago`}
-                </td>
+				</td>
 				<td>
-                    <ContractText />
-                </td>
-				<td class="right">
-                    <div class="wrapper">
-						<AmountCost cspr={transaction.amount.cspr} cashValue={transaction.amount.cash}/>
-					</div>
-                </td>
+					<ContractText />
+				</td>
 				<td class="right">
 					<div class="wrapper">
-						<AmountCost cspr={transaction.cost.cspr} cashValue={transaction.cost.cash}/>
+						<AmountCost cspr={transaction.amount.cspr} cashValue={transaction.amount.cash} />
 					</div>
-                </td>
+				</td>
+				<td class="right">
+					<div class="wrapper">
+						<AmountCost cspr={transaction.cost.cspr} cashValue={transaction.cost.cash} />
+					</div>
+				</td>
 			</tr>
 		{/each}
 	</table>
@@ -146,7 +148,7 @@ import { millisToFormat, timeAgo } from '$utils/converters';
 	}
 
 	.wrapper {
-        @apply flex justify-end;
+		@apply flex justify-end;
 	}
 
 	.center {

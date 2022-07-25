@@ -19,7 +19,7 @@
 			<tr>
 				<td class="label"> Unstaking </td>
 				<td class="value">
-					<BalanceTransferrable cspr={unstaking}/>
+					<BalanceTransferrable cspr={unstaking} />
 				</td>
 			</tr>
 			<tr>

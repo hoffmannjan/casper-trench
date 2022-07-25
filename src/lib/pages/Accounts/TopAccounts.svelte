@@ -63,9 +63,7 @@
 </script>
 
 <div class="delegators-tab">
-	<div class="title">
-		Rich List
-	</div>
+	<div class="title">Rich List</div>
 	<table>
 		<tr>
 			<th class="block">Rank</th>

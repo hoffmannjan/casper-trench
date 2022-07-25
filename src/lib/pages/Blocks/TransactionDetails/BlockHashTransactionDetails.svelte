@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { slide } from "svelte/transition";
+	import { slide } from 'svelte/transition';
 
-    import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
-    import EyeIcon from '$lib/icons/EyeIcon.svelte';
-    import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
-    import DownloadIcon from "$lib/icons/DownloadIcon.svelte";
-    import TransactionDetailsSuccessIcon from "$lib/icons/TransactionDetailsSuccessIcon.svelte";
+	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
+	import EyeIcon from '$lib/icons/EyeIcon.svelte';
+	import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
+	import DownloadIcon from '$lib/icons/DownloadIcon.svelte';
+	import TransactionDetailsSuccessIcon from '$lib/icons/TransactionDetailsSuccessIcon.svelte';
 
 	import { millisToFormat, timeAgo } from '$utils/converters';
-import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable.svelte";
+	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 
-    let transactionStatus = "success";
-    let transactionHash = "01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31";
+	let transactionStatus = 'success';
+	let transactionHash = '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31';
 	let blockHeight = 928323;
 	let timestamp = Date.parse('July 22, 2022 14:46');
 	let from = {
@@ -19,54 +19,57 @@ import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable
 		name: 'Ghost Staking',
 		hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
 	};
-    let to = {
+	let to = {
 		imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
 		name: 'Ghost Staking',
 		hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
 	};
-    let value = 9231.03423;
-    let fee = 9231.03423;
-    let gasPrice = 1;
-    let ttl = 30;
+	let value = 9231.03423;
+	let fee = 9231.03423;
+	let gasPrice = 1;
+	let ttl = 30;
 
-    let showRawData = false;
+	let showRawData = false;
 </script>
 
 <div class="transaction-details">
-    <div class="top">
-        <span class="green">Transaction</span> / Transaction Details
-    </div>
-    <div class="wrapper">
-		<div class="download-button" on:click={() => {
-            //Download Functionality
-        }}>
+	<div class="top">
+		<span class="green">Transaction</span> / Transaction Details
+	</div>
+	<div class="wrapper">
+		<div
+			class="download-button"
+			on:click={() => {
+				//Download Functionality
+			}}
+		>
 			<DownloadIcon />
 		</div>
 
 		<div class="status">
 			<div class="icon">
-                {#if transactionStatus.toLowerCase() === "success"}
-                    <TransactionDetailsSuccessIcon />
-                {:else}
-                    <!-- Fail Icon -->
-                {/if}
-            </div>
-            <div class="status-text" class:success={transactionStatus.toLowerCase() === "success"}>
-                {transactionStatus.toLowerCase() === "success" ? 'TRANSFER SUCCESS' : transactionStatus.toUpperCase()}
-            </div>
-            <div class="amount">
-                <div class="value">
-                    {value.toLocaleString()}
-                </div>
-                <div class="cspr">
-                    CSPR
-                </div>
-            </div>
+				{#if transactionStatus.toLowerCase() === 'success'}
+					<TransactionDetailsSuccessIcon />
+				{:else}
+					<!-- Fail Icon -->
+				{/if}
+			</div>
+			<div class="status-text" class:success={transactionStatus.toLowerCase() === 'success'}>
+				{transactionStatus.toLowerCase() === 'success'
+					? 'TRANSFER SUCCESS'
+					: transactionStatus.toUpperCase()}
+			</div>
+			<div class="amount">
+				<div class="value">
+					{value.toLocaleString()}
+				</div>
+				<div class="cspr">CSPR</div>
+			</div>
 		</div>
 
 		<div class="details">
 			<table class="extras">
-                <tr>
+				<tr>
 					<td class="label">Transactions Hash</td>
 					<td class="value">{transactionHash}</td>
 				</tr>
@@ -88,47 +91,47 @@ import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable
 					<td class="label">From (Public Key)</td>
 					<td class="value">
 						<div class="validator">
-                            <div class="logo">
-                                <img src={from.imgUrl} alt="validator-icon">
-                            </div>
-                            <div class="dets">
-                                <div class="name">
-                                    <div class="text">
-                                        {from.name}
-                                    </div>
-                                    <div class="verified-icon">
-                                        <VerifiedIcon />
-                                    </div>
-                                </div>
-                                <div class="hash">
-                                    {from.hash}
-                                </div>
-                            </div>
-                        </div>
+							<div class="logo">
+								<img src={from.imgUrl} alt="validator-icon" />
+							</div>
+							<div class="dets">
+								<div class="name">
+									<div class="text">
+										{from.name}
+									</div>
+									<div class="verified-icon">
+										<VerifiedIcon />
+									</div>
+								</div>
+								<div class="hash">
+									{from.hash}
+								</div>
+							</div>
+						</div>
 					</td>
 				</tr>
 
-                <tr>
+				<tr>
 					<td class="label">To (Public Key)</td>
 					<td class="value">
 						<div class="validator">
-                            <div class="logo">
-                                <img src={to.imgUrl} alt="validator-icon">
-                            </div>
-                            <div class="dets">
-                                <div class="name">
-                                    <div class="text">
-                                        {to.name}
-                                    </div>
-                                    <div class="verified-icon">
-                                        <VerifiedIcon />
-                                    </div>
-                                </div>
-                                <div class="hash">
-                                    {to.hash}
-                                </div>
-                            </div>
-                        </div>
+							<div class="logo">
+								<img src={to.imgUrl} alt="validator-icon" />
+							</div>
+							<div class="dets">
+								<div class="name">
+									<div class="text">
+										{to.name}
+									</div>
+									<div class="verified-icon">
+										<VerifiedIcon />
+									</div>
+								</div>
+								<div class="hash">
+									{to.hash}
+								</div>
+							</div>
+						</div>
 					</td>
 				</tr>
 
@@ -142,7 +145,7 @@ import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable
 					<td class="value"><BalanceTransferrable cspr={fee} /></td>
 				</tr>
 
-                <tr>
+				<tr>
 					<td class="label">Gas Price</td>
 					<td class="value">{gasPrice} motes</td>
 				</tr>
@@ -155,28 +158,29 @@ import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable
 				<tr>
 					<td class="label">Raw Data</td>
 					<td class="value">
-                        <div class="proofs-button green" on:click={() => {
-                            showRawData = !showRawData
-                        }}>
-                            <div class="text">
-                                Show
-                            </div>
-                            <div class="eye-icon">
-                                {#if !showRawData}
-                                    <div transition:slide>
-                                        <EyeIcon />
-                                    </div>
-                                {:else}
-                                    <div transition:slide>
-                                        <CrossedEyeIcon />
-                                    </div>
-                                {/if}
-                            </div>
-                        </div>
-                        {#if showRawData}
-                            <!-- Raw data -->
-                        {/if}
-                    </td>
+						<div
+							class="proofs-button green"
+							on:click={() => {
+								showRawData = !showRawData;
+							}}
+						>
+							<div class="text">Show</div>
+							<div class="eye-icon">
+								{#if !showRawData}
+									<div transition:slide>
+										<EyeIcon />
+									</div>
+								{:else}
+									<div transition:slide>
+										<CrossedEyeIcon />
+									</div>
+								{/if}
+							</div>
+						</div>
+						{#if showRawData}
+							<!-- Raw data -->
+						{/if}
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -184,19 +188,19 @@ import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable
 </div>
 
 <style lang="postcss">
-    .transaction-details {
-        @apply text-color-table-header text-[clamp(12px,1.07vw,1.07vw)];
-    }
+	.transaction-details {
+		@apply text-color-table-header text-[clamp(12px,1.07vw,1.07vw)];
+	}
 
-    .top {
-        @apply mb-[clamp(8px,1.43vw,1.43vw)];
-    }
+	.top {
+		@apply mb-[clamp(8px,1.43vw,1.43vw)];
+	}
 
-    .green {
-        @apply text-color-hover-footer-link;
-    }
+	.green {
+		@apply text-color-hover-footer-link;
+	}
 
-    .wrapper {
+	.wrapper {
 		@apply md:w-[82.2vw];
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
@@ -208,8 +212,8 @@ import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable
 
 	.download-button {
 		@apply absolute top-[clamp(16px,1.79vw,1.79vw)] right-[clamp(16px,2.38vw,2.38vw)];
-        @apply w-[clamp(20px,2.86vw,2.86vw)];
-        @apply cursor-pointer;
+		@apply w-[clamp(20px,2.86vw,2.86vw)];
+		@apply cursor-pointer;
 	}
 
 	.green {
@@ -244,71 +248,69 @@ import BalanceTransferrable from "$lib/components/TableData/BalanceTransferrable
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
 		@apply p-[clamp(16px,1.19vw,1.19vw)];
 		@apply rounded-[0.6vh] md:rounded-[0.6vw];
-        @apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
+		@apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
 	}
 
-    .logo {
-        @apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
-    }
+	.logo {
+		@apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
+	}
 
-    .logo > img {
-        @apply rounded-full;
-    }
+	.logo > img {
+		@apply rounded-full;
+	}
 
-    .name {
-        @apply flex items-center gap-[clamp(8px,0.5vw,0.5vw)];
-    }
+	.name {
+		@apply flex items-center gap-[clamp(8px,0.5vw,0.5vw)];
+	}
 
-    .verified-icon {
-        @apply w-[1.31vh] h-[1.31vh] md:w-[1.31vw] md:h-[1.31vw];
-    }
+	.verified-icon {
+		@apply w-[1.31vh] h-[1.31vh] md:w-[1.31vw] md:h-[1.31vw];
+	}
 
-    .dets > .hash {
-        @apply text-color-hover-footer-link;
-    }
+	.dets > .hash {
+		@apply text-color-hover-footer-link;
+	}
 
-    .eye-icon {
-        @apply w-[1.19vh] md:w-[1.19vw];
-    }
+	.eye-icon {
+		@apply w-[1.19vh] md:w-[1.19vw];
+	}
 
-    .proofs-button {
-        @apply flex items-center gap-[0.3vw];
-        @apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
-        @apply bg-color-translucent-green;
-        @apply rounded-[0.3vh] md:rounded-[0.3vw];
-        @apply max-w-max;
-        @apply cursor-pointer;
-    }
+	.proofs-button {
+		@apply flex items-center gap-[0.3vw];
+		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
+		@apply bg-color-translucent-green;
+		@apply rounded-[0.3vh] md:rounded-[0.3vw];
+		@apply max-w-max;
+		@apply cursor-pointer;
+	}
 
-    .status {
-        @apply flex flex-col items-center;
-    }
+	.status {
+		@apply flex flex-col items-center;
+	}
 
-    .icon {
-        @apply w-[clamp(24px,7.5vw,7.5vw)] h-[clamp(24px,7.5vw,7.5vw)];
-    }
+	.icon {
+		@apply w-[clamp(24px,7.5vw,7.5vw)] h-[clamp(24px,7.5vw,7.5vw)];
+	}
 
-    .status-text {
-        @apply text-color-arcadia-red font-bold text-[clamp(16px,1.43vw,1.43vw)];
-        @apply mb-[clamp(8px,0.71vw,0.71vw)];
-    }
+	.status-text {
+		@apply text-color-arcadia-red font-bold text-[clamp(16px,1.43vw,1.43vw)];
+		@apply mb-[clamp(8px,0.71vw,0.71vw)];
+	}
 
-    .success {
-        @apply text-color-arcadia-green;
-    }
+	.success {
+		@apply text-color-arcadia-green;
+	}
 
-    .amount {
-        @apply flex gap-[clamp(4px,0.48vw,0.48vw)] items-center;
-        @apply mb-[clamp(16px,3.93vw,3.93vw)];
-    }
-    
-    .amount > .value {
-        @apply text-[clamp(32px,2.86vw,2.86vw)] font-bold;
-    }
-    
-    .amount > .cspr {
-        @apply text-[clamp(24px,1.90vw,1.90vw)] font-bold text-color-grey-footer-label;
-    }
+	.amount {
+		@apply flex gap-[clamp(4px,0.48vw,0.48vw)] items-center;
+		@apply mb-[clamp(16px,3.93vw,3.93vw)];
+	}
 
-    
+	.amount > .value {
+		@apply text-[clamp(32px,2.86vw,2.86vw)] font-bold;
+	}
+
+	.amount > .cspr {
+		@apply text-[clamp(24px,1.90vw,1.90vw)] font-bold text-color-grey-footer-label;
+	}
 </style>

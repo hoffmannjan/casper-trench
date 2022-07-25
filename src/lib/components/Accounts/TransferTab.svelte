@@ -23,7 +23,7 @@
 				up: true
 			}
 		},
-        {
+		{
 			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
 			time: Date.parse('July 20, 2022 14:05'),
 			from: {
@@ -39,7 +39,7 @@
 				up: true
 			}
 		},
-        {
+		{
 			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
 			time: Date.parse('July 20, 2022 14:05'),
 			from: {
@@ -55,7 +55,7 @@
 				up: false
 			}
 		},
-        {
+		{
 			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
 			time: Date.parse('July 20, 2022 14:05'),
 			from: {
@@ -71,7 +71,7 @@
 				up: false
 			}
 		},
-        {
+		{
 			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
 			time: Date.parse('July 20, 2022 14:05'),
 			from: {
@@ -109,20 +109,20 @@
 				<td class="block">{transfer.id}</td>
 				<td class="time">{`${timeAgo(millisToFormat(Date.now() - transfer.time))} ago`}</td>
 				<td>
-                    <div class="right-flex">
+					<div class="right-flex">
 						<FromToAccountHash isFrom cspr={transfer.from.cspr} hash={transfer.from.hash} />
 					</div>
-                </td>
+				</td>
 				<td>
-                    <div class="right-flex">
+					<div class="right-flex">
 						<FromToAccountHash cspr={transfer.to.cspr} hash={transfer.to.hash} />
 					</div>
-                </td>
+				</td>
 				<td>
 					<div class="right-flex">
 						<AmountChange isUp={transfer.amount.up} cspr={transfer.amount.value} />
 					</div>
-                </td>
+				</td>
 			</tr>
 		{/each}
 	</table>

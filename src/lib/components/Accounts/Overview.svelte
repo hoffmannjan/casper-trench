@@ -2,12 +2,11 @@
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 
-	export let type = "";
+	export let type = '';
 	export let available = 0;
 	export let balance = 0;
-	export let publicKey = "";
-	export let hash = "";
-
+	export let publicKey = '';
+	export let hash = '';
 </script>
 
 <div class="overview">
