@@ -179,6 +179,42 @@ export const getAccountDeploys = async (account: string, count: number, start: n
 		});
 };
 
+export const getAccountDelegation = async (account: string, count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/delegate`, {
+			params: {
+				account,
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch account staking delegations');
+		});
+};
+
+export const getAccountUndelegations = async (account: string, count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/undelegate`, {
+			params: {
+				account,
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch account staking undelegations');
+		});
+};
+
 export const getAccountRewards = async (account: string, count: number, start: number) => {
 	return await axios
 		.get(`${casperStatsBaseURL}/account/get-rewards`, {
