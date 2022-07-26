@@ -10,7 +10,8 @@
 	import { millisToFormat, timeAgo } from '$utils/converters';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { sampleJsonData } from '$utils/sampleData';
-import CopyIcon from '$lib/icons/CopyIcon.svelte';
+	import CopyIcon from '$lib/icons/CopyIcon.svelte';
+	import TreeToggle from '$lib/components/Reusables/TreeToggle.svelte';
 
 	let transactionStatus = 'success';
 	let transactionHash = '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31';
@@ -188,7 +189,7 @@ import CopyIcon from '$lib/icons/CopyIcon.svelte';
 										Copy
 									</div>
 									<div class="copy-icon" on:click={() => {
-										navigator.clipboard && navigator.clipboard.writeText(jsonData);
+										navigator.clipboard && navigator.clipboard.writeText(JSON.stringify(jsonData));
 									}}>
 										<CopyIcon />
 									</div>
@@ -197,7 +198,7 @@ import CopyIcon from '$lib/icons/CopyIcon.svelte';
 						</div>
 						{#if showRawData}
 							<div class="raw-data" transition:slide>
-								<pre>{jsonData}</pre>
+								<TreeToggle text="" data={jsonData} />
 							</div>
 						{/if}
 					</td>
