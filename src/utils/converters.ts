@@ -1,3 +1,6 @@
+import { getValidator } from './api';
+import type { ValidatorDetails } from './types/validator';
+
 export const millisToFormat = (
 	diff: number
 ): {
@@ -102,4 +105,11 @@ export const processType = (type: string): string => {
 };
 export const parseStringValue = (value: string): number => {
 	return parseFloat(value) / 1000000000;
+};
+
+export const getValidatorDetails = async (
+	address: string
+): Promise<{ name: string; icon: string }> => {
+	const validator: ValidatorDetails = await getValidator(address);
+	return validator && { name: validator.information.name, icon: validator.information.icon };
 };

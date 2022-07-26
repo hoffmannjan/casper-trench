@@ -12,11 +12,14 @@
 	export let pagedItems: {}[] = [];
 	export let apiPaginator = false;
 	const pageItems = () => {
-		pagedItems = items.filter((item, index) => {
-			if (index >= startIndex && index < startIndex + itemsPerPage) {
-				return item;
-			}
-		});
+		pagedItems =
+			items &&
+			items.length > 0 &&
+			items.filter((item, index) => {
+				if (index >= startIndex && index < startIndex + itemsPerPage) {
+					return item;
+				}
+			});
 	};
 	$: items && itemsPerPage && pageItems();
 	$: totalPages = items && pageItems && Math.ceil(items.length / itemsPerPage);
