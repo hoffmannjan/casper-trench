@@ -189,7 +189,7 @@
 										Copy
 									</div>
 									<div class="copy-icon" on:click={() => {
-										navigator.clipboard && navigator.clipboard.writeText(JSON.stringify(jsonData));
+										navigator.clipboard && navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
 									}}>
 										<CopyIcon />
 									</div>
