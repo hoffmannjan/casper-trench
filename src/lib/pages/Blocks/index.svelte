@@ -1,50 +1,42 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import Validator from '$lib/components/TableData/Validator.svelte';
-	import { millisToFormat, timeAgo } from '$utils/converters';
+	import { isLoading } from '$stores/loading';
+	import { getLatestBlocks, getRangeBlocks, getValidator } from '$utils/api';
+	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
+	import type { Block, RangeBlock } from '$utils/types/block';
+	import { onMount } from 'svelte';
 
-	let blocks = [
-		{
-			blockHeight: 861308,
-			era: '5268',
-			transaction: 1,
-			age: Date.parse('July 21, 2022'),
-			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
-			validator: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				name: 'Ghost Staking',
-				hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
-			}
-		},
-		{
-			blockHeight: 861308,
-			era: '5268',
-			transaction: 1,
-			age: Date.parse('July 21, 2022'),
-			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
-			validator: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				name: 'Ghost Staking',
-				hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
-			}
-		},
-		{
-			blockHeight: 861308,
-			era: '5268',
-			transaction: 1,
-			age: Date.parse('July 21, 2022'),
-			hash: 'a6df6n92478n279v25n75292v5v9v25d1693',
-			validator: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				name: 'Ghost Staking',
-				hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
-			}
-		}
-	];
+	let blocks: Block[];
+	let rangeBlock: RangeBlock;
+	let latestBlock = 0;
+	let blocksPerPage = 10;
+	let startIndex = 0;
+	onMount(async () => {
+		$isLoading = true;
+		let latestBlocks: Block[] = await getLatestBlocks(1);
+		startIndex = latestBlocks && latestBlocks[0].header.height;
+		latestBlock = startIndex;
+		await fetchBlocks();
+		$isLoading = false;
+	});
+
+	const fetchBlocks = async () => {
+		$isLoading = true;
+		// logic to invert the block heights for start and end query params.
+		rangeBlock = await getRangeBlocks(startIndex - blocksPerPage + 1, startIndex);
+		blocks = rangeBlock && rangeBlock.result;
+		$isLoading = false;
+	};
+	$: if (blocksPerPage) {
+		setTimeout(async () => {
+			await fetchBlocks();
+		}, 1);
+	}
 </script>
 
 <div class="delegators-tab">
@@ -79,41 +71,57 @@
 			<th>Validators</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#each blocks as block, i}
-			<tr>
-				<td class="block black">
-					{block.blockHeight.toLocaleString()}
-				</td>
-				<td class="era">
-					{block.era}
-				</td>
-				<td class="center black">
-					{block.transaction}
-				</td>
-				<td class="center age">
-					{`${timeAgo(millisToFormat(Date.now() - block.age))} ago`}
-				</td>
-				<td class="center">
-					<div class="wrapper">
-						<Hash
-							hash={block.hash}
-							on:click={() => {
-								goto(`/blocks/${block.hash}`);
-							}}
-						/>
-					</div>
-				</td>
-				<td>
-					<Validator
-						imgUrl={block.validator.imgUrl}
-						name={block.validator.name}
-						hash={block.validator.hash}
-					/>
-				</td>
-			</tr>
-		{/each}
+		{#if blocks && blocks.length > 0}
+			{#each blocks as block, i}
+				<tr>
+					<td class="block black">
+						{block.header.height.toLocaleString()}
+					</td>
+					<td class="era">
+						{block.header.era_id}
+					</td>
+					<td class="center black">
+						{block.body.deploy_hashes.length || 0}
+					</td>
+					<td class="center age">
+						{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.header.timestamp)))} ago`}
+					</td>
+					<td class="center">
+						<div class="wrapper">
+							<a href="/blocks/{block.hash}">
+								<Hash hash={block.hash} />
+							</a>
+						</div>
+					</td>
+					<td>
+						{#await getValidatorDetails(block.body.proposer)}
+							<Validator imgUrl={''} name={''} hash={block.body.proposer} />
+						{:then validator}
+							{#if validator}
+								<Validator
+									imgUrl={validator.icon}
+									name={validator.name}
+									hash={block.body.proposer}
+								/>
+							{:else}
+								<Validator imgUrl={''} name={''} hash={block.body.proposer} />
+							{/if}
+						{/await}
+					</td>
+				</tr>
+			{/each}
+		{/if}
 	</table>
-	<Paginator />
+	<Paginator
+		isRangeBlock
+		showTotalRows
+		bind:itemsPerPage={blocksPerPage}
+		apiPaginator
+		bind:items={blocks}
+		bind:startIndex
+		bind:latestBlock
+		on:load-page={async () => await fetchBlocks()}
+	/>
 </div>
 
 <style lang="postcss">

@@ -37,15 +37,32 @@ export const getTopValidators = async () => {
 		});
 };
 
-export const getLatestBlocks = async () => {
+export const getLatestBlocks = async (number: number) => {
 	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-latest-blocks/10`)
+		.get(`${casperStatsBaseURL}/chain/get-latest-blocks/${number}`)
 		.then((res) => {
 			return res.data;
 		})
 		.catch((err) => {
 			console.log(err);
 			notifyError('Could not fetch latest blocks');
+		});
+};
+
+export const getRangeBlocks = async (start: number, end: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/chain/get-range-block`, {
+			params: {
+				start,
+				end
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch blocks');
 		});
 };
 
