@@ -60,8 +60,7 @@
 		@apply w-[1.55vh] h-[1.55vh] md:w-[1.55vw] md:h-[1.55vw];
 		@apply flex items-center justify-center;
 		@apply rounded-full;
-		/* TODO add this color */
-		/* @apply bg-color-proof-num-background; */
+		@apply bg-color-proof-num-background;
 		@apply mr-[clamp(20px,1.61vw,1.61vw)];
 		@apply text-[clamp(10px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}

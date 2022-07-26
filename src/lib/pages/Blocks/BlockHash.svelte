@@ -308,8 +308,7 @@
 
 	.ago {
 		@apply text-[clamp(10px,0.95vw,0.95vw)] text-color-grey-footer-label;
-		/* TODO add this color */
-		/* @apply bg-color-ago-background; */
+		@apply bg-color-ago-background;
 		@apply p-[clamp(4px,0.3vw,0.3vw)];
 		@apply max-w-max;
 	}
