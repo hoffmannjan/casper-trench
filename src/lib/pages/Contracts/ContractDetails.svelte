@@ -42,8 +42,7 @@
         }
     ];
 
-    let warningMessage = "This address is reported to be involved in a Indexed Finance exploit.";
-    let showMessage = warningMessage.length > 0;
+    let showMessage = true;
 </script>
 
 <div class="main">
@@ -94,7 +93,7 @@
             <div class="warning-icon">
                 <WarningMessageIcon />
             </div>
-            {warningMessage}
+            This address is reported to be involved in a <span class="link">Indexed Finance exploit.</span>
         </div>
     {/if}
 
@@ -169,6 +168,7 @@
         @apply bg-color-translucent-red;
         @apply rounded-[clamp(4px,0.48vw,0.48vw)];
         @apply mb-[1.79vw];
+        @apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
     }
 
     .close-icon {
@@ -180,5 +180,10 @@
     .warning-icon {
         @apply w-[clamp(16px,1.19vw,1.19vw)] h-[clamp(16px,1.19vw,1.19vw)];
         @apply mr-[clamp(2px,0.36vw,0.36vw)];
+    }
+
+    .link {
+        @apply text-color-hover-footer-link;
+        @apply ml-[0.24vw];
     }
 </style>
