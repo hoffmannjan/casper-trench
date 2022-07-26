@@ -61,7 +61,7 @@
 </script>
 
 <div class="delegators-tab">
-	<div class="title">Blocks</div>
+	<div class="title">Contracts</div>
 	<table>
 		<tr>
 			<th class="block">Address</th>
@@ -97,20 +97,20 @@
                         </div>
                     </div>
                 </td>
-                <td>{contract.balance} BNB</td>
+                <td>{contract.balance} CSPR</td>
                 <td class="black">{contract.transactions}</td>
                 <td>
                     <div class="setting">
-                        <div class="icon" on:click={() => {
+                        <button type="button" class="icon" on:click={() => {
                             // Lightning functionality
                         }}>
                             <LightningIcon />
-                        </div>
-                        <div class="icon" on:click={() => {
+                        </button >
+                        <button type="button" class="icon" on:click={() => {
                             // Settings functionality
                         }}>
                             <SettingsIcon />
-                        </div>
+                        </button>
                     </div>
                 </td>
                 <td class="black">{new Date(contract.date).toLocaleDateString()}</td>
