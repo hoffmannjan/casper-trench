@@ -82,15 +82,15 @@
 			{#each transactions as transaction}
 				<tr>
 					<td class="block">{transaction.delegator}</td>
-					<td>	
+					<td>
 						{#await getValidatorDetails(transaction.validator)}
 							loading
-						{:then validator} 
+						{:then validator}
 							<Validator
-							hash={transaction.validator}
-							imgUrl={validator.icon}
-							name={validator.name}
-						/>
+								hash={transaction.validator}
+								imgUrl={validator.icon}
+								name={validator.name}
+							/>
 						{/await}
 						{transaction.validator}
 					</td>

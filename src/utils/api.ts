@@ -249,3 +249,20 @@ export const getAccountEraRewards = async (account: string, count: number) => {
 			notifyError('Could not fetch account era earnings');
 		});
 };
+
+export const getTransactions = async (count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/chain/get-latest-txs`, {
+			params: {
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch transactions');
+		});
+};
