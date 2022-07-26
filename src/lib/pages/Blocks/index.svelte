@@ -8,6 +8,7 @@
 	import { isLoading } from '$stores/loading';
 	import { getLatestBlocks, getRangeBlocks, getValidator } from '$utils/api';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
+import { tableSort } from '$utils/sort';
 	import type { Block, RangeBlock } from '$utils/types/block';
 	import { onMount } from 'svelte';
 
@@ -37,6 +38,9 @@
 			await fetchBlocks();
 		}, 1);
 	}
+	const sortBlocks = (direction: 'asc' | 'desc', field: string) => {
+		blocks = tableSort(direction, blocks, field);
+	};
 </script>
 
 <div class="delegators-tab">
@@ -46,25 +50,25 @@
 			<th class="block">
 				<div class="sorter">
 					<div class="text">Block Height</div>
-					<TableSorter />
+					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'header.height')} />
 				</div>
 			</th>
 			<th>
 				<div class="sorter">
 					<div class="text">Era</div>
-					<TableSorter />
+					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'header.era_id')} />
 				</div>
 			</th>
 			<th class="center">
 				<div class="sorter">
 					<div class="text">Transaction</div>
-					<TableSorter />
+					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'body.deploy_hashes')} />
 				</div>
 			</th>
 			<th class="center">
 				<div class="sorter">
 					<div class="text">Age</div>
-					<TableSorter />
+					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'header.timestamp')} />
 				</div>
 			</th>
 			<th class="center">Block Hash</th>
