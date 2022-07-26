@@ -2,10 +2,13 @@
 	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import ShowRow from './ShowRow.svelte';
+	import { getLatestBlocks } from '$utils/api';
 	const dispatch = createEventDispatcher();
 	let page = 1;
 
 	export let itemsPerPage = 10;
+	export let latestBlock = 0;
+	export let isRangeBlock = false;
 	export let startIndex = 0;
 	export let showTotalRows = true;
 	export let items: {}[] = [];
@@ -38,8 +41,13 @@
 		<div class="actual-paginator">
 			<button
 				type="button"
-				on:click={() => {
-					startIndex = 0;
+				on:click={async () => {
+					if (isRangeBlock) {
+						let latestBlock = await getLatestBlocks(1);
+						startIndex = latestBlock && latestBlock[0].header.height;
+					} else {
+						startIndex = 0;
+					}
 					page = 1;
 					apiPaginator ? dispatch('load-page') : pageItems();
 				}}
@@ -50,7 +58,7 @@
 				on:click={() => {
 					if (page > 1) {
 						page--;
-						startIndex -= itemsPerPage;
+						isRangeBlock ? (startIndex += itemsPerPage) : (startIndex -= itemsPerPage);
 						apiPaginator ? dispatch('load-page') : pageItems();
 					}
 				}}
@@ -65,13 +73,17 @@
 				{#if !apiPaginator}
 					of {totalPages.toLocaleString()}
 				{/if}
+				{#if isRangeBlock}
+					of {latestBlock.toLocaleString()}
+				{/if}
 			</div>
 			<button
 				type="button"
 				on:click={() => {
 					if (apiPaginator && items && items.length > 0) {
 						page++;
-						startIndex += itemsPerPage;
+						// startIndex += itemsPerPage;
+						isRangeBlock ? (startIndex -= itemsPerPage) : (startIndex += itemsPerPage);
 						dispatch('load-page');
 					} else {
 						if (page < totalPages) {

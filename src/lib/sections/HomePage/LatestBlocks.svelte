@@ -12,7 +12,7 @@
 	let blocks: Block[];
 	onMount(async () => {
 		$isLoading = true;
-		blocks = await getLatestBlocks();
+		blocks = await getLatestBlocks(10);
 		$isLoading = false;
 	});
 </script>

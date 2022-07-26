@@ -111,5 +111,5 @@ export const getValidatorDetails = async (
 	address: string
 ): Promise<{ name: string; icon: string }> => {
 	const validator: ValidatorDetails = await getValidator(address);
-	return validator && { name: validator.information.name, icon: validator.information.icon };
+	return validator && { name: validator.information?.name, icon: validator.information?.icon };
 };
