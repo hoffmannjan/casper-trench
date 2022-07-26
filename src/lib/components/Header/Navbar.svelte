@@ -47,6 +47,11 @@
 			dropdown: []
 		},
 		{
+			text: 'Transactions',
+			link: '/transactions',
+			dropdown: []
+		},
+		{
 			text: 'Top Accounts',
 			link: '/accounts/top-accounts',
 			dropdown: []
