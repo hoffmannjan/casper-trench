@@ -82,8 +82,8 @@
 			<Overview {account} {type} />
 			<StakeInfo {account} />
 		</div>
-		<TabMenu {menuOptions} />
 	{/if}
+	<TabMenu {menuOptions} />
 </div>
 
 <style lang="postcss">

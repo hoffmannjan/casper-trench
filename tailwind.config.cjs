@@ -28,9 +28,15 @@ module.exports = {
 					'black-text': '#1A1919',
 					'translucent-green': '#E5F8F6',
 					'network-background': '#B8B9B9',
+					'translucent-red': '#FFEDEE',
+					'translucent-yellow': '#FFFBEA',
+					'network-background': '#B8B9B9',
 					'ago-background': '#F3F3F3',
 					'proof-num-background': '#F6F6F6',
-					'copy-btn-bg': '#F4F5F5'
+					'copy-btn-bg': '#F4F5F5',
+					'translucent-yellow': '#FFFBEA',
+					'translucent-blue': '#F5F7FF',
+					'arcadia-blue': '#1735A3'
 				}
 			},
 			fontFamily: {

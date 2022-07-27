@@ -1,5 +1,5 @@
 <script>
-	import TxnTransactions from '$lib/pages/Transactions/TxnTransactions.svelte';
+	import Transactions from '$lib/pages/Transactions/index.svelte';
 </script>
 
-<TxnTransactions />
+<Transactions />
