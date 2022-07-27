@@ -3,28 +3,55 @@
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { page } from '$app/stores';
-	import ContractsOverview from '$lib/components/Contracts/ContractsOverview.svelte';
-	import MoreInfo from '$lib/components/Contracts/MoreInfo.svelte';
-	import CrossIcon from '$lib/icons/CrossIcon.svelte';
-	import WarningMessageIcon from '$lib/icons/WarningMessageIcon.svelte';
-	import { slide } from 'svelte/transition';
+  import ContractsOverview from '$lib/components/Contracts/ContractsOverview.svelte';
+  import MoreInfo from '$lib/components/Contracts/MoreInfo.svelte';
+  import CrossIcon from '$lib/icons/CrossIcon.svelte';
+  import WarningMessageIcon from '$lib/icons/WarningMessageIcon.svelte';
+  import { slide } from 'svelte/transition';
+  import ContractTransactions from './ContractTabs/ContractTransactions.svelte';
+  import ContractErc20Tokens from './ContractTabs/ContractERC20Tokens.svelte';
+  import ContractTokens from './ContractTabs/ContractTokens.svelte';
+  import ContractTab from './ContractTabs/ContractTab.svelte';
+  import ContractEvents from './ContractTabs/ContractEvents.svelte';
+  import ContractAnalytics from './ContractTabs/ContractAnalytics.svelte';
+  import ContractComments from './ContractTabs/ContractComments.svelte';
 
 	let menuOptions = [
 		{
 			title: 'Transactions',
-			component: '',
+			component: ContractTransactions,
 			props: {}
 		},
 		{
 			title: 'ERC 20 Tokens',
-			component: '',
+			component: ContractErc20Tokens,
 			props: {}
 		},
 		{
 			title: 'Tokens',
-			component: '',
+			component: ContractTokens,
 			props: {}
-		}
+		},
+        {
+            title: 'Contract',
+            component: ContractTab,
+            props: {}
+        },
+        {
+            title: 'Events',
+            component: ContractEvents,
+            props: {}
+        },
+        {
+            title: 'Analytics',
+            component: ContractAnalytics,
+            props: {}
+        },
+        {
+            title: 'Comments',
+            component: ContractComments,
+            props: {}
+        }
 	];
 
 	let tags = [
