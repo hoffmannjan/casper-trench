@@ -6,7 +6,7 @@
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import TxHash from '$lib/components/TableData/TxHash.svelte';
 	import { millisToFormat, parseStringValue, timeAgo } from '$utils/converters';
-	import type { Transaction } from '$utils/types/transaction';
+	// import type { Transaction } from '$utils/types/transaction';
 	import { onMount } from 'svelte';
 	import { getTransactions } from '$utils/api';
 	import { isLoading } from '$stores/loading';
@@ -14,7 +14,8 @@
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { tableSort } from '$utils/sort';
 
-	let transactions: Transaction[];
+	// let transactions: Transaction[];
+	let transactions;
 	let transactionsPerPage = 10;
 	let startIndex = 0;
 	onMount(async () => {
@@ -61,7 +62,9 @@
 				<tr>
 					<td class="block">
 						<div class="wrapper-center">
-							<TxHash hash={transaction.deploy_hash} right />
+							<a href="/transactions/{transaction.deploy_hash}">
+								<TxHash hash={transaction.deploy_hash} right />
+							</a>
 						</div>
 					</td>
 					<!-- TODO remove placeholder -->
