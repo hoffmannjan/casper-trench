@@ -2,8 +2,8 @@
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { parseStringValue, processType } from '$utils/converters';
 
-    export let balance = 0;
-    export let value = 0;
+	export let balance = 0;
+	export let value = 0;
 </script>
 
 <div class="overview">

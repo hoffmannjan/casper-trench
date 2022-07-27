@@ -83,40 +83,48 @@
 		{#each contracts as contract}
 			<tr>
 				<td class="block hash">
-        <a href="/contracts/{contract.address}">
-          <Hash hash={contract.address} noOfCharacters={20} start variant='right'/>
-        </a>
-        </td>
-        <td class="grey">{contract.name}</td>
-        <td>{contract.type}</td>
-        <td>
-            <div class="setting">
-                <div class="version-icon">
-                    <VersionWarningIcon />
-                </div>
-                <div class="grey">
-                    {contract.version}
-                </div>
-            </div>
-        </td>
-        <td>{contract.balance} CSPR</td>
-        <td class="black">{contract.transactions}</td>
-        <td>
-            <div class="setting">
-                <button type="button" class="icon" on:click={() => {
-                    // Lightning functionality
-                }}>
-                    <LightningIcon />
-                </button >
-                <button type="button" class="icon" on:click={() => {
-                    // Settings functionality
-                }}>
-                    <SettingsIcon />
-                </button>
-            </div>
-        </td>
-        <td class="black">{new Date(contract.date).toLocaleDateString()}</td>
-        <td class="black">{contract.audited}</td>
+					<a href="/contracts/{contract.address}">
+						<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
+					</a>
+				</td>
+				<td class="grey">{contract.name}</td>
+				<td>{contract.type}</td>
+				<td>
+					<div class="setting">
+						<div class="version-icon">
+							<VersionWarningIcon />
+						</div>
+						<div class="grey">
+							{contract.version}
+						</div>
+					</div>
+				</td>
+				<td>{contract.balance} CSPR</td>
+				<td class="black">{contract.transactions}</td>
+				<td>
+					<div class="setting">
+						<button
+							type="button"
+							class="icon"
+							on:click={() => {
+								// Lightning functionality
+							}}
+						>
+							<LightningIcon />
+						</button>
+						<button
+							type="button"
+							class="icon"
+							on:click={() => {
+								// Settings functionality
+							}}
+						>
+							<SettingsIcon />
+						</button>
+					</div>
+				</td>
+				<td class="black">{new Date(contract.date).toLocaleDateString()}</td>
+				<td class="black">{contract.audited}</td>
 			</tr>
 		{/each}
 	</table>
