@@ -184,16 +184,19 @@
 								</div>
 							</div>
 							{#if showRawData}
-								<div class="copy-button">
-									<div class="text">
-										Copy
-									</div>
-									<div class="copy-icon" on:click={() => {
-										navigator.clipboard && navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
-									}}>
+								<button
+									type="button"
+									on:click={() => {
+										navigator.clipboard &&
+											navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
+									}}
+									class="copy-button"
+								>
+									<div class="text">Copy</div>
+									<div class="copy-icon">
 										<CopyIcon />
 									</div>
-								</div>
+								</button>
 							{/if}
 						</div>
 						{#if showRawData}
@@ -294,6 +297,10 @@
 
 	.eye-icon {
 		@apply w-[1.19vh] md:w-[1.19vw];
+	}
+
+	.copy-icon {
+		@apply w-[1.5vh] md:w-[1.5vw];
 	}
 
 	.proofs-button {
