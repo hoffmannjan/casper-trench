@@ -1,36 +1,41 @@
 <script>
 	import ContractChevron from '$lib/icons/ContractChevron.svelte';
-    import ErrorTreeIcon from '$lib/icons/ErrorTreeIcon.svelte';
-    import { slide } from 'svelte/transition';
+	import ErrorTreeIcon from '$lib/icons/ErrorTreeIcon.svelte';
+	import { slide } from 'svelte/transition';
 
 	export let readFunction;
 	export let i;
-    export let error = "";
+	export let error = '';
 
-    let inputTexts = [];
-    readFunction.inputs.forEach(() => {
-        inputTexts.push('');
-    })
+	let inputTexts = [];
+	readFunction.inputs.forEach(() => {
+		inputTexts.push('');
+	});
 
 	let expanded = false;
 
-    let response;
+	let response;
 
-    const queryHandler = () => {
-        let argsMet = 0;
-        inputTexts.forEach((text, i) => {
-            if (text === null || text.length === 0) {
-                error = `Error: Invalid number of parameters for "${readFunction.name}". Got ${argsMet} expected ${inputTexts.length}!`;
-                response = null;
-                return;
-            }
-            if ((inputTexts.length - 1) === i) {
-                response = readFunction.reply(inputTexts);
-                error = "";
-            }
-            argsMet++;
-        })
-    };
+	const queryHandler = () => {
+		let argsMet = 0;
+		if (readFunction.inputs.length > 0) {
+			inputTexts.forEach((text, i) => {
+				if (text === null || text.length === 0) {
+					error = `Error: Invalid number of parameters for "${readFunction.name}". Got ${argsMet} expected ${inputTexts.length}!`;
+					response = null;
+					return;
+				}
+				if (inputTexts.length - 1 === i) {
+					response = readFunction.reply(inputTexts);
+					error = '';
+				}
+				argsMet++;
+			});
+		} else {
+			response = readFunction.reply(inputTexts);
+			error = '';
+		}
+	};
 </script>
 
 <div class="function-browser" class:borders={expanded}>
@@ -44,37 +49,51 @@
 	</div>
 	{#if expanded}
 		<div class="dropdown" transition:slide>
-			{#if readFunction.inputs.length > 0}
-				<div class="inputs">
+			<div class="inputs">
+				{#if readFunction.inputs.length > 0}
 					{#each readFunction.inputs as input, i}
 						<div class="label">
 							{input.name} ({input.type})
 						</div>
 						{#if input.type.toLowerCase() === 'string'}
-							<input type="text" placeholder={`${input.name} (${input.type})`} bind:value={inputTexts[i]}/>
+							<input
+								type="text"
+								placeholder={`${input.name} (${input.type})`}
+								bind:value={inputTexts[i]}
+							/>
 						{:else if input.type.includes('uint') | input.type.includes('float')}
-							<input type="number" placeholder={`${input.name} (${input.type})`} bind:value={inputTexts[i]}/>
+							<input
+								type="number"
+								placeholder={`${input.name} (${input.type})`}
+								bind:value={inputTexts[i]}
+							/>
 						{/if}
 					{/each}
-					<div class="query" on:click={queryHandler}>Query</div>
-                    {#if error.length > 0}
-                        <div class="error" transition:slide>
-                            <div class="tree">
-                                <ErrorTreeIcon />
-                            </div>
-                            <div class="text">
-                                <span>{readFunction.expected}</span> {error}
-                            </div>
-                        </div>
-                    {/if}
+				{/if}
+
+				<div class="query" on:click={queryHandler}>Query</div>
+				{#if error.length > 0}
+					<div class="error" transition:slide>
+						<div class="tree">
+							<ErrorTreeIcon />
+						</div>
+						<div class="text">
+							<span>{readFunction.expected}</span>
+							{error}
+						</div>
+					</div>
+				{/if}
+			</div>
+			{#if response}
+				<div class="response">
+					<span class="value"
+						>{response.type === 'string' ? `"` : ``}{response.data}{response.type === 'string'
+							? `"`
+							: ``}</span
+					>
+					<span class="type">{response.type}</span>
 				</div>
 			{/if}
-            {#if response}
-                <div class="response">
-                    <span class="value">{response.type === 'string' ? `"` : ``}{response.data}{response.type === 'string' ? `"` : ``}</span>
-                    <span class="type">{response.type}</span>
-                </div>
-            {/if}
 		</div>
 	{/if}
 </div>
@@ -96,7 +115,7 @@
 
 	.function-browser {
 		@apply my-[clamp(16px,1.67vw,1.67vw)];
-        @apply text-color-table-header;
+		@apply text-color-table-header;
 	}
 
 	.borders {
@@ -120,7 +139,7 @@
 		@apply px-[clamp(16px,1.19vw,1.19vw)] py-[clamp(8px,0.83vw,0.83vw)];
 		@apply w-full;
 		@apply outline-color-hover-footer-link;
-        @apply mb-[clamp(12px,0.95vw,0.95vw)];
+		@apply mb-[clamp(12px,0.95vw,0.95vw)];
 	}
 
 	.query {
@@ -129,26 +148,26 @@
 		@apply max-w-max;
 		@apply p-[clamp(8px,0.6vw,0.6vw)];
 		@apply bg-color-query-green;
-        @apply cursor-pointer;
-        @apply mb-[clamp(12px,0.95vw,0.95vw)];
+		@apply cursor-pointer;
+		@apply mb-[clamp(12px,0.95vw,0.95vw)];
 	}
 
-    .error {
-        @apply text-color-arcadia-red;
-        @apply mb-[clamp(12px,0.95vw,0.95vw)];
-        @apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
-    }
+	.error {
+		@apply text-color-arcadia-red;
+		@apply mb-[clamp(12px,0.95vw,0.95vw)];
+		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
+	}
 
-    .tree {
-        @apply h-[0.48vh] w-[0.3vh] md:h-[0.7vw] md:w-[0.5vw];
-        @apply ml-[clamp(8px,0.71vw,0.71vw)];
-    }
+	.tree {
+		@apply h-[0.48vh] w-[0.3vh] md:h-[0.7vw] md:w-[0.5vw];
+		@apply ml-[clamp(8px,0.71vw,0.71vw)];
+	}
 
-    .error > .text > span {
-        @apply text-color-table-header;
-    }
+	.error > .text > span {
+		@apply text-color-table-header;
+	}
 
-    .value {
-        @apply text-color-hover-footer-link;
-    }
+	.value {
+		@apply text-color-hover-footer-link;
+	}
 </style>
