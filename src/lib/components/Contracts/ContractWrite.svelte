@@ -1,5 +1,6 @@
 <script>
 	import FileIcon from '$lib/icons/FileIcon.svelte';
+import WalletIcon from '$lib/icons/WalletIcon.svelte';
     import FunctionBrowser from './FunctionBrowser.svelte';
 
     let readFunctions = [
@@ -53,9 +54,9 @@
 	<div class="header">
         <div class="title">
             <div class="code-icon">
-                <FileIcon />
+                <WalletIcon />
             </div>
-            <div class="title-text">Read Contract Information</div>
+            <div class="title-text">Connect to Web3</div>
         </div>
         <div class="reset" on:click={() => {
             reset++;
@@ -81,6 +82,7 @@
 
 	.title-text {
 		@apply font-bold;
+        @apply text-color-hover-footer-link;
 	}
 
 	.code-icon {
