@@ -1,75 +1,22 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
-	import { millisToFormat, timeAgo } from '$utils/converters';
+	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
 	import Switch from '$components/Reusables/Switch.svelte';
 	import TransactionStatus from '$components/TableData/TransactionStatus.svelte';
 	import Validator from '$components/TableData/Validator.svelte';
+	import { onMount } from 'svelte';
+	import type { Delegation, Undelegation } from '$utils/types/stake';
+	import { getAccountDelegation, getAccountUndelegations } from '$utils/api';
+	import { page } from '$app/stores';
+	import { isLoading } from '$stores/loading';
 
-	//sample data
-	const stakingHistory = [
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			validator: {
-				hash: '012ba35h3633h3636e69b',
-				imgUrl: 'https://ledgerleap.com/assets/images/favicon.png',
-				name: 'Everstake'
-			},
-			amount: 16324232.03423,
-			status: 'Success'
-		},
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			validator: {
-				hash: '012ba35h3633h3636e69b',
-				imgUrl: 'https://ledgerleap.com/assets/images/favicon.png',
-				name: 'Everstake'
-			},
-			amount: 16324232.03423,
-			status: 'Success'
-		},
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			validator: {
-				hash: '012ba35h3633h3636e69b',
-				imgUrl: 'https://ledgerleap.com/assets/images/favicon.png',
-				name: 'Everstake'
-			},
-			amount: 16324232.03423,
-			status: 'Insufficient funds'
-		},
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			validator: {
-				hash: '012ba35h3633h3636e69b',
-				imgUrl: 'https://ledgerleap.com/assets/images/favicon.png',
-				name: 'Everstake'
-			},
-			amount: 16324232.03423,
-			status: 'Success'
-		},
-		{
-			id: '9bb2ee365c9b2672f761daac599e84c6d8ab1d25a43fba2d38e508df63ec5c79',
-			time: Date.parse('July 20, 2022 14:05'),
-			validator: {
-				hash: '012ba35h3633h3636e69b',
-				imgUrl: 'https://ledgerleap.com/assets/images/favicon.png',
-				name: 'Everstake'
-			},
-			amount: 16324232.03423,
-			status: 'Success'
-		}
-	];
-	const unstakingHistory = [];
-
-	// export let props = {};
 	let transactions = [];
-	let transactionsPerPage = 10;
-
+	let delegations: Delegation[];
+	let undelegations: Undelegation[];
+	let itemsPerPage = 10;
+	let startIndex = 0;
+	let dataset: 'delegations' | 'undelegations' = 'delegations';
 	const switchOptions = [
 		{
 			name: 'Staking History',
@@ -85,11 +32,33 @@
 	let selected = 0;
 
 	$: if (selected === 0) {
-		//Update transactions to be staking history
-		transactions = stakingHistory;
+		dataset = 'delegations';
+		transactions = delegations;
 	} else {
-		//Update transactions to be unstaking history
-		transactions = unstakingHistory;
+		dataset = 'undelegations';
+		transactions = undelegations;
+	}
+
+	onMount(async () => {
+		await fetchDelegations();
+		await fetchUndelegations();
+	});
+
+	const fetchDelegations = async () => {
+		$isLoading = true;
+		delegations = await getAccountDelegation($page.params.address, itemsPerPage, startIndex);
+		$isLoading = false;
+	};
+
+	const fetchUndelegations = async () => {
+		$isLoading = true;
+		delegations = await getAccountUndelegations($page.params.address, itemsPerPage, startIndex);
+		$isLoading = false;
+	};
+	$: if (itemsPerPage) {
+		setTimeout(async () => {
+			dataset == 'delegations' ? await fetchDelegations() : fetchUndelegations();
+		}, 1);
 	}
 </script>
 
@@ -98,7 +67,7 @@
 </div>
 <div class="staking-tab">
 	<div class="total">
-		Latest {transactionsPerPage} Transactions
+		Latest {itemsPerPage} Transactions
 	</div>
 	<table>
 		<tr>
@@ -109,18 +78,27 @@
 			<th class="right">Status</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#if transactions.length > 0}
+		{#if transactions && transactions.length > 0}
 			{#each transactions as transaction}
 				<tr>
-					<td class="block">{transaction.id}</td>
-					<td
-						><Validator
-							hash={transaction.validator.hash}
-							imgUrl={transaction.validator.imgUrl}
-							name={transaction.validator.name}
-						/></td
+					<td class="block">{transaction.delegator}</td>
+					<td>
+						{#await getValidatorDetails(transaction.validator)}
+							loading
+						{:then validator}
+							<Validator
+								hash={transaction.validator}
+								imgUrl={validator.icon}
+								name={validator.name}
+							/>
+						{/await}
+						{transaction.validator}
+					</td>
+					<td class="time"
+						>{dataset === 'delegations'
+							? `${timeAgo(millisToFormat(Date.now() - transaction.time))} ago`
+							: '0'}</td
 					>
-					<td class="time">{`${timeAgo(millisToFormat(Date.now() - transaction.time))} ago`}</td>
 					<td>
 						<div class="value-crypto">
 							<div class="crypto">
@@ -140,7 +118,17 @@
 			{/each}
 		{/if}
 	</table>
-	{#if transactions.length === 0}
+	{#if transactions && transactions.length > 0}
+		<Paginator
+			showTotalRows={false}
+			bind:itemsPerPage
+			apiPaginator
+			bind:items={transactions}
+			bind:startIndex
+			on:load-page={async () =>
+				dataset == 'delegations' ? await fetchDelegations() : fetchUndelegations()}
+		/>
+	{:else}
 		<div class="empty">
 			<div class="content">
 				<div class="empty-icon">
@@ -149,8 +137,6 @@
 				<div class="text">Empty</div>
 			</div>
 		</div>
-	{:else}
-		<Paginator />
 	{/if}
 </div>
 

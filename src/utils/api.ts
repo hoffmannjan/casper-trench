@@ -37,15 +37,32 @@ export const getTopValidators = async () => {
 		});
 };
 
-export const getLatestBlocks = async () => {
+export const getLatestBlocks = async (number: number) => {
 	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-latest-blocks/10`)
+		.get(`${casperStatsBaseURL}/chain/get-latest-blocks/${number}`)
 		.then((res) => {
 			return res.data;
 		})
 		.catch((err) => {
 			console.log(err);
 			notifyError('Could not fetch latest blocks');
+		});
+};
+
+export const getRangeBlocks = async (start: number, end: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/chain/get-range-block`, {
+			params: {
+				start,
+				end
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch blocks');
 		});
 };
 
@@ -179,6 +196,42 @@ export const getAccountDeploys = async (account: string, count: number, start: n
 		});
 };
 
+export const getAccountDelegation = async (account: string, count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/delegate`, {
+			params: {
+				account,
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch account staking delegations');
+		});
+};
+
+export const getAccountUndelegations = async (account: string, count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/account/undelegate`, {
+			params: {
+				account,
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch account staking undelegations');
+		});
+};
+
 export const getAccountRewards = async (account: string, count: number, start: number) => {
 	return await axios
 		.get(`${casperStatsBaseURL}/account/get-rewards`, {
@@ -211,5 +264,22 @@ export const getAccountEraRewards = async (account: string, count: number) => {
 		.catch((err) => {
 			console.log(err);
 			notifyError('Could not fetch account era earnings');
+		});
+};
+
+export const getTransactions = async (count: number, start: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/chain/get-latest-txs`, {
+			params: {
+				count,
+				start
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch transactions');
 		});
 };

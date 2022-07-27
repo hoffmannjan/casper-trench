@@ -36,7 +36,13 @@ module.exports = {
 					'code-background': '#F5F5F5',
 					'code-scrollbar': '#E6E6E6',
 					'function-browser-bg': '#F8F9FA',
-					'query-green': '#F2FEFD'
+					'query-green': '#F2FEFD',
+					'network-background': '#B8B9B9',
+					'ago-background': '#F3F3F3',
+					'ago-background-2': '#F7F7F7',
+					'proof-num-background': '#F6F6F6',
+					'copy-btn-bg': '#F4F5F5',
+					'translucent-yellow': '#FFFBEA'
 				}
 			},
 			fontFamily: {

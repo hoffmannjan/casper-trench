@@ -1,4 +1,4 @@
-export type Transaction = {
+export type AccountTransaction = {
 	deploy_hash: string;
 	hash: string;
 	timestamp: string;
@@ -9,4 +9,14 @@ export type Transaction = {
 	account_balance: string;
 	type: string;
 	amount: string;
+};
+export type Transaction = {
+	deploy_hash: string;
+	timestamp: string;
+	from_address: string;
+	to_address: string;
+	value: string;
+	fee: string;
+	from_balance: string;
+	to_balance: string;
 };
