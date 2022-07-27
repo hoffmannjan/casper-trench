@@ -8,7 +8,7 @@
 	import { isLoading } from '$stores/loading';
 	import { getLatestBlocks, getRangeBlocks, getValidator } from '$utils/api';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
-import { tableSort } from '$utils/sort';
+	import { tableSort } from '$utils/sort';
 	import type { Block, RangeBlock } from '$utils/types/block';
 	import { onMount } from 'svelte';
 
