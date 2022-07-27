@@ -34,7 +34,9 @@ module.exports = {
 					'arcadia-blue': '#1735A3',
 					'contract-header-border': '#D7D7D7',
 					'code-background': '#F5F5F5',
-					'code-scrollbar': '#E6E6E6'
+					'code-scrollbar': '#E6E6E6',
+					'function-browser-bg': '#F8F9FA',
+					'query-green': '#F2FEFD'
 				}
 			},
 			fontFamily: {
