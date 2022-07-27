@@ -1,257 +1,199 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
+	import { page } from '$app/stores';
 	import BlockProofs from '$lib/components/Blocks/BlockProofs.svelte';
-
 	import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
-
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
 	import SwitchChevron from '$lib/icons/SwitchChevron.svelte';
 	import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
-	import { millisToFormat, timeAgo } from '$utils/converters';
+	import { isLoading } from '$stores/loading';
+	import { getBlock, getBlockTransfers } from '$utils/api';
+	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
+	import type { BlockDetail } from '$utils/types/block';
+	import type { BlockTransfer } from '$utils/types/transfer';
+	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 
-	let blockHeight = 928323;
-	let era = '5508';
-	let timestamp = Date.parse('July 21, 2022 18:54');
-	let validator = {
-		imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-		name: 'Ghost Staking',
-		hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
-	};
-	let blockHash = '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31';
-	let stateRoofHash = '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31';
-	let transactions = [
-		{
-			hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a',
-			from: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
-			},
-			to: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
-			},
-			value: 931
-		},
-		{
-			hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a',
-			from: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
-			},
-			to: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
-			},
-			value: 931
-		},
-		{
-			hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a',
-			from: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
-			},
-			to: {
-				imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-				hash: '805734b4aajibvgisujvb49u925bv29759b25bf3cdf9d1a'
-			},
-			value: 931
-		}
-	];
-
-	let proofs = [
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		},
-		{
-			publicKey: '01000e6fce753895c0d08d5d6af62db4e9b0d070f10e69e2c6badf977b29bbeeee',
-			signature:
-				'01e4979f2b66f814899a514c2bcd339ba0f1644b2b84643443645d3a5836d550cac0db81c0319e72e04212387327eb7a5b6b7487baa6908dc0c1c125a1a1b6b905'
-		}
-	];
-
-	let showTransactions = false;
+	let showTransfers = false;
 	let showProofs = false;
+	let block: BlockDetail;
+	let transfers: BlockTransfer[];
+	onMount(async () => {
+		$isLoading = true;
+		block = await getBlock($page.params.hash);
+		transfers = block && (await getBlockTransfers(block.result?.block?.header?.height));
+		console.log(block);
+		console.log(transfers);
+		$isLoading = false;
+	});
 </script>
 
-<div class="block-hash">
-	<div class="wrapper">
-		<div class="block-buttons">
-			<Button block>Blocks #{blockHeight - 1}</Button>
-			<Button block active>Blocks #{blockHeight}</Button>
-			<Button block>Blocks #{blockHeight + 1}</Button>
-		</div>
-
-		<div class="top">
-			<div class="title">
-				Blocks {blockHeight}
+{#if block}
+	<div class="block-hash">
+		<div class="wrapper">
+			<div class="block-buttons">
+				<Button
+					on:click={() => {
+						goto(`/blocks/${block.result?.block?.header?.height - 1}`);
+						window.location.reload();
+					}}
+					block>Blocks #{block.result?.block?.header?.height - 1}</Button
+				>
+				<Button block active>Blocks #{block.result?.block?.header?.height}</Button>
+				<Button
+					on:click={() => {
+						if (block.result?.block?.header?.height + 1 <= block.result?.current_height) {
+							goto(`/blocks/${block.result?.block?.header?.height + 1}`);
+							window.location.reload();
+						}
+					}}
+					block
+				>
+					{#if block.result?.block?.header?.height + 1 <= block.result?.current_height}
+						Blocks #{block.result?.block?.header?.height + 1}
+					{:else}
+						Crunching...
+					{/if}
+				</Button>
 			</div>
-			<div class="sub-title">
-				<div class="blocks">
-					<span class="green">Blocks</span> / Blocks {blockHeight}
+
+			<div class="top">
+				<div class="title">
+					Blocks {block.result?.block?.header?.height}
+				</div>
+				<div class="sub-title">
+					<div class="blocks">
+						<span class="green">Blocks</span> / Blocks {block.result?.current_height}
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="details">
-			<table class="extras">
-				<tr>
-					<td class="label">Block Height</td>
-					<td class="value">{blockHeight}</td>
-				</tr>
-				<tr>
-					<td class="label">Era ID</td>
-					<td class="value">{era}</td>
-				</tr>
-				<tr>
-					<td class="label">Timestamp</td>
-					<td class="value">
-						<div class="time">{new Date(timestamp)}</div>
-						<div class="ago">{`${timeAgo(millisToFormat(Date.now() - timestamp))} ago`}</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="label">Validated by</td>
-					<td class="value">
-						<div class="validator">
-							<div class="logo">
-								<img src={validator.imgUrl} alt="validator-icon" />
+			<div class="details">
+				<table class="extras">
+					<tr>
+						<td class="label">Block Height</td>
+						<td class="value">{block.result?.block?.header?.height}</td>
+					</tr>
+					<tr>
+						<td class="label">Era ID</td>
+						<td class="value">{block.result?.block?.header?.era_id}</td>
+					</tr>
+					<tr>
+						<td class="label">Timestamp</td>
+						<td class="value">
+							<div class="time">{new Date(block.result?.block?.header?.timestamp)}</div>
+							<div class="ago">
+								{`${timeAgo(
+									millisToFormat(Date.now() - Date.parse(block.result?.block?.header?.timestamp))
+								)} ago`}
 							</div>
-							<div class="dets">
-								<div class="name">
-									<div class="text">
-										{validator.name}
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Validated by</td>
+						<td class="value">
+							{#await getValidatorDetails(block.result?.block?.body?.proposer)}
+								<div class="validator validator-placeholder" />
+							{:then validator}
+								<div class="validator">
+									<div class="logo">
+										{#if validator.icon}
+											<img src={validator.icon} alt="validator-icon" />
+										{:else}
+											<div class="image-placeholder">
+												<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+											</div>
+										{/if}
 									</div>
-									<div class="verified-icon">
-										<VerifiedIcon />
+									<div class="dets">
+										<div class="name {validator.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
+											<div class="text">
+												{validator.name || ''}
+											</div>
+											<div class="verified-icon">
+												<VerifiedIcon />
+											</div>
+										</div>
+										<div class="hash">
+											{block.result?.block?.body?.proposer}
+										</div>
 									</div>
 								</div>
-								<div class="hash">
-									{validator.hash}
+							{/await}
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Block Hash</td>
+						<td class="value">{block.result?.block?.hash}</td>
+					</tr>
+					<tr>
+						<td class="label">Transaction</td>
+						<td class="value">
+							<div
+								class="transaction-button green"
+								on:click={() => {
+									showTransfers = transfers && transfers.length > 0 && !showTransfers;
+								}}
+							>
+								<div class="text">
+									{(transfers && transfers.length) || 0} Transaction{`${
+										transfers && transfers.length === 1 ? '' : 's'
+									}`}
+								</div>
+								<div class="icon" class:flipped={showTransfers}>
+									<SwitchChevron />
 								</div>
 							</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="label">Block Hash</td>
-					<td class="value">{blockHash}</td>
-				</tr>
-				<tr>
-					<td class="label">Transaction</td>
-					<td class="value">
-						<div
-							class="transaction-button green"
-							on:click={() => {
-								showTransactions = transactions && transactions.length > 0 && !showTransactions;
-							}}
-						>
-							<div class="text">
-								{transactions.length || 0} Transaction{`${transactions.length === 1 ? '' : 's'}`}
+							{#if showTransfers}
+								<TransactionsTable {transfers} />
+							{/if}
+						</td>
+					</tr>
+					<tr>
+						<td class="label">State Roof Hash</td>
+						<td class="value">{block.result?.block?.header?.state_root_hash}</td>
+					</tr>
+					<tr>
+						<td class="label">Proofs</td>
+						<td class="value">
+							<div
+								class="proofs-button green"
+								on:click={() => {
+									showProofs = !showProofs;
+								}}
+							>
+								<div class="text">
+									{#if !showProofs}
+										Show
+									{:else}
+										Hide
+									{/if}
+								</div>
+								<div class="eye-icon">
+									{#if !showProofs}
+										<div transition:slide>
+											<EyeIcon />
+										</div>
+									{:else}
+										<div transition:slide>
+											<CrossedEyeIcon />
+										</div>
+									{/if}
+								</div>
 							</div>
-							<div class="icon" class:flipped={showTransactions}>
-								<SwitchChevron />
-							</div>
-						</div>
-						{#if showTransactions}
-							<TransactionsTable {transactions} />
-						{/if}
-					</td>
-				</tr>
-				<tr>
-					<td class="label">State Roof Hash</td>
-					<td class="value">{stateRoofHash}</td>
-				</tr>
-				<tr>
-					<td class="label">Proofs</td>
-					<td class="value">
-						<div
-							class="proofs-button green"
-							on:click={() => {
-								showProofs = !showProofs;
-							}}
-						>
-							<div class="text">
-								{#if !showProofs}
-									Show
-								{:else}
-									Hide
-								{/if}
-							</div>
-							<div class="eye-icon">
-								{#if !showProofs}
-									<div transition:slide>
-										<EyeIcon />
-									</div>
-								{:else}
-									<div transition:slide>
-										<CrossedEyeIcon />
-									</div>
-								{/if}
-							</div>
-						</div>
-						{#if showProofs}
-							<BlockProofs {proofs} />
-						{/if}
-					</td>
-				</tr>
-			</table>
+							{#if showProofs}
+								<BlockProofs proofs={block && block.result?.block?.proofs} />
+							{/if}
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
-</div>
+{/if}
 
 <style lang="postcss">
 	.wrapper {
@@ -320,6 +262,11 @@
 		@apply rounded-[0.6vh] md:rounded-[0.6vw];
 		@apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
 	}
+	.validator-placeholder {
+		@apply animate-pulse;
+		@apply bg-gradient-to-tr from-gray-100 to-gray-50;
+		@apply h-[clamp(16px,1.19vw,1.19vw)];
+	}
 
 	.logo {
 		@apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
@@ -327,6 +274,15 @@
 
 	.logo > img {
 		@apply rounded-full;
+	}
+	.image-placeholder {
+		@apply bg-gray-100;
+		@apply rounded-full;
+		@apply flex items-center justify-center;
+		@apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
+	}
+	.image-placeholder > img {
+		@applt w-1/3;
 	}
 
 	.name {

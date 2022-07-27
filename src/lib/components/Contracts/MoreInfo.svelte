@@ -1,14 +1,14 @@
 <script lang="ts">
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
-import BlockIcon from '$lib/icons/BlockIcon.svelte';
+	import BlockIcon from '$lib/icons/BlockIcon.svelte';
 	import { parseStringValue, processType } from '$utils/converters';
-import Hash from '../TableData/Hash.svelte';
+	import Hash from '../TableData/Hash.svelte';
 
-    export let nameTag = "Alex";
-    export let creator = {
-        address: "0x34b9235db59c329ee3nv9824hb49278g16n1b61q356nj1q36",
-        txn: "0x50de8d787940850531bd3ce31237j2m7mw35712462624"
-    };
+	export let nameTag = 'Alex';
+	export let creator = {
+		address: '0x34b9235db59c329ee3nv9824hb49278g16n1b61q356nj1q36',
+		txn: '0x50de8d787940850531bd3ce31237j2m7mw35712462624'
+	};
 </script>
 
 <div class="overview">
@@ -18,32 +18,37 @@ import Hash from '../TableData/Hash.svelte';
 			<tr>
 				<td class="label"> My Name Tag </td>
 				<td class="value">
-                    {#if nameTag && nameTag.length>0}
-					    {nameTag}
-                    {:else}
-                        Not Available, <span class="green" on:click={() => {
-                            //Login Functionality
-                        }}>Login to Update</span>
-                    {/if}
+					{#if nameTag && nameTag.length > 0}
+						{nameTag}
+					{:else}
+						Not Available, <span
+							class="green"
+							on:click={() => {
+								//Login Functionality
+							}}>Login to Update</span
+						>
+					{/if}
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Contract Creator </td>
 				<td class="value">
-					<Hash hash={creator.address} noOfCharacters={20} start/> at txn <Hash hash={creator.txn} noOfCharacters={20} start/>
+					<Hash hash={creator.address} noOfCharacters={20} start /> at txn <Hash
+						hash={creator.txn}
+						noOfCharacters={20}
+						start
+					/>
 				</td>
 			</tr>
-            <tr>
+			<tr>
 				<td class="label"> Token Tracker </td>
 				<td class="value">
 					<div class="tracker">
-                        <div class="icon">
-                            <BlockIcon />
-                        </div>
-                        <div class="text green">
-                            Crypto Port (CRYPTOPORT)
-                        </div>
-                    </div>
+						<div class="icon">
+							<BlockIcon />
+						</div>
+						<div class="text green">Crypto Port (CRYPTOPORT)</div>
+					</div>
 				</td>
 			</tr>
 		</table>
@@ -84,16 +89,16 @@ import Hash from '../TableData/Hash.svelte';
 		@apply border-b-[clamp(1px,0.09vw,0.09vw)] border-color-tooltip-border;
 	}
 
-    .green {
-        @apply text-color-hover-footer-link;
-        @apply cursor-pointer;
-    }
+	.green {
+		@apply text-color-hover-footer-link;
+		@apply cursor-pointer;
+	}
 
-    .tracker > .icon {
-        @apply w-[1.19vh] h-[1.19vh] md:w-[1.19vw] md:h-[1.19vw];
-    }
+	.tracker > .icon {
+		@apply w-[1.19vh] h-[1.19vh] md:w-[1.19vw] md:h-[1.19vw];
+	}
 
-    .tracker {
-        @apply flex items-center gap-[clamp(2px,0.24vw,0.24vw)];
-    }
+	.tracker {
+		@apply flex items-center gap-[clamp(2px,0.24vw,0.24vw)];
+	}
 </style>

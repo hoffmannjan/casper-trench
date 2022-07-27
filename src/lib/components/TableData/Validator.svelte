@@ -9,10 +9,10 @@
 
 <div class="validator">
 	{#if imgUrl}
-	<div class="icon">
+		<div class="icon">
 			<img src={imgUrl} alt="validator-icon" />
 		</div>
-		{:else}
+	{:else}
 		<div class="image-placeholder">
 			<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
 		</div>
