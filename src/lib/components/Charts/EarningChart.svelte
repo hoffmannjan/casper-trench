@@ -115,7 +115,10 @@
 					monthNames[date.getMonth()] +
 					'</div>' +
 					'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
-					'<span style="display: flex; align-items: center;">' + '<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' + w.globals.colors[seriesIndex] + ';"></div>' +
+					'<span style="display: flex; align-items: center;">' +
+					'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
+					w.globals.colors[seriesIndex] +
+					';"></div>' +
 					w.globals.initialSeries[seriesIndex].name +
 					' : ' +
 					'</span>' +
