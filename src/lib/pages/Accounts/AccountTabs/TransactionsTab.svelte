@@ -3,13 +3,13 @@
 	import { millisToFormat, timeAgo } from '$utils/converters';
 	import Hash from '$components/TableData/Hash.svelte';
 	import TransactionStatus from '$components/TableData/TransactionStatus.svelte';
-	import type { Transaction } from '$utils/types/transaction';
+	import type { AccountTransaction } from '$utils/types/transaction';
 	import { onMount } from 'svelte';
 	import { isLoading } from '$stores/loading';
 	import { page } from '$app/stores';
 	import { getAccountDeploys } from '$utils/api';
 
-	let transactions: Transaction[];
+	let transactions: AccountTransaction[];
 	let transactionsPerPage = 10;
 	let startIndex = 0;
 	onMount(async () => {
