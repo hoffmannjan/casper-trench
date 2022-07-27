@@ -6,6 +6,7 @@
 	import FilterIcon2 from '$lib/icons/FilterIcon2.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
     import RightArrow from "$lib/icons/RightArrow.svelte";
+import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 
 	let events = [
 		{
@@ -110,9 +111,12 @@
 		selectedOptions[i] = index;
 		showHexDropdowns[i] = false;
 	};
+
+	let searchText = "";
 </script>
 
 <div class="contract-events">
+	<TopLeftTools bind:searchText searchOnly/>
 	<div class="latest">
 		Latest {events.length} Contract Events
 	</div>
@@ -208,6 +212,7 @@
 <style lang="postcss">
 	.contract-events {
 		@apply text-color-table-header text-[clamp(10px,1.07vw,1.07vw)] font-normal;
+		@apply relative;
 	}
 
 	.latest {

@@ -4,30 +4,35 @@
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 
     export let searchText = "";
+	export let searchOnly = false;
 </script>
 
 <div class="top-left">
-	<div class="info">
-		<InfoIcon />
-	</div>
+	{#if !searchOnly}
+		<div class="info">
+			<InfoIcon />
+		</div>
+	{/if}
 	<div class="search">
 		<div class="icon">
 			<SearchIcon grey />
 		</div>
 		<input type="text" bind:value={searchText} placeholder="Search Source Code" />
 	</div>
-	<div class="up-down-buttons">
-		<div class="up" on:click={() => {}}>
-			<div class="icon">
-				<ContractChevron />
+	{#if !searchOnly}
+		<div class="up-down-buttons">
+			<div class="up" on:click={() => {}}>
+				<div class="icon">
+					<ContractChevron />
+				</div>
+			</div>
+			<div class="down" on:click={() => {}}>
+				<div class="icon">
+					<ContractChevron />
+				</div>
 			</div>
 		</div>
-		<div class="down" on:click={() => {}}>
-			<div class="icon">
-				<ContractChevron />
-			</div>
-		</div>
-	</div>
+	{/if}
 </div>
 
 <style lang="postcss">
