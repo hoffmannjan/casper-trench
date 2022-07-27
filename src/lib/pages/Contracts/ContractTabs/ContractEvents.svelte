@@ -123,14 +123,14 @@
 
 	<table>
 		<tr>
-			<th>Txn Hash</th>
+			<th class="no-padding">Txn Hash</th>
 			<th>Block No</th>
 			<th>Method</th>
 			<th>Logs</th>
 		</tr>
 		{#each events as event, i}
 			<tr>
-				<td>
+				<td class="no-padding">
 					<div class="txn">
 						<Hash hash={event.txnHash} noOfCharacters={20} start />
 						<div class="ago">
@@ -238,7 +238,8 @@
 		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[2vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
-        @apply border-b-color-events-header-bg border-b-[clamp(1px,0.06vw,0.06vw)] border-t-color-events-header-bg border-t-[clamp(1px,0.06vw,0.06vw)];
+        @apply border-b-color-hover-footer-link border-b-[clamp(1px,0.06vw,0.06vw)] border-t-color-hover-footer-link border-t-[clamp(1px,0.06vw,0.06vw)];
+        @apply bg-color-events-header-bg;
 	}
 
 	td {
@@ -327,5 +328,9 @@
 
     .arrow {
         @apply w-[clamp(12px,0.95vw,0.95vw)];
+    }
+
+    .no-padding {
+        @apply px-0;
     }
 </style>
