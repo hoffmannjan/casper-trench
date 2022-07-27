@@ -12,7 +12,9 @@
     import ContractErc20Tokens from './ContractTabs/ContractERC20Tokens.svelte';
     import ContractTokens from './ContractTabs/ContractTokens.svelte';
     import ContractTab from './ContractTabs/ContractTab.svelte';
-import ContractEvents from './ContractTabs/ContractEvents.svelte';
+    import ContractEvents from './ContractTabs/ContractEvents.svelte';
+    import ContractAnalytics from './ContractTabs/ContractAnalytics.svelte';
+    import ContractComments from './ContractTabs/ContractComments.svelte';
 
 	let menuOptions = [
 		{
@@ -38,6 +40,16 @@ import ContractEvents from './ContractTabs/ContractEvents.svelte';
         {
             title: 'Events',
             component: ContractEvents,
+            props: {}
+        },
+        {
+            title: 'Analytics',
+            component: ContractAnalytics,
+            props: {}
+        },
+        {
+            title: 'Comments',
+            component: ContractComments,
             props: {}
         }
 	];
