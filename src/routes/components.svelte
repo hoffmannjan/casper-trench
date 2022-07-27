@@ -1,16 +1,17 @@
 <script>
+	import BaseChart from '$lib/components/Charts/BaseChart.svelte';
+
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
-	import SampleComponent1 from '$lib/components/TabMenu/SampleComponent1.svelte';
 	import SampleComponent2 from '$lib/components/TabMenu/SampleComponent2.svelte';
 
 	let menuOptions = [
 		{
 			title: 'Table',
-			component: SampleComponent1
+			component: BaseChart
 		},
 		{
 			title: 'Empty',
