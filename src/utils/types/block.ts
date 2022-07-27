@@ -27,3 +27,8 @@ export type ProposerBlocks = {
 	deploys: number;
 	transfers: number;
 };
+
+export type RangeBlock = {
+	current_height: number;
+	result: Block[];
+};

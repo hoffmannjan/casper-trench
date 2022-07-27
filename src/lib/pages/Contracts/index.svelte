@@ -1,63 +1,63 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
-    import Hash from '$lib/components/TableData/Hash.svelte';
-    import LightningIcon from '$lib/icons/LightningIcon.svelte';
-    import SettingsIcon from '$lib/icons/SettingsIcon.svelte';
-    import VersionWarningIcon from '$lib/icons/VersionWarningIcon.svelte';
+	import Hash from '$lib/components/TableData/Hash.svelte';
+	import LightningIcon from '$lib/icons/LightningIcon.svelte';
+	import SettingsIcon from '$lib/icons/SettingsIcon.svelte';
+	import VersionWarningIcon from '$lib/icons/VersionWarningIcon.svelte';
 
 	let contracts = [
-        {
-            address: "0x9677F70261FC9bd57f88nf814bf91734vfb",
-            name: "Nuggets",
-            type: "NFT",
-            version: "0.6.12",
-            balance: 0,
-            transactions: 1,
-            date: Date.parse("July 15, 2022, 14:09"),
-            audited: "None"
-        },
-        {
-            address: "0x9677F70261FC9bd57f88nf814bf91734vfb",
-            name: "Nuggets",
-            type: "CUSTOM ERC-20",
-            version: "0.6.12",
-            balance: 0,
-            transactions: 1,
-            date: Date.parse("July 15, 2022, 14:09"),
-            audited: "None"
-        },
-        {
-            address: "0x9677F70261FC9bd57f88nf814bf91734vfb",
-            name: "SYSTEM CONTRACT",
-            type: "ERC 20",
-            version: "0.6.12",
-            balance: 0,
-            transactions: 1,
-            date: Date.parse("July 15, 2022, 14:09"),
-            audited: "None"
-        },
-        {
-            address: "0x9677F70261FC9bd57f88nf814bf91734vfb",
-            name: "CUSTOM ERC-20",
-            type: "NFT",
-            version: "0.6.12",
-            balance: 0,
-            transactions: 1,
-            date: Date.parse("July 15, 2022, 14:09"),
-            audited: "None"
-        },
-        {
-            address: "0x9677F70261FC9bd57f88nf814bf91734vfb",
-            name: "Nuggets",
-            type: "ERC 20",
-            version: "0.6.12",
-            balance: 0,
-            transactions: 1,
-            date: Date.parse("July 15, 2022, 14:09"),
-            audited: "None"
-        },
-    ];
+		{
+			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
+			name: 'Nuggets',
+			type: 'NFT',
+			version: '0.6.12',
+			balance: 0,
+			transactions: 1,
+			date: Date.parse('July 15, 2022, 14:09'),
+			audited: 'None'
+		},
+		{
+			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
+			name: 'Nuggets',
+			type: 'CUSTOM ERC-20',
+			version: '0.6.12',
+			balance: 0,
+			transactions: 1,
+			date: Date.parse('July 15, 2022, 14:09'),
+			audited: 'None'
+		},
+		{
+			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
+			name: 'SYSTEM CONTRACT',
+			type: 'ERC 20',
+			version: '0.6.12',
+			balance: 0,
+			transactions: 1,
+			date: Date.parse('July 15, 2022, 14:09'),
+			audited: 'None'
+		},
+		{
+			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
+			name: 'CUSTOM ERC-20',
+			type: 'NFT',
+			version: '0.6.12',
+			balance: 0,
+			transactions: 1,
+			date: Date.parse('July 15, 2022, 14:09'),
+			audited: 'None'
+		},
+		{
+			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
+			name: 'Nuggets',
+			type: 'ERC 20',
+			version: '0.6.12',
+			balance: 0,
+			transactions: 1,
+			date: Date.parse('July 15, 2022, 14:09'),
+			audited: 'None'
+		}
+	];
 </script>
 
 <div class="delegators-tab">
@@ -69,7 +69,7 @@
 			<th>Type</th>
 			<th>Version</th>
 			<th>Balance</th>
-            <th>Txns</th>
+			<th>Txns</th>
 			<th>Setting</th>
 			<th>Verified</th>
 			<th>
@@ -83,40 +83,40 @@
 		{#each contracts as contract}
 			<tr>
 				<td class="block hash">
-                    <a href="/contracts/{contract.address}">
-                    <Hash hash={contract.address} noOfCharacters={20} start variant='right'/>
-                </a>
-                </td>
-                <td class="grey">{contract.name}</td>
-                <td>{contract.type}</td>
-                <td>
-                    <div class="setting">
-                        <div class="version-icon">
-                            <VersionWarningIcon />
-                        </div>
-                        <div class="grey">
-                            {contract.version}
-                        </div>
-                    </div>
-                </td>
-                <td>{contract.balance} CSPR</td>
-                <td class="black">{contract.transactions}</td>
-                <td>
-                    <div class="setting">
-                        <button type="button" class="icon" on:click={() => {
-                            // Lightning functionality
-                        }}>
-                            <LightningIcon />
-                        </button >
-                        <button type="button" class="icon" on:click={() => {
-                            // Settings functionality
-                        }}>
-                            <SettingsIcon />
-                        </button>
-                    </div>
-                </td>
-                <td class="black">{new Date(contract.date).toLocaleDateString()}</td>
-                <td class="black">{contract.audited}</td>
+        <a href="/contracts/{contract.address}">
+          <Hash hash={contract.address} noOfCharacters={20} start variant='right'/>
+        </a>
+        </td>
+        <td class="grey">{contract.name}</td>
+        <td>{contract.type}</td>
+        <td>
+            <div class="setting">
+                <div class="version-icon">
+                    <VersionWarningIcon />
+                </div>
+                <div class="grey">
+                    {contract.version}
+                </div>
+            </div>
+        </td>
+        <td>{contract.balance} CSPR</td>
+        <td class="black">{contract.transactions}</td>
+        <td>
+            <div class="setting">
+                <button type="button" class="icon" on:click={() => {
+                    // Lightning functionality
+                }}>
+                    <LightningIcon />
+                </button >
+                <button type="button" class="icon" on:click={() => {
+                    // Settings functionality
+                }}>
+                    <SettingsIcon />
+                </button>
+            </div>
+        </td>
+        <td class="black">{new Date(contract.date).toLocaleDateString()}</td>
+        <td class="black">{contract.audited}</td>
 			</tr>
 		{/each}
 	</table>
@@ -156,28 +156,28 @@
 		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
 	}
 
-    .setting {
-        @apply flex gap-[clamp(4px,0.36vw,0.36vw)] items-center;
-    }
+	.setting {
+		@apply flex gap-[clamp(4px,0.36vw,0.36vw)] items-center;
+	}
 
-    .setting > .icon {
-        @apply w-[clamp(16px,1.55vw,1.55vw)] h-[clamp(16px,1.55vw,1.55vw)];
-        @apply cursor-pointer;
-    }
+	.setting > .icon {
+		@apply w-[clamp(16px,1.55vw,1.55vw)] h-[clamp(16px,1.55vw,1.55vw)];
+		@apply cursor-pointer;
+	}
 
-    .black {
-        @apply text-color-black-text;
-    }
+	.black {
+		@apply text-color-black-text;
+	}
 
-    .grey {
-        @apply text-color-grey-footer-label;
-    }
+	.grey {
+		@apply text-color-grey-footer-label;
+	}
 
-    .version-icon {
-        @apply w-[1.19vh] h-[1.19vh] md:w-[1.19vw] md:h-[1.19vw];
-    }
+	.version-icon {
+		@apply w-[1.19vh] h-[1.19vh] md:w-[1.19vw] md:h-[1.19vw];
+	}
 
-    .hash {
-        @apply text-color-hover-footer-link;
-    }
+	.hash {
+		@apply text-color-hover-footer-link;
+	}
 </style>

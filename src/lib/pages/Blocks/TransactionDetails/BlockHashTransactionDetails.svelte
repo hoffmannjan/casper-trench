@@ -9,6 +9,9 @@
 
 	import { millisToFormat, timeAgo } from '$utils/converters';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
+	import { sampleJsonData } from '$utils/sampleData';
+	import CopyIcon from '$lib/icons/CopyIcon.svelte';
+	import TreeToggle from '$lib/components/Reusables/TreeToggle.svelte';
 
 	let transactionStatus = 'success';
 	let transactionHash = '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31';
@@ -28,6 +31,8 @@
 	let fee = 9231.03423;
 	let gasPrice = 1;
 	let ttl = 30;
+
+	let jsonData = sampleJsonData;
 
 	let showRawData = false;
 </script>
@@ -158,27 +163,46 @@
 				<tr>
 					<td class="label">Raw Data</td>
 					<td class="value">
-						<div
-							class="proofs-button green"
-							on:click={() => {
-								showRawData = !showRawData;
-							}}
-						>
-							<div class="text">Show</div>
-							<div class="eye-icon">
-								{#if !showRawData}
-									<div transition:slide>
-										<EyeIcon />
-									</div>
-								{:else}
-									<div transition:slide>
-										<CrossedEyeIcon />
-									</div>
-								{/if}
+						<div class="raw-buttons">
+							<div
+								class="proofs-button green"
+								on:click={() => {
+									showRawData = !showRawData;
+								}}
+							>
+								<div class="text">Show</div>
+								<div class="eye-icon">
+									{#if !showRawData}
+										<div transition:slide>
+											<EyeIcon />
+										</div>
+									{:else}
+										<div transition:slide>
+											<CrossedEyeIcon />
+										</div>
+									{/if}
+								</div>
 							</div>
+							{#if showRawData}
+								<button
+									type="button"
+									on:click={() => {
+										navigator.clipboard &&
+											navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
+									}}
+									class="copy-button"
+								>
+									<div class="text">Copy</div>
+									<div class="copy-icon">
+										<CopyIcon />
+									</div>
+								</button>
+							{/if}
 						</div>
 						{#if showRawData}
-							<!-- Raw data -->
+							<div class="raw-data" transition:slide>
+								<TreeToggle text="" data={jsonData} />
+							</div>
 						{/if}
 					</td>
 				</tr>
@@ -222,7 +246,7 @@
 
 	.label {
 		@apply font-bold text-[clamp(16px,1.07vw,1.07vw)] text-color-grey-footer-label;
-		@apply md:w-[18.45vw];
+		@apply md:min-w-[14.11vw];
 	}
 
 	.value {
@@ -275,6 +299,10 @@
 		@apply w-[1.19vh] md:w-[1.19vw];
 	}
 
+	.copy-icon {
+		@apply w-[1.5vh] md:w-[1.5vw];
+	}
+
 	.proofs-button {
 		@apply flex items-center gap-[0.3vw];
 		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
@@ -312,5 +340,45 @@
 
 	.amount > .cspr {
 		@apply text-[clamp(24px,1.90vw,1.90vw)] font-bold text-color-grey-footer-label;
+	}
+
+	.raw-data {
+		@apply rounded-[0.89vh] md:rounded-[0.89vw];
+		@apply p-[clamp(16px,1.43vw,1.43vw)];
+		@apply md:max-w-[57.86vw];
+		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
+		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
+	}
+
+	pre {
+		@apply overflow-y-auto;
+		@apply max-h-[25.76vw];
+	}
+
+	pre::-webkit-scrollbar {
+		@apply w-[clamp(4px,0.48vw,0.48vw)] h-[clamp(4px,0.48vw,0.48vw)];
+	}
+
+	pre::-webkit-scrollbar-track {
+		@apply bg-transparent;
+	}
+
+	pre::-webkit-scrollbar-thumb {
+		@apply bg-color-tooltip-border;
+		@apply rounded-[0.77vh] md:rounded-[0.77vw];
+		@apply pr-[clamp(4px,0.48vw,0.48vw)];
+	}
+
+	.raw-buttons {
+		@apply flex items-center gap-[clamp(4px,0.54vw,0.54vw)];
+	}
+
+	.copy-button {
+		@apply flex items-center;
+		@apply py-[clamp(4px,0.48vw,0.48vw)] pl-[clamp(6px,0.71vw,0.71vw)];
+		@apply bg-color-copy-btn-bg;
+		@apply rounded-[0.3vh] md:rounded-[0.3vw];
+		@apply max-w-max;
+		@apply cursor-pointer;
 	}
 </style>

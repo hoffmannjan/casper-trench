@@ -13,9 +13,9 @@
 			<img src={imgUrl} alt="validator-icon" />
 		{:else}
 			<!-- TODO update as in design -->
-			<div
-				class="bg-gray-100 rounded-full border border-green-200 w-full h-[clamp(16px,2vw,2vw)]"
-			/>
+			<div class="image-placeholder">
+				<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+			</div>
 		{/if}
 	</div>
 	<div class="details">
@@ -31,10 +31,6 @@
 		<div class="name">
 			{#if name}
 				{name}
-			{:else}
-				<!-- TODO update as in design -->
-				- - -
-				<!-- No name -->
 			{/if}
 		</div>
 	</div>
@@ -53,7 +49,12 @@
 	.details {
 		@apply leading-none;
 	}
-
+	.image-placeholder {
+		@apply bg-gray-100;
+		@apply rounded-full;
+		@apply flex items-center justify-center;
+		@apply w-[clamp(16px,2.8vw,2.8vw)] h-[clamp(16px,2.8vw,2.8vw)];
+	}
 	.name {
 		@apply text-color-grey-footer-label;
 		@apply mt-[clamp(2px,0.24vw,0.24vw)];
