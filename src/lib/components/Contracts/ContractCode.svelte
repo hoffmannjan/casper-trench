@@ -1,15 +1,17 @@
 <script>
-import { goto } from "$app/navigation";
-import ConstructorIcon from "$lib/icons/ConstructorIcon.svelte";
-import ContractAbiIcon from "$lib/icons/ContractAbiIcon.svelte";
-import ContractTabIcon from "$lib/icons/ContractTabIcon.svelte";
+    import { goto } from "$app/navigation";
 
     import ContractYellowWarningIcon from "$lib/icons/ContractYellowWarningIcon.svelte";
     import GreenCheckMarkIcon from "$lib/icons/GreenCheckMarkIcon.svelte";
-import SourceMapIcon from "$lib/icons/SourceMapIcon.svelte";
-import SwarmIcon from "$lib/icons/SwarmIcon.svelte";
-import { sampleSolidityCode } from "$utils/sampleData";
-import CodeViewer from "./CodeViewer.svelte";
+    import SourceMapIcon from "$lib/icons/SourceMapIcon.svelte";
+    import SwarmIcon from "$lib/icons/SwarmIcon.svelte";
+    import ConstructorIcon from "$lib/icons/ConstructorIcon.svelte";
+    import ContractAbiIcon from "$lib/icons/ContractAbiIcon.svelte";
+    import ContractTabIcon from "$lib/icons/ContractTabIcon.svelte";
+
+    import { sampleSolidityCode } from "$utils/sampleData";
+
+    import CodeViewer from "./CodeViewer.svelte";
 
     let verified = true;
     let hasWarning = true;
@@ -155,6 +157,7 @@ import CodeViewer from "./CodeViewer.svelte";
 
     .verified {
         @apply flex gap-[clamp(4px,0.36vw,0.36vw)] items-center;
+        @apply font-medium;
     }
 
     .verified > .icon {

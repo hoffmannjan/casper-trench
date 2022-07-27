@@ -1,7 +1,7 @@
 <script lang="ts">
-import ContractCode from '$lib/components/Contracts/ContractCode.svelte';
-import ContractRead from '$lib/components/Contracts/ContractRead.svelte';
-import ContractWrite from '$lib/components/Contracts/ContractWrite.svelte';
+	import ContractCode from '$lib/components/Contracts/ContractCode.svelte';
+	import ContractRead from '$lib/components/Contracts/ContractRead.svelte';
+	import ContractWrite from '$lib/components/Contracts/ContractWrite.svelte';
 
 	import TopLeftTools from '$lib/components/Contracts/TopLeftTools.svelte';
 	import Switch from '$lib/components/Reusables/Switch.svelte';

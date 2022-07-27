@@ -42,7 +42,8 @@ module.exports = {
 					'ago-background-2': '#F7F7F7',
 					'proof-num-background': '#F6F6F6',
 					'copy-btn-bg': '#F4F5F5',
-					'translucent-yellow': '#FFFBEA'
+					'translucent-yellow': '#FFFBEA',
+					'events-header-bg': '#F3FDFC'
 				}
 			},
 			fontFamily: {
