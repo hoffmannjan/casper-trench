@@ -8,7 +8,7 @@
 	export let selfStakePercentage: number = 0;
 	onMount(async () => {
 		const stats: Stats = await getStats();
-		cashValue = cspr * stats.price;
+		cashValue = stats&&cspr * stats.price;
 	});
 </script>
 

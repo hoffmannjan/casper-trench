@@ -283,3 +283,15 @@ export const getTransactions = async (count: number, start: number) => {
 			notifyError('Could not fetch transactions');
 		});
 };
+
+export const getDeploy = async (address: string) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/info/get-deploy/${address}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch transactions details');
+		});
+};
