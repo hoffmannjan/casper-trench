@@ -45,6 +45,8 @@
             expected: "uint256"
         }
     ];
+
+    let reset = 0;
 </script>
 
 <div class="contract-read">
@@ -55,14 +57,18 @@
             </div>
             <div class="title-text">Read Contract Information</div>
         </div>
-        <div class="reset">
+        <div class="reset" on:click={() => {
+            reset++;
+        }}>
             Reset
         </div>
     </div>
 
-    {#each readFunctions as readFunction, i}
-        <FunctionBrowser {readFunction} {i}/>
-    {/each}
+    {#key reset}
+        {#each readFunctions as readFunction, i}
+            <FunctionBrowser {readFunction} {i}/>
+        {/each}
+    {/key}
 </div>
 
 <style lang="postcss">
