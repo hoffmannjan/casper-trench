@@ -29,7 +29,8 @@
 			}
 		},
 		stroke: {
-			curve: 'straight'
+			curve: 'straight',
+            width: 2
 		},
 		series: [
 			{
