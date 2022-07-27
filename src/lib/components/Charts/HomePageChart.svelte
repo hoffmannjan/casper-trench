@@ -18,7 +18,8 @@
 			}
 		},
 		stroke: {
-			curve: 'smooth'
+			curve: 'smooth',
+            width: 2
 		},
 		series: [
 			{
