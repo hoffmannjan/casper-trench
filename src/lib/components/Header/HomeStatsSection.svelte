@@ -5,6 +5,7 @@
 	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
 	import { millisToFormat, timeAgo } from '$utils/converters';
+	import HomePageChart from '$lib/components/Charts/HomePageChart.svelte';
 	let economics: Economics;
 	let stats: Stats;
 	let totalTransfers = 0;
@@ -100,7 +101,7 @@
 		<div class="vt" />
 
 		<div class="graph">
-			<!-- Graph goes here -->
+			<HomePageChart />
 		</div>
 	</div>
 {/if}
