@@ -3,18 +3,18 @@
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { page } from '$app/stores';
-    import ContractsOverview from '$lib/components/Contracts/ContractsOverview.svelte';
-    import MoreInfo from '$lib/components/Contracts/MoreInfo.svelte';
-    import CrossIcon from '$lib/icons/CrossIcon.svelte';
-    import WarningMessageIcon from '$lib/icons/WarningMessageIcon.svelte';
-    import { slide } from 'svelte/transition';
-    import ContractTransactions from './ContractTabs/ContractTransactions.svelte';
-    import ContractErc20Tokens from './ContractTabs/ContractERC20Tokens.svelte';
-    import ContractTokens from './ContractTabs/ContractTokens.svelte';
-    import ContractTab from './ContractTabs/ContractTab.svelte';
-    import ContractEvents from './ContractTabs/ContractEvents.svelte';
-    import ContractAnalytics from './ContractTabs/ContractAnalytics.svelte';
-    import ContractComments from './ContractTabs/ContractComments.svelte';
+  import ContractsOverview from '$lib/components/Contracts/ContractsOverview.svelte';
+  import MoreInfo from '$lib/components/Contracts/MoreInfo.svelte';
+  import CrossIcon from '$lib/icons/CrossIcon.svelte';
+  import WarningMessageIcon from '$lib/icons/WarningMessageIcon.svelte';
+  import { slide } from 'svelte/transition';
+  import ContractTransactions from './ContractTabs/ContractTransactions.svelte';
+  import ContractErc20Tokens from './ContractTabs/ContractERC20Tokens.svelte';
+  import ContractTokens from './ContractTabs/ContractTokens.svelte';
+  import ContractTab from './ContractTabs/ContractTab.svelte';
+  import ContractEvents from './ContractTabs/ContractEvents.svelte';
+  import ContractAnalytics from './ContractTabs/ContractAnalytics.svelte';
+  import ContractComments from './ContractTabs/ContractComments.svelte';
 
 	let menuOptions = [
 		{
@@ -69,8 +69,7 @@
         }
     ];
 
-    let warningMessage = "This address is reported to be involved in a Indexed Finance exploit.";
-    let showMessage = warningMessage.length > 0;
+    let showMessage = true;
 </script>
 
 <div class="main">
@@ -121,7 +120,7 @@
             <div class="warning-icon">
                 <WarningMessageIcon />
             </div>
-            {warningMessage}
+            This address is reported to be involved in a <span class="link">Indexed Finance exploit.</span>
         </div>
     {/if}
 
@@ -208,5 +207,10 @@
     .warning-icon {
         @apply w-[clamp(16px,1.19vw,1.19vw)] h-[clamp(16px,1.19vw,1.19vw)];
         @apply mr-[clamp(2px,0.36vw,0.36vw)];
+    }
+
+    .link {
+        @apply text-color-hover-footer-link;
+        @apply ml-[0.24vw];
     }
 </style>
