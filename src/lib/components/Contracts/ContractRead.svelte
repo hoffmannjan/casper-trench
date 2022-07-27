@@ -61,7 +61,7 @@
     </div>
 
     {#each readFunctions as readFunction, i}
-        <FunctionBrowser {readFunction} {i} on:query={(e) => readFunction.reply(e.detail.inputTexts)}/>
+        <FunctionBrowser {readFunction} {i}/>
     {/each}
 </div>
 
