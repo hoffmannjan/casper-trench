@@ -31,7 +31,10 @@ module.exports = {
 					'translucent-red': '#FFEDEE',
 					'translucent-yellow': '#FFFBEA',
 					'translucent-blue': '#F5F7FF',
-					'arcadia-blue': '#1735A3'
+					'arcadia-blue': '#1735A3',
+					'contract-header-border': '#D7D7D7',
+					'code-background': '#F5F5F5',
+					'code-scrollbar': '#E6E6E6'
 				}
 			},
 			fontFamily: {

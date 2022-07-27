@@ -11,6 +11,7 @@
     import ContractTransactions from './ContractTabs/ContractTransactions.svelte';
     import ContractErc20Tokens from './ContractTabs/ContractERC20Tokens.svelte';
     import ContractTokens from './ContractTabs/ContractTokens.svelte';
+    import ContractTab from './ContractTabs/ContractTab.svelte';
 
 	let menuOptions = [
 		{
@@ -27,7 +28,12 @@
 			title: 'Tokens',
 			component: ContractTokens,
 			props: {}
-		}
+		},
+        {
+            title: 'Contract',
+            component: ContractTab,
+            props: {}
+        }
 	];
 
     let tags = [
