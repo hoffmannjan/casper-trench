@@ -7,6 +7,7 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import { parseStringValue } from '$utils/converters';
 	import type { Stats } from '$utils/types/stats';
+	import EarningChart from '$lib/components/Charts/EarningChart.svelte';
 
 	let earnings: Reward[];
 	let eraRewards = [];
@@ -33,48 +34,55 @@
 	}
 </script>
 
-<div class="earnings-tab">
-	<div class="total">
-		Latest {earningsPerPage} Transactions
+<div class="earning">
+	<div class="earnings-tab">
+		<div class="total">
+			Latest {earningsPerPage} Transactions
+		</div>
+
+		<table>
+			<tr>
+				<th>Date</th>
+				<th>Reward</th>
+			</tr>
+			<div class="divider table-header-border" />
+			{#if earnings && earnings.length > 0}
+				{#each earnings as earning}
+					<tr>
+						<td>{new Date(earning.date).toLocaleDateString()}</td>
+						<td>
+							<div class="value-crypto">
+								<div class="crypto">
+									{parseFloat(parseStringValue(earning.reward).toFixed(2)).toLocaleString('en')}
+								</div>
+								<div class="cspr">CSPR</div>
+								<div class="cash">
+									${parseFloat(
+										(parseStringValue(earning.reward) * stats.price).toFixed(2)
+									).toLocaleString('en')}
+								</div>
+							</div>
+						</td>
+					</tr>
+				{/each}
+			{/if}
+		</table>
+		<Paginator
+			showTotalRows={false}
+			bind:itemsPerPage={earningsPerPage}
+			apiPaginator
+			bind:items={earnings}
+			bind:startIndex
+			on:load-page={async () => await fetchRewards()}
+		/>
 	</div>
-	<table>
-		<tr>
-			<th>Date</th>
-			<th>Reward</th>
-		</tr>
-		<div class="divider table-header-border" />
-		{#if earnings && earnings.length > 0}
-			{#each earnings as earning}
-				<tr>
-					<td>{new Date(earning.date).toLocaleDateString()}</td>
-					<td>
-						<div class="value-crypto">
-							<div class="crypto">
-								{parseFloat(parseStringValue(earning.reward).toFixed(2)).toLocaleString('en')}
-							</div>
-							<div class="cspr">CSPR</div>
-							<div class="cash">
-								${parseFloat(
-									(parseStringValue(earning.reward) * stats.price).toFixed(2)
-								).toLocaleString('en')}
-							</div>
-						</div>
-					</td>
-				</tr>
-			{/each}
-		{/if}
-	</table>
-	<Paginator
-		showTotalRows={false}
-		bind:itemsPerPage={earningsPerPage}
-		apiPaginator
-		bind:items={earnings}
-		bind:startIndex
-		on:load-page={async () => await fetchRewards()}
-	/>
+	<EarningChart />
 </div>
 
 <style lang="postcss">
+	.earning {
+		@apply md:flex;
+	}
 	.earnings-tab {
 		@apply md:w-[44.88vw];
 		@apply border-[clamp(1px,0.15vw,0.15vw)] border-color-tooltip-border border-opacity-100;

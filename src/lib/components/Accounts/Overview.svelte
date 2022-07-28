@@ -7,28 +7,29 @@
 
 	export let type: Type;
 	export let account: Account;
+	export let isLoading = true;
 </script>
 
-<div class="overview">
+<div class:loading={isLoading} class="overview">
 	<div class="title">OVERVIEW</div>
 	<div class="extras">
 		<table>
 			<tr>
 				<td class="label"> Address type </td>
 				<td class="value">
-					{processType(type.type)}
+					{processType(type?.type)}
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Available </td>
 				<td class="value">
-					<BalanceTransferrable cspr={parseStringValue(account.transferrable)} />
+					<BalanceTransferrable cspr={parseStringValue(account?.transferrable) || 0} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Balance </td>
 				<td class="value">
-					<BalanceTransferrable cspr={parseStringValue(account.balance)} />
+					<BalanceTransferrable cspr={parseStringValue(account?.balance) || 0} />
 				</td>
 			</tr>
 			<tr>
@@ -36,11 +37,11 @@
 				<td class="value">
 					<div class="address-value">
 						<div class="text">
-							{account.public_key_hex || ''}
+							{account?.public_key_hex || ''}
 						</div>
-						{#if account.public_key_hex}
+						{#if account?.public_key_hex}
 							<div class="copy-icon">
-								<CopyIcon text={account.public_key_hex} />
+								<CopyIcon text={account?.public_key_hex} />
 							</div>
 						{/if}
 					</div>
@@ -51,11 +52,13 @@
 				<td class="value">
 					<div class="address-value hash">
 						<div class="text">
-							{account.account_hash}
+							{account?.account_hash || ''}
 						</div>
-						<div class="copy-icon">
-							<CopyIcon text={account.account_hash} />
-						</div>
+						{#if account?.account_hash}
+							<div class="copy-icon">
+								<CopyIcon text={account?.account_hash} />
+							</div>
+						{/if}
 					</div>
 				</td>
 			</tr>
@@ -113,5 +116,9 @@
 		@apply text-color-table-header text-[clamp(12px,1.19vw,1.19vw)] font-bold;
 		@apply pb-[clamp(4px,1.19vw,1.19vw)] mb-[clamp(4px,1.61vw,1.61vw)];
 		@apply border-b-[clamp(1px,0.09vw,0.09vw)] border-color-tooltip-border;
+	}
+	.loading {
+		@apply bg-gray-50;
+		@apply animate-pulse;
 	}
 </style>

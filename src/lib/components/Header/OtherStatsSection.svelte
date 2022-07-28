@@ -21,7 +21,11 @@
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>
 		<div class="value">
+<<<<<<< HEAD
 			{(economics && economics.block_height.toLocaleString('en')) || '0'}
+=======
+			{(economics && economics.block_height.toLocaleString('en')) || ''}
+>>>>>>> main
 		</div>
 		<!-- TODO get latest block time -->
 		<div class="detail flex">
@@ -35,7 +39,11 @@
 	<div class="stat-column">
 		<div class="title">APY</div>
 		<div class="value">
+<<<<<<< HEAD
 			{(economics && economics.APY.toFixed(2)) || '0'}%
+=======
+			{(economics && economics.APY.toFixed(2)) || ''}%
+>>>>>>> main
 		</div>
 		<div class="detail">Annual Percentage Yield</div>
 	</div>
@@ -45,10 +53,10 @@
 	<div class="stat-column">
 		<div class="title">CSPR PRICE</div>
 		<div class="value">
-			${Math.floor(stats && stats.price * 10000) / 10000 || '0'}
+			${Math.floor(stats && stats.price * 10000) / 10000 || ''}
 		</div>
 		<div class="detail">
-			${(stats && stats.marketcap.toLocaleString('en')) || '0'} Market Cap
+			${(stats && stats.marketcap.toLocaleString('en')) || ''} Market Cap
 		</div>
 	</div>
 
@@ -57,16 +65,18 @@
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
 		<div class="value">
-			{(economics && parseStringValue(economics.circulating_supply).toLocaleString('en')) || '0'}
+			{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
+				'en'
+			) || ''}
 		</div>
 		<div class="detail">
-			{(economics &&
-				(
-					(parseFloat(economics.circulating_supply) / parseFloat(economics.total_supply)) *
-					100
-				).toFixed(2)) ||
-				'0'}% of
-			{(economics && parseStringValue(economics.total_supply).toLocaleString('en')) || '0'}
+			{(
+				(parseFloat(economics && economics.circulating_supply) /
+					parseFloat(economics && economics.total_supply)) *
+				100
+			).toFixed(2)}% of {parseFloat(
+				economics && economics.total_supply.substring(0, 11)
+			).toLocaleString('en') || ''}
 		</div>
 	</div>
 </div>

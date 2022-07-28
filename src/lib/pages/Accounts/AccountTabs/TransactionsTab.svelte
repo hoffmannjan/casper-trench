@@ -44,7 +44,9 @@
 		{#if transactions && transactions.length > 0}
 			{#each transactions as transaction}
 				<tr>
-					<td class="block">{transaction.deploy_hash}</td>
+					<td class="block">
+						<a href="/transactions/{transaction.deploy_hash}"> {transaction.deploy_hash}</a></td
+					>
 					<td class="time"
 						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago`}</td
 					>

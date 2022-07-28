@@ -4,28 +4,29 @@
 	import type { Account } from '$utils/types/account';
 
 	export let account: Account;
+	export let isLoading = true;
 </script>
 
-<div class="overview">
+<div class:loading={isLoading} class="overview">
 	<div class="title">STAKE INFO</div>
-	<div class="extras">
+	<div class="extras ">
 		<table>
 			<tr>
 				<td class="label"> Stake Amount </td>
 				<td class="value">
-					<BalanceTransferrable cspr={parseStringValue(account.total_staked)} />
+					<BalanceTransferrable cspr={parseStringValue(account?.total_staked) || 0} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Unstaking </td>
 				<td class="value">
-					<BalanceTransferrable cspr={parseStringValue(account.unbonding)} />
+					<BalanceTransferrable cspr={parseStringValue(account?.unbonding) || 0} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Reward </td>
 				<td class="value">
-					<BalanceTransferrable cspr={parseStringValue(account.total_reward)} />
+					<BalanceTransferrable cspr={parseStringValue(account?.total_reward) || 0} />
 				</td>
 			</tr>
 		</table>
@@ -64,5 +65,9 @@
 		@apply text-color-table-header text-[clamp(12px,1.19vw,1.19vw)] font-bold;
 		@apply pb-[clamp(4px,1.19vw,1.19vw)] mb-[clamp(4px,1.61vw,1.61vw)];
 		@apply border-b-[clamp(1px,0.09vw,0.09vw)] border-color-tooltip-border;
+	}
+	.loading {
+		@apply bg-gray-50;
+		@apply animate-pulse;
 	}
 </style>

@@ -220,6 +220,7 @@
 	.container {
 		@apply md:h-[32vw] min-w-max;
 		@apply flex flex-col items-center justify-center;
+		@apply my-[clamp(16px,0.95vw,0.95vw)];
 	}
 
 	.chart {
