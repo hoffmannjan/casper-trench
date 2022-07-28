@@ -114,7 +114,7 @@
 			},
 			x: {
 				show: false,
-				format: 'dddd, MMM d, HH:mm'
+				format: 'dddd, d MMM, HH:mm'
 			},
 			y: {
 				formatter: (value) => {
