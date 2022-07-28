@@ -1,5 +1,5 @@
 <script>
-	import BlockHashTransactionDetails from '$pages/Blocks/TransactionDetails/BlockHashTransactionDetails.svelte';
+	import Hash from '$lib/pages/Transactions/TransactionHash/index.svelte';
 </script>
 
-<BlockHashTransactionDetails />
+<Hash />

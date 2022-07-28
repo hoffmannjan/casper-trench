@@ -1,5 +1,4 @@
 <script>
-import EarningChart from '$lib/components/Charts/EarningChart.svelte';
 
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 
@@ -11,7 +10,6 @@ import EarningChart from '$lib/components/Charts/EarningChart.svelte';
 	let menuOptions = [
 		{
 			title: 'Table',
-			component: EarningChart
 		},
 		{
 			title: 'Empty',

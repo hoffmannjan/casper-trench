@@ -6,6 +6,7 @@
 	export let color: 'green' | 'yellow' | 'text' | 'black' = 'text';
 	export let noOfCharacters = 5;
 	export let start = false;
+	export let bold = false;
 
 	let showHash = false;
 </script>
@@ -13,6 +14,7 @@
 <div
 	class="tooltip hash tooltip-icon {color}"
 	class:right={variant == 'right'}
+	class:bold
 	style={`--tooltip: '${hash}'`}
 	on:mouseenter={() => (showHash = true)}
 	on:mouseleave={() => (showHash = false)}
@@ -86,5 +88,9 @@
 
 	.right::before {
 		@apply translate-x-[5vw];
+	}
+
+	.bold {
+		@apply font-medium;
 	}
 </style>

@@ -283,3 +283,39 @@ export const getTransactions = async (count: number, start: number) => {
 			notifyError('Could not fetch transactions');
 		});
 };
+
+export const getDeploy = async (address: string) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/info/get-deploy/${address}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch transactions details');
+		});
+};
+
+export const getBlock = async (address: string | number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/chain/get-block/${address}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch block details');
+		});
+};
+
+export const getBlockTransfers = async (address: string | number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/chain/get-block-transfers/${address}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch block tranfers');
+		});
+};

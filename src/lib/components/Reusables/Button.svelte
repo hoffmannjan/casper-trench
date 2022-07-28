@@ -12,7 +12,7 @@
 </script>
 
 {#if block}
-	<button class="block" class:active on:click>
+	<button class="block" type="button" class:active on:click>
 		<div class="icon">
 			{#if active}
 				<ActiveBlockIcon />

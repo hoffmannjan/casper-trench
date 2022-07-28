@@ -96,7 +96,7 @@
 				</td>
 				<td class="hash">{`${token.id.substring(0, 20)}...`}</td>
 				<td>{token.name}</td>
-				<td class="desc">{`${token.description.substring(0, 50)}...`}</td>
+				<td class="desc">{`${token.description.substring(0, 50)}${token.description.length > 50 ? "..." : ""}`}</td>
 				<td>{token.standard}</td>
 			</tr>
 		{/each}

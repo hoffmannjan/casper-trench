@@ -1,9 +1,11 @@
 <script lang="ts">
 	import ContractIcon from '$lib/icons/ContractIcon.svelte';
+import InIcon from '$lib/icons/INIcon.svelte';
 	import { scale } from 'svelte/transition';
 
 	export let text = '';
 	export let variant: 'center' | 'right' = 'center';
+	export let IN = false;
 
 	let showHash = false;
 </script>
@@ -11,15 +13,19 @@
 <div
 	class="tooltip hash tooltip-icon"
 	class:right={variant == 'right'}
-	style={`--tooltip: '${text}'`}
+	style={`--tooltip: "${text}"`}
 	on:mouseenter={() => (showHash = true)}
 	on:mouseleave={() => (showHash = false)}
 >
 	{#if showHash}
 		<div class="pointer" transition:scale />
 	{/if}
-	<div class="icon">
-		<ContractIcon />
+	<div class="icon" on:click>
+		{#if IN}
+			<InIcon />
+		{:else}
+			<ContractIcon />
+		{/if}
 	</div>
 </div>
 
