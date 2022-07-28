@@ -7,7 +7,13 @@
 </script>
 
 <div class="from-to-hash">
-	<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'black' : 'text'}`} />
+	{#if link}
+		<a href={link}>
+			<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'black' : 'text'}`} />
+		</a>
+	{:else}
+		<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'black' : 'text'}`} />
+	{/if}
 	<div class="value-crypto">
 		<div class="crypto">
 			{cspr.toFixed(5)}
