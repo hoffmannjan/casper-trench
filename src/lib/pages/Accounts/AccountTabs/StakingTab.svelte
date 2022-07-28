@@ -1,7 +1,12 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
-	import { getValidatorDetails, millisToFormat, parseStringValue, timeAgo } from '$utils/converters';
+	import {
+		getValidatorDetails,
+		millisToFormat,
+		parseStringValue,
+		timeAgo
+	} from '$utils/converters';
 	import Switch from '$components/Reusables/Switch.svelte';
 	import TransactionStatus from '$components/TableData/TransactionStatus.svelte';
 	import Validator from '$components/TableData/Validator.svelte';
@@ -13,7 +18,7 @@
 
 	let transactions = [];
 	let delegation: Delegation;
-	let delegationData:DelegationData[];
+	let delegationData: DelegationData[];
 	let undelegations: Undelegation[];
 	let itemsPerPage = 10;
 	let startIndex = 0;
@@ -48,8 +53,7 @@
 	const fetchDelegations = async () => {
 		$isLoading = true;
 		delegation = await getAccountDelegation($page.params.address);
-		delegationData=delegation&& delegation.data;
-		console.log(delegationData)
+		delegationData = delegation && delegation.data;
 		$isLoading = false;
 	};
 
@@ -86,11 +90,11 @@
 				<tr>
 					<td class="block"> <a href="/transactions/{transaction.hash}"> {transaction.hash}</a></td>
 					<td>
-							<Validator
-								hash={transaction.validator_public_key}
-								imgUrl={transaction.validator_icon}
-								name={transaction.validator_name}
-							/>
+						<Validator
+							hash={transaction.validator_public_key}
+							imgUrl={transaction.validator_icon}
+							name={transaction.validator_name}
+						/>
 					</td>
 					<td class="time">{timeAgo(millisToFormat(Date.now() - transaction.timestamp))} ago</td>
 					<td>
@@ -105,9 +109,9 @@
 						<div class="wrapper">
 							<TransactionStatus success={transaction.status}>
 								{#if transaction.status}
-								Success
+									Success
 								{:else}
-								Failed
+									Failed
 								{/if}
 							</TransactionStatus>
 						</div>
@@ -117,7 +121,7 @@
 		{/if}
 	</table>
 	{#if transactions && transactions.length > 0}
-	<!-- TODO handle paginator for staking -->
+		<!-- TODO handle paginator for staking -->
 		<Paginator
 			showTotalRows={false}
 			bind:itemsPerPage

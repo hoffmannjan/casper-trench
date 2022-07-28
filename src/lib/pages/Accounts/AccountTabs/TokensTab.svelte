@@ -1,5 +1,6 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
+	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
 	import Hash from '../../../components/TableData/Hash.svelte';
 	import TransactionStatus from '../../../components/TableData/TransactionStatus.svelte';
@@ -73,7 +74,7 @@
 
 <div class="tokens-tab">
 	<div class="total">
-		Latest {tokensPerPage} Transactions
+		Latest {tokensPerPage} Transactions <PlaceHolderIndicator />
 	</div>
 	<table>
 		<tr>

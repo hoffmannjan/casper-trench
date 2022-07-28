@@ -15,6 +15,7 @@
 	let earningsPerPage = 10;
 	let startIndex = 0;
 	let stats: Stats;
+	let data = [];
 	onMount(async () => {
 		stats = await getStats();
 		await fetchRewards();
@@ -24,7 +25,14 @@
 		$isLoading = true;
 		earnings = await getAccountRewards($page.params?.address, earningsPerPage, startIndex);
 		eraRewards = await getAccountEraRewards($page.params.address, eraRewardsPerPage);
-		// console.log(eraRewards)
+		eraRewards &&
+			eraRewards.forEach((e, i) => {
+				if (e[0] === null) {
+					e[0] = eraRewards[i - 1][0] - 1;
+				}
+				data.push(e);
+				console.log(i, e);
+			});
 		$isLoading = false;
 	};
 	$: if (earningsPerPage) {
@@ -32,6 +40,8 @@
 			await fetchRewards();
 		}, 1);
 	}
+	1653477343232;
+	1653052014592;
 </script>
 
 <div class="earning">
@@ -76,7 +86,9 @@
 			on:load-page={async () => await fetchRewards()}
 		/>
 	</div>
-	<EarningChart />
+	{#if eraRewards && eraRewards.length > 0}
+		<EarningChart {data} />
+	{/if}
 </div>
 
 <style lang="postcss">

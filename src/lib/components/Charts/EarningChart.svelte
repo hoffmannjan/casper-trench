@@ -1,14 +1,8 @@
 <script>
-	import { onMount } from 'svelte';
+	import { browser } from '$app/env';
 
-	export let data = [
-		[1658918045000, 73625],
-		[1658923545000, 41625],
-		[1658927645000, 70724],
-		[1658929545000, 91525],
-		[1658933545000, 125246],
-		[1658936545000, 30123]
-	];
+	import { onMount } from 'svelte';
+	export let data = [];
 
 	let options = {
 		chart: {
@@ -150,9 +144,10 @@
 	};
 
 	let chartElement;
-
+	let chart;
 	onMount(() => {
-		let chart = new ApexCharts(chartElement, options);
+		// console.log('Starting Data:  ', data);
+		chart = browser && new ApexCharts(chartElement, options);
 		chart.render();
 	});
 </script>
@@ -171,7 +166,6 @@
 		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
 		@apply flex items-center justify-between;
 	}
-
 
 	.container {
 		@apply md:max-w-[38.1vw];
