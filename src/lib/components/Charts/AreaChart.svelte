@@ -72,7 +72,7 @@
 			},
 			series: [
 				{
-					name: 'Validator Weights',
+					name: 'Total Staked',
 					data
 				}
 			],
@@ -101,7 +101,7 @@
 							'December'
 						];
 						let date = new Date(value);
-						return `${monthNames[date.getMonth()]} ${date.getDate()}`;
+						return `${date.getDate()} ${monthNames[date.getMonth()]}`;
 					},
 					style: {
 						fontSize: '0.83vw',
@@ -130,7 +130,7 @@
 				},
 				x: {
 					show: false,
-					format: 'dddd, MMM d, HH:mm'
+					format: 'dddd, d MMM, HH:mm'
 				},
 				y: {
 					formatter: (value) => {
@@ -200,7 +200,7 @@
 	<div class="title">Validators Weights</div>
 	<div class="legend">
 		<div class="color" />
-		<div class="text">Weight</div>
+		<div class="text">Total Staked</div>
 	</div>
 	<div class="chart" bind:this={chartElement} />
 </div>

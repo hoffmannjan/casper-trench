@@ -10,10 +10,10 @@
 <div class="from-to-hash">
 	{#if link}
 		<a href={link}>
-			<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'text' : 'green'}`} />
+			<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'black' : 'text'}`} />
 		</a>
 	{:else}
-		<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'text' : 'green'}`} />
+		<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'black' : 'text'}`} />
 	{/if}
 	<div class="value-crypto">
 		<div class="crypto">

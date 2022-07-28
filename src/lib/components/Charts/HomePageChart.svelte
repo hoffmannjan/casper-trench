@@ -57,7 +57,7 @@
 						'December'
 					];
 					let date = new Date(value);
-					return `${monthNames[date.getMonth()]} ${date.getDate()}`;
+					return `${date.getDate()} ${monthNames[date.getMonth()]}`;
 				},
 				style: {
 					fontSize: '0.83vw',
@@ -119,7 +119,7 @@
 
 <style lang="postcss">
 	.container {
-		@apply w-[24vw] h-[11vw];
+		@apply md:w-[24vw] md:h-[11vw];
 		@apply ml-[1vw] mb-[1vw];
 	}
 
