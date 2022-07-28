@@ -7,7 +7,7 @@
 </script>
 
 <div class="from-to-hash">
-	<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'text' : 'green'}`} />
+	<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'black' : 'text'}`} />
 	<div class="value-crypto">
 		<div class="crypto">
 			{cspr.toFixed(5)}
