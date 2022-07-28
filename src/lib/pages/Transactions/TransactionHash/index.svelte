@@ -347,7 +347,7 @@
 		@apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
 	}
 	.image-placeholder > img {
-		@applt w-1/3;
+		@apply w-2/3;
 	}
 
 	.name {
