@@ -1,18 +1,19 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
-	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
+	import { getValidatorDetails, millisToFormat, parseStringValue, timeAgo } from '$utils/converters';
 	import Switch from '$components/Reusables/Switch.svelte';
 	import TransactionStatus from '$components/TableData/TransactionStatus.svelte';
 	import Validator from '$components/TableData/Validator.svelte';
 	import { onMount } from 'svelte';
-	import type { Delegation, Undelegation } from '$utils/types/stake';
+	import type { Delegation, DelegationData, Undelegation } from '$utils/types/stake';
 	import { getAccountDelegation, getAccountUndelegations } from '$utils/api';
 	import { page } from '$app/stores';
 	import { isLoading } from '$stores/loading';
 
 	let transactions = [];
-	let delegations: Delegation[];
+	let delegation: Delegation;
+	let delegationData:DelegationData[];
 	let undelegations: Undelegation[];
 	let itemsPerPage = 10;
 	let startIndex = 0;
@@ -33,7 +34,7 @@
 
 	$: if (selected === 0) {
 		dataset = 'delegations';
-		transactions = delegations;
+		transactions = delegationData;
 	} else {
 		dataset = 'undelegations';
 		transactions = undelegations;
@@ -46,13 +47,15 @@
 
 	const fetchDelegations = async () => {
 		$isLoading = true;
-		delegations = await getAccountDelegation($page.params.address, itemsPerPage, startIndex);
+		delegation = await getAccountDelegation($page.params.address);
+		delegationData=delegation&& delegation.data;
+		console.log(delegationData)
 		$isLoading = false;
 	};
 
 	const fetchUndelegations = async () => {
 		$isLoading = true;
-		delegations = await getAccountUndelegations($page.params.address, itemsPerPage, startIndex);
+		undelegations = await getAccountUndelegations($page.params.address, itemsPerPage, startIndex);
 		$isLoading = false;
 	};
 	$: if (itemsPerPage) {
@@ -81,36 +84,31 @@
 		{#if transactions && transactions.length > 0}
 			{#each transactions as transaction}
 				<tr>
-					<td class="block">{transaction.delegator}</td>
+					<td class="block"> <a href="/transactions/{transaction.hash}"> {transaction.hash}</a></td>
 					<td>
-						{#await getValidatorDetails(transaction.validator)}
-							loading
-						{:then validator}
 							<Validator
-								hash={transaction.validator}
-								imgUrl={validator.icon}
-								name={validator.name}
+								hash={transaction.validator_public_key}
+								imgUrl={transaction.validator_icon}
+								name={transaction.validator_name}
 							/>
-						{/await}
-						{transaction.validator}
 					</td>
-					<td class="time"
-						>{dataset === 'delegations'
-							? `${timeAgo(millisToFormat(Date.now() - transaction.time))} ago`
-							: '0'}</td
-					>
+					<td class="time">{timeAgo(millisToFormat(Date.now() - transaction.timestamp))} ago</td>
 					<td>
 						<div class="value-crypto">
 							<div class="crypto">
-								{parseFloat(transaction.amount.toFixed(5)).toLocaleString()}
+								{parseFloat(parseStringValue(transaction.amount).toFixed(5)).toLocaleString()}
 							</div>
 							<div class="cspr">CSPR</div>
 						</div>
 					</td>
 					<td>
 						<div class="wrapper">
-							<TransactionStatus success={transaction.status.toLowerCase() === 'success'}>
-								{transaction.status}
+							<TransactionStatus success={transaction.status}>
+								{#if transaction.status}
+								Success
+								{:else}
+								Failed
+								{/if}
 							</TransactionStatus>
 						</div>
 					</td>
@@ -119,14 +117,13 @@
 		{/if}
 	</table>
 	{#if transactions && transactions.length > 0}
+	<!-- TODO handle paginator for staking -->
 		<Paginator
 			showTotalRows={false}
 			bind:itemsPerPage
-			apiPaginator
 			bind:items={transactions}
 			bind:startIndex
-			on:load-page={async () =>
-				dataset == 'delegations' ? await fetchDelegations() : fetchUndelegations()}
+			bind:pagedItems={transactions}
 		/>
 	{:else}
 		<div class="empty">

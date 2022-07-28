@@ -1,7 +1,14 @@
 <script>
 	import { onMount } from 'svelte';
 
-	export let data = [[1658918045000, 73625], [1658923545000, 41625], [1658927645000, 70724], [1658929545000, 91525], [1658933545000, 125246], [1658936545000, 30123]];
+	export let data = [
+		[1658918045000, 73625],
+		[1658923545000, 41625],
+		[1658927645000, 70724],
+		[1658929545000, 91525],
+		[1658933545000, 125246],
+		[1658936545000, 30123]
+	];
 
 	let options = {
 		chart: {
@@ -27,7 +34,7 @@
 		},
 		stroke: {
 			curve: 'straight',
-            width: 2
+			width: 2
 		},
 		series: [
 			{
@@ -151,17 +158,11 @@
 </script>
 
 <div class="container">
-	<div class="title">
-        Latest 1000 Era rewards (CSPR)
-    </div>
-    <div class="legend">
-        <div class="color">
-
-        </div>
-        <div class="text">
-            CSPR Received
-        </div>
-    </div>
+	<div class="title">Latest 1000 Era rewards (CSPR)</div>
+	<div class="legend">
+		<div class="color" />
+		<div class="text">CSPR Received</div>
+	</div>
 	<div class="chart" bind:this={chartElement} />
 </div>
 
@@ -171,32 +172,25 @@
 		@apply flex items-center justify-between;
 	}
 
-	.label {
-		@apply font-medium;
-	}
 
-	.value {
-		@apply text-[clamp(10px,0.83vw,0.83vw)];
-	}
-
-    .container {
+	.container {
 		@apply md:max-w-[38.1vw];
 		@apply flex items-center flex-col;
 		@apply mx-[clamp(16px,3.75vw,3.75vw)];
 	}
 
-    .chart {
-        @apply w-full;
-    }
+	.chart {
+		@apply w-full;
+	}
 
-    .legend {
-        @apply flex gap-[clamp(4px,0.6vw,0.6vw)] items-center;
-        @apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
-    }
+	.legend {
+		@apply flex gap-[clamp(4px,0.6vw,0.6vw)] items-center;
+		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
+	}
 
-    .color {
-        @apply bg-color-hover-footer-link;
-        @apply h-[clamp(12px,0.95vw,0.95vw)] w-[clamp(12px,0.95vw,0.95vw)];
-        @apply rounded-full;
-    }
+	.color {
+		@apply bg-color-hover-footer-link;
+		@apply h-[clamp(12px,0.95vw,0.95vw)] w-[clamp(12px,0.95vw,0.95vw)];
+		@apply rounded-full;
+	}
 </style>

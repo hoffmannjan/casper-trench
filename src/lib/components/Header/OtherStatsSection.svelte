@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { isLoading } from '$stores/loading';
 	import { getEconomics, getStats } from '$utils/api';
+	import { parseStringValue } from '$utils/converters';
 	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
 
 	import { onMount } from 'svelte';
-import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
+	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	let stats: Stats;
 	let economics: Economics;
 	onMount(async () => {
@@ -16,56 +17,61 @@ import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	});
 </script>
 
-
-	<div class="home-stats-section header-stats-background">
-		<div class="stat-column">
-			<div class="title">BLOCK HEIGHT</div>
-			<div class="value">
-				{economics&&economics.block_height.toLocaleString('en')||''}
-			</div>
-			<!-- TODO get latest block time -->
-			<div class="detail flex">
-				{'55 sec ago'} <PlaceHolderIndicator/>
-			</div>
+<div class="home-stats-section header-stats-background">
+	<div class="stat-column">
+		<div class="title">BLOCK HEIGHT</div>
+		<div class="value">
+			{(economics && economics.block_height.toLocaleString('en')) || ''}
 		</div>
-
-		<div class="vt" />
-
-		<div class="stat-column">
-			<div class="title">APY</div>
-			<div class="value">
-				{economics&&economics.APY.toFixed(2)||''}%
-			</div>
-			<div class="detail">Annual Percentage Yield</div>
-		</div>
-
-		<div class="vt" />
-
-		<div class="stat-column">
-			<div class="title">CSPR PRICE</div>
-			<div class="value">
-				${Math.floor(stats&&stats.price * 10000) / 10000||''}
-			</div>
-			<div class="detail">
-				${stats&&stats.marketcap.toLocaleString('en')||''} Market Cap
-			</div>
-		</div>
-
-		<div class="vt" />
-
-		<div class="stat-column">
-			<div class="title">CIRCULATING SUPPLY</div>
-			<div class="value">
-				{parseFloat(economics&&economics.circulating_supply.substring(0, 10)).toLocaleString('en')||''}
-			</div>
-			<div class="detail">
-				{(
-					(parseFloat(economics&&economics.circulating_supply) / parseFloat(economics&&economics.total_supply)) *
-					100
-				).toFixed(2)}% of {parseFloat(economics&&economics.total_supply.substring(0, 11)).toLocaleString('en')||''}
-			</div>
+		<!-- TODO get latest block time -->
+		<div class="detail flex">
+			{'55 sec ago'}
+			<PlaceHolderIndicator />
 		</div>
 	</div>
+
+	<div class="vt" />
+
+	<div class="stat-column">
+		<div class="title">APY</div>
+		<div class="value">
+			{(economics && economics.APY.toFixed(2)) || ''}%
+		</div>
+		<div class="detail">Annual Percentage Yield</div>
+	</div>
+
+	<div class="vt" />
+
+	<div class="stat-column">
+		<div class="title">CSPR PRICE</div>
+		<div class="value">
+			${Math.floor(stats && stats.price * 10000) / 10000 || ''}
+		</div>
+		<div class="detail">
+			${(stats && stats.marketcap.toLocaleString('en')) || ''} Market Cap
+		</div>
+	</div>
+
+	<div class="vt" />
+
+	<div class="stat-column">
+		<div class="title">CIRCULATING SUPPLY</div>
+		<div class="value">
+			{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
+				'en'
+			) || ''}
+		</div>
+		<div class="detail">
+			{(
+				(parseFloat(economics && economics.circulating_supply) /
+					parseFloat(economics && economics.total_supply)) *
+				100
+			).toFixed(2)}% of {parseFloat(
+				economics && economics.total_supply.substring(0, 11)
+			).toLocaleString('en') || ''}
+		</div>
+	</div>
+</div>
 
 <style lang="postcss">
 	.home-stats-section {

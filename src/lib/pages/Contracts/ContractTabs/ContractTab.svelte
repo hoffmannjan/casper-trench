@@ -30,17 +30,17 @@
 	<Switch {options} bind:selected />
 
 	{#if selected === 0}
-		<TopLeftTools bind:searchText/>
+		<TopLeftTools bind:searchText />
 	{/if}
-    <div class="content">
-        {#if selected === 0}
-            <ContractCode />
-        {:else if selected === 1}
-            <ContractRead />
-        {:else if selected === 2}
-            <ContractWrite />
-        {/if}
-    </div>
+	<div class="content">
+		{#if selected === 0}
+			<ContractCode />
+		{:else if selected === 1}
+			<ContractRead />
+		{:else if selected === 2}
+			<ContractWrite />
+		{/if}
+	</div>
 </div>
 
 <style lang="postcss">
@@ -48,7 +48,7 @@
 		@apply relative;
 	}
 
-    .content {
-        @apply pt-[clamp(16px,2.02vw,2.02vw)];
-    }
+	.content {
+		@apply pt-[clamp(16px,2.02vw,2.02vw)];
+	}
 </style>

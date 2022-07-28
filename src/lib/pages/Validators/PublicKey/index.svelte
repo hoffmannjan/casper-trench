@@ -57,7 +57,7 @@
 					{validator.public_key}
 				</div>
 				<div class="copy-icon">
-					<CopyIcon />
+					<CopyIcon text={validator.public_key} />
 				</div>
 			</div>
 		</div>

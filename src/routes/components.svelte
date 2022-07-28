@@ -9,7 +9,7 @@
 	let menuOptions = [
 		{
 			title: 'Table',
-			component: ""
+			component: ''
 		},
 		{
 			title: 'Empty',

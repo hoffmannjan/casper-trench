@@ -1,7 +1,7 @@
 <script>
-import Switch from "$lib/components/Reusables/Switch.svelte";
+	import Switch from '$lib/components/Reusables/Switch.svelte';
 
-const options = [
+	const options = [
 		{
 			name: 'Transactions',
 			dropdown: []
@@ -20,13 +20,12 @@ const options = [
 		}
 	];
 
-    let selected = 0;
+	let selected = 0;
 </script>
 
 <div class="contract-analytics">
-    <Switch {options} bind:selected />
+	<Switch {options} bind:selected />
 </div>
 
 <style>
-    
 </style>
