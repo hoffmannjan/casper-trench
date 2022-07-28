@@ -19,6 +19,11 @@
 		[1658936545000, 30123]
 	];
 
+	let chartElement;
+
+	let innerWidth;
+
+	onMount(() => {
 	let options = {
 		chart: {
 			type: 'line',
@@ -41,7 +46,7 @@
 				}
 			},
 			height: '100%',
-			width: '125%'
+			width: `${innerWidth * 0.75}px`
 		},
 		stroke: {
 			curve: 'stepline',
@@ -196,14 +201,12 @@
 			}
 		}
 	};
-
-	let chartElement;
-
-	onMount(() => {
 		let chart = new ApexCharts(chartElement, options);
 		chart.render();
 	});
 </script>
+
+<svelte:window bind:innerWidth/>
 
 <div class="container">
 	<div class="title">Market Price (CSPR/USD)</div>
@@ -226,28 +229,15 @@
 	.title {
 		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
 		@apply flex items-center justify-between;
-		@apply ml-[35vw];
-	}
-
-	.label {
-		@apply font-medium;
-	}
-
-	.value {
-		@apply text-[clamp(10px,0.83vw,0.83vw)];
 	}
 
 	.container {
-		@apply md:h-[32vw];
-	}
-
-	.chart {
-		@apply w-full;
+		@apply md:h-[32vw] w-full;
+		@apply flex flex-col items-center justify-center;
 	}
 
 	.legend {
 		@apply flex gap-[clamp(24px,1.79vw,1.79vw)] items-center;
-		@apply ml-[37.5vw];
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
 	}
 
