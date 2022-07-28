@@ -3,7 +3,12 @@
 
 	export let data = [[1658918045000, 73625], [1658923545000, 41625], [1658927645000, 70724], [1658929545000, 91525], [1658933545000, 125246], [1658936545000, 30123]];
 
-	let options = {
+	let chartElement;
+	
+	let innerWidth;
+
+	onMount(() => {
+		let options = {
 		chart: {
 			type: 'area',
 			toolbar: {
@@ -25,7 +30,7 @@
 				}
 			},
             height: "100%",
-            width: "125%"
+            width: `${innerWidth * 0.75}px`
 		},
 		fill: {
 			gradient: {
@@ -177,13 +182,12 @@
 		}
 	};
 
-	let chartElement;
-
-	onMount(() => {
 		let chart = new ApexCharts(chartElement, options);
 		chart.render();
 	});
 </script>
+
+<svelte:window bind:innerWidth/>
 
 <div class="container">
     <div class="title">
@@ -204,19 +208,11 @@
 	.title {
 		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
 		@apply flex items-center justify-between;
-        @apply ml-[40vw];
-	}
-
-	.label {
-		@apply font-medium;
-	}
-
-	.value {
-		@apply text-[clamp(10px,0.83vw,0.83vw)];
 	}
 
     .container {
-        @apply md:h-[32vw];
+        @apply md:h-[32vw] min-w-max;
+		@apply flex flex-col items-center justify-center;
     }
 
     .chart {
@@ -225,7 +221,6 @@
 
     .legend {
         @apply flex gap-[clamp(4px,0.6vw,0.6vw)] items-center;
-        @apply ml-[43.5vw];
         @apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
     }
 
