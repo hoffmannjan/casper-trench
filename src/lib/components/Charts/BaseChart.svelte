@@ -2,22 +2,64 @@
 	import { onMount } from 'svelte';
 
 	export let type = 'line';
+	export let colors = ['#099B91'];
 	export let series = [
 		{
-			name: 'sales',
-			data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+			name: 'transactions',
+			data: [73256, 41625, 70783, 91885, 125634, 30237]
 		}
 	];
-	export let categories = [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999];
+	export let categories = [1658918045, 1658923545, 1658927645, 1658929545, 1658933545, 1658936545];
+	export let xaxis = {
+		categories,
+		type: 'datetime',
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: false
+        },
+	};
+	export let yaxis = {};
+	export let stroke = {
+		curve: 'smooth'
+	};
+	export let toolbar = {
+		show: false
+	};
+	export let zoom = {
+		enabled: false
+	};
+	export let tooltip = {
+		enabled: false
+	};
+	export let grid = {
+		xaxis: {
+			lines: {
+				show: false
+			}
+		},
+		yaxis: {
+			lines: {
+				show: false
+			},
+            min: 0,
+		}
+	};
 
 	let options = {
 		chart: {
-			type
+			type,
+			toolbar,
+			zoom
 		},
+		stroke,
 		series,
-		xaxis: {
-			categories
-		}
+		xaxis,
+		yaxis,
+		colors,
+		tooltip,
+		grid
 	};
 
 	let chartElement;

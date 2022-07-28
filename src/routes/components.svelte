@@ -1,6 +1,4 @@
 <script>
-	import AreaChart from '$lib/components/Charts/AreaChart.svelte';
-
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
@@ -11,7 +9,6 @@
 	let menuOptions = [
 		{
 			title: 'Table',
-			component: AreaChart,
 		},
 		{
 			title: 'Empty',

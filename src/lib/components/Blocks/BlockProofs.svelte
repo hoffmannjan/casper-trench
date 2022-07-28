@@ -6,12 +6,12 @@
 	let pages = [];
 	pages = [];
 	let pos = 0;
-
+	export let proofsPerPage = 5;
 	let useArray = [...proofs];
 	while (useArray.length) {
 		pages.push({
 			pos,
-			data: useArray.splice(0, 5)
+			data: useArray.splice(0, proofsPerPage)
 		});
 		pos++;
 	}
@@ -27,13 +27,13 @@
 				<tr>
 					<td class="label"> Public Key </td>
 					<td class="value key">
-						{proof.publicKey}
+						{proof.public_key || ''}
 					</td>
 				</tr>
 				<tr>
 					<td class="label"> Signature </td>
 					<td class="value signature">
-						{proof.signature}
+						{proof.signature || ''}
 					</td>
 				</tr>
 			</table>
