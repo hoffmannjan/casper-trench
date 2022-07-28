@@ -152,18 +152,22 @@
 
 <div class="container">
 	<div class="title">
-		<div class="label">Latest 1000 Era rewards (CSPR)</div>
-	</div>
+        Latest 1000 Era rewards (CSPR)
+    </div>
+    <div class="legend">
+        <div class="color">
+
+        </div>
+        <div class="text">
+            CSPR Received
+        </div>
+    </div>
 	<div class="chart" bind:this={chartElement} />
 </div>
 
 <style lang="postcss">
-	.container {
-		@apply max-w-[38.1vw];
-	}
-
 	.title {
-		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
+		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
 		@apply flex items-center justify-between;
 	}
 
@@ -174,4 +178,24 @@
 	.value {
 		@apply text-[clamp(10px,0.83vw,0.83vw)];
 	}
+
+    .container {
+		@apply max-w-[38.1vw];
+		@apply flex items-center flex-col;
+	}
+
+    .chart {
+        @apply w-full;
+    }
+
+    .legend {
+        @apply flex gap-[clamp(4px,0.6vw,0.6vw)] items-center;
+        @apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
+    }
+
+    .color {
+        @apply bg-color-hover-footer-link;
+        @apply h-[clamp(12px,0.95vw,0.95vw)] w-[clamp(12px,0.95vw,0.95vw)];
+        @apply rounded-full;
+    }
 </style>
