@@ -1,5 +1,4 @@
 <script>
-	import HomePageChart from '$lib/components/Charts/HomePageChart.svelte';
 
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 
@@ -11,7 +10,6 @@
 	let menuOptions = [
 		{
 			title: 'Table',
-			component: HomePageChart
 		},
 		{
 			title: 'Empty',
