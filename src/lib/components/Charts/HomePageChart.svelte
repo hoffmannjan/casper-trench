@@ -12,7 +12,8 @@
 			},
 			zoom: {
 				enabled: false
-			}
+			},
+			height: '110%'
 		},
 		stroke: {
 			curve: 'smooth',
@@ -111,7 +112,8 @@
 
 <style lang="postcss">
 	.container {
-		@apply max-w-[25.24vw];
+		@apply w-[24vw];
+		@apply ml-[1vw];
 	}
 
 	.title {
