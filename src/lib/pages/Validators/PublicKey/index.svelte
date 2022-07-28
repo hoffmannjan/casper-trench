@@ -66,7 +66,7 @@
 			<StatisticsCard {validator} />
 		</div>
 
-		<!-- <TabMenu {menuOptions} /> -->
+		<TabMenu {menuOptions} />
 	{/if}
 </div>
 

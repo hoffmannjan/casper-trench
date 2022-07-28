@@ -2,7 +2,7 @@
 	import TabSelectorIcon from '$lib/icons/TabSelectorIcon.svelte';
 
 	export let menuOptions = [];
-	let selected = 3;
+	let selected = 0;
 </script>
 
 <div class="tab-menu">
