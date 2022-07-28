@@ -1,6 +1,6 @@
 <script>
 	import PriceLegendIcon from '$lib/icons/PriceLegendIcon.svelte';
-import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	export let priceData = [
 		[1658918045000, 0.73625],
@@ -110,12 +110,12 @@ import { onMount } from 'svelte';
 					}
 				},
 				tickAmount: 5,
-				opposite: true,
-			},
+				opposite: true
+			}
 		],
-        legend: {
-            show: false
-        },
+		legend: {
+			show: false
+		},
 		colors: ['#099B91', '#0021A5'],
 		tooltip: {
 			enabled: true,
@@ -166,8 +166,8 @@ import { onMount } from 'svelte';
 					'<span style="font-weight: bold;"> $' +
 					series[0][dataPointIndex].toLocaleString() +
 					'</span>' +
-					'</div>' + 
-                    '<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
+					'</div>' +
+					'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
 					'<span style="display: flex; align-items: center;">' +
 					'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
 					w.globals.colors[1] +
@@ -208,16 +208,16 @@ import { onMount } from 'svelte';
 <div class="container">
 	<div class="title">Market Price (CSPR/USD)</div>
 	<div class="legend">
-        <div class="price">
-            <div class="icon">
-                <PriceLegendIcon />
-            </div>
-		    <div class="text">Price</div>
-        </div>
+		<div class="price">
+			<div class="icon">
+				<PriceLegendIcon />
+			</div>
+			<div class="text">Price</div>
+		</div>
 		<div class="volume">
-            <div class="color" />
-		    <div class="text">Volume</div>
-        </div>
+			<div class="color" />
+			<div class="text">Volume</div>
+		</div>
 	</div>
 	<div class="chart" bind:this={chartElement} />
 </div>
@@ -251,9 +251,9 @@ import { onMount } from 'svelte';
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
 	}
 
-    .legend > div {
+	.legend > div {
 		@apply flex gap-[clamp(4px,0.6vw,0.6vw)] items-center;
-    }
+	}
 
 	.color {
 		@apply bg-color-arcadia-blue;
@@ -261,7 +261,7 @@ import { onMount } from 'svelte';
 		@apply rounded-full;
 	}
 
-    .icon {
-        @apply w-[clamp(16px,1.19vw,1.19vw)];
-    }
+	.icon {
+		@apply w-[clamp(16px,1.19vw,1.19vw)];
+	}
 </style>
