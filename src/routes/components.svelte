@@ -1,7 +1,4 @@
 <script>
-	import BaseChart from '$lib/components/Charts/BaseChart.svelte';
-	import StackedChart from '$lib/components/Charts/StackedChart.svelte';
-
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
@@ -12,7 +9,7 @@
 	let menuOptions = [
 		{
 			title: 'Table',
-			component: StackedChart
+			component: ""
 		},
 		{
 			title: 'Empty',

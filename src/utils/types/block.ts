@@ -1,7 +1,7 @@
 export type Block = {
 	body: {
-		deploy_hashes: string[];
 		proposer: string;
+		deploy_hashes: string[];
 		transfer_hashes: string[];
 	};
 	hash: string;
@@ -17,6 +17,10 @@ export type Block = {
 		state_root_hash: string;
 		timestamp: string;
 	};
+	proofs: {
+		public_key: string;
+		signature: string;
+	}[];
 };
 
 export type ProposerBlocks = {
@@ -31,4 +35,14 @@ export type ProposerBlocks = {
 export type RangeBlock = {
 	current_height: number;
 	result: Block[];
+};
+
+export type BlockDetail = {
+	jsonrpc: string;
+	id: number;
+	result: {
+		api_version: string;
+		block: Block;
+		current_height: number;
+	};
 };

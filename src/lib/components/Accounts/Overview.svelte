@@ -36,11 +36,13 @@
 				<td class="value">
 					<div class="address-value">
 						<div class="text">
-							{account.public_key_hex}
+							{account.public_key_hex || ''}
 						</div>
-						<div class="copy-icon">
-							<CopyIcon text={account.public_key_hex} />
-						</div>
+						{#if account.public_key_hex}
+							<div class="copy-icon">
+								<CopyIcon text={account.public_key_hex} />
+							</div>
+						{/if}
 					</div>
 				</td>
 			</tr>
