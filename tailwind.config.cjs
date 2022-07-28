@@ -43,6 +43,9 @@ module.exports = {
 					'proof-num-background': '#F6F6F6',
 					'copy-btn-bg': '#F4F5F5',
 					'translucent-yellow': '#FFFBEA',
+					'translucent-blue': '#F5F7FF',
+					'arcadia-blue': '#1735A3',
+					'chart-blue': '#1737A3'
 					'events-header-bg': '#F3FDFC'
 				}
 			},

@@ -1,5 +1,4 @@
 <script>
-
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
