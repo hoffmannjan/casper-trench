@@ -15,18 +15,24 @@
 <div class="crypto-cash">
 	<div class="value-crypto">
 		<div class="crypto">
-			{parseFloat(cspr.toFixed(5)).toLocaleString('en')}
+			{(cspr && parseFloat(cspr.toFixed(5)).toLocaleString('en')) || '0'}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>
 	{#if selfStakePercentage > 0}
 		<div class="value-cash">
-			{selfStakePercentage}%
+			{selfStakePercentage || '0'}%
 		</div>
 	{:else}
-		<div class="value-cash">
-			${parseFloat(cashValue.toFixed(2)).toLocaleString('en')}
-		</div>
+		{#await getStats()}
+			<div class="value-cash">
+				<!-- ${parseFloat(cashValue.toFixed(2)).toLocaleString('en')||'0'} -->
+			</div>
+		{:then stats}
+			<div class="value-cash">
+				${parseFloat((cspr * stats.price).toFixed(2)).toLocaleString('en') || '0'}
+			</div>
+		{/await}
 	{/if}
 </div>
 

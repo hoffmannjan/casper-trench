@@ -44,7 +44,9 @@
 		{#if transfers && transfers.length > 0}
 			{#each transfers as transfer}
 				<tr>
-					<td class="block">{transfer.deploy_hash}</td>
+					<td class="block">
+						<a href="/transactions/{transfer.deploy_hash}"> {transfer.deploy_hash}</a></td
+					>
 					<td class="time"
 						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transfer.timestamp)))} ago`}</td
 					>
@@ -62,6 +64,7 @@
 							<FromToAccountHash
 								cspr={parseStringValue(transfer.to_balance)}
 								hash={transfer.to_address}
+								link="/accounts/{transfer.to_address}"
 							/>
 						</div>
 					</td>

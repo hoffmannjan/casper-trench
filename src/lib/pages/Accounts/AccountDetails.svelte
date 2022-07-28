@@ -11,7 +11,6 @@
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import TrustedIcon from '$lib/icons/TrustedIcon.svelte';
 	import { onMount } from 'svelte';
-	import { isLoading } from '$stores/loading';
 	import type { Account } from '$utils/types/account';
 	import { getAccount, getType } from '$utils/api';
 	import { page } from '$app/stores';
@@ -19,7 +18,7 @@
 
 	let menuOptions = [
 		{
-			title: 'Transfer',
+			title: 'Transfers',
 			component: TransferTab,
 			props: {}
 		},
@@ -46,11 +45,12 @@
 	];
 	let account: Account;
 	let type: Type;
+	let isLoading = false;
 	onMount(async () => {
-		$isLoading = true;
+		isLoading = true;
 		account = await getAccount($page.params?.address);
 		type = await getType($page.params?.address);
-		$isLoading = false;
+		isLoading = false;
 	});
 </script>
 
@@ -77,12 +77,10 @@
 		</div>
 	</div>
 
-	{#if account && type}
-		<div class="info">
-			<Overview {account} {type} />
-			<StakeInfo {account} />
-		</div>
-	{/if}
+	<div class="info">
+		<Overview {account} {type} {isLoading} />
+		<StakeInfo {account} {isLoading} />
+	</div>
 	<TabMenu {menuOptions} />
 </div>
 

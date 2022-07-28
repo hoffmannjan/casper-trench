@@ -2,25 +2,25 @@
 	import { slide } from 'svelte/transition';
 
 	import ContractChevron from '$lib/icons/ContractChevron.svelte';
-    import ContractCopyIcon from '$lib/icons/ContractCopyIcon.svelte';
-    import ChainIcon from '$lib/icons/ChainIcon.svelte';
-    import MaximizeIcon from '$lib/icons/MaximizeIcon.svelte';
-    import OpenIcon from '$lib/icons/OpenIcon.svelte';
+	import ContractCopyIcon from '$lib/icons/ContractCopyIcon.svelte';
+	import ChainIcon from '$lib/icons/ChainIcon.svelte';
+	import MaximizeIcon from '$lib/icons/MaximizeIcon.svelte';
+	import OpenIcon from '$lib/icons/OpenIcon.svelte';
 
 	export let outlineDropdown = false;
 	export let moreOptionsDropdown = false;
-    export let codeHeader = false;
-    export let outlineCodeHeader = false;
-    export let decompileButton = false;
-    export let opCodesButton = false;
-    export let code = "";
+	export let codeHeader = false;
+	export let outlineCodeHeader = false;
+	export let decompileButton = false;
+	export let opCodesButton = false;
+	export let code = '';
 
-    const lines = code.split(/\r\n|\r|\n/).length;
-    let lineString = "";
-    for (let index = 0; index < lines; index++) {
-        lineString += (`${index + 1}\n`);
-    };
-    console.log(lineString);
+	const lines = code.split(/\r\n|\r|\n/).length;
+	let lineString = '';
+	for (let index = 0; index < lines; index++) {
+		lineString += `${index + 1}\n`;
+	}
+	console.log(lineString);
 
 	let outlineOptions = ['Outline', 'Test 2', 'Test 3', 'Test 4'];
 	let showOutlineDropdown = false;
@@ -45,51 +45,47 @@
 	<div class="top">
 		<div class="title">
 			<slot />
-            {#if code.length === 0}
-                <div class="add" on:click={() => {
-                    
-                }}>
-                    + Add
-                </div>
-            {/if}
+			{#if code.length === 0}
+				<div class="add" on:click={() => {}}>+ Add</div>
+			{/if}
 		</div>
 
 		<div class="drop-downs">
-            {#if outlineCodeHeader}
-                <div class="wrapper">
-                    <div class="button" on:click={() => (showOutlineDropdown = !showOutlineDropdown)}>
-                        <div class="text">
-                            {outlineOptions[selectedOutlineDropdown]}
-                        </div>
-                        <div class="icon" class:flipped={showOutlineDropdown}>
-                            <ContractChevron />
-                        </div>
-                    </div>
-                    {#if showOutlineDropdown}
-                        <div class="dropdown" transition:slide>
-                            {#each outlineOptions as dropdownOption, index}
-                                <div
-                                    class="dropdown-option"
-                                    class:selected-drop={selectedOutlineDropdown === index}
-                                    on:click={() => {
-                                        selectDropdownOption(index);
-                                    }}
-                                >
-                                    {dropdownOption}
-                                </div>
-                            {/each}
-                        </div>
-                    {/if}
-                </div>
-                <div class="code-header">
-                    <div class="copy-icon">
-                        <ContractCopyIcon />
-                    </div>
-                    <div class="maximize-icon">
-                        <MaximizeIcon />
-                    </div>
-                </div>
-            {/if}
+			{#if outlineCodeHeader}
+				<div class="wrapper">
+					<div class="button" on:click={() => (showOutlineDropdown = !showOutlineDropdown)}>
+						<div class="text">
+							{outlineOptions[selectedOutlineDropdown]}
+						</div>
+						<div class="icon" class:flipped={showOutlineDropdown}>
+							<ContractChevron />
+						</div>
+					</div>
+					{#if showOutlineDropdown}
+						<div class="dropdown" transition:slide>
+							{#each outlineOptions as dropdownOption, index}
+								<div
+									class="dropdown-option"
+									class:selected-drop={selectedOutlineDropdown === index}
+									on:click={() => {
+										selectDropdownOption(index);
+									}}
+								>
+									{dropdownOption}
+								</div>
+							{/each}
+						</div>
+					{/if}
+				</div>
+				<div class="code-header">
+					<div class="copy-icon">
+						<ContractCopyIcon />
+					</div>
+					<div class="maximize-icon">
+						<MaximizeIcon />
+					</div>
+				</div>
+			{/if}
 
 			{#if outlineDropdown}
 				<div class="wrapper">
@@ -119,25 +115,21 @@
 				</div>
 			{/if}
 
-            {#if decompileButton}
+			{#if decompileButton}
 				<div class="wrapper">
 					<div class="button" on:click={() => {}}>
-						<div class="text">
-							Decompile ByteCode
-						</div>
+						<div class="text">Decompile ByteCode</div>
 						<div class="open-icon">
-							<OpenIcon grey/>
+							<OpenIcon grey />
 						</div>
 					</div>
 				</div>
 			{/if}
 
-            {#if opCodesButton}
+			{#if opCodesButton}
 				<div class="wrapper">
 					<div class="button" on:click={() => {}}>
-						<div class="text">
-							Switch to Opcodes View
-						</div>
+						<div class="text">Switch to Opcodes View</div>
 					</div>
 				</div>
 			{/if}
@@ -172,29 +164,29 @@
 		</div>
 	</div>
 
-    {#if code.length > 0}
-        <div class="code-content">
-            {#if codeHeader}
-                <div class="code-header">
-                    <div class="copy-icon">
-                        <ContractCopyIcon />
-                    </div>
-                    <div class="link-icon">
-                        <ChainIcon />
-                    </div>
-                    <div class="maximize-icon">
-                        <MaximizeIcon />
-                    </div>
-                </div>
-            {/if}
-            <div class="data-wrapper">
-                <div class="data">
-                    <pre>{lineString}</pre>
-                    <pre>{code}</pre>
-                </div>
-            </div>
-        </div>
-    {/if}
+	{#if code.length > 0}
+		<div class="code-content">
+			{#if codeHeader}
+				<div class="code-header">
+					<div class="copy-icon">
+						<ContractCopyIcon />
+					</div>
+					<div class="link-icon">
+						<ChainIcon />
+					</div>
+					<div class="maximize-icon">
+						<MaximizeIcon />
+					</div>
+				</div>
+			{/if}
+			<div class="data-wrapper">
+				<div class="data">
+					<pre>{lineString}</pre>
+					<pre>{code}</pre>
+				</div>
+			</div>
+		</div>
+	{/if}
 </div>
 
 <style lang="postcss">
@@ -227,7 +219,7 @@
 
 	.wrapper {
 		@apply relative;
-        @apply cursor-pointer;
+		@apply cursor-pointer;
 	}
 
 	.dropdown {
@@ -259,26 +251,26 @@
 		@apply mt-[clamp(16px,1.67vw,1.67vw)];
 	}
 
-    .title {
-        @apply flex items-center gap-[clamp(2px,0.3vw,0.3vw)];
-    }
+	.title {
+		@apply flex items-center gap-[clamp(2px,0.3vw,0.3vw)];
+	}
 
-    .code-header {
-        @apply flex items-center gap-[clamp(16px,1.43vw,1.43vw)] justify-end;
-    }
+	.code-header {
+		@apply flex items-center gap-[clamp(16px,1.43vw,1.43vw)] justify-end;
+	}
 
-    .code-header > div {
-        @apply w-[clamp(20px,1.43vw,1.43vw)] h-[clamp(20px,1.43vw,1.43vw)];
-        @apply cursor-pointer;
-    }
+	.code-header > div {
+		@apply w-[clamp(20px,1.43vw,1.43vw)] h-[clamp(20px,1.43vw,1.43vw)];
+		@apply cursor-pointer;
+	}
 
-    .data {
-        @apply flex gap-[clamp(16px,0.95vw,0.95vw)];
-        @apply max-h-[24.7vh] md:max-h-[24.7vw];
-        @apply overflow-y-auto;
-    }
+	.data {
+		@apply flex gap-[clamp(16px,0.95vw,0.95vw)];
+		@apply max-h-[24.7vh] md:max-h-[24.7vw];
+		@apply overflow-y-auto;
+	}
 
-    .data::-webkit-scrollbar {
+	.data::-webkit-scrollbar {
 		@apply w-[clamp(4px,0.48vw,0.48vw)] h-[clamp(4px,0.48vw,0.48vw)];
 	}
 
@@ -292,25 +284,25 @@
 		@apply pr-[clamp(4px,0.48vw,0.48vw)];
 	}
 
-    .data-wrapper {
-        @apply p-[clamp(4px,0.48vw,0.48vw)];
-        @apply bg-color-code-background;
-        @apply mt-[clamp(16px,1.67vw,1.67vw)];
-        @apply rounded-[0.95vh] md:rounded-[0.95vw];
-        @apply text-color-grey-footer-label;
-    }
+	.data-wrapper {
+		@apply p-[clamp(4px,0.48vw,0.48vw)];
+		@apply bg-color-code-background;
+		@apply mt-[clamp(16px,1.67vw,1.67vw)];
+		@apply rounded-[0.95vh] md:rounded-[0.95vw];
+		@apply text-color-grey-footer-label;
+	}
 
-    .add {
-        @apply text-color-hover-footer-link;
-        @apply cursor-pointer;
-        @apply ml-[clamp(8px,0.48vw,0.48vw)];
-    }
+	.add {
+		@apply text-color-hover-footer-link;
+		@apply cursor-pointer;
+		@apply ml-[clamp(8px,0.48vw,0.48vw)];
+	}
 
-    .code-content {
-        @apply mt-[clamp(16px,1.67vw,1.67vw)];
-    }
+	.code-content {
+		@apply mt-[clamp(16px,1.67vw,1.67vw)];
+	}
 
-    .open-icon {
-        @apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
-    }
+	.open-icon {
+		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+	}
 </style>

@@ -18,7 +18,6 @@
 		@apply absolute inset-0 -z-10 w-full h-full block;
 	}
 
-
 	.versions {
 		@apply text-white text-[clamp(8px,0.65vw,0.65vw)];
 	}

@@ -4,10 +4,17 @@
 	export let isFrom = false;
 	export let cspr: number;
 	export let hash: string;
+	export let link = '';
 </script>
 
 <div class="from-to-hash">
-	<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'text' : 'green'}`} />
+	{#if link}
+		<a href={link}>
+			<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'text' : 'green'}`} />
+		</a>
+	{:else}
+		<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'text' : 'green'}`} />
+	{/if}
 	<div class="value-crypto">
 		<div class="crypto">
 			{cspr.toFixed(5)}
