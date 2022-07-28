@@ -45,7 +45,7 @@ module.exports = {
 					'translucent-yellow': '#FFFBEA',
 					'translucent-blue': '#F5F7FF',
 					'arcadia-blue': '#1735A3',
-					'chart-blue': '#1737A3'
+					'chart-blue': '#1737A3',
 					'events-header-bg': '#F3FDFC'
 				}
 			},
