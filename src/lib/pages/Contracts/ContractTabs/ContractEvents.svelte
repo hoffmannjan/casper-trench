@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { slide } from "svelte/transition";
+	import { slide } from 'svelte/transition';
 
 	import Hash from '$lib/components/TableData/Hash.svelte';
-    import ContractChevron from '$lib/icons/ContractChevron.svelte';
+	import ContractChevron from '$lib/icons/ContractChevron.svelte';
 	import FilterIcon2 from '$lib/icons/FilterIcon2.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-    import RightArrow from "$lib/icons/RightArrow.svelte";
-import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
+	import RightArrow from '$lib/icons/RightArrow.svelte';
+	import TopLeftTools from '$lib/components/Contracts/TopLeftTools.svelte';
 
 	let events = [
 		{
@@ -99,24 +99,24 @@ import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 		}
 	];
 
-    let showHexDropdowns = [];
-    let selectedOptions = [];
-    events.forEach((_) => {
-        showHexDropdowns.push(false);
-        selectedOptions.push(0);
-    });
+	let showHexDropdowns = [];
+	let selectedOptions = [];
+	events.forEach((_) => {
+		showHexDropdowns.push(false);
+		selectedOptions.push(0);
+	});
 
-    const options = ["Hex", "Number", "Text", "Address"];
-    const selectDropdownOption = (index: number, i: number) => {
+	const options = ['Hex', 'Number', 'Text', 'Address'];
+	const selectDropdownOption = (index: number, i: number) => {
 		selectedOptions[i] = index;
 		showHexDropdowns[i] = false;
 	};
 
-	let searchText = "";
+	let searchText = '';
 </script>
 
 <div class="contract-events">
-	<TopLeftTools bind:searchText searchOnly/>
+	<TopLeftTools bind:searchText searchOnly />
 	<div class="latest">
 		Latest {events.length} Contract Events
 	</div>
@@ -163,46 +163,45 @@ import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 					<div>
 						>{event.logs.name} (index_topic_1 address from, index_topic_2 address to, uint256 value)
 					</div>
-                    {#each event.logs.topics as topic, i}
-                        <div>[topic{i}] {topic}</div>
-                    {/each}
+					{#each event.logs.topics as topic, i}
+						<div>[topic{i}] {topic}</div>
+					{/each}
 
-                    {#if event.logs.botData}
-                        <div class="container">
-                            <div class="wrapper">
-                                <div class="button" on:click={() => (showHexDropdowns[i] = !showHexDropdowns[i])}>
-                                    <div class="text">
-                                        {options[selectedOptions[i]]}
-                                    </div>
-                                    <div class="icon" class:flipped={showHexDropdowns[i]}>
-                                        <ContractChevron />
-                                    </div>
-                                </div>
-                                {#if showHexDropdowns[i]}
-                                    <div class="dropdown" transition:slide>
-                                        {#each options as dropdownOption, index}
-                                            <div
-                                                class="dropdown-option"
-                                                class:selected-drop={selectedOptions[i] === index}
-                                                on:click={() => {
-                                                    selectDropdownOption(index, i);
-                                                }}
-                                            >
-                                                {dropdownOption}
-                                            </div>
-                                        {/each}
-                                    </div>
-                                {/if}
-                            </div>
-                            <div class="arrow">
-                                <RightArrow />
-                            </div>
-                            <div class="value">
-                                {event.logs.botData}
-                            </div>
-                        </div>
-                    {/if}
-
+					{#if event.logs.botData}
+						<div class="container">
+							<div class="wrapper">
+								<div class="button" on:click={() => (showHexDropdowns[i] = !showHexDropdowns[i])}>
+									<div class="text">
+										{options[selectedOptions[i]]}
+									</div>
+									<div class="icon" class:flipped={showHexDropdowns[i]}>
+										<ContractChevron />
+									</div>
+								</div>
+								{#if showHexDropdowns[i]}
+									<div class="dropdown" transition:slide>
+										{#each options as dropdownOption, index}
+											<div
+												class="dropdown-option"
+												class:selected-drop={selectedOptions[i] === index}
+												on:click={() => {
+													selectDropdownOption(index, i);
+												}}
+											>
+												{dropdownOption}
+											</div>
+										{/each}
+									</div>
+								{/if}
+							</div>
+							<div class="arrow">
+								<RightArrow />
+							</div>
+							<div class="value">
+								{event.logs.botData}
+							</div>
+						</div>
+					{/if}
 				</td>
 			</tr>
 		{/each}
@@ -243,15 +242,15 @@ import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[2vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
-        @apply border-b-color-hover-footer-link border-b-[clamp(1px,0.06vw,0.06vw)] border-t-color-hover-footer-link border-t-[clamp(1px,0.06vw,0.06vw)];
-        @apply bg-color-events-header-bg;
+		@apply border-b-color-hover-footer-link border-b-[clamp(1px,0.06vw,0.06vw)] border-t-color-hover-footer-link border-t-[clamp(1px,0.06vw,0.06vw)];
+		@apply bg-color-events-header-bg;
 	}
 
 	td {
 		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[2vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
-        @apply align-top;
-        @apply border-b-color-contract-header-border border-b-[clamp(1px,0.06vw,0.06vw)];
+		@apply align-top;
+		@apply border-b-color-contract-header-border border-b-[clamp(1px,0.06vw,0.06vw)];
 	}
 
 	.grey {
@@ -274,7 +273,7 @@ import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 		@apply text-color-arcadia-blue;
 	}
 
-    .button {
+	.button {
 		@apply p-[clamp(8px,0.6vw,0.6vw)];
 		@apply border-color-progress-bg border-[clamp(1px,0.06vw,0.06vw)];
 		@apply text-color-grey-footer-label;
@@ -289,7 +288,7 @@ import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 		@apply text-color-grey-footer-label;
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply transition-all duration-300;
-        @apply max-w-max;
+		@apply max-w-max;
 		@apply flex items-center gap-[0.6vw];
 	}
 
@@ -304,7 +303,7 @@ import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 
 	.wrapper {
 		@apply relative;
-        @apply cursor-pointer;
+		@apply cursor-pointer;
 	}
 
 	.dropdown {
@@ -318,7 +317,7 @@ import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 		@apply shadow-[0px_0px_0.65vw_0px_rgba(0,0,0,0.1)];
 	}
 
-    .dropdown-option {
+	.dropdown-option {
 		@apply hover:text-color-hover-footer-link;
 		@apply cursor-pointer;
 	}
@@ -327,15 +326,15 @@ import TopLeftTools from "$lib/components/Contracts/TopLeftTools.svelte";
 		@apply text-color-hover-footer-link font-medium;
 	}
 
-    .container {
-        @apply flex items-center gap-[clamp(16px,0.95vw,0.95vw)];
-    }
+	.container {
+		@apply flex items-center gap-[clamp(16px,0.95vw,0.95vw)];
+	}
 
-    .arrow {
-        @apply w-[clamp(12px,0.95vw,0.95vw)];
-    }
+	.arrow {
+		@apply w-[clamp(12px,0.95vw,0.95vw)];
+	}
 
-    .no-padding {
-        @apply px-0;
-    }
+	.no-padding {
+		@apply px-0;
+	}
 </style>

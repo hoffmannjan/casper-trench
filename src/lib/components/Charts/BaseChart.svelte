@@ -13,12 +13,12 @@
 	export let xaxis = {
 		categories,
 		type: 'datetime',
-        axisBorder: {
-            show: false
-        },
-        axisTicks: {
-            show: false
-        },
+		axisBorder: {
+			show: false
+		},
+		axisTicks: {
+			show: false
+		}
 	};
 	export let yaxis = {};
 	export let stroke = {
@@ -43,7 +43,7 @@
 			lines: {
 				show: false
 			},
-            min: 0,
+			min: 0
 		}
 	};
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
-    import Hash from '$lib/components/TableData/Hash.svelte';
+	import Hash from '$lib/components/TableData/Hash.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
 
 	export let props: {
@@ -9,75 +9,73 @@
 	let transactionsPerPage: number = 10;
 	let startIndex = 0;
 	let tokens = [
-        {
-            txnHash: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            age: Date.parse("July 25, 2022 16:06"),
-            from: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            to: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            value: 0.00022198,
-            token: {
-                name: "Mana",
-                imgUrl: "https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022"
-            }
-        },
-        {
-            txnHash: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            age: Date.parse("July 25, 2022 16:06"),
-            from: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            to: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            value: 0.00022198,
-            token: {
-                name: "Mana",
-                imgUrl: "https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022"
-            }
-        },
-        {
-            txnHash: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            age: Date.parse("July 25, 2022 16:06"),
-            from: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            to: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            value: 0.00022198,
-            token: {
-                name: "Mana",
-                imgUrl: "https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022"
-            }
-        },
-        {
-            txnHash: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            age: Date.parse("July 25, 2022 16:06"),
-            from: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            to: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            value: 0.00022198,
-            token: {
-                name: "Mana",
-                imgUrl: "https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022"
-            }
-        },
-        {
-            txnHash: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            age: Date.parse("July 25, 2022 16:06"),
-            from: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            to: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            value: 0.00022198,
-            token: {
-                name: "Mana",
-                imgUrl: "https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022"
-            }
-        },
-        {
-            txnHash: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            age: Date.parse("July 25, 2022 16:06"),
-            from: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            to: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            value: 0.00022198,
-            token: {
-                name: "Mana",
-                imgUrl: "https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022"
-            }
-        },
-    ];
-	
-
+		{
+			txnHash: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			age: Date.parse('July 25, 2022 16:06'),
+			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			value: 0.00022198,
+			token: {
+				name: 'Mana',
+				imgUrl: 'https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022'
+			}
+		},
+		{
+			txnHash: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			age: Date.parse('July 25, 2022 16:06'),
+			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			value: 0.00022198,
+			token: {
+				name: 'Mana',
+				imgUrl: 'https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022'
+			}
+		},
+		{
+			txnHash: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			age: Date.parse('July 25, 2022 16:06'),
+			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			value: 0.00022198,
+			token: {
+				name: 'Mana',
+				imgUrl: 'https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022'
+			}
+		},
+		{
+			txnHash: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			age: Date.parse('July 25, 2022 16:06'),
+			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			value: 0.00022198,
+			token: {
+				name: 'Mana',
+				imgUrl: 'https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022'
+			}
+		},
+		{
+			txnHash: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			age: Date.parse('July 25, 2022 16:06'),
+			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			value: 0.00022198,
+			token: {
+				name: 'Mana',
+				imgUrl: 'https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022'
+			}
+		},
+		{
+			txnHash: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			age: Date.parse('July 25, 2022 16:06'),
+			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			value: 0.00022198,
+			token: {
+				name: 'Mana',
+				imgUrl: 'https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=022'
+			}
+		}
+	];
 </script>
 
 <div class="delegators-tab">
@@ -98,20 +96,20 @@
 			{#each tokens as token}
 				<tr>
 					<td class="block">
-                        <Hash hash={token.txnHash} noOfCharacters={20} start/>
-                    </td>
+						<Hash hash={token.txnHash} noOfCharacters={20} start />
+					</td>
 					<td>{`${timeAgo(millisToFormat(Date.now() - token.age))} ago`}</td>
-                    <td><Hash hash={token.from} noOfCharacters={20} start/></td>
-                    <td><Hash hash={token.to} noOfCharacters={20} start/></td>
-                    <td>{token.value}</td>
-                    <td>
-                        <div class="token">
-                            <img src={token.token.imgUrl} alt="token-logo">
-                            <div class="text">
-                                {token.token.name}
-                            </div>
-                        </div>
-                    </td>
+					<td><Hash hash={token.from} noOfCharacters={20} start /></td>
+					<td><Hash hash={token.to} noOfCharacters={20} start /></td>
+					<td>{token.value}</td>
+					<td>
+						<div class="token">
+							<img src={token.token.imgUrl} alt="token-logo" />
+							<div class="text">
+								{token.token.name}
+							</div>
+						</div>
+					</td>
 				</tr>
 			{/each}
 		{/if}
@@ -154,11 +152,11 @@
 		@apply mb-[2.38vw];
 	}
 
-    .token {
-        @apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
-    }
+	.token {
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
+	}
 
-    .token > img {
-        @apply w-[1.61vh] h-[1.61vh] md:w-[1.61vw] md:h-[1.61vw];
-    }
+	.token > img {
+		@apply w-[1.61vh] h-[1.61vh] md:w-[1.61vw] md:h-[1.61vw];
+	}
 </style>
