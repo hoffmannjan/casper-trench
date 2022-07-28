@@ -2,10 +2,7 @@
 	import { onMount } from 'svelte';
 
 	export let totalTransactions = 588675;
-	export let data = [73625, 41625, 70724, 91525, 125246, 30123];
-	export let timestamps = [
-		1658918045000, 1658923545000, 1658927645000, 1658929545000, 1658933545000, 1658936545000
-	];
+	export let data = [[1658918045000, 73625], [1658923545000, 41625], [1658927645000, 70724], [1658929545000, 91525], [1658933545000, 125246], [1658936545000, 30123]];
 
 	let options = {
 		chart: {
@@ -28,7 +25,6 @@
 			}
 		],
 		xaxis: {
-			categories: timestamps,
 			type: 'datetime',
 			axisBorder: {
 				show: false
