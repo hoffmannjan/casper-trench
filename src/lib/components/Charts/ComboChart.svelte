@@ -44,7 +44,7 @@ import { onMount } from 'svelte';
 			width: '125%'
 		},
 		stroke: {
-			curve: 'straight',
+			curve: 'stepline',
 			width: [2, 0]
 		},
 		series: [
