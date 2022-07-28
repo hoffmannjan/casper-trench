@@ -112,7 +112,7 @@
 
 <style lang="postcss">
 	.container {
-		@apply w-[24vw] h-[11vw];
+		@apply md:w-[24vw] md:h-[11vw];
 		@apply ml-[1vw] mb-[1vw];
 	}
 
