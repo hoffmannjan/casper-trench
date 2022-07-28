@@ -24,189 +24,189 @@
 	let innerWidth;
 
 	onMount(() => {
-	let options = {
-		chart: {
-			type: 'line',
-			toolbar: {
-				show: true,
-				offsetY: -12
-			},
-			zoom: {
-				enabled: true,
-				zoomedArea: {
-					fill: {
-						color: '#099B91',
-						opacity: 0.4
-					},
-					stroke: {
-						color: '#099B91',
-						opacity: 0.4,
-						width: 1
-					}
-				}
-			},
-			height: '100%',
-			width: `${innerWidth * 0.75}px`
-		},
-		stroke: {
-			curve: 'stepline',
-			width: [2, 0]
-		},
-		series: [
-			{
-				name: 'Price',
-				data: priceData,
-				type: 'line'
-			},
-			{
-				name: 'Volume',
-				data: volumeData,
-				type: 'column'
-			}
-		],
-		xaxis: {
-			type: 'datetime',
-			axisBorder: {
-				show: true
-			},
-			axisTicks: {
-				show: true
-			},
-			labels: {
-				datetimeFormatter: {
-					year: 'yyyy',
-					month: 'MMM yy',
-					day: 'dd MMM',
-					hour: 'HH:mm'
+		let options = {
+			chart: {
+				type: 'line',
+				toolbar: {
+					show: true,
+					offsetY: -12
 				},
-				style: {
-					fontSize: '0.83vw',
-					colors: '#8F9398'
-				}
-			},
-			tickAmount: 3
-		},
-		yaxis: [
-			{
-				labels: {
-					formatter: (value) => {
-						if (value > 1000) {
-							return `$${Math.round(value / 1000).toFixed(3)}k`;
+				zoom: {
+					enabled: true,
+					zoomedArea: {
+						fill: {
+							color: '#099B91',
+							opacity: 0.4
+						},
+						stroke: {
+							color: '#099B91',
+							opacity: 0.4,
+							width: 1
 						}
-						return `$${value.toFixed(3)}`;
-					},
-					style: {
-						fontSize: '0.83vw',
-						colors: ['#8F9398']
 					}
 				},
-				tickAmount: 5
+				height: '100%',
+				width: `${innerWidth * 0.75}px`
 			},
-			{
-				labels: {
-					formatter: (value) => {
-						if (value > 1000) {
-							return `${Math.round(value / 1000)}k`;
-						}
-					},
-					style: {
-						fontSize: '0.83vw',
-						colors: ['#8F9398']
-					}
+			stroke: {
+				curve: 'stepline',
+				width: [2, 0]
+			},
+			series: [
+				{
+					name: 'Price',
+					data: priceData,
+					type: 'line'
 				},
-				tickAmount: 5,
-				opposite: true
-			}
-		],
-		legend: {
-			show: false
-		},
-		colors: ['#099B91', '#0021A5'],
-		tooltip: {
-			enabled: true,
-			style: {
-				fontSize: '0.83vw'
-			},
-			x: {
-				show: false,
-				format: 'dddd, MMM d, HH:mm'
-			},
-			y: {
-				formatter: (value) => {
-					return value.toLocaleString();
+				{
+					name: 'Volume',
+					data: volumeData,
+					type: 'column'
 				}
-			},
-			custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-				const monthNames = [
-					'January',
-					'February',
-					'March',
-					'April',
-					'May',
-					'June',
-					'July',
-					'August',
-					'September',
-					'October',
-					'November',
-					'December'
-				];
-				const date = new Date(w.globals.seriesX[seriesIndex][dataPointIndex]);
-
-				return (
-					'<div style="padding: clamp(4px, 0.83vw, 0.83vw); font-size: clamp(10px,0.83vw,0.83vw)">' +
-					'<div style="font-weight: bold;">' +
-					String(date.getDate()).padStart(2, '0') +
-					' ' +
-					monthNames[date.getMonth()] +
-					'</div>' +
-					'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
-					'<span style="display: flex; align-items: center;">' +
-					'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
-					w.globals.colors[0] +
-					';"></div>' +
-					w.globals.initialSeries[0].name +
-					' : ' +
-					'</span>' +
-					'<span style="font-weight: bold;"> $' +
-					series[0][dataPointIndex].toLocaleString() +
-					'</span>' +
-					'</div>' +
-					'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
-					'<span style="display: flex; align-items: center;">' +
-					'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
-					w.globals.colors[1] +
-					';"></div>' +
-					w.globals.initialSeries[1].name +
-					' : ' +
-					'</span>' +
-					'<span style="font-weight: bold;">' +
-					series[1][dataPointIndex].toLocaleString() +
-					'</span>' +
-					'</div>' +
-					'</div>'
-				);
-			}
-		},
-		grid: {
+			],
 			xaxis: {
-				lines: {
-					show: false
+				type: 'datetime',
+				axisBorder: {
+					show: true
+				},
+				axisTicks: {
+					show: true
+				},
+				labels: {
+					datetimeFormatter: {
+						year: 'yyyy',
+						month: 'MMM yy',
+						day: 'dd MMM',
+						hour: 'HH:mm'
+					},
+					style: {
+						fontSize: '0.83vw',
+						colors: '#8F9398'
+					}
+				},
+				tickAmount: 3
+			},
+			yaxis: [
+				{
+					labels: {
+						formatter: (value) => {
+							if (value > 1000) {
+								return `$${Math.round(value / 1000).toFixed(3)}k`;
+							}
+							return `$${value.toFixed(3)}`;
+						},
+						style: {
+							fontSize: '0.83vw',
+							colors: ['#8F9398']
+						}
+					},
+					tickAmount: 5
+				},
+				{
+					labels: {
+						formatter: (value) => {
+							if (value > 1000) {
+								return `${Math.round(value / 1000)}k`;
+							}
+						},
+						style: {
+							fontSize: '0.83vw',
+							colors: ['#8F9398']
+						}
+					},
+					tickAmount: 5,
+					opposite: true
+				}
+			],
+			legend: {
+				show: false
+			},
+			colors: ['#099B91', '#0021A5'],
+			tooltip: {
+				enabled: true,
+				style: {
+					fontSize: '0.83vw'
+				},
+				x: {
+					show: false,
+					format: 'dddd, MMM d, HH:mm'
+				},
+				y: {
+					formatter: (value) => {
+						return value.toLocaleString();
+					}
+				},
+				custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+					const monthNames = [
+						'January',
+						'February',
+						'March',
+						'April',
+						'May',
+						'June',
+						'July',
+						'August',
+						'September',
+						'October',
+						'November',
+						'December'
+					];
+					const date = new Date(w.globals.seriesX[seriesIndex][dataPointIndex]);
+
+					return (
+						'<div style="padding: clamp(4px, 0.83vw, 0.83vw); font-size: clamp(10px,0.83vw,0.83vw)">' +
+						'<div style="font-weight: bold;">' +
+						String(date.getDate()).padStart(2, '0') +
+						' ' +
+						monthNames[date.getMonth()] +
+						'</div>' +
+						'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
+						'<span style="display: flex; align-items: center;">' +
+						'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
+						w.globals.colors[0] +
+						';"></div>' +
+						w.globals.initialSeries[0].name +
+						' : ' +
+						'</span>' +
+						'<span style="font-weight: bold;"> $' +
+						series[0][dataPointIndex].toLocaleString() +
+						'</span>' +
+						'</div>' +
+						'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
+						'<span style="display: flex; align-items: center;">' +
+						'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
+						w.globals.colors[1] +
+						';"></div>' +
+						w.globals.initialSeries[1].name +
+						' : ' +
+						'</span>' +
+						'<span style="font-weight: bold;">' +
+						series[1][dataPointIndex].toLocaleString() +
+						'</span>' +
+						'</div>' +
+						'</div>'
+					);
 				}
 			},
-			yaxis: {
-				lines: {
-					show: true
+			grid: {
+				xaxis: {
+					lines: {
+						show: false
+					}
+				},
+				yaxis: {
+					lines: {
+						show: true
+					}
 				}
 			}
-		}
-	};
+		};
 		let chart = new ApexCharts(chartElement, options);
 		chart.render();
 	});
 </script>
 
-<svelte:window bind:innerWidth/>
+<svelte:window bind:innerWidth />
 
 <div class="container">
 	<div class="title">Market Price (CSPR/USD)</div>
@@ -232,7 +232,7 @@
 	}
 
 	.container {
-		@apply md:h-[32vw] w-full;
+		@apply md:h-[32vw] min-w-max;
 		@apply flex flex-col items-center justify-center;
 	}
 
