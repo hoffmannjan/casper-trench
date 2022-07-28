@@ -4,6 +4,7 @@
 	export let isFrom = false;
 	export let cspr: number;
 	export let hash: string;
+	export let link = '';
 </script>
 
 <div class="from-to-hash">
