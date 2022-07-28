@@ -94,7 +94,7 @@
 						'December'
 					];
 					let date = new Date(value);
-					return `${monthNames[date.getMonth()]} ${date.getDate()}`;
+					return `${date.getDate()} ${monthNames[date.getMonth()]}`;
 				},
 				style: {
 					fontSize: '0.83vw',
