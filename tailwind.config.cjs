@@ -36,7 +36,8 @@ module.exports = {
 					'copy-btn-bg': '#F4F5F5',
 					'translucent-yellow': '#FFFBEA',
 					'translucent-blue': '#F5F7FF',
-					'arcadia-blue': '#1735A3'
+					'arcadia-blue': '#1735A3',
+					'chart-blue': '#1737A3'
 				}
 			},
 			fontFamily: {
