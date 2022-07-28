@@ -1,8 +1,16 @@
 export type Delegation = {
-	delegator: string;
-	validator: string;
+	total: number;
+	data: DelegationData[];
+};
+export type DelegationData = {
+	hash: string;
+	unbonder_public_key: string;
+	validator_public_key: string;
 	amount: string;
 	status: boolean;
+	timestamp: number;
+	validator_name: string;
+	validator_icon: string;
 };
 
 export type Undelegation = {
