@@ -53,9 +53,9 @@
 	}
 
 	.gradient > .content {
-		@apply py-[clamp(16px,0.71vw,0.71vw)] px-[clamp(20px,1.43vw,1.43vw)];
+		@apply py-[clamp(8px,0.71vw,0.71vw)] px-[clamp(8px,0.95vw,0.95vw)];
 		@apply bg-white;
-		@apply rounded-[clamp(4px,0.48vw,0.48vw)];
+		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
 	}
 
 	.outline {
