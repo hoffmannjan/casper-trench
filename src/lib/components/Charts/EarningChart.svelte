@@ -180,8 +180,9 @@
 	}
 
     .container {
-		@apply max-w-[38.1vw];
+		@apply md:max-w-[38.1vw];
 		@apply flex items-center flex-col;
+		@apply mx-[clamp(16px,3.75vw,3.75vw)];
 	}
 
     .chart {
