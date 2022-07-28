@@ -65,7 +65,7 @@
 		},
 		series: [
 			{
-				name: 'Validator Weights',
+				name: 'Total Staked',
 				data
 			}
 		],
@@ -198,7 +198,7 @@
 
         </div>
         <div class="text">
-            Weight
+            Total Staked
         </div>
     </div>
 	<div class="chart" bind:this={chartElement} />
