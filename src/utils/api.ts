@@ -196,13 +196,11 @@ export const getAccountDeploys = async (account: string, count: number, start: n
 		});
 };
 
-export const getAccountDelegation = async (account: string, count: number, start: number) => {
+export const getAccountDelegation = async (account: string) => {
 	return await axios
 		.get(`${casperStatsBaseURL}/account/delegate`, {
 			params: {
-				account,
-				count,
-				start
+				account
 			}
 		})
 		.then((res) => {

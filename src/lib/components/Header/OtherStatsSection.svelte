@@ -21,11 +21,7 @@
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>
 		<div class="value">
-<<<<<<< HEAD
-			{(economics && economics.block_height.toLocaleString('en')) || '0'}
-=======
 			{(economics && economics.block_height.toLocaleString('en')) || ''}
->>>>>>> main
 		</div>
 		<!-- TODO get latest block time -->
 		<div class="detail flex">
@@ -39,11 +35,7 @@
 	<div class="stat-column">
 		<div class="title">APY</div>
 		<div class="value">
-<<<<<<< HEAD
-			{(economics && economics.APY.toFixed(2)) || '0'}%
-=======
 			{(economics && economics.APY.toFixed(2)) || ''}%
->>>>>>> main
 		</div>
 		<div class="detail">Annual Percentage Yield</div>
 	</div>

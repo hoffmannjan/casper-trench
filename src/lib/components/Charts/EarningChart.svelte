@@ -172,13 +172,6 @@
 		@apply flex items-center justify-between;
 	}
 
-	.label {
-		@apply font-medium;
-	}
-
-	.value {
-		@apply text-[clamp(10px,0.83vw,0.83vw)];
-	}
 
 	.container {
 		@apply md:max-w-[38.1vw];
