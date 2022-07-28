@@ -19,7 +19,7 @@
 	<slot />
 </main>
 <Footer />
-<!-- <BottomFooter /> -->
+<BottomFooter />
 
 <Toast />
 {#if $isLoading}
