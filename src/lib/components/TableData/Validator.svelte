@@ -8,16 +8,15 @@
 </script>
 
 <div class="validator">
-	<div class="icon">
-		{#if imgUrl}
+	{#if imgUrl}
+		<div class="icon">
 			<img src={imgUrl} alt="validator-icon" />
-		{:else}
-			<!-- TODO update as in design -->
-			<div class="image-placeholder">
-				<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-			</div>
-		{/if}
-	</div>
+		</div>
+	{:else}
+		<div class="image-placeholder">
+			<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+		</div>
+	{/if}
 	<div class="details">
 		<a href="/validators/{hash}">
 			<Hash
@@ -53,7 +52,6 @@
 		@apply bg-gray-100;
 		@apply rounded-full;
 		@apply flex items-center justify-center;
-		@apply w-[clamp(16px,2.8vw,2.8vw)] h-[clamp(16px,2.8vw,2.8vw)];
 	}
 	.name {
 		@apply text-color-grey-footer-label;

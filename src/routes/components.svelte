@@ -1,6 +1,4 @@
 <script>
-	import ComboChart from '$lib/components/Charts/ComboChart.svelte';
-
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
@@ -11,7 +9,6 @@
 	let menuOptions = [
 		{
 			title: 'Table',
-			component: ComboChart
 		},
 		{
 			title: 'Empty',

@@ -89,6 +89,8 @@ export const processType = (type: string): string => {
 	switch (type) {
 		case 'PUBLIC_KEY_HEX':
 			return 'Public Key';
+		case 'PUBLIC_KEY_HASH':
+			return 'Account Hash';
 		case 'BLOCK_HEIGHT':
 			return 'Block Height';
 		case 'BLOCK_HASH':

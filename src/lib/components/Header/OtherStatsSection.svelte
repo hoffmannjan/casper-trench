@@ -5,6 +5,7 @@
 	import type { Stats } from '$utils/types/stats';
 
 	import { onMount } from 'svelte';
+import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	let stats: Stats;
 	let economics: Economics;
 	onMount(async () => {
@@ -15,16 +16,16 @@
 	});
 </script>
 
-{#if economics && stats}
+
 	<div class="home-stats-section header-stats-background">
 		<div class="stat-column">
 			<div class="title">BLOCK HEIGHT</div>
 			<div class="value">
-				{economics.block_height.toLocaleString('en')}
+				{economics&&economics.block_height.toLocaleString('en')||''}
 			</div>
 			<!-- TODO get latest block time -->
-			<div class="detail">
-				{'55 sec ago'}
+			<div class="detail flex">
+				{'55 sec ago'} <PlaceHolderIndicator/>
 			</div>
 		</div>
 
@@ -33,7 +34,7 @@
 		<div class="stat-column">
 			<div class="title">APY</div>
 			<div class="value">
-				{economics.APY.toFixed(2)}%
+				{economics&&economics.APY.toFixed(2)||''}%
 			</div>
 			<div class="detail">Annual Percentage Yield</div>
 		</div>
@@ -43,10 +44,10 @@
 		<div class="stat-column">
 			<div class="title">CSPR PRICE</div>
 			<div class="value">
-				${Math.floor(stats.price * 10000) / 10000}
+				${Math.floor(stats&&stats.price * 10000) / 10000||''}
 			</div>
 			<div class="detail">
-				${stats.marketcap.toLocaleString('en')} Market Cap
+				${stats&&stats.marketcap.toLocaleString('en')||''} Market Cap
 			</div>
 		</div>
 
@@ -55,17 +56,16 @@
 		<div class="stat-column">
 			<div class="title">CIRCULATING SUPPLY</div>
 			<div class="value">
-				{parseFloat(economics.circulating_supply.substring(0, 10)).toLocaleString('en')}
+				{parseFloat(economics&&economics.circulating_supply.substring(0, 10)).toLocaleString('en')||''}
 			</div>
 			<div class="detail">
 				{(
-					(parseFloat(economics.circulating_supply) / parseFloat(economics.total_supply)) *
+					(parseFloat(economics&&economics.circulating_supply) / parseFloat(economics&&economics.total_supply)) *
 					100
-				).toFixed(2)}% of {parseFloat(economics.total_supply.substring(0, 11)).toLocaleString('en')}
+				).toFixed(2)}% of {parseFloat(economics&&economics.total_supply.substring(0, 11)).toLocaleString('en')||''}
 			</div>
 		</div>
 	</div>
-{/if}
 
 <style lang="postcss">
 	.home-stats-section {

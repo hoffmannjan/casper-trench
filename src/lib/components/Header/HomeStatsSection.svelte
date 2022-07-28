@@ -5,6 +5,8 @@
 	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
 	import { millisToFormat, timeAgo } from '$utils/converters';
+	import HomePageChart from '$lib/components/Charts/HomePageChart.svelte';
+import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	let economics: Economics;
 	let stats: Stats;
 	let totalTransfers = 0;
@@ -24,13 +26,13 @@
 	});
 </script>
 
-{#if economics && stats}
+
 	<div class="home-stats-section header-stats-background">
 		<div class="stat-column">
 			<div class="top">
 				<div class="title">BLOCK HEIGHT</div>
 				<div class="value">
-					{economics.block_height.toLocaleString('en')}
+					{economics&&economics.block_height.toLocaleString('en') || ''}
 				</div>
 				<div class="detail">
 					<!-- TODO get latest block time -->
@@ -40,10 +42,10 @@
 			<div class="bottom">
 				<div class="title">CSPR PRICE</div>
 				<div class="value">
-					${Math.floor(stats.price * 10000) / 10000}
+					${Math.floor(stats&&stats.price * 10000) / 10000 || ''}
 				</div>
 				<div class="detail">
-					${stats.marketcap.toLocaleString('en')} Market Cap
+					${stats&&stats.marketcap.toLocaleString('en') || ''} Market Cap
 				</div>
 			</div>
 		</div>
@@ -54,24 +56,24 @@
 			<div class="top">
 				<div class="title">ACTIVE VALIDATORS</div>
 				<div class="value">
-					{economics.total_active_validators}
+					{economics&&economics.total_active_validators || ''}
 				</div>
 				<div class="detail">
-					out of {economics.total_bid_validators} active bids
+					out of {economics&&economics.total_bid_validators|| ''} active bids
 				</div>
 			</div>
 			<div class="bottom">
 				<div class="title">CIRCULATING SUPPLY</div>
 				<div class="value">
-					{parseFloat(economics.circulating_supply.substring(0, 10)).toLocaleString('en')}
+					{parseFloat(economics&&economics.circulating_supply.substring(0, 10)).toLocaleString('en')|| ''}
 				</div>
 				<div class="detail">
 					{(
-						(parseFloat(economics.circulating_supply) / parseFloat(economics.total_supply)) *
+						(parseFloat(economics&&economics.circulating_supply) / parseFloat(economics&&economics.total_supply)) *
 						100
-					).toFixed(2)}% of {parseFloat(economics.total_supply.substring(0, 11)).toLocaleString(
+					).toFixed(2)}% of {parseFloat(economics&&economics.total_supply.substring(0, 11)).toLocaleString(
 						'en'
-					)}
+					)|| ''}
 				</div>
 			</div>
 		</div>
@@ -81,6 +83,7 @@
 		<div class="stat-column">
 			<!-- TODO Get total stake bonded -->
 			<div class="top">
+				<PlaceHolderIndicator/>
 				<div class="title">TOTAL STAKE BONDED</div>
 				<div class="value">
 					{'8,255,902,991'}
@@ -92,7 +95,7 @@
 			<div class="bottom">
 				<div class="title">TOTAL TRANSFERS</div>
 				<div class="value">
-					{totalTransfers.toLocaleString('en')}
+					{totalTransfers.toLocaleString('en')|| ''}
 				</div>
 			</div>
 		</div>
@@ -100,10 +103,9 @@
 		<div class="vt" />
 
 		<div class="graph">
-			<!-- Graph goes here -->
+			<HomePageChart />
 		</div>
 	</div>
-{/if}
 
 <style lang="postcss">
 	.home-stats-section {

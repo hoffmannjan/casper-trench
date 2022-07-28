@@ -83,7 +83,9 @@
 		{#each contracts as contract}
 			<tr>
 				<td class="block hash">
-					<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
+					<a href="/contracts/{contract.address}">
+						<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
+					</a>
 				</td>
 				<td class="grey">{contract.name}</td>
 				<td>{contract.type}</td>

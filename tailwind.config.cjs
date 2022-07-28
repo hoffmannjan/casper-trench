@@ -30,13 +30,23 @@ module.exports = {
 					'network-background': '#B8B9B9',
 					'translucent-red': '#FFEDEE',
 					'translucent-yellow': '#FFFBEA',
+					'translucent-blue': '#F5F7FF',
+					'arcadia-blue': '#1735A3',
+					'contract-header-border': '#D7D7D7',
+					'code-background': '#F5F5F5',
+					'code-scrollbar': '#E6E6E6',
+					'function-browser-bg': '#F8F9FA',
+					'query-green': '#F2FEFD',
 					'network-background': '#B8B9B9',
 					'ago-background': '#F3F3F3',
+					'ago-background-2': '#F7F7F7',
 					'proof-num-background': '#F6F6F6',
 					'copy-btn-bg': '#F4F5F5',
 					'translucent-yellow': '#FFFBEA',
 					'translucent-blue': '#F5F7FF',
-					'arcadia-blue': '#1735A3'
+					'arcadia-blue': '#1735A3',
+					'chart-blue': '#1737A3'
+					'events-header-bg': '#F3FDFC'
 				}
 			},
 			fontFamily: {
