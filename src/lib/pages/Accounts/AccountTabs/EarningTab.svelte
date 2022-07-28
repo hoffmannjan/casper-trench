@@ -7,7 +7,7 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import { parseStringValue } from '$utils/converters';
 	import type { Stats } from '$utils/types/stats';
-import EarningChart from '$lib/components/Charts/EarningChart.svelte';
+	import EarningChart from '$lib/components/Charts/EarningChart.svelte';
 
 	let earnings: Reward[];
 	let eraRewards = [];
@@ -39,7 +39,7 @@ import EarningChart from '$lib/components/Charts/EarningChart.svelte';
 		<div class="total">
 			Latest {earningsPerPage} Transactions
 		</div>
-		
+
 		<table>
 			<tr>
 				<th>Date</th>

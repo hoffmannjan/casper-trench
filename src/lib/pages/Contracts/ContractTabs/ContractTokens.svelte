@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
-    import Hash from '$lib/components/TableData/Hash.svelte';
+	import Hash from '$lib/components/TableData/Hash.svelte';
 
 	export let props: {
 		contractHash: string;
@@ -8,69 +8,67 @@
 	let transactionsPerPage: number = 10;
 	let startIndex = 0;
 	let tokens = [
-        {
-            contract: {
-                address: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-                name: "WISeKey"
-            },
-            id: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s product's",
-            standard: "CEP47",
-        },
-        {
-            contract: {
-                address: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-                name: "WISeKey"
-            },
-            id: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s product's",
-            standard: "CEP47",
-        },
-        {
-            contract: {
-                address: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-                name: "WISeKey"
-            },
-            id: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s product's",
-            standard: "CEP47",
-        },
-        {
-            contract: {
-                address: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-                name: "WISeKey"
-            },
-            id: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s product's",
-            standard: "CEP47",
-        },
-        {
-            contract: {
-                address: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-                name: "WISeKey"
-            },
-            id: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s product's",
-            standard: "CEP47",
-        },
-        {
-            contract: {
-                address: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-                name: "WISeKey"
-            },
-            id: "0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2",
-            name: "Brooke Shield : The Tree",
-            description: "This photo comes straight from Brooke Shield\’s product's",
-            standard: "CEP47",
-        }
-    ];
-	
-
+		{
+			contract: {
+				address: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+				name: 'WISeKey'
+			},
+			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			name: 'Brooke Shield : The Tree',
+			description: "This photo comes straight from Brooke Shield’s product's",
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				address: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+				name: 'WISeKey'
+			},
+			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			name: 'Brooke Shield : The Tree',
+			description: "This photo comes straight from Brooke Shield’s product's",
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				address: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+				name: 'WISeKey'
+			},
+			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			name: 'Brooke Shield : The Tree',
+			description: "This photo comes straight from Brooke Shield’s product's",
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				address: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+				name: 'WISeKey'
+			},
+			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			name: 'Brooke Shield : The Tree',
+			description: "This photo comes straight from Brooke Shield’s product's",
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				address: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+				name: 'WISeKey'
+			},
+			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			name: 'Brooke Shield : The Tree',
+			description: "This photo comes straight from Brooke Shield’s product's",
+			standard: 'CEP47'
+		},
+		{
+			contract: {
+				address: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+				name: 'WISeKey'
+			},
+			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
+			name: 'Brooke Shield : The Tree',
+			description: "This photo comes straight from Brooke Shield’s product's",
+			standard: 'CEP47'
+		}
+	];
 </script>
 
 <div class="delegators-tab">
@@ -90,15 +88,15 @@
 			{#each tokens as token}
 				<tr>
 					<td class="block">
-                        <Hash hash={token.contract.address} noOfCharacters={5}/>
-                        {token.contract.name}
-                    </td>
-                    <td><Hash hash={token.id} noOfCharacters={20} start/></td>
-                    <td>{token.name}</td>
-                    <td class="grey">
-                        {`${token.description.substring(0, 50)}${token.description.length > 50 ? "..." : ""}`}
-                    </td>
-                    <td>{token.standard}</td>
+						<Hash hash={token.contract.address} noOfCharacters={5} />
+						{token.contract.name}
+					</td>
+					<td><Hash hash={token.id} noOfCharacters={20} start /></td>
+					<td>{token.name}</td>
+					<td class="grey">
+						{`${token.description.substring(0, 50)}${token.description.length > 50 ? '...' : ''}`}
+					</td>
+					<td>{token.standard}</td>
 				</tr>
 			{/each}
 		{/if}
@@ -141,7 +139,7 @@
 		@apply mb-[2.38vw];
 	}
 
-    .grey {
-        @apply text-color-grey-footer-label;
-    }
+	.grey {
+		@apply text-color-grey-footer-label;
+	}
 </style>

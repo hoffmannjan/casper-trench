@@ -6,7 +6,7 @@
 	import type { Stats } from '$utils/types/stats';
 	import { millisToFormat, timeAgo } from '$utils/converters';
 	import HomePageChart from '$lib/components/Charts/HomePageChart.svelte';
-import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
+	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	let economics: Economics;
 	let stats: Stats;
 	let totalTransfers = 0;
@@ -26,86 +26,88 @@ import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	});
 </script>
 
-
-	<div class="home-stats-section header-stats-background">
-		<div class="stat-column">
-			<div class="top">
-				<div class="title">BLOCK HEIGHT</div>
-				<div class="value">
-					{economics&&economics.block_height.toLocaleString('en') || ''}
-				</div>
-				<div class="detail">
-					<!-- TODO get latest block time -->
-					{'55 sec ago'}
-				</div>
+<div class="home-stats-section header-stats-background">
+	<div class="stat-column">
+		<div class="top">
+			<div class="title">BLOCK HEIGHT</div>
+			<div class="value">
+				{(economics && economics.block_height.toLocaleString('en')) || ''}
 			</div>
-			<div class="bottom">
-				<div class="title">CSPR PRICE</div>
-				<div class="value">
-					${Math.floor(stats&&stats.price * 10000) / 10000 || ''}
-				</div>
-				<div class="detail">
-					${stats&&stats.marketcap.toLocaleString('en') || ''} Market Cap
-				</div>
+			<div class="detail">
+				<!-- TODO get latest block time -->
+				{'55 sec ago'}
 			</div>
 		</div>
-
-		<div class="vt" />
-
-		<div class="stat-column">
-			<div class="top">
-				<div class="title">ACTIVE VALIDATORS</div>
-				<div class="value">
-					{economics&&economics.total_active_validators || ''}
-				</div>
-				<div class="detail">
-					out of {economics&&economics.total_bid_validators|| ''} active bids
-				</div>
+		<div class="bottom">
+			<div class="title">CSPR PRICE</div>
+			<div class="value">
+				${Math.floor(stats && stats.price * 10000) / 10000 || ''}
 			</div>
-			<div class="bottom">
-				<div class="title">CIRCULATING SUPPLY</div>
-				<div class="value">
-					{parseFloat(economics&&economics.circulating_supply.substring(0, 10)).toLocaleString('en')|| ''}
-				</div>
-				<div class="detail">
-					{(
-						(parseFloat(economics&&economics.circulating_supply) / parseFloat(economics&&economics.total_supply)) *
-						100
-					).toFixed(2)}% of {parseFloat(economics&&economics.total_supply.substring(0, 11)).toLocaleString(
-						'en'
-					)|| ''}
-				</div>
+			<div class="detail">
+				${(stats && stats.marketcap.toLocaleString('en')) || ''} Market Cap
 			</div>
-		</div>
-
-		<div class="vt" />
-
-		<div class="stat-column">
-			<!-- TODO Get total stake bonded -->
-			<div class="top">
-				<PlaceHolderIndicator/>
-				<div class="title">TOTAL STAKE BONDED</div>
-				<div class="value">
-					{'8,255,902,991'}
-				</div>
-				<div class="detail">
-					{'75.50% of Total Supply'}
-				</div>
-			</div>
-			<div class="bottom">
-				<div class="title">TOTAL TRANSFERS</div>
-				<div class="value">
-					{totalTransfers.toLocaleString('en')|| ''}
-				</div>
-			</div>
-		</div>
-
-		<div class="vt" />
-
-		<div class="graph">
-			<HomePageChart />
 		</div>
 	</div>
+
+	<div class="vt" />
+
+	<div class="stat-column">
+		<div class="top">
+			<div class="title">ACTIVE VALIDATORS</div>
+			<div class="value">
+				{(economics && economics.total_active_validators) || ''}
+			</div>
+			<div class="detail">
+				out of {(economics && economics.total_bid_validators) || ''} active bids
+			</div>
+		</div>
+		<div class="bottom">
+			<div class="title">CIRCULATING SUPPLY</div>
+			<div class="value">
+				{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
+					'en'
+				) || ''}
+			</div>
+			<div class="detail">
+				{(
+					(parseFloat(economics && economics.circulating_supply) /
+						parseFloat(economics && economics.total_supply)) *
+					100
+				).toFixed(2)}% of {parseFloat(
+					economics && economics.total_supply.substring(0, 11)
+				).toLocaleString('en') || ''}
+			</div>
+		</div>
+	</div>
+
+	<div class="vt" />
+
+	<div class="stat-column">
+		<!-- TODO Get total stake bonded -->
+		<div class="top">
+			<PlaceHolderIndicator />
+			<div class="title">TOTAL STAKE BONDED</div>
+			<div class="value">
+				{'8,255,902,991'}
+			</div>
+			<div class="detail">
+				{'75.50% of Total Supply'}
+			</div>
+		</div>
+		<div class="bottom">
+			<div class="title">TOTAL TRANSFERS</div>
+			<div class="value">
+				{totalTransfers.toLocaleString('en') || ''}
+			</div>
+		</div>
+	</div>
+
+	<div class="vt" />
+
+	<div class="graph">
+		<HomePageChart />
+	</div>
+</div>
 
 <style lang="postcss">
 	.home-stats-section {

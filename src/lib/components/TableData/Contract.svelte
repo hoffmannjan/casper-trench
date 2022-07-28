@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ContractIcon from '$lib/icons/ContractIcon.svelte';
-import InIcon from '$lib/icons/INIcon.svelte';
+	import InIcon from '$lib/icons/INIcon.svelte';
 	import { scale } from 'svelte/transition';
 
 	export let text = '';

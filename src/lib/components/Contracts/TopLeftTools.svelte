@@ -3,7 +3,7 @@
 	import InfoIcon from '$lib/icons/InfoIcon.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 
-    export let searchText = "";
+	export let searchText = '';
 	export let searchOnly = false;
 </script>
 

@@ -1,176 +1,177 @@
 <script lang="ts">
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
-    import { sampleJsonData } from '$utils/sampleData';
+	import { sampleJsonData } from '$utils/sampleData';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
-    import EyeIcon from '$lib/icons/EyeIcon.svelte';
-    import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
-    import { slide } from 'svelte/transition';
-    import NftActivity from '$lib/components/Contracts/NFTActivity.svelte';
+	import EyeIcon from '$lib/icons/EyeIcon.svelte';
+	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
+	import { slide } from 'svelte/transition';
+	import NftActivity from '$lib/components/Contracts/NFTActivity.svelte';
 
 	let collectionName = 'CasperPunks';
 	let tokenId = 'CSPR-PNK-1-1';
 	let contractAddress = '19cf434b80aa05d506f475a52da877240517a0ab238a49a54015e46e02649bbd';
 	let owner = '19cf434b80aa05d506f475a52da877240517a0ab238a49a54015e46e02649bbd';
-    let standard = "CEP47";
-    let assetUrl = "https://ipfs.io/ipfs/QmTLJgth6vr74sPCucXQcT3nnH8mAbfAa3tjKquHxhb";
-    let batch = "genesis";
-    let jsonData = sampleJsonData;
+	let standard = 'CEP47';
+	let assetUrl = 'https://ipfs.io/ipfs/QmTLJgth6vr74sPCucXQcT3nnH8mAbfAa3tjKquHxhb';
+	let batch = 'genesis';
+	let jsonData = sampleJsonData;
 
-    let showRawData = false;
+	let showRawData = false;
 </script>
 
 <div class="nft-details">
-    <div class="overview">
-        <div class="nft">
-            <img
-                src="https://lh3.googleusercontent.com/9C8YVuRO6XhJKPjF1jyY7Cl9iw9xtJmywCV9Lx7H_An0xrx5chTluluvanyi_hVaTcDkhTeUDNsT_VHgyJi0z-vhXwawh5MErLsXag=w345"
-                alt="nft"
-            />
-        </div>
-        <div class="extras">
-            <div class="header">
-                <div class="collection">
-                    <span class="bold">NFT</span>{collectionName}
-                </div>
-                <div class="name">
-                    {tokenId}
-                </div>
-            </div>
-            <table>
-                <tr>
-                    <td class="label"> Contract </td>
-                    <td class="value">
-                        <div class="contact">
-                            <div class="collection">
-                                {collectionName}
-                            </div>
-                            <div class="address green">
-                                <div class="text">
-                                    {contractAddress}
-                                </div>
-                                <div class="copy-icon">
-                                    <CopyIcon text={contractAddress} />
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td class="label"> Owner </td>
-                    <td class="value">
-                        <div class="address green">
-                            <div class="block-icon">
-                                <BlockIcon />
-                            </div>
-                            <div class="text">
-                                {owner}
-                            </div>
-                            <div class="copy-icon">
-                                <CopyIcon text={owner} />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td class="label"> Token ID </td>
-                    <td class="value">
-                        <div class="address green">
-                            <div class="text">
-                                {tokenId}
-                            </div>
-                            <div class="copy-icon">
-                                <CopyIcon text={tokenId} />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td class="label"> Standard </td>
-                    <td class="value">
-                        <div class="address">
-                            <div class="text">
-                                {standard}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td class="label"> Asset </td>
-                    <td class="value">
-                        <div class="address green">
-                            <div class="text">
-                                {assetUrl}
-                            </div>
-                            <div class="copy-icon">
-                                <CopyIcon text={tokenId} />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td class="label"> Batch </td>
-                    <td class="value">
-                        <div class="address">
-                            <div class="text">
-                                {batch}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td class="label raw">Raw Data</td>
-                    <td class="value raw">
-                        <div class="raw-buttons">
-                            <div
-                                class="proofs-button green"
-                                on:click={() => {
-                                    showRawData = !showRawData;
-                                }}
-                            >
-                                <div class="text">Show</div>
-                                <div class="eye-icon">
-                                    {#if !showRawData}
-                                        <div transition:slide>
-                                            <EyeIcon />
-                                        </div>
-                                    {:else}
-                                        <div transition:slide>
-                                            <CrossedEyeIcon />
-                                        </div>
-                                    {/if}
-                                </div>
-                            </div>
-                            {#if showRawData}
-                                <div class="copy-button">
-                                    <div class="text">
-                                        Copy
-                                    </div>
-                                    <div class="copy-icon" on:click={() => {
-                                        navigator.clipboard && navigator.clipboard.writeText(jsonData);
-                                    }}>
-                                        <CopyIcon />
-                                    </div>
-                                </div>
-                            {/if}
-                        </div>
-                        {#if showRawData}
-                            <div class="raw-data" transition:slide>
-                                <pre>{jsonData}</pre>
-                            </div>
-                        {/if}
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+	<div class="overview">
+		<div class="nft">
+			<img
+				src="https://lh3.googleusercontent.com/9C8YVuRO6XhJKPjF1jyY7Cl9iw9xtJmywCV9Lx7H_An0xrx5chTluluvanyi_hVaTcDkhTeUDNsT_VHgyJi0z-vhXwawh5MErLsXag=w345"
+				alt="nft"
+			/>
+		</div>
+		<div class="extras">
+			<div class="header">
+				<div class="collection">
+					<span class="bold">NFT</span>{collectionName}
+				</div>
+				<div class="name">
+					{tokenId}
+				</div>
+			</div>
+			<table>
+				<tr>
+					<td class="label"> Contract </td>
+					<td class="value">
+						<div class="contact">
+							<div class="collection">
+								{collectionName}
+							</div>
+							<div class="address green">
+								<div class="text">
+									{contractAddress}
+								</div>
+								<div class="copy-icon">
+									<CopyIcon text={contractAddress} />
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
 
-    <NftActivity />
+				<tr>
+					<td class="label"> Owner </td>
+					<td class="value">
+						<div class="address green">
+							<div class="block-icon">
+								<BlockIcon />
+							</div>
+							<div class="text">
+								{owner}
+							</div>
+							<div class="copy-icon">
+								<CopyIcon text={owner} />
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="label"> Token ID </td>
+					<td class="value">
+						<div class="address green">
+							<div class="text">
+								{tokenId}
+							</div>
+							<div class="copy-icon">
+								<CopyIcon text={tokenId} />
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="label"> Standard </td>
+					<td class="value">
+						<div class="address">
+							<div class="text">
+								{standard}
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="label"> Asset </td>
+					<td class="value">
+						<div class="address green">
+							<div class="text">
+								{assetUrl}
+							</div>
+							<div class="copy-icon">
+								<CopyIcon text={tokenId} />
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="label"> Batch </td>
+					<td class="value">
+						<div class="address">
+							<div class="text">
+								{batch}
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="label raw">Raw Data</td>
+					<td class="value raw">
+						<div class="raw-buttons">
+							<div
+								class="proofs-button green"
+								on:click={() => {
+									showRawData = !showRawData;
+								}}
+							>
+								<div class="text">Show</div>
+								<div class="eye-icon">
+									{#if !showRawData}
+										<div transition:slide>
+											<EyeIcon />
+										</div>
+									{:else}
+										<div transition:slide>
+											<CrossedEyeIcon />
+										</div>
+									{/if}
+								</div>
+							</div>
+							{#if showRawData}
+								<div class="copy-button">
+									<div class="text">Copy</div>
+									<div
+										class="copy-icon"
+										on:click={() => {
+											navigator.clipboard && navigator.clipboard.writeText(jsonData);
+										}}
+									>
+										<CopyIcon />
+									</div>
+								</div>
+							{/if}
+						</div>
+						{#if showRawData}
+							<div class="raw-data" transition:slide>
+								<pre>{jsonData}</pre>
+							</div>
+						{/if}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<NftActivity />
 </div>
 
 <style lang="postcss">
@@ -233,7 +234,7 @@
 		@apply mr-[clamp(4px,0.24vw,0.24vw)];
 	}
 
-    .raw-data {
+	.raw-data {
 		@apply rounded-[0.89vh] md:rounded-[0.89vw];
 		@apply p-[clamp(16px,1.43vw,1.43vw)];
 		@apply md:max-w-[40vw];
@@ -273,7 +274,7 @@
 		@apply cursor-pointer;
 	}
 
-    .eye-icon {
+	.eye-icon {
 		@apply w-[1.19vh] md:w-[1.19vw];
 	}
 
@@ -286,11 +287,11 @@
 		@apply cursor-pointer;
 	}
 
-    .raw {
-        @apply flex-col items-start justify-center;
-    }
+	.raw {
+		@apply flex-col items-start justify-center;
+	}
 
-    .raw.label {
-        @apply align-top;
-    }
+	.raw.label {
+		@apply align-top;
+	}
 </style>
