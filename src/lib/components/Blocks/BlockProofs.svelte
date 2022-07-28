@@ -27,7 +27,7 @@
 				<tr>
 					<td class="label"> Public Key </td>
 					<td class="value key">
-						{proof.publicKey || ''}
+						{proof.public_key || ''}
 					</td>
 				</tr>
 				<tr>
