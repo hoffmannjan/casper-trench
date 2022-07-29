@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AreaChart from '$lib/components/Charts/AreaChart.svelte';
 	import ComboChart from '$lib/components/Charts/ComboChart.svelte';
+	import PoNegAreaChart from '$lib/components/Charts/PoNegAreaChart.svelte';
 	import StackedChart from '$lib/components/Charts/StackedChart.svelte';
 	// import { isLoading } from '$stores/loading';
 	import SvelteLoader from '$components/SvelteLoader/index.svelte';
@@ -36,8 +37,8 @@
 	<div class:loading={isLoading} class="wrapper">
 		<ComboChart />
 	</div>
-	<div class:loading={isLoading} class="wrapper">
-		<!-- TODO Add custom bar chart -->
+		<div class:loading={isLoading} class="wrapper">
+			<PoNegAreaChart />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
 		<AreaChart />
