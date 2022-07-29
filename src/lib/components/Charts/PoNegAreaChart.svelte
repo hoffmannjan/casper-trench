@@ -1,49 +1,13 @@
 <script>
 	import { onMount } from 'svelte';
-
-	export let data = [
-		[1659042000000, 73625],
-		[1658955600000, 0],
-		[1658869200000, 0],
-		[1658782800000, 0],
-		[1658696400000, -125246],
-		[1658610000000, 0],
-        [1658523600000, 0],
-        [1658437200000, 0],
-        [1658350800000, 0],
-        [1658264400000, 125246],
-        [1658178000000, 0],
-        [1658091600000, 0],
-        [1658005200000, 0],
-        [1657918800000, -125246],
-        [1657832400000, 0],
-        [1657746000000, 0],
-        [1657659600000, -125246],
-        [1657573200000, 0],
-        [1657486800000, 0],
-        [1657400400000, 125246],
-        [1657314000000, 0],
-	];
-
-    let posData = [];
-    let negData = [];
-
-    data.forEach((dataItem) => {
-        if (dataItem[1] > 0) {
-            posData.push(dataItem);
-            negData.push([dataItem[0], 0]);
-            return;
-        }
-        posData.push([dataItem[0], 0]);
-        negData.push(dataItem);
-    })
-
 	let chartElement;
-
 	let innerWidth;
-
+	let chart;
+	export let delegatedData=[];
+	export let unbondedData=[];
+	export let isLoading = true;
 	onMount(() => {
-        console.log(`${innerWidth * 0.75}px`)
+        // console.log(`${innerWidth * 0.75}px`)
 		let options = {
 			chart: {
 				type: 'area',
@@ -84,12 +48,12 @@
 			series: [
 				{
 					name: 'Delegated',
-					data: posData,
+					data: delegatedData,
                     color: '#0021A5'
 				},
                 {
 					name: 'Unbonded',
-					data: negData,
+					data: unbondedData,
                     color: '#099B91'
 				},
 			],
@@ -220,9 +184,25 @@
 			}
 		};
 
-		let chart = new ApexCharts(chartElement, options);
+		// @ts-ignore
+		chart = new ApexCharts(chartElement, options);
 		chart.render();
 	});
+
+	$: if (!isLoading) {
+		chart?.updateSeries([
+			{
+					name: 'Delegated',
+					data: delegatedData,
+                    color: '#0021A5'
+				},
+                {
+					name: 'Unbonded',
+					data: unbondedData,
+                    color: '#099B91'
+				},
+		]);
+	}
 </script>
 
 <svelte:window bind:innerWidth />
