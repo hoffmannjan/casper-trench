@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { notifyError } from './toast';
 const casperStatsBaseURL = `${import.meta.env.VITE_CASPERSTATS_URL}`;
+const art3misBaseURL = `${import.meta.env.VITE_ART3MIS_URL}`;
 
 export const getEconomics = async () => {
 	return await axios
@@ -309,6 +310,24 @@ export const getBlock = async (address: string | number) => {
 export const getBlockTransfers = async (address: string | number) => {
 	return await axios
 		.get(`${casperStatsBaseURL}/chain/get-block-transfers/${address}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch block tranfers');
+		});
+};
+
+export const getEraData = async (order: string, skip: number, limit: number) => {
+	return await axios
+		.get(`${art3misBaseURL}/era`, {
+			params: {
+				order,
+				skip,
+				limit
+			}
+		})
 		.then((res) => {
 			return res.data;
 		})

@@ -21,16 +21,16 @@
 	}
 
 	function checkSelected(link: string) {
-        let returnValue = false;
+		let returnValue = false;
 		navItem.dropdown.forEach((item) => {
 			if (item.link === link) {
 				returnValue = true;
 			}
 		});
-        selected = returnValue;
+		selected = returnValue;
 	}
 
-    $: checkSelected($page.url.pathname)
+	$: checkSelected($page.url.pathname);
 </script>
 
 <div class="wrapper" use:clickOutside on:click_outside={handleClickOutside}>
@@ -53,7 +53,7 @@
 			{#each navItem.dropdown as dropdown}
 				<div
 					class="link"
-                    class:link-select={$page.url.pathname === dropdown.link}
+					class:link-select={$page.url.pathname === dropdown.link}
 					on:click={() => {
 						droppedDown = false;
 					}}
@@ -100,7 +100,7 @@
 		@apply text-color-table-header text-opacity-80 text-[clamp(12px,0.83vw,0.83vw)] hover:text-color-hover-footer-link;
 	}
 
-    .link-select {
-        @apply text-color-hover-footer-link;
-    }
+	.link-select {
+		@apply text-color-hover-footer-link;
+	}
 </style>

@@ -46,7 +46,9 @@ module.exports = {
 					'translucent-blue': '#F5F7FF',
 					'arcadia-blue': '#1735A3',
 					'chart-blue': '#1737A3',
-					'events-header-bg': '#F3FDFC'
+					'events-header-bg': '#F3FDFC',
+					'shadow-black': 'rgba(0,0,0,0.05)',
+					'deep-blue-text': '#000030'
 				}
 			},
 			fontFamily: {
