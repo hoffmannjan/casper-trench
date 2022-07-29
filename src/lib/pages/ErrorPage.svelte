@@ -85,16 +85,8 @@ import Smudge from '$lib/icons/Smudge.svelte';
         @apply rounded-r-[0.24vw];
 	}
 
-	.filter-dropdown {
-		@apply w-[20%] h-full bg-color-filter-dropdown-button-bg flex items-center justify-center cursor-pointer;
-	}
-
 	input {
 		@apply bg-transparent w-full flex-grow px-[clamp(16px,0.95vw,0.95vw)] appearance-none outline-none;
-	}
-
-	.chevron {
-		@apply h-[clamp(14px,0.95vw,0.95vw)] w-[clamp(14px,0.95vw,0.95vw)] ml-[clamp(4px,0.36vw,0.36vw)];
 	}
 
 	.search {
