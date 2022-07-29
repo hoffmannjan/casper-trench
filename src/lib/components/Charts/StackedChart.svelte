@@ -1,32 +1,14 @@
 <script>
 	import { onMount } from 'svelte';
 
-	export let transfersData = [
-		[1658918045000, 736],
-		[1658923545000, 616],
-		[1658927645000, 407],
-		[1658929545000, 315],
-		[1658933545000, 125],
-		[1658936545000, 701]
-	];
-	export let transactionsData = [
-		[1658918045000, 936],
-		[1658923545000, 816],
-		[1658927645000, 707],
-		[1658929545000, 515],
-		[1658933545000, 225],
-		[1658936545000, 901]
-	];
+	export let transfersData = [];
+	export let transactionsData = [];
 
-	let transactionDifferences = [];
-	transactionsData.forEach((item, i) => {
-		transactionDifferences.push([item[0], item[1] - transfersData[i][1]]);
-	});
-
+	export let isLoading = true;
 	let chartElement;
 
 	let innerWidth;
-
+	let chart;
 	onMount(() => {
 		let options = {
 			chart: {
@@ -66,7 +48,7 @@
 				},
 				{
 					name: 'Transactions',
-					data: transactionDifferences
+					data: transactionsData
 				}
 			],
 			xaxis: {
@@ -189,9 +171,22 @@
 			}
 		};
 
-		let chart = new ApexCharts(chartElement, options);
+		// @ts-ignore
+		chart = new ApexCharts(chartElement, options);
 		chart.render();
 	});
+	$: if (!isLoading) {
+		chart?.updateSeries([
+			{
+				name: 'Transfers',
+				data: transfersData
+			},
+			{
+				name: 'Transactions',
+				data: transactionsData
+			}
+		]);
+	}
 </script>
 
 <svelte:window bind:innerWidth />
