@@ -12,6 +12,8 @@
 	let eraData: EraData[];
 	let transfersData = [];
 	let transactionsData = [];
+	let delegatedData=[];
+	let unbondedData=[];
 	let isLoading = true;
 	onMount(async () => {
 		isLoading = true;
@@ -22,23 +24,22 @@
 			eraData.forEach((data) => {
 				transfersData.push([data.end, data.transfersCount]);
 				transactionsData.push([data.end, data.deploysCount]);
+				delegatedData.push([data.end,data.stakedThisEra])
+				unbondedData.push([data.end,-data.undelegatedThisEra])
 			});
-		console.log('Total Transfers: ', transfersData.length);
-		console.log('Total Transactions: ', transactionsData.length);
 		isLoading = false;
 	});
 </script>
 
 <div class="charts-page">
-	<div class:loading={isLoading} class="wrapper">
-		<!-- <StackedChart/> -->
-		<StackedChart {transfersData} {transactionsData} isLoading />
+	<!-- <div class:loading={isLoading} class="wrapper">
+		<StackedChart {transfersData} {transactionsData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
 		<ComboChart />
-	</div>
+	</div> -->
 		<div class:loading={isLoading} class="wrapper">
-			<PoNegAreaChart />
+			<PoNegAreaChart {delegatedData}{unbondedData} bind:isLoading/>
 	</div>
 	<div class:loading={isLoading} class="wrapper">
 		<AreaChart />
