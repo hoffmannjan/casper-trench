@@ -1,6 +1,7 @@
 <script>
 	import AreaChart from '$lib/components/Charts/AreaChart.svelte';
 	import ComboChart from '$lib/components/Charts/ComboChart.svelte';
+	import PoNegAreaChart from '$lib/components/Charts/PoNegAreaChart.svelte';
 	import StackedChart from '$lib/components/Charts/StackedChart.svelte';
 </script>
 
@@ -12,7 +13,7 @@
 		<ComboChart />
 	</div>
 	<div class="wrapper">
-		<!-- TODO Add custom bar chart -->
+		<PoNegAreaChart />
 	</div>
 	<div class="wrapper">
 		<AreaChart />
