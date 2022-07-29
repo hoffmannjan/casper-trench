@@ -96,7 +96,7 @@
 		{#each navItems as navItem}
 			<div class="nav-item">
 				{#if navItem.dropdown.length > 0}
-					<NavbarDropdown {navItem}/>
+					<NavbarDropdown {navItem} />
 				{:else}
 					<div class="text" class:selected={$page.url.pathname === navItem.link}>
 						<a href={navItem.link}>{navItem.text}</a>
