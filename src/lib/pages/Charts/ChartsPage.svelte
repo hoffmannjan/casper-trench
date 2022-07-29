@@ -32,12 +32,12 @@
 </script>
 
 <div class="charts-page">
-	<!-- <div class:loading={isLoading} class="wrapper">
+	<div class:loading={isLoading} class="wrapper">
 		<StackedChart {transfersData} {transactionsData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
 		<ComboChart />
-	</div> -->
+	</div>
 		<div class:loading={isLoading} class="wrapper">
 			<PoNegAreaChart {delegatedData}{unbondedData} bind:isLoading/>
 	</div>
