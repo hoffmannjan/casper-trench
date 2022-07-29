@@ -1,27 +1,8 @@
 <script lang="ts">
 	import CasperTrenchLogo from '$lib/icons/CasperTrenchLogo.svelte';
-	import NavbarChevron from '$lib/icons/NavbarChevron.svelte';
 	import UserIcon from '$lib/icons/UserIcon.svelte';
-
-	let dropdownTest: {
-		text: string;
-		link: string;
-	}[] = [
-		{
-			text: 'Item 1',
-			link: ''
-		},
-		{
-			text: 'Item 2',
-			link: ''
-		},
-		{
-			text: 'Item 3',
-			link: ''
-		}
-	];
-
-	let selected = 'blockchain';
+	import NavbarDropdown from './NavbarDropdown.svelte';
+	import { page } from '$app/stores';
 
 	let navItems: {
 		text: string;
@@ -37,9 +18,26 @@
 			dropdown: []
 		},
 		{
-			text: 'Blocks',
-			link: '/blocks',
-			dropdown: []
+			text: 'Blockchain',
+			link: '',
+			dropdown: [
+				{
+					text: 'Top Accounts',
+					link: '/accounts/top-accounts'
+				},
+				{
+					text: 'View Txns',
+					link: '/transactions'
+				},
+				{
+					text: 'View Blocks',
+					link: '/blocks'
+				},
+				{
+					text: 'Contracts',
+					link: '/contracts'
+				}
+			]
 		},
 		{
 			text: 'Validators',
@@ -47,29 +45,45 @@
 			dropdown: []
 		},
 		{
-			text: 'Transactions',
-			link: '/transactions',
-			dropdown: []
-		},
-		{
-			text: 'Top Accounts',
-			link: '/accounts/top-accounts',
-			dropdown: []
-		},
-		{
-			text: 'Tokens',
-			link: '',
-			dropdown: dropdownTest
-		},
-		{
 			text: 'CSPR Live Charts & Stats',
-			link: '',
+			link: '/charts',
 			dropdown: []
 		},
+		// {
+		// 	text: 'More',
+		// 	link: '',
+		// 	dropdown: [
+		// 		{
+		// 			text: 'Developers',
+		// 			link: ''
+		// 		},
+		// 		{
+		// 			text: 'Wallet Analyzer',
+		// 			link: ''
+		// 		},
+		// 		{
+		// 			text: 'Explore',
+		// 			link: ''
+		// 		}
+		// 	]
+		// },
 		{
-			text: 'More',
+			text: 'Wallet',
 			link: '',
-			dropdown: dropdownTest
+			dropdown: [
+				{
+					text: 'Transfer',
+					link: '/wallet/transfer'
+				},
+				{
+					text: 'Delegate Stake',
+					link: '/wallet/delegate-stake'
+				},
+				{
+					text: 'Undelegate Stake',
+					link: '/wallet/undelegate-stake'
+				}
+			]
 		}
 	];
 </script>
@@ -81,16 +95,11 @@
 	<div class="nav-items">
 		{#each navItems as navItem}
 			<div class="nav-item">
-				<div class="text" class:selected={navItem.text.toLowerCase() === selected}>
-					{#if navItem.dropdown.length > 0}
-						{navItem.text}
-					{:else}
-						<a href={navItem.link}>{navItem.text}</a>
-					{/if}
-				</div>
 				{#if navItem.dropdown.length > 0}
-					<div class="chevron">
-						<NavbarChevron />
+					<NavbarDropdown {navItem}/>
+				{:else}
+					<div class="text" class:selected={$page.url.pathname === navItem.link}>
+						<a href={navItem.link}>{navItem.text}</a>
 					</div>
 				{/if}
 			</div>
