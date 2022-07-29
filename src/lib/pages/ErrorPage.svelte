@@ -1,11 +1,15 @@
 <script>
     import ErrorPageErrorIcon from '$icons/ErrorPageErrorIcon.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
+import Smudge from '$lib/icons/Smudge.svelte';
 
 	export let value = '';
 </script>
 
 <div class="error-page">
+	<div class="bg-special">
+		<Smudge />
+	</div>
 	<div class="container">
 		<img src="/images/png/error.png" alt="error" />
 		<div class="title">Something Went Wrong</div>
@@ -38,6 +42,7 @@
 <style lang="postcss">
 	.error-page {
 		@apply px-4 pt-[clamp(16px,5.95vw,5.95vw)] pb-[clamp(16px,7.74vw,7.74vw)];
+		@apply flex justify-center;
 	}
 
 	.container {
@@ -46,6 +51,7 @@
 		@apply rounded-[1.19vh] md:rounded-[1.19vw];
 		@apply shadow-[0px_0px_11px] shadow-color-shadow-black;
 		@apply flex flex-col items-center justify-center;
+		@apply bg-white;
 	}
     
     .info {
@@ -99,5 +105,13 @@
 
 	.search-icon {
 		@apply w-[clamp(10px,0.95vw,0.95vw)] h-[clamp(10px,0.95vw,0.95vw)];
+	}
+
+	.bg-special {
+		@apply absolute;
+		@apply mx-auto;
+		@apply -z-10;
+		@apply transform -translate-y-[10vw];
+		@apply md:w-[90vw];
 	}
 </style>
