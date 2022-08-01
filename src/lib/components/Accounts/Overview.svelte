@@ -33,21 +33,6 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="label"> Public Key </td>
-				<td class="value">
-					<div class="address-value">
-						<div class="text">
-							{account?.public_key_hex || ''}
-						</div>
-						{#if account?.public_key_hex}
-							<div class="copy-icon">
-								<CopyIcon text={account?.public_key_hex} />
-							</div>
-						{/if}
-					</div>
-				</td>
-			</tr>
-			<tr>
 				<td class="label"> Account Hash </td>
 				<td class="value">
 					<div class="address-value hash">

@@ -142,7 +142,12 @@
 											</div>
 										</div>
 										<div class="hash">
-											{transaction.deploy?.header?.account}
+											<a href="/validator/{transaction.deploy?.header?.account}">
+												{transaction.deploy?.header?.account}
+											</a>
+											<div>
+												<CopyIcon text={transaction.deploy?.header?.account} />
+											</div>
 										</div>
 									</div>
 								</div>
@@ -176,7 +181,17 @@
 											</div>
 										</div>
 										<div class="hash">
-											{transaction.deploy?.session?.Transfer?.args[1]?.[1]?.parsed}
+											<a
+												href="/validators/{transaction.deploy?.session?.Transfer?.args[1]?.[1]
+													?.parsed}"
+											>
+												{transaction.deploy?.session?.Transfer?.args[1]?.[1]?.parsed}</a
+											>
+											<div>
+												<CopyIcon
+													text={transaction.deploy?.session?.Transfer?.args[1]?.[1]?.parsed}
+												/>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -360,6 +375,10 @@
 
 	.dets > .hash {
 		@apply text-color-hover-footer-link;
+		@apply flex flex-row items-center gap-x-[clamp(5px,0.5vw,0.5vw)];
+	}
+	.dets > .hash > div {
+		@apply w-[2vh] h-[2vh] md:w-[2vw] md:h-[2vw];
 	}
 
 	.eye-icon {

@@ -50,17 +50,6 @@
 
 <div class="main">
 	{#if validator}
-		<div class="address">
-			<div class="title">Address</div>
-			<div class="value">
-				<div class="text">
-					{validator.public_key}
-				</div>
-				<div class="copy-icon">
-					<CopyIcon text={validator.public_key} />
-				</div>
-			</div>
-		</div>
 		<div class="header-content">
 			<ValidatorCard inactive={validator.bid.inactive} information={validator.information} />
 			<StatisticsCard {validator} />
