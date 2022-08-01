@@ -51,7 +51,8 @@ module.exports = {
 					'deep-blue-text': '#000030',
 					'tranfer-det-green': '#F0FEFF',
 					'sender-background': '#F5F6F7',
-					'input-border': '#DEDEDE'
+					'input-border': '#DEDEDE',
+					'step-progress-bar-bg': '#E3E3E3'
 				}
 			},
 			fontFamily: {

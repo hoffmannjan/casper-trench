@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
 
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 
@@ -11,7 +12,7 @@
 
 <div class="transfer-details">
 	<div class="container">
-		<div class="step-progress" />
+		<StepProgress />
 
 		<div class="title">Transfer Details</div>
 		<div class="sign-in-alert">
