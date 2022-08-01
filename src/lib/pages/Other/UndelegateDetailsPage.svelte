@@ -17,9 +17,9 @@
 
 <div class="transfer-details">
 	<div class="container">
-		<StepProgress page="Delegation details" bind:step />
+		<StepProgress page="Undelegation details" bind:step />
 
-		<div class="title">Delegation details</div>
+		<div class="title">Undelegation details</div>
 		{#if !signedIn}
 			<div class="sign-in-alert">
 				<div class="icon">

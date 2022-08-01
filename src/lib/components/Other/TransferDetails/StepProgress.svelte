@@ -14,11 +14,11 @@
 			break;
 		case 1:
             progressClass = "w-[16.5vw]";
-            iconClass = "translate-x-[11vw]"
+            iconClass = "translate-x-[11.5vw]"
 			break;
 		case 2:
             progressClass = "w-[25.5vw]";
-            iconClass = "translate-x-[20.5vw]"
+            iconClass = "translate-x-[20.75vw]"
 			break;
 		default:
             progressClass = "w-full";
