@@ -3,11 +3,11 @@
 	let chartElement;
 	let innerWidth;
 	let chart;
-	export let delegatedData=[];
-	export let unbondedData=[];
+	export let delegatedData = [];
+	export let unbondedData = [];
 	export let isLoading = true;
 	onMount(() => {
-        // console.log(`${innerWidth * 0.75}px`)
+		// console.log(`${innerWidth * 0.75}px`)
 		let options = {
 			chart: {
 				type: 'area',
@@ -32,7 +32,7 @@
 				height: '100%',
 				width: `${innerWidth * 0.75}px`
 			},
-            fill: {
+			fill: {
 				type: 'solid'
 			},
 			dataLabels: {
@@ -42,20 +42,20 @@
 				curve: 'straight',
 				width: 0
 			},
-            legend: {
-                show: false
-            },
+			legend: {
+				show: false
+			},
 			series: [
 				{
 					name: 'Delegated',
 					data: delegatedData,
-                    color: '#0021A5'
+					color: '#0021A5'
 				},
-                {
+				{
 					name: 'Unbonded',
 					data: unbondedData,
-                    color: '#099B91'
-				},
+					color: '#099B91'
+				}
 			],
 			xaxis: {
 				type: 'datetime',
@@ -192,15 +192,15 @@
 	$: if (!isLoading) {
 		chart?.updateSeries([
 			{
-					name: 'Delegated',
-					data: delegatedData,
-                    color: '#0021A5'
-				},
-                {
-					name: 'Unbonded',
-					data: unbondedData,
-                    color: '#099B91'
-				},
+				name: 'Delegated',
+				data: delegatedData,
+				color: '#0021A5'
+			},
+			{
+				name: 'Unbonded',
+				data: unbondedData,
+				color: '#099B91'
+			}
 		]);
 	}
 </script>
@@ -223,12 +223,11 @@
 </div>
 
 <style lang="postcss">
-
 	.chart {
 		@apply w-full;
 	}
 
-    .title {
+	.title {
 		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
 		@apply flex items-center justify-between;
 	}
@@ -249,12 +248,12 @@
 	}
 
 	.color {
-        @apply bg-color-hover-footer-link;
+		@apply bg-color-hover-footer-link;
 		@apply h-[clamp(12px,0.95vw,0.95vw)] w-[clamp(12px,0.95vw,0.95vw)];
 		@apply rounded-full;
 	}
 
-    .delegated > .color {
+	.delegated > .color {
 		@apply bg-color-arcadia-blue;
-    }
+	}
 </style>
