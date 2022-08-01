@@ -48,7 +48,10 @@ module.exports = {
 					'chart-blue': '#1737A3',
 					'events-header-bg': '#F3FDFC',
 					'shadow-black': 'rgba(0,0,0,0.05)',
-					'deep-blue-text': '#000030'
+					'deep-blue-text': '#000030',
+					'tranfer-det-green': '#F0FEFF',
+					'sender-background': '#F5F6F7',
+					'input-border': '#DEDEDE'
 				}
 			},
 			fontFamily: {

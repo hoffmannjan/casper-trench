@@ -23,7 +23,7 @@
 
 <Toast />
 {#if $isLoading}
-	<SvelteLoader />
+	<!-- <SvelteLoader /> -->
 {/if}
 
 <style lang="postcss">
