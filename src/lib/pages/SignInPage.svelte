@@ -61,7 +61,7 @@ import Smudge from '$lib/icons/Smudge.svelte';
 	}
 
 	.container {
-		@apply md:max-w-[20.18vw] md:h-[28.15vw];
+		@apply md:max-w-[21vw] md:h-[30vw];
 		@apply pb-[clamp(16px,4.82vw,4.82vw)] pt-[clamp(16px,2.32vw,2.32vw)] px-[16px];
 		@apply rounded-[1.19vh] md:rounded-[1.19vw];
 		@apply shadow-[0px_0px_11px] shadow-color-shadow-black;
@@ -81,11 +81,11 @@ import Smudge from '$lib/icons/Smudge.svelte';
 
     .info {
         @apply text-[clamp(16px,1.07vw,1.07vw)] text-color-grey-footer-label text-center;
-        @apply md:max-w-[16vw];
+        @apply md:max-w-[17vw];
     }
 
     .button {
-        @apply md:absolute md:bottom-[5vw];
+        @apply md:absolute md:bottom-[6vw];
     }
 
 	.bg-special {
