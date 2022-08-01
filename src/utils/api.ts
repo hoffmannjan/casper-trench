@@ -333,6 +333,18 @@ export const getEraData = async (order: string, skip: number, limit: number) => 
 		})
 		.catch((err) => {
 			console.log(err);
-			notifyError('Could not fetch block tranfers');
+			notifyError('Could not fetch era data');
+		});
+};
+
+export const getMarketPrices = async () => {
+	return await axios
+		.get(`${art3misBaseURL}/prices`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch market data');
 		});
 };
