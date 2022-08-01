@@ -95,12 +95,12 @@
 				{/if}
 			</div>
 		{/each}
-		<div class="signin">
+		<a href="/sign-in" class="signin">
 			<div class="user-icon">
 				<UserIcon />
 			</div>
 			<div class="text">Sign In</div>
-		</div>
+		</a>
 	</div>
 </div>
 
