@@ -62,9 +62,6 @@
 		<div class="address">
 			<div class="title">
 				<div class="text">Address</div>
-				<div class="trusted-icon">
-					<TrustedIcon />
-				</div>
 			</div>
 			<div class="value">
 				<div class="text">

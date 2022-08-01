@@ -50,7 +50,7 @@
 					<td>{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}</td>
 					<td>{block.deploys}</td>
 					<td>{block.transfers}</td>
-					<td class="hash right">{block.hash}</td>
+					<td class="hash right"> <a href="/blocks/{block.hash}"> {block.hash}</a></td>
 				</tr>
 			{/each}
 		{/if}
