@@ -1,33 +1,37 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
-import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
-
+    
+	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 
 	let recipient = '';
 	let amount = '';
 	let txID = '';
-    let sendMax = false;
+	let sendMax = false;
+    let signedIn = true;
+    let step: 0 | 1 | 2 | 3 = 0;
 </script>
 
 <div class="transfer-details">
 	<div class="container">
-		<StepProgress />
+		<StepProgress page="Transfer Details" bind:step/>
 
 		<div class="title">Transfer Details</div>
-		<div class="sign-in-alert">
-			<div class="icon">
-				<YellowWarningIcon black />
+		{#if !signedIn}
+			<div class="sign-in-alert">
+				<div class="icon">
+					<YellowWarningIcon black />
+				</div>
+				<div class="text">
+					You’re not signed in. <span
+						class="green"
+						on:click={() => {
+							goto('/signin');
+						}}>Sign in</span
+					> with a compatible wallet like Signer or Ledger to continue.
+				</div>
 			</div>
-			<div class="text">
-				You’re not signed in. <span
-					class="green"
-					on:click={() => {
-						goto('/signin');
-					}}>Sign in</span
-				> with a compatible wallet like Signer or Ledger to continue.
-			</div>
-		</div>
+		{/if}
 
 		<div class="sender">
 			<div class="top">
@@ -56,38 +60,38 @@ import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.sve
 			</div>
 		</div>
 
-        <div class="input-wrapper">
+		<div class="input-wrapper">
 			<div class="top">Amount</div>
 			<div class="input">
 				<input type="number" bind:value={amount} placeholder="Enter amount" />
-                <div>CSPR</div>
+				<div>CSPR</div>
 			</div>
-            <label>
-                <input type=checkbox bind:checked={sendMax}>
-                Send max amount
-            </label>
+			<label>
+				<input type="checkbox" bind:checked={sendMax} />
+				Send max amount
+			</label>
 		</div>
 
-        <div class="input-wrapper">
+		<div class="input-wrapper">
 			<div class="top">Transfer ID (Memo)</div>
 			<div class="input">
 				<input type="number" bind:value={txID} placeholder="1234567890" />
 			</div>
 		</div>
 
-        <div class="fee">
-            <div class="left">
-                Transaction Fee
-            </div>
-            <div class="right">
-                <div class="cspr">0.10000 CSPR</div>
-                <div class="cash">$0.00257199</div>
-            </div>
-        </div>
+		<div class="fee">
+			<div class="left">Transaction Fee</div>
+			<div class="right">
+				<div class="cspr">0.10000 CSPR</div>
+				<div class="cash">$0.00257199</div>
+			</div>
+		</div>
 
-        <div class="terms">
-            By using CSPR.live, you acknowledge that you have read, understood and accepted our. <span class="green">Terms of Service.</span>
-        </div>
+		<div class="terms">
+			By using CSPR.live, you acknowledge that you have read, understood and accepted our. <span
+				class="green">Terms of Service.</span
+			>
+		</div>
 	</div>
 </div>
 
@@ -121,7 +125,7 @@ import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.sve
 	.top {
 		@apply flex justify-between items-center;
 		@apply mb-[clamp(4px,0.6vw,0.6vw)];
-        @apply text-color-black-text;
+		@apply text-color-black-text;
 	}
 
 	.value {
@@ -138,35 +142,39 @@ import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.sve
 		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply flex items-center justify-between;
-        @apply mb-[clamp(4px,0.71vw,0.71vw)];
+		@apply mb-[clamp(4px,0.71vw,0.71vw)];
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-input-border;
 	}
 
-    .input-wrapper {
+	.input-wrapper {
 		@apply mb-[clamp(16px,1.9vw,1.9vw)];
-    }
+	}
 
 	.input > input {
 		@apply outline-none;
-        @apply w-[90%];
+		@apply w-[90%];
 	}
 
-    label > input {
-        @apply cursor-pointer;
-    }
+	label > input {
+		@apply cursor-pointer;
+	}
 
 	.warning {
 		@apply mb-[clamp(16px,1.43vw,1.43vw)];
 		@apply text-[clamp(10px,0.77vw,0.77vw)];
 	}
 
-    .terms, label, .warning, .left, .cspr {
-        @apply text-color-grey-footer-label;
-    }
+	.terms,
+	label,
+	.warning,
+	.left,
+	.cspr {
+		@apply text-color-grey-footer-label;
+	}
 
-    .terms {
-        @apply text-[clamp(10px,0.77vw,0.77vw)];
-    }
+	.terms {
+		@apply text-[clamp(10px,0.77vw,0.77vw)];
+	}
 
 	.header {
 		@apply flex items-center gap-[clamp(4px,0.3vw,0.3vw)];
@@ -178,22 +186,22 @@ import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.sve
 		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
 	}
 
-    .green {
+	.green {
 		@apply text-color-hover-footer-link;
 		@apply cursor-pointer;
 	}
 
-    .fee {
-        @apply flex justify-between items-center;
-        @apply text-[clamp(16px,1.07vw,1.07vw)];
-        @apply mb-[clamp(16px,2.55vw,2.55vw)];
-    }
+	.fee {
+		@apply flex justify-between items-center;
+		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply mb-[clamp(16px,2.55vw,2.55vw)];
+	}
 
-    .cash {
-        @apply text-color-table-header text-[clamp(28px,1.90vw,1.90vw)] font-bold;
-    }
+	.cash {
+		@apply text-color-table-header text-[clamp(28px,1.90vw,1.90vw)] font-bold;
+	}
 
-    .right {
-        @apply text-right;
-    }
+	.right {
+		@apply text-right;
+	}
 </style>

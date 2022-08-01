@@ -1,8 +1,8 @@
 <script lang="ts">
 	import ProgressMarker from '$lib/icons/ProgressMarker.svelte';
 
-	export let step: 0 | 1 | 2 | 3 = 3;
-	export let page = 'Transfer Details';
+	export let step: 0 | 1 | 2 | 3 = 0;
+	export let page = '';
 
     let progressClass = "";
     let iconClass = "";
