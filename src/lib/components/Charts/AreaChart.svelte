@@ -1,19 +1,10 @@
 <script>
 	import { onMount } from 'svelte';
-
-	export let data = [
-		[1658918045000, 73625],
-		[1658923545000, 41625],
-		[1658927645000, 70724],
-		[1658929545000, 91525],
-		[1658933545000, 125246],
-		[1658936545000, 30123]
-	];
-
 	let chartElement;
-
 	let innerWidth;
-
+	let chart;
+	export let validatorWeights = [];
+	export let isLoading = true;
 	onMount(() => {
 		let options = {
 			chart: {
@@ -73,7 +64,7 @@
 			series: [
 				{
 					name: 'Total Staked',
-					data
+					data: validatorWeights
 				}
 			],
 			xaxis: {
@@ -189,9 +180,18 @@
 			}
 		};
 
-		let chart = new ApexCharts(chartElement, options);
+		// @ts-ignore
+		chart = new ApexCharts(chartElement, options);
 		chart.render();
 	});
+	$: if (!isLoading) {
+		chart?.updateSeries([
+			{
+				name: 'Total Staked',
+				data: validatorWeights
+			}
+		]);
+	}
 </script>
 
 <svelte:window bind:innerWidth />

@@ -1,7 +1,7 @@
 <script>
-    import ErrorPageErrorIcon from '$icons/ErrorPageErrorIcon.svelte';
+	import ErrorPageErrorIcon from '$icons/ErrorPageErrorIcon.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
-import Smudge from '$lib/icons/Smudge.svelte';
+	import Smudge from '$lib/icons/Smudge.svelte';
 
 	export let value = '';
 </script>
@@ -19,23 +19,21 @@ import Smudge from '$lib/icons/Smudge.svelte';
 			</div>
 			<div class="text">Bad Gateway</div>
 		</div>
-        <div class="try">
-            Please try a search
-        </div>
-        <div class="filter">
-            <input
-                type="text"
-                name="filter"
-                placeholder="Search by Address / Txn Hash / Block / Token / Ens"
-                bind:value
-            />
-        
-            <div class="search">
-                <div class="search-icon">
-                    <SearchIcon />
-                </div>
-            </div>
-        </div>
+		<div class="try">Please try a search</div>
+		<div class="filter">
+			<input
+				type="text"
+				name="filter"
+				placeholder="Search by Address / Txn Hash / Block / Token / Ens"
+				bind:value
+			/>
+
+			<div class="search">
+				<div class="search-icon">
+					<SearchIcon />
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -53,12 +51,12 @@ import Smudge from '$lib/icons/Smudge.svelte';
 		@apply flex flex-col items-center justify-center;
 		@apply bg-white;
 	}
-    
-    .info {
-        @apply flex items-center gap-[clamp(4px,0.36vw,0.36vw)];
-        @apply text-[clamp(16px,1.19vw,1.19vw)] text-color-table-header;
-        @apply mb-[clamp(16px,1.9vw,1.9vw)];
-    }
+
+	.info {
+		@apply flex items-center gap-[clamp(4px,0.36vw,0.36vw)];
+		@apply text-[clamp(16px,1.19vw,1.19vw)] text-color-table-header;
+		@apply mb-[clamp(16px,1.9vw,1.9vw)];
+	}
 
 	.info > .icon {
 		@apply h-[clamp(12px,0.71vw,0.71vw)] w-[clamp(12px,0.71vw,0.71vw)];
@@ -68,21 +66,21 @@ import Smudge from '$lib/icons/Smudge.svelte';
 		@apply md:w-[14.58vw] md:h-[14.58vw];
 	}
 
-    .title {
-        @apply font-bold text-[clamp(24px,1.9vw,1.9vw)] text-color-deep-blue-text;
-    }
+	.title {
+		@apply font-bold text-[clamp(24px,1.9vw,1.9vw)] text-color-deep-blue-text;
+	}
 
-    .try {
-        @apply mb-[clamp(16px,0.95vw,0.95vw)];
-        @apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
-    }
+	.try {
+		@apply mb-[clamp(16px,0.95vw,0.95vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
+	}
 
-    .filter {
+	.filter {
 		@apply flex items-center;
 		@apply w-[clamp(100px,26.67vw,26.67vw)] h-[clamp(10px,2.5vw,2.5vw)] rounded-r-[0.24vw];
 		@apply text-[clamp(10px,0.83vw,0.83vw)] text-color-table-header;
-        @apply border-[clamp(1px,0.06vw,0.06vw)] border-color-code-background;
-        @apply rounded-r-[0.24vw];
+		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-code-background;
+		@apply rounded-r-[0.24vw];
 	}
 
 	input {

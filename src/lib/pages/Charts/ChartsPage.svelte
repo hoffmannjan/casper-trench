@@ -12,8 +12,9 @@
 	let eraData: EraData[];
 	let transfersData = [];
 	let transactionsData = [];
-	let delegatedData=[];
-	let unbondedData=[];
+	let delegatedData = [];
+	let unbondedData = [];
+	let validatorWeights = [];
 	let isLoading = true;
 	onMount(async () => {
 		isLoading = true;
@@ -24,8 +25,9 @@
 			eraData.forEach((data) => {
 				transfersData.push([data.end, data.transfersCount]);
 				transactionsData.push([data.end, data.deploysCount]);
-				delegatedData.push([data.end,data.stakedThisEra])
-				unbondedData.push([data.end,-data.undelegatedThisEra])
+				delegatedData.push([data.end, data.stakedThisEra]);
+				unbondedData.push([data.end, -data.undelegatedThisEra]);
+				validatorWeights.push([data.end, data.validatorsWeights]);
 			});
 		isLoading = false;
 	});
@@ -38,11 +40,11 @@
 	<div class:loading={isLoading} class="wrapper">
 		<ComboChart />
 	</div>
-		<div class:loading={isLoading} class="wrapper">
-			<PoNegAreaChart {delegatedData}{unbondedData} bind:isLoading/>
+	<div class:loading={isLoading} class="wrapper">
+		<PoNegAreaChart {delegatedData} {unbondedData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
-		<AreaChart />
+		<AreaChart {validatorWeights} bind:isLoading />
 	</div>
 </div>
 
