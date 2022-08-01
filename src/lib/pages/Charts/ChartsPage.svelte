@@ -5,22 +5,26 @@
 	import StackedChart from '$lib/components/Charts/StackedChart.svelte';
 	// import { isLoading } from '$stores/loading';
 	import SvelteLoader from '$components/SvelteLoader/index.svelte';
-	import { getEraData, getLatestBlocks } from '$utils/api';
+	import { getEraData, getLatestBlocks, getMarketPrices } from '$utils/api';
 	import type { Block } from '$utils/types/block';
 	import type { EraData } from '$utils/types/era';
 	import { onMount } from 'svelte';
+	import type { MarketPrices } from '$utils/types/price';
 	let eraData: EraData[];
 	let transfersData = [];
 	let transactionsData = [];
 	let delegatedData = [];
 	let unbondedData = [];
 	let validatorWeights = [];
+	let priceData = [];
+	let volumeData = [];
+	let marketPrices: MarketPrices[];
 	let isLoading = true;
 	onMount(async () => {
 		isLoading = true;
 		const latestBlocks: Block[] = await getLatestBlocks(1);
 		eraData = latestBlocks && (await getEraData('id ASC', 0, latestBlocks[0].header.era_id));
-		eraData && console.log('Total: ', eraData.length);
+		marketPrices = await getMarketPrices();
 		eraData &&
 			eraData.forEach((data) => {
 				transfersData.push([data.end, data.transfersCount]);
@@ -28,6 +32,11 @@
 				delegatedData.push([data.end, data.stakedThisEra]);
 				unbondedData.push([data.end, -data.undelegatedThisEra]);
 				validatorWeights.push([data.end, data.validatorsWeights]);
+			});
+		marketPrices &&
+			marketPrices.forEach((price) => {
+				priceData.push([price.date, price.close]);
+				volumeData.push([price.date, price.volumeTo]);
 			});
 		isLoading = false;
 	});
@@ -38,7 +47,7 @@
 		<StackedChart {transfersData} {transactionsData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
-		<ComboChart />
+		<ComboChart {priceData} {volumeData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
 		<PoNegAreaChart {delegatedData} {unbondedData} bind:isLoading />

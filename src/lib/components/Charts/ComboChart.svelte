@@ -2,27 +2,12 @@
 	import PriceLegendIcon from '$lib/icons/PriceLegendIcon.svelte';
 	import { onMount } from 'svelte';
 
-	export let priceData = [
-		[1658918045000, 0.73625],
-		[1658923545000, 0.61625],
-		[1658927645000, 0.40724],
-		[1658929545000, 0.31525],
-		[1658933545000, 0.125246],
-		[1658936545000, 0.70123]
-	];
-	export let volumeData = [
-		[1658918045000, 73625],
-		[1658923545000, 41625],
-		[1658927645000, 70724],
-		[1658929545000, 91525],
-		[1658933545000, 125246],
-		[1658936545000, 30123]
-	];
-
 	let chartElement;
-
 	let innerWidth;
-
+	let chart;
+	export let priceData = [];
+	export let volumeData = [];
+	export let isLoading = true;
 	onMount(() => {
 		let options = {
 			chart: {
@@ -201,9 +186,24 @@
 				}
 			}
 		};
-		let chart = new ApexCharts(chartElement, options);
+		// @ts-ignore
+		chart = new ApexCharts(chartElement, options);
 		chart.render();
 	});
+	$: if (!isLoading) {
+		chart?.updateSeries([
+			{
+				name: 'Price',
+				data: priceData,
+				type: 'line'
+			},
+			{
+				name: 'Volume',
+				data: volumeData,
+				type: 'column'
+			}
+		]);
+	}
 </script>
 
 <svelte:window bind:innerWidth />
