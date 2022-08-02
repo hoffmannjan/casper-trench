@@ -77,11 +77,11 @@
 				},
 				{
 					text: 'Delegate Stake',
-					link: '/wallet/delegate-stake'
+					link: '/wallet/delegate'
 				},
 				{
 					text: 'Undelegate Stake',
-					link: '/wallet/undelegate-stake'
+					link: '/wallet/undelegate'
 				}
 			]
 		}
