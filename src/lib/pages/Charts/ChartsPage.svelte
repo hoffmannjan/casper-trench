@@ -10,12 +10,13 @@
 	import type { EraData } from '$utils/types/era';
 	import { onMount } from 'svelte';
 	import type { MarketPrices } from '$utils/types/price';
+	import ValidatorWeightsChart from '$lib/components/Charts/ValidatorWeightsChart.svelte';
 	let eraData: EraData[];
 	let transfersData = [];
 	let transactionsData = [];
 	let delegatedData = [];
 	let unbondedData = [];
-	let validatorWeights = [];
+	let validatorWeights: [{ x?: Date; y?: number }] = [{}];
 	let priceData = [];
 	let volumeData = [];
 	let marketPrices: MarketPrices[];
@@ -31,7 +32,7 @@
 				transactionsData.push([data.end, data.deploysCount]);
 				delegatedData.push([data.end, data.stakedThisEra]);
 				unbondedData.push([data.end, -data.undelegatedThisEra]);
-				validatorWeights.push([data.end, data.validatorsWeights]);
+				validatorWeights.push({ x: new Date(data.end), y: data.validatorsWeights });
 			});
 		marketPrices &&
 			marketPrices.forEach((price) => {
@@ -43,7 +44,7 @@
 </script>
 
 <div class="charts-page">
-	<div class:loading={isLoading} class="wrapper">
+	<!-- <div class:loading={isLoading} class="wrapper">
 		<StackedChart {transfersData} {transactionsData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
@@ -54,6 +55,9 @@
 	</div>
 	<div class:loading={isLoading} class="wrapper">
 		<AreaChart {validatorWeights} bind:isLoading />
+	</div> -->
+	<div class:loading={isLoading} class="wrapper">
+		<ValidatorWeightsChart {validatorWeights} bind:isLoading />
 	</div>
 </div>
 

@@ -8,7 +8,9 @@ specifiers:
   '@zerodevx/svelte-toast': ^0.7.2
   autoprefixer: ^10.4.2
   axios: ^0.27.2
+  chartjs-adapter-date-fns: ^2.0.0
   cssnano: ^5.0.17
+  date-fns: ^2.29.1
   eslint: ^8.16.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^4.0.0
@@ -31,6 +33,8 @@ specifiers:
 dependencies:
   '@zerodevx/svelte-toast': 0.7.2
   axios: 0.27.2
+  chartjs-adapter-date-fns: 2.0.0
+  date-fns: 2.29.1
 
 devDependencies:
   '@sveltejs/adapter-vercel': 1.0.0-next.62
@@ -859,6 +863,15 @@ packages:
       supports-color: 7.2.0
     dev: true
 
+  /chartjs-adapter-date-fns/2.0.0:
+    resolution:
+      {
+        integrity: sha512-rmZINGLe+9IiiEB0kb57vH3UugAtYw33anRiw5kS2Tu87agpetDDoouquycWc9pRsKtQo5j+vLsYHyr8etAvFw==
+      }
+    peerDependencies:
+      chart.js: ^3.0.0
+    dev: false
+
   /chokidar/3.5.3:
     resolution:
       {
@@ -1119,6 +1132,14 @@ packages:
     dependencies:
       css-tree: 1.1.3
     dev: true
+
+  /date-fns/2.29.1:
+    resolution:
+      {
+        integrity: sha512-dlLD5rKaKxpFdnjrs+5azHDFOPEu4ANy/LTh04A1DTzMM7qoajmKCBc8pkKRFT41CNzw+4gQh79X5C+Jq27HAw==
+      }
+    engines: { node: '>=0.11' }
+    dev: false
 
   /debug/4.3.3:
     resolution:
