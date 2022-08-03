@@ -89,7 +89,7 @@
 					zoom: {
 						pan: {
 							enabled: true,
-							mode: 'xy',
+							mode: 'x',
 							threshold: 5
 						},
 						zoom: {
@@ -102,7 +102,7 @@
 							pinch: {
 								enabled: true
 							},
-							mode: 'xy'
+							mode: 'x'
 						}
 					}
 				}
