@@ -98,6 +98,8 @@ import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
 			}
 		});
 	};
+
+	let pan = true;
 </script>
 
 <div class="container">
@@ -112,8 +114,10 @@ import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
 			<div class="text">Transactions</div>
 		</div>
 	</div>
-	<ChartToolbar {chart}/>
-	<div class="chart">
+	<ChartToolbar {chart} on:update-cursor={() => {
+		pan = chart.options.plugins.zoom.pan.enabled
+	}}/>
+	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
 </div>
@@ -132,6 +136,7 @@ import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
 
 	.chart {
 		@apply w-full;
+		@apply cursor-crosshair;
 	}
 
 	.legend {
@@ -151,5 +156,9 @@ import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
 
 	.green {
 		@apply bg-color-hover-footer-link;
+	}
+
+	.pan {
+		@apply cursor-grab;
 	}
 </style>

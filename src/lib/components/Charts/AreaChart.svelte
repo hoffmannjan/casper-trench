@@ -120,6 +120,8 @@
 			}
 		});
 	};
+
+	let pan = true;
 </script>
 
 <div class="container">
@@ -128,8 +130,10 @@
 		<div class="color" />
 		<div class="text">Total Staked</div>
 	</div>
-	<ChartToolbar {chart}/>
-	<div class="chart">
+	<ChartToolbar {chart} on:update-cursor={() => {
+		pan = chart.options.plugins.zoom.pan.enabled
+	}}/>
+	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
 </div>
@@ -148,6 +152,7 @@
 
 	.chart {
 		@apply w-full;
+		@apply cursor-crosshair;
 	}
 
 	.legend {
@@ -159,5 +164,9 @@
 		@apply bg-gradient-to-b from-color-hover-footer-link to-color-chart-blue bg-opacity-80;
 		@apply h-[clamp(12px,0.95vw,0.95vw)] w-[clamp(12px,0.95vw,0.95vw)];
 		@apply rounded-full;
+	}
+
+	.pan {
+		@apply cursor-grab;
 	}
 </style>

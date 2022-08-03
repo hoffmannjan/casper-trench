@@ -109,6 +109,7 @@
 			}
 		});
 	};
+	let pan = true;
 </script>
 
 <div class="container">
@@ -123,8 +124,10 @@
 			<div class="text">Unbonded</div>
 		</div>
 	</div>
-	<ChartToolbar {chart}/>
-	<div class="chart">
+	<ChartToolbar {chart} on:update-cursor={() => {
+		pan = chart.options.plugins.zoom.pan.enabled
+	}}/>
+	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
 </div>
@@ -132,6 +135,7 @@
 <style lang="postcss">
 	.chart {
 		@apply w-full;
+		@apply cursor-crosshair;
 	}
 
 	.title {
@@ -162,5 +166,9 @@
 
 	.delegated > .color {
 		@apply bg-color-arcadia-blue;
+	}
+
+	.pan {
+		@apply cursor-grab;
 	}
 </style>

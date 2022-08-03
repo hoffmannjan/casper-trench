@@ -144,6 +144,8 @@
 			}
 		});
 	};
+
+	let pan = true;
 </script>
 
 <div class="container">
@@ -160,8 +162,10 @@
 			<div class="text">Volume</div>
 		</div>
 	</div>
-	<ChartToolbar {chart}/>
-	<div class="chart">
+	<ChartToolbar {chart} on:update-cursor={() => {
+		pan = chart.options.plugins.zoom.pan.enabled
+	}}/>
+	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
 </div>
@@ -180,6 +184,7 @@
 
 	.chart {
 		@apply w-full;
+		@apply cursor-crosshair;
 	}
 
 	.legend {
@@ -199,5 +204,9 @@
 
 	.icon {
 		@apply w-[clamp(16px,1.19vw,1.19vw)];
+	}
+
+	.pan {
+		@apply cursor-grab;
 	}
 </style>
