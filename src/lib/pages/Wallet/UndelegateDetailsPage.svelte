@@ -1,27 +1,23 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
-
-	import '../../../styles/custom.css';
 
 	let validator = '';
 	let amount = '';
 	let sendMax = false;
 	let signedIn = false;
 	let step: 0 | 1 | 2 | 3 = 0;
-
 	let csprFee = 0.1;
 	let cashFee = 0.00257199;
 </script>
 
 <div class="transfer-details">
 	<div class="container">
-		<StepProgress page="Delegation details" bind:step />
+		<StepProgress page="Undelegation details" bind:step />
 
-		<div class="title">Delegation details</div>
+		<div class="title">Undelegation details</div>
 		{#if !signedIn}
 			<div class="sign-in-alert">
 				<div class="icon">

@@ -1,5 +1,5 @@
 <script>
-	import TransferDetailsPage from '$lib/pages/Other/TransferDetailsPage.svelte';
+	import TransferDetailsPage from '$lib/pages/Wallet/TransferDetailsPage.svelte';
 </script>
 
 <TransferDetailsPage />

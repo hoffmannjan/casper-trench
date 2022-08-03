@@ -1,5 +1,5 @@
 <script>
-	import UndelegateDetailsPage from '$lib/pages/Other/UndelegateDetailsPage.svelte';
+	import UndelegateDetailsPage from '$lib/pages/Wallet/UndelegateDetailsPage.svelte';
 </script>
 
 <UndelegateDetailsPage />
