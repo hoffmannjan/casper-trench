@@ -1,21 +1,23 @@
 <script>
+	import { browser } from '$app/env';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import CloudDownloadIcon from '$lib/icons/CloudDownloadIcon.svelte';
 	import Smudge from '$lib/icons/Smudge.svelte';
+	import { connectCasperSigner } from '$utils/wallets/connection';
 
 	const wallets = [
 		{
 			name: 'Casper Signer',
 			info: 'Connect and sign in via Google Chrome extension'
-		},
-		{
-			name: 'Ledger',
-			info: 'Connect and sign in with your Ledger wallet'
-		},
-		{
-			name: 'Torus Wallet',
-			info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
 		}
+		// {
+		// 	name: 'Ledger',
+		// 	info: 'Connect and sign in with your Ledger wallet'
+		// },
+		// {
+		// 	name: 'Torus Wallet',
+		// 	info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
+		// }
 	];
 </script>
 
@@ -37,7 +39,15 @@
 				{wallet.info}
 			</div>
 			<div class="button">
-				<Button gradient wide>
+				<Button
+					gradient
+					wide
+					on:click={async () => {
+						if (wallet.name.toLowerCase().includes('casper')) {
+							await connectCasperSigner('casper-test');
+						}
+					}}
+				>
 					{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
 				</Button>
 			</div>
