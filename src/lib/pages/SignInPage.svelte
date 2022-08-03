@@ -1,22 +1,26 @@
 <script>
+	import { browser } from '$app/env';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import CloudDownloadIcon from '$lib/icons/CloudDownloadIcon.svelte';
 	import Smudge from '$lib/icons/Smudge.svelte';
-
+	import { connectCasperSigner } from '$utils/wallets/connection';
+	let isCasperSignerAvailable=false;
 	const wallets = [
 		{
 			name: 'Casper Signer',
 			info: 'Connect and sign in via Google Chrome extension'
 		},
-		{
-			name: 'Ledger',
-			info: 'Connect and sign in with your Ledger wallet'
-		},
-		{
-			name: 'Torus Wallet',
-			info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
-		}
+		// {
+		// 	name: 'Ledger',
+		// 	info: 'Connect and sign in with your Ledger wallet'
+		// },
+		// {
+		// 	name: 'Torus Wallet',
+		// 	info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
+		// }
 	];
+	$:if(browser){ isCasperSignerAvailable = window.casperlabsHelper?true :false}
+	$:console.log(isCasperSignerAvailable)
 </script>
 
 <div class="sign-in-page">
@@ -37,18 +41,44 @@
 				{wallet.info}
 			</div>
 			<div class="button">
-				<Button gradient wide>
+				{#if wallet.name.toLowerCase().includes('casper')}
+				{#if isCasperSignerAvailable}
+				<Button
+					gradient
+					wide
+					on:click={async () => {
+						if (wallet.name.toLowerCase().includes('casper')) {
+							await connectCasperSigner();
+						}
+					}}
+				>
 					{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
 				</Button>
+				{:else}
+				<a href="https://chrome.google.com/webstore/detail/casper-signer/djhndpllfiibmcdbnmaaahkhchcoijce" target="_blank" class="download">
+					<div class="icon">
+						<CloudDownloadIcon />
+					</div>
+					<div class="text">Download Signer</div>
+				</a>
+				{/if}
+				{:else}
+				<Button
+					gradient
+					wide
+				>
+					{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
+				</Button>
+				{/if}
 			</div>
-			{#if wallet.name.toLowerCase().includes('casper')}
+			<!-- {#if wallet.name.toLowerCase().includes('casper') && !isCasperSignerAvailable}
 				<div class="download" on:click={() => {}}>
 					<div class="icon">
 						<CloudDownloadIcon />
 					</div>
 					<div class="text">Download Signer</div>
 				</div>
-			{/if}
+			{/if} -->
 		</div>
 	{/each}
 </div>
@@ -93,18 +123,14 @@
 		@apply -z-10;
 		@apply md:w-[90vw];
 	}
-
-	.download {
-		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
-	}
-
+	
 	.icon {
 		@apply h-[0.95vh] w-[0.95vh] md:h-[0.95vw] md:w-[0.95vw];
 	}
 
 	.download {
-		@apply md:absolute md:bottom-[3vw];
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link;
+		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)] ;
+		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link whitespace-nowrap;
 		@apply cursor-pointer;
 	}
 </style>
