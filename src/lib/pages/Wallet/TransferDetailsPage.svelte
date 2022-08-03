@@ -98,7 +98,7 @@
 
 <style lang="postcss">
 	.transfer-details {
-		@applt text-color-table-header;
+		@apply text-color-table-header;
 	}
 
 	.title {
