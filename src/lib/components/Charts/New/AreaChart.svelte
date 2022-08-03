@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ChartToolbar from "./ChartToolbar.svelte";
+
 	let height = 0;
 	let width = 0;
 	let chart;
@@ -126,49 +128,7 @@
 		<div class="color" />
 		<div class="text">Total Staked</div>
 	</div>
-	<button
-		type="button"
-		on:click={() => {
-			chart && chart.zoom(1.05);
-		}}>Zoom+</button
-	>
-	<button
-		type="button"
-		on:click={() => {
-			chart && chart.zoom(0.95);
-		}}>Zoom-</button
-	>
-	<button
-		type="button"
-		on:click={() => {
-			if (chart) {
-				// Disable panning
-				chart.options.plugins.zoom.pan.enabled = false;
-				// Enable Drag zoom
-				chart.options.plugins.zoom.zoom.drag.enabled = true;
-				chart.update();
-			}
-		}}>Drag Zoom</button
-	>
-	<button
-		type="button"
-		on:click={() => {
-			if (chart) {
-				// Disable drag zoom
-				chart.options.plugins.zoom.zoom.drag.enabled = false;
-				// Enable panning
-				chart.options.plugins.zoom.pan.enabled = true;
-				chart.update();
-			}
-		}}>Pan</button
-	>
-
-	<button
-		type="button"
-		on:click={() => {
-			chart && chart.resetZoom();
-		}}>Reset Zoom</button
-	>
+	<ChartToolbar {chart}/>
 	<div class="chart">
 		<canvas bind:this={ctx} />
 	</div>
