@@ -37,10 +37,6 @@
 					// Enable Drag zoom
 					chart.options.plugins.zoom.zoom.drag.enabled = true;
 					chart.update();
-
-					//update style
-					panZoomSelected = false;
-					dragZoomSelected = true;
 				}
 			}}
 		>
@@ -56,10 +52,6 @@
 					// Enable panning
 					chart.options.plugins.zoom.pan.enabled = true;
 					chart.update();
-
-					//update style
-					dragZoomSelected = false;
-					panZoomSelected = true;
 				}
 			}}
 		>
@@ -81,6 +73,7 @@
 	.toolbar {
 		@apply flex items-center gap-[clamp(8px,0.83vw,0.83vw)];
 		@apply self-end;
+		@apply mb-[clamp(16px,1.67vw,1.67vw)];
 	}
 
 	.toolbar > div {
