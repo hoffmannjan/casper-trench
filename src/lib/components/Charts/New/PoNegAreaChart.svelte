@@ -1,97 +1,112 @@
-<script>
-	import PriceLegendIcon from '$lib/icons/PriceLegendIcon.svelte';
+<script lang="ts">
+	let ctx;
+	let chart;
 
-	import Chart from 'chart.js/auto';
+	export let delegatedData: [{ x?: Date; y?: number }];
+	export let unbondedData: [{ x?: Date; y?: number }];
+	export let isLoading = true;
 
-	import { onMount } from 'svelte';
+	$: if (!isLoading) {
+		delegatedData?.length > 0 &&
+			unbondedData?.length > 0 &&
+			renderChart(delegatedData, unbondedData);
+	}
 
-	export let delegatedData;
-	export let unbondedData;
-
-	let chartElement;
-
-	onMount(() => {
-		if (window) {
-			const myChart = new Chart(chartElement.getContext('2d'), {
-				type: 'line',
-				data: {
-					datasets: [
-						{
-							label: 'Delegated',
-							data: delegatedData,
-							backgroundColor: "#0021A5",
-							borderWidth: 0,
-							fill: 'origin',
-							pointStyle: 'circle',
-							pointRadius: 0
-						},
-                        {
-							label: 'Unbonded',
-							data: unbondedData,
-							backgroundColor: "#099B91",
-							borderWidth: 0,
-							fill: 'origin',
-							pointStyle: 'circle',
-							pointRadius: 0
-						}
-					]
-				},
-				options: {
-					responsive: true,
-					scales: {
-						x: {
-							grid: {
-								display: false
-							},
-							ticks: {
-								callback: function (val, index) {
-									const value = typeof val === 'number' ? this.getLabelForValue(val) : 0;
-									const date = new Date(value);
-									const monthNames = [
-										'January',
-										'February',
-										'March',
-										'April',
-										'May',
-										'June',
-										'July',
-										'August',
-										'September',
-										'October',
-										'November',
-										'December'
-									];
-
-									return `${date.getDate()} ${monthNames[date.getMonth()]}`;
-								},
-								autoSkip: true,
-								maxTicksLimit: 20,
-								maxRotation: 0,
-								minRotation: 0
-							}
-						},
-						y: {
-							type: 'linear',
-							display: true,
-							position: 'left',
-							beginAtZero: false,
-							grid: {
-								drawOnChartArea: true
-							}
-						}
+	const renderChart = (
+		chartData1: [{ x?: Date; y?: number }],
+		chartData2: [{ x?: Date; y?: number }]
+	) => {
+		chart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				datasets: [
+					{
+						label: 'Delegated',
+						data: chartData1,
+						backgroundColor: '#0021A5',
+						borderWidth: 0,
+						fill: 'origin',
+						pointStyle: 'circle',
+						pointRadius: 0
 					},
-					plugins: {
-						legend: {
+					{
+						label: 'Unbonded',
+						data: chartData2,
+						backgroundColor: '#099B91',
+						borderWidth: 0,
+						fill: 'origin',
+						pointStyle: 'circle',
+						pointRadius: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				interaction: {
+					mode: 'index',
+					intersect: false
+				},
+				scales: {
+					x: {
+						adapters: {
+							date: {}
+						},
+						type: 'time',
+						time: {
+							unit: 'day'
+						},
+						grid: {
 							display: false
 						},
-						filler: {
-							propagate: false
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 20,
+							maxRotation: 0,
+							minRotation: 0
+						}
+					},
+					y: {
+						type: 'linear',
+						display: true,
+						position: 'left',
+						beginAtZero: false,
+						grid: {
+							drawOnChartArea: true
+						}
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						enabled: false,
+						position: 'nearest'
+						// external: externalTooltipHandler
+					},
+					zoom: {
+						pan: {
+							enabled: true,
+							mode: 'xy',
+							threshold: 5
+						},
+						zoom: {
+							wheel: {
+								enabled: true
+							},
+							drag: {
+								enabled: false
+							},
+							pinch: {
+								enabled: true
+							},
+							mode: 'xy'
 						}
 					}
 				}
-			});
-		}
-	});
+			}
+		});
+	};
 </script>
 
 <div class="container">
@@ -106,8 +121,51 @@
 			<div class="text">Unbonded</div>
 		</div>
 	</div>
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.zoom(1.05);
+		}}>Zoom+</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.zoom(0.95);
+		}}>Zoom-</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			if (chart) {
+				// Disable panning
+				chart.options.plugins.zoom.pan.enabled = false;
+				// Enable Drag zoom
+				chart.options.plugins.zoom.zoom.drag.enabled = true;
+				chart.update();
+			}
+		}}>Drag Zoom</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			if (chart) {
+				// Disable drag zoom
+				chart.options.plugins.zoom.zoom.drag.enabled = false;
+				// Enable panning
+				chart.options.plugins.zoom.pan.enabled = true;
+				chart.update();
+			}
+		}}>Pan</button
+	>
+
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.resetZoom();
+		}}>Reset Zoom</button
+	>
 	<div class="chart">
-		<canvas bind:this={chartElement} />
+		<canvas bind:this={ctx} />
 	</div>
 </div>
 

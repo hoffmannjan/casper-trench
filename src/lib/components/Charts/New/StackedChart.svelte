@@ -1,15 +1,16 @@
-<script>
-	import Chart from 'chart.js/auto';
-	// import zoomPlugin from 'chartjs-plugin-zoom';
+<script lang="ts">
+	let ctx: HTMLCanvasElement;
+	let chart;
 
-	import { onMount } from 'svelte';
+	export let transfersData: [{ x?: Date; y?: number }];
+	export let transactionsData: [{ x?: Date; y?: number }];
+	export let isLoading = true;
 
-	// Chart.register(zoomPlugin);
-
-	export let transfersData;
-	export let transactionsData;
-
-	let chartElement;
+	$: if (!isLoading) {
+		transfersData?.length > 0 &&
+			transactionsData?.length > 0 &&
+			renderChart(transfersData, transactionsData);
+	}
 
 	// const getOrCreateTooltip = (chart) => {
 	// 	let tooltipEl = chart.canvas.parentNode.querySelector('div');
@@ -103,81 +104,92 @@
 	// 	tooltipEl.style.top = `${tooltip.caretY - tooltipEl.offsetHeight / 2}px`;
 	// };
 
-	onMount(() => {
-		if (window) {
-			const myChart = new Chart(chartElement.getContext('2d'), {
-				type: 'bar',
-				data: {
-					datasets: [
-						{
-							label: 'Transfers',
-							data: transfersData,
-							backgroundColor: '#0021A5',
-							borderColor: '#0021A5',
-							borderWidth: 1
-						},
-						{
-							label: 'Transactions',
-							data: transactionsData,
-							backgroundColor: '#099B91',
-							borderColor: '#099B91',
-							borderWidth: 1
-						}
-					]
-				},
-				options: {
-					responsive: true,
-					scales: {
-						x: {
-							stacked: true,
-							grid: {
-								display: false
-							},
-							ticks: {
-								callback: function (val, index) {
-									const value = typeof val === 'number' ? this.getLabelForValue(val) : 0;
-									const date = new Date(value);
-									const monthNames = [
-										'January',
-										'February',
-										'March',
-										'April',
-										'May',
-										'June',
-										'July',
-										'August',
-										'September',
-										'October',
-										'November',
-										'December'
-									];
-
-									return `${date.getDate()} ${monthNames[date.getMonth()]}`;
-								},
-								autoSkip: true,
-								maxTicksLimit: 20,
-								maxRotation: 0,
-								minRotation: 0
-							}
-						},
-						y: {
-							stacked: true
-						}
+	const renderChart = (
+		chartData1: [{ x?: Date; y?: number }],
+		chartData2: [{ x?: Date; y?: number }]
+	) => {
+		chart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				datasets: [
+					{
+						label: 'Transfers',
+						data: chartData1,
+						backgroundColor: '#0021A5',
+						borderColor: '#0021A5',
+						borderWidth: 2,
 					},
-					plugins: {
-						legend: {
+					{
+						label: 'Transactions',
+						data: chartData2,
+						backgroundColor: '#099B91',
+						borderColor: '#099B91',
+						borderWidth: 2,
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				interaction: {
+					mode: 'index',
+					intersect: false
+				},
+				scales: {
+					x: {
+						adapters: {
+							date: {}
+						},
+						type: 'time',
+						time: {
+							unit: 'day'
+						},
+						stacked: true,
+						grid: {
 							display: false
 						},
-						// tooltip: {
-						// 	enabled: false,
-						// 	position: 'nearest',
-						// 	external: externalTooltipHandler
-						// }
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 20,
+							maxRotation: 0,
+							minRotation: 0
+						}
+					},
+					y: {
+						stacked: true
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						enabled: false,
+						position: 'nearest'
+						// external: externalTooltipHandler
+					},
+					zoom: {
+						pan: {
+							enabled: true,
+							mode: 'xy',
+							threshold: 5
+						},
+						zoom: {
+							wheel: {
+								enabled: true
+							},
+							drag: {
+								enabled: false
+							},
+							pinch: {
+								enabled: true
+							},
+							mode: 'xy'
+						}
 					}
 				}
-			});
-		}
-	});
+			}
+		});
+	};
 </script>
 
 <div class="container">
@@ -192,8 +204,51 @@
 			<div class="text">Transactions</div>
 		</div>
 	</div>
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.zoom(1.05);
+		}}>Zoom+</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.zoom(0.95);
+		}}>Zoom-</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			if (chart) {
+				// Disable panning
+				chart.options.plugins.zoom.pan.enabled = false;
+				// Enable Drag zoom
+				chart.options.plugins.zoom.zoom.drag.enabled = true;
+				chart.update();
+			}
+		}}>Drag Zoom</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			if (chart) {
+				// Disable drag zoom
+				chart.options.plugins.zoom.zoom.drag.enabled = false;
+				// Enable panning
+				chart.options.plugins.zoom.pan.enabled = true;
+				chart.update();
+			}
+		}}>Pan</button
+	>
+
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.resetZoom();
+		}}>Reset Zoom</button
+	>
 	<div class="chart">
-		<canvas bind:this={chartElement} />
+		<canvas bind:this={ctx} />
 	</div>
 </div>
 

@@ -1,92 +1,123 @@
-<script>
-	import PriceLegendIcon from '$lib/icons/PriceLegendIcon.svelte';
+<script lang="ts">
+	let height = 0;
+	let width = 0;
+	let chart;
+	let gradient: CanvasGradient;
+	let ctx: HTMLCanvasElement;
 
-	import Chart from 'chart.js/auto';
+	export let validatorWeights: [{ x?: Date; y?: number }];
+	export let isLoading = true;
 
-	import { onMount } from 'svelte';
+	$: if (!isLoading) {
+		validatorWeights?.length > 0 && renderChart(validatorWeights);
+	}
 
-	export let validatorWeights;
-
-	let chartElement;
-
-	onMount(() => {
-		if (window) {
-			const gradient = chartElement.getContext('2d').createLinearGradient(0, 0, 0, 1000);
+	const chartGradient = (ctx, chartArea) => {
+		const chartWidth = chartArea.right - chartArea.left;
+		const chartHeight = chartArea.bottom - chartArea.to;
+		if (!gradient || width !== chartWidth || height !== chartHeight) {
+			width = chartWidth;
+			height = chartHeight;
+			gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
 			gradient.addColorStop(0, '#099B91');
 			gradient.addColorStop(1, '#1737A3');
+			renderChart;
+		}
+		return gradient;
+	};
 
-			const myChart = new Chart(chartElement.getContext('2d'), {
-				type: 'line',
-				data: {
-					datasets: [
-						{
-							label: 'Staked',
-							data: validatorWeights,
-							backgroundColor: gradient,
-							borderWidth: 0,
-							fill: 'start',
-							pointStyle: 'circle',
-							pointRadius: 0
-						}
-					]
-				},
-				options: {
-					responsive: true,
-					scales: {
-						x: {
-							stacked: true,
-							grid: {
-								display: false
-							},
-							ticks: {
-								callback: function (val, index) {
-									const value = typeof val === 'number' ? this.getLabelForValue(val) : 0;
-									const date = new Date(value);
-									const monthNames = [
-										'January',
-										'February',
-										'March',
-										'April',
-										'May',
-										'June',
-										'July',
-										'August',
-										'September',
-										'October',
-										'November',
-										'December'
-									];
+	const renderChart = (chartData: [{ x?: Date; y?: number }]) => {
+		chart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				datasets: [
+					{
+						label: 'Staked',
+						data: chartData,
+						backgroundColor: (context) => {
+							const chart = context.chart;
+							const { ctx, chartArea } = chart;
 
-									return `${date.getDate()} ${monthNames[date.getMonth()]}`;
-								},
-								autoSkip: true,
-								maxTicksLimit: 20,
-								maxRotation: 0,
-								minRotation: 0
+							if (!chartArea) {
+								return;
 							}
+							return chartGradient(ctx, chartArea);
 						},
-						y: {
-							type: 'linear',
-							display: true,
-							position: 'left',
-							beginAtZero: false,
-							grid: {
-								drawOnChartArea: true
-							}
-						}
-					},
-					plugins: {
-						legend: {
+						borderColor: 'transparent',
+						borderWidth: 2,
+						fill: 'start',
+						pointStyle: 'circle',
+						pointRadius: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				interaction: {
+					mode: 'index',
+					intersect: false
+				},
+				scales: {
+					x: {
+						adapters: {
+							date: {}
+						},
+						type: 'time',
+						time: {
+							unit: 'day'
+						},
+						grid: {
 							display: false
 						},
-						filler: {
-							propagate: false
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 20,
+							maxRotation: 0,
+							minRotation: 0
+						}
+					},
+					y: {
+						type: 'linear',
+						display: true,
+						position: 'left',
+						beginAtZero: false,
+						grid: {
+							drawOnChartArea: true
+						}
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						enabled: false,
+						position: 'nearest'
+						// external: externalTooltipHandler
+					},
+					zoom: {
+						pan: {
+							enabled: true,
+							mode: 'xy',
+							threshold: 5
+						},
+						zoom: {
+							wheel: {
+								enabled: true
+							},
+							drag: {
+								enabled: false
+							},
+							pinch: {
+								enabled: true
+							},
+							mode: 'xy'
 						}
 					}
 				}
-			});
-		}
-	});
+			}
+		});
+	};
 </script>
 
 <div class="container">
@@ -95,8 +126,51 @@
 		<div class="color" />
 		<div class="text">Total Staked</div>
 	</div>
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.zoom(1.05);
+		}}>Zoom+</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.zoom(0.95);
+		}}>Zoom-</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			if (chart) {
+				// Disable panning
+				chart.options.plugins.zoom.pan.enabled = false;
+				// Enable Drag zoom
+				chart.options.plugins.zoom.zoom.drag.enabled = true;
+				chart.update();
+			}
+		}}>Drag Zoom</button
+	>
+	<button
+		type="button"
+		on:click={() => {
+			if (chart) {
+				// Disable drag zoom
+				chart.options.plugins.zoom.zoom.drag.enabled = false;
+				// Enable panning
+				chart.options.plugins.zoom.pan.enabled = true;
+				chart.update();
+			}
+		}}>Pan</button
+	>
+
+	<button
+		type="button"
+		on:click={() => {
+			chart && chart.resetZoom();
+		}}>Reset Zoom</button
+	>
 	<div class="chart">
-		<canvas bind:this={chartElement} />
+		<canvas bind:this={ctx} />
 	</div>
 </div>
 
