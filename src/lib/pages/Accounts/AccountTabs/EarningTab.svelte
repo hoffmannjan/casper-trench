@@ -90,7 +90,7 @@
 
 <style lang="postcss">
 	.earning {
-		@apply md:flex;
+		@apply md:flex md:justify-between;
 	}
 	.earnings-tab {
 		@apply md:min-w-[44.88vw];
