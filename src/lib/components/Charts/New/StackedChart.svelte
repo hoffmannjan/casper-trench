@@ -231,7 +231,6 @@
 	.legend {
 		@apply flex gap-[clamp(24px,1.79vw,1.79vw)] items-center;
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
-		@apply mb-[clamp(24px,1.79vw,1.79vw)];
 	}
 
 	.legend > div {
