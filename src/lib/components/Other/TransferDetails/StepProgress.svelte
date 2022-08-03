@@ -4,25 +4,25 @@
 	export let step: 0 | 1 | 2 | 3 = 0;
 	export let page = '';
 
-    let progressClass = "";
-    let iconClass = "";
+	let progressClass = '';
+	let iconClass = '';
 
 	$: switch (step) {
 		case 0:
-            progressClass = "w-[7vw]";
-            iconClass = "translate-x-[-0.5vw]"
+			progressClass = 'w-[7vw]';
+			iconClass = 'translate-x-[-0.5vw]';
 			break;
 		case 1:
-            progressClass = "w-[16.5vw]";
-            iconClass = "translate-x-[11vw]"
+			progressClass = 'w-[16.5vw]';
+			iconClass = 'translate-x-[11.5vw]';
 			break;
 		case 2:
-            progressClass = "w-[25.5vw]";
-            iconClass = "translate-x-[20.5vw]"
+			progressClass = 'w-[25.5vw]';
+			iconClass = 'translate-x-[20.75vw]';
 			break;
 		default:
-            progressClass = "w-full";
-            iconClass = "translate-x-[29.25vw]"
+			progressClass = 'w-full';
+			iconClass = 'translate-x-[29.25vw]';
 			break;
 	}
 </script>
@@ -35,10 +35,42 @@
 		<div class="progress {progressClass}" />
 	</div>
 	<div class="step-text">
-		<div class="text" class:selected={step === 0} on:click={() => {step = 0}}>{page}</div>
-		<div class="text" class:selected={step === 1} on:click={() => {step = 1}}>Confirm</div>
-		<div class="text" class:selected={step === 2} on:click={() => {step = 2}}>Sign</div>
-		<div class="text" class:selected={step === 3} on:click={() => {step = 3}}>Done</div>
+		<div
+			class="text"
+			class:selected={step === 0}
+			on:click={() => {
+				step = 0;
+			}}
+		>
+			{page}
+		</div>
+		<div
+			class="text"
+			class:selected={step === 1}
+			on:click={() => {
+				step = 1;
+			}}
+		>
+			Confirm
+		</div>
+		<div
+			class="text"
+			class:selected={step === 2}
+			on:click={() => {
+				step = 2;
+			}}
+		>
+			Sign
+		</div>
+		<div
+			class="text"
+			class:selected={step === 3}
+			on:click={() => {
+				step = 3;
+			}}
+		>
+			Done
+		</div>
 	</div>
 </div>
 
@@ -48,9 +80,9 @@
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}
 
-    .text {
-        @apply cursor-pointer;
-    }
+	.text {
+		@apply cursor-pointer;
+	}
 
 	.step-progress {
 		@apply flex items-center flex-col gap-[1.55vw];
@@ -70,11 +102,11 @@
 		@apply md:h-[1.07vw] md:w-[1.07vw];
 		@apply transform translate-y-[-0.5vw];
 		@apply absolute;
-        @apply transition-all;
+		@apply transition-all;
 	}
 
 	.progress {
-        @apply h-full bg-color-hover-footer-link;
-        @apply transition-all;
+		@apply h-full bg-color-hover-footer-link;
+		@apply transition-all;
 	}
 </style>

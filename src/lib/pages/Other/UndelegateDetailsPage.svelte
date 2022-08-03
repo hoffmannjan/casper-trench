@@ -2,15 +2,15 @@
 	import { goto } from '$app/navigation';
 
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
+	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 
 	import '../../../styles/custom.css';
 
-	let recipient = '';
+	let validator = '';
 	let amount = '';
-	let txID = '';
 	let sendMax = false;
-	let signedIn = true;
+	let signedIn = false;
 	let step: 0 | 1 | 2 | 3 = 0;
 
 	let csprFee = 0.1;
@@ -19,9 +19,9 @@
 
 <div class="transfer-details">
 	<div class="container">
-		<StepProgress page="Transfer Details" bind:step />
+		<StepProgress page="Undelegation details" bind:step />
 
-		<div class="title">Transfer Details</div>
+		<div class="title">Undelegation details</div>
 		{#if !signedIn}
 			<div class="sign-in-alert">
 				<div class="icon">
@@ -40,29 +40,23 @@
 
 		<div class="sender">
 			<div class="top">
-				<div>Sender</div>
+				<div>Account</div>
 				<div>Balance</div>
 			</div>
 			<div class="value">01c377281132044bd3278b039925eeb3efdb9d99dd5f46d9ec6a764add34581af7</div>
 		</div>
 
 		<div class="input-wrapper">
-			<div class="top">Recipient</div>
+			<div class="top">Validator</div>
 			<div class="input">
-				<input type="text" bind:value={recipient} placeholder="Enter address or contract" />
+				<input type="text" bind:value={validator} placeholder="Enter address or contract" />
 			</div>
 		</div>
-		<div class="warning">
-			<div class="header">
-				<div class="icon">
-					<YellowWarningIcon />
-				</div>
-				<div class="text">WARNING!</div>
+		<div class="search">
+			<div class="icon">
+				<SearchIcon grey />
 			</div>
-			<div class="info">
-				Please double check the accuracy of the recipient public key. Funds sent to an incorrect
-				public key cannot be recovered.
-			</div>
+			<div class="text">Search for a validator by public key</div>
 		</div>
 
 		<div class="input-wrapper">
@@ -73,14 +67,20 @@
 			</div>
 			<label>
 				<input type="checkbox" bind:checked={sendMax} />
-				Send max amount
+				Delegate max
 			</label>
 		</div>
 
-		<div class="input-wrapper">
-			<div class="top">Transfer ID (Memo)</div>
-			<div class="input">
-				<input type="number" bind:value={txID} placeholder="1234567890" />
+		<div class="warning">
+			<div class="header">
+				<div class="icon">
+					<YellowWarningIcon />
+				</div>
+				<div class="text">WARNING!</div>
+			</div>
+			<div class="info">
+				Delegating max will zero your liquid balance. You won’t be able to undergate, because
+				undelegation requires 2.5 CSPR minimum liquid balance.
 			</div>
 		</div>
 
@@ -93,7 +93,7 @@
 		</div>
 
 		<div class="terms">
-			By using Casper.info, you acknowledge that you have read, understood and accepted our. <span
+			By using CSPR.live, you acknowledge that you have read, understood and accepted our. <span
 				class="green">Terms of Service.</span
 			>
 		</div>
@@ -142,15 +142,6 @@
 		@apply flex items-center justify-between;
 	}
 
-	.input {
-		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
-		@apply rounded-[0.48vh] md:rounded-[0.48vw];
-		@apply flex items-center justify-between;
-		@apply mb-[clamp(4px,0.71vw,0.71vw)];
-		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-input-border;
-	}
-
 	.input-wrapper {
 		@apply mb-[clamp(16px,1.9vw,1.9vw)];
 	}
@@ -173,7 +164,8 @@
 	label,
 	.warning,
 	.left,
-	.cspr {
+	.cspr,
+	.search {
 		@apply text-color-grey-footer-label;
 	}
 
@@ -208,5 +200,23 @@
 
 	.right {
 		@apply text-right;
+	}
+
+	.input {
+		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
+		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
+		@apply rounded-[0.48vh] md:rounded-[0.48vw];
+		@apply flex items-center justify-between;
+		@apply mb-[clamp(4px,0.71vw,0.71vw)];
+		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-input-border;
+	}
+
+	.search {
+		@apply flex items-center gap-[clamp(4px,0.6vw,0.6vw)];
+		@apply mb-[clamp(16px,1.43vw,1.43vw)];
+	}
+
+	.search > .icon {
+		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
 	}
 </style>

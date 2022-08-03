@@ -1,23 +1,25 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-    
+
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
-    import SearchIcon from '$lib/icons/SearchIcon.svelte';
+	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
+
+	import '../../../styles/custom.css';
 
 	let validator = '';
 	let amount = '';
 	let sendMax = false;
-    let signedIn = false;
-    let step: 0 | 1 | 2 | 3 = 0;
+	let signedIn = false;
+	let step: 0 | 1 | 2 | 3 = 0;
 
-    let csprFee = 0.1;
-    let cashFee = 0.00257199;
+	let csprFee = 0.1;
+	let cashFee = 0.00257199;
 </script>
 
 <div class="transfer-details">
 	<div class="container">
-		<StepProgress page="Delegation details" bind:step/>
+		<StepProgress page="Delegation details" bind:step />
 
 		<div class="title">Delegation details</div>
 		{#if !signedIn}
@@ -50,14 +52,12 @@
 				<input type="text" bind:value={validator} placeholder="Enter address or contract" />
 			</div>
 		</div>
-        <div class="search">
-            <div class="icon">
-                <SearchIcon grey />
-            </div>
-            <div class="text">
-                Search for a validator by public key
-            </div>
-        </div>
+		<div class="search">
+			<div class="icon">
+				<SearchIcon grey />
+			</div>
+			<div class="text">Search for a validator by public key</div>
+		</div>
 
 		<div class="input-wrapper">
 			<div class="top">Amount</div>
@@ -71,7 +71,7 @@
 			</label>
 		</div>
 
-        <div class="warning">
+		<div class="warning">
 			<div class="header">
 				<div class="icon">
 					<YellowWarningIcon />
@@ -79,7 +79,8 @@
 				<div class="text">WARNING!</div>
 			</div>
 			<div class="info">
-				Delegating max will zero your liquid balance. You won’t be able to undergate, because undelegation requires 2.5 CSPR minimum liquid balance.
+				Delegating max will zero your liquid balance. You won’t be able to undergate, because
+				undelegation requires 2.5 CSPR minimum liquid balance.
 			</div>
 		</div>
 
@@ -164,7 +165,7 @@
 	.warning,
 	.left,
 	.cspr,
-    .search {
+	.search {
 		@apply text-color-grey-footer-label;
 	}
 
@@ -201,7 +202,7 @@
 		@apply text-right;
 	}
 
-    .input {
+	.input {
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
 		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
@@ -210,12 +211,12 @@
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-input-border;
 	}
 
-    .search {
-        @apply flex items-center gap-[clamp(4px,0.6vw,0.6vw)];
-        @apply mb-[clamp(16px,1.43vw,1.43vw)];
-    }
+	.search {
+		@apply flex items-center gap-[clamp(4px,0.6vw,0.6vw)];
+		@apply mb-[clamp(16px,1.43vw,1.43vw)];
+	}
 
-    .search > .icon {
-        @apply  w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
-    }
+	.search > .icon {
+		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+	}
 </style>
