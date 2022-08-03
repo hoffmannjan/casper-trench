@@ -1,5 +1,5 @@
 <script>
-	import DelegateDetailsPage from '$lib/pages/Other/DelegateDetailsPage.svelte';
+	import DelegateDetailsPage from '$lib/pages/Wallet/DelegateDetailsPage.svelte';
 </script>
 
 <DelegateDetailsPage />
