@@ -24,3 +24,9 @@
 .button-border-gradient {
 	background: linear-gradient(279.34deg, #1737a380 -24.82%, #099b9180 96.63%);
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}

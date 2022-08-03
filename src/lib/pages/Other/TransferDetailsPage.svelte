@@ -4,6 +4,8 @@
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 
+	import "../../../styles/custom.css";
+
 	let recipient = '';
 	let amount = '';
 	let txID = '';
