@@ -1,195 +1,104 @@
-<script>
-	import { onMount } from 'svelte';
-
-	export let transfersData = [];
-	export let transactionsData = [];
-
-	export let isLoading = true;
-	let chartElement;
-
-	let innerWidth;
+<script lang="ts">
+import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
+	let ctx: HTMLCanvasElement;
 	let chart;
-	onMount(() => {
-		let options = {
-			chart: {
-				type: 'bar',
-				stacked: true,
-				toolbar: {
-					show: true,
-					offsetY: -12
+
+	export let transfersData: [{ x?: Date; y?: number }];
+	export let transactionsData: [{ x?: Date; y?: number }];
+	export let isLoading = true;
+
+	$: if (!isLoading) {
+		transfersData?.length > 0 &&
+			transactionsData?.length > 0 &&
+			renderChart(transfersData, transactionsData);
+	}
+	const renderChart = (
+		chartData1: [{ x?: Date; y?: number }],
+		chartData2: [{ x?: Date; y?: number }]
+	) => {
+		chart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				datasets: [
+					{
+						label: 'Transfers',
+						data: chartData1,
+						backgroundColor: '#0021A5',
+						borderColor: '#0021A5',
+						borderWidth: 2,
+					},
+					{
+						label: 'Transactions',
+						data: chartData2,
+						backgroundColor: '#099B91',
+						borderColor: '#099B91',
+						borderWidth: 2,
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				interaction: {
+					mode: 'index',
+					intersect: false
 				},
-				zoom: {
-					enabled: true,
-					zoomedArea: {
-						fill: {
-							color: '#099B91',
-							opacity: 0.4
+				scales: {
+					x: {
+						adapters: {
+							date: {}
 						},
-						stroke: {
-							color: '#099B91',
-							opacity: 0.4,
-							width: 1
+						type: 'time',
+						time: {
+							unit: 'day'
+						},
+						stacked: true,
+						grid: {
+							display: false
+						},
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 20,
+							maxRotation: 0,
+							minRotation: 0
+						}
+					},
+					y: {
+						stacked: true
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						enabled: false,
+						position: 'nearest'
+						// external: externalTooltipHandler
+					},
+					zoom: {
+						pan: {
+							enabled: true,
+							mode: 'x',
+							threshold: 5
+						},
+						zoom: {
+							wheel: {
+								enabled: true
+							},
+							drag: {
+								enabled: false
+							},
+							pinch: {
+								enabled: true
+							},
+							mode: 'x'
 						}
 					}
-				},
-				height: '100%',
-				width: `${innerWidth * 0.75}px`
-			},
-			dataLabels: {
-				enabled: false
-			},
-			stroke: {
-				width: [0, 0]
-			},
-			series: [
-				{
-					name: 'Transfers',
-					data: transfersData
-				},
-				{
-					name: 'Transactions',
-					data: transactionsData
-				}
-			],
-			xaxis: {
-				type: 'datetime',
-				axisBorder: {
-					show: true
-				},
-				axisTicks: {
-					show: true
-				},
-				labels: {
-					datetimeFormatter: {
-						year: 'yyyy',
-						month: 'MMM yy',
-						day: 'dd MMM',
-						hour: 'HH:mm'
-					},
-					style: {
-						fontSize: '0.83vw',
-						colors: '#8F9398'
-					}
-				},
-				tickAmount: 3
-			},
-			yaxis: {
-				labels: {
-					style: {
-						fontSize: '0.83vw',
-						colors: ['#8F9398']
-					},
-					formatter: (value) => {
-						return value.toLocaleString();
-					}
-				},
-				tickAmount: 5
-			},
-			legend: {
-				show: false
-			},
-			colors: ['#0021A5', '#099B91'],
-			tooltip: {
-				enabled: true,
-				followCursor: true,
-				intersect: false,
-				style: {
-					fontSize: '0.83vw'
-				},
-				x: {
-					show: false,
-					format: 'dddd, d MMM, HH:mm'
-				},
-				y: {
-					formatter: (value) => {
-						return value.toLocaleString();
-					}
-				},
-				custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-					const monthNames = [
-						'January',
-						'February',
-						'March',
-						'April',
-						'May',
-						'June',
-						'July',
-						'August',
-						'September',
-						'October',
-						'November',
-						'December'
-					];
-					const date = new Date(w.globals.seriesX[seriesIndex][dataPointIndex]);
-
-					return (
-						'<div style="padding: clamp(4px, 0.83vw, 0.83vw); font-size: clamp(10px,0.83vw,0.83vw)">' +
-						'<div style="font-weight: bold;">' +
-						String(date.getDate()).padStart(2, '0') +
-						' ' +
-						monthNames[date.getMonth()] +
-						'</div>' +
-						'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
-						'<span style="display: flex; align-items: center;">' +
-						'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
-						w.globals.colors[0] +
-						';"></div>' +
-						w.globals.initialSeries[0].name +
-						' : ' +
-						'</span>' +
-						'<span style="font-weight: bold;">' +
-						series[0][dataPointIndex].toLocaleString() +
-						'</span>' +
-						'</div>' +
-						'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
-						'<span style="display: flex; align-items: center;">' +
-						'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
-						w.globals.colors[1] +
-						';"></div>' +
-						w.globals.initialSeries[1].name +
-						' : ' +
-						'</span>' +
-						'<span style="font-weight: bold;">' +
-						transactionsData[dataPointIndex][1].toLocaleString() +
-						'</span>' +
-						'</div>' +
-						'</div>'
-					);
-				}
-			},
-			grid: {
-				xaxis: {
-					lines: {
-						show: false
-					}
-				},
-				yaxis: {
-					lines: {
-						show: true
-					}
 				}
 			}
-		};
-
-		// @ts-ignore
-		chart = new ApexCharts(chartElement, options);
-		chart.render();
-	});
-	$: if (!isLoading) {
-		chart?.updateSeries([
-			{
-				name: 'Transfers',
-				data: transfersData
-			},
-			{
-				name: 'Transactions',
-				data: transactionsData
-			}
-		]);
-	}
+		});
+	};
 </script>
-
-<svelte:window bind:innerWidth />
 
 <div class="container">
 	<div class="title">Transactions</div>
@@ -203,7 +112,10 @@
 			<div class="text">Transactions</div>
 		</div>
 	</div>
-	<div class="chart" bind:this={chartElement} />
+	<ChartToolbar {chart}/>
+	<div class="chart">
+		<canvas bind:this={ctx} />
+	</div>
 </div>
 
 <style lang="postcss">
@@ -213,7 +125,7 @@
 	}
 
 	.container {
-		@apply md:h-[32vw] min-w-max;
+		@apply min-w-max;
 		@apply flex flex-col items-center justify-center;
 		@apply my-[clamp(16px,0.95vw,0.95vw)];
 	}

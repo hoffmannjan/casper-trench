@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ComboChart from '$lib/components/Charts/New/ComboChart.svelte';
-	import StackedChart from '$lib/components/Charts/New/StackedChart.svelte';
-	import AreaChart from '$lib/components/Charts/New/AreaChart.svelte';
-	import PoNegAreaChart from '$lib/components/Charts/New/PoNegAreaChart.svelte';
+	import ComboChart from '$lib/components/Charts/ComboChart.svelte';
+	import StackedChart from '$lib/components/Charts/StackedChart.svelte';
+	import AreaChart from '$lib/components/Charts/AreaChart.svelte';
+	import PoNegAreaChart from '$lib/components/Charts/PoNegAreaChart.svelte';
 	import { getEraData, getLatestBlocks, getMarketPrices } from '$utils/api';
 	import type { Block } from '$utils/types/block';
 	import type { EraData } from '$utils/types/era';
