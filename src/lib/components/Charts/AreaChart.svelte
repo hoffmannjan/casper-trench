@@ -1,200 +1,126 @@
-<script>
-	import { onMount } from 'svelte';
-	let chartElement;
-	let innerWidth;
+<script lang="ts">
+	import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
+
+	let height = 0;
+	let width = 0;
 	let chart;
-	export let validatorWeights = [];
+	let gradient: CanvasGradient;
+	let ctx: HTMLCanvasElement;
+
+	export let validatorWeights: [{ x?: Date; y?: number }];
 	export let isLoading = true;
-	onMount(() => {
-		let options = {
-			chart: {
-				type: 'area',
-				toolbar: {
-					show: true,
-					offsetY: -12
-				},
-				zoom: {
-					enabled: true,
-					zoomedArea: {
-						fill: {
-							color: '#099B91',
-							opacity: 0.4
-						},
-						stroke: {
-							color: '#099B91',
-							opacity: 0.4,
-							width: 1
-						}
-					}
-				},
-				height: '100%',
-				width: `${innerWidth * 0.75}px`
-			},
-			fill: {
-				gradient: {
-					shade: 'dark',
-					type: 'vertical',
-					shadeIntensity: 0.5,
-					gradientToColors: '#1737A3',
-					inverseColors: true,
-					opacityFrom: 0.8,
-					opacityTo: 0.8,
-					stops: [0, 100],
-					colorStops: [
-						{
-							offset: 20,
-							color: '#099B91',
-							opacity: 0.8
-						},
-						{
-							offset: 100,
-							color: '#1737A3',
-							opacity: 0.8
-						}
-					]
-				}
-			},
-			dataLabels: {
-				enabled: false
-			},
-			stroke: {
-				curve: 'straight',
-				width: 0
-			},
-			series: [
-				{
-					name: 'Total Staked',
-					data: validatorWeights
-				}
-			],
-			xaxis: {
-				type: 'datetime',
-				axisBorder: {
-					show: true
-				},
-				axisTicks: {
-					show: false
-				},
-				labels: {
-					formatter: (value) => {
-						const monthNames = [
-							'January',
-							'February',
-							'March',
-							'April',
-							'May',
-							'June',
-							'July',
-							'August',
-							'September',
-							'October',
-							'November',
-							'December'
-						];
-						let date = new Date(value);
-						return `${date.getDate()} ${monthNames[date.getMonth()]}`;
-					},
-					style: {
-						fontSize: '0.83vw',
-						colors: '#CFCFCF'
-					},
-					offsetX: 8
-				}
-			},
-			yaxis: {
-				labels: {
-					formatter: (value) => {
-						return `${Math.round(value / 1000)}k`;
-					},
-					style: {
-						fontSize: '0.83vw',
-						colors: ['#8F9398']
-					},
-					offsetX: -16
-				},
-				tickAmount: 6
-			},
-			tooltip: {
-				enabled: true,
-				style: {
-					fontSize: '0.83vw'
-				},
-				x: {
-					show: false,
-					format: 'dddd, d MMM, HH:mm'
-				},
-				y: {
-					formatter: (value) => {
-						return value.toLocaleString();
-					}
-				},
-				custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-					const monthNames = [
-						'January',
-						'February',
-						'March',
-						'April',
-						'May',
-						'June',
-						'July',
-						'August',
-						'September',
-						'October',
-						'November',
-						'December'
-					];
-					const date = new Date(w.globals.seriesX[seriesIndex][dataPointIndex]);
 
-					return (
-						'<div style="padding: clamp(4px, 0.83vw, 0.83vw); font-size: clamp(10px,0.83vw,0.83vw)">' +
-						'<div style="font-weight: bold;">' +
-						String(date.getDate()).padStart(2, '0') +
-						' ' +
-						monthNames[date.getMonth()] +
-						'</div>' +
-						'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
-						'<span style="display: flex; align-items: center;">' +
-						'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background: linear-gradient(180deg, #099B91 0%, #1737A3 100%);"></div>' +
-						w.globals.initialSeries[seriesIndex].name +
-						' : ' +
-						'</span>' +
-						'<span style="font-weight: bold;">' +
-						series[seriesIndex][dataPointIndex].toLocaleString() +
-						'</span>' +
-						'</div>' +
-						'</div>'
-					);
-				}
-			},
-			grid: {
-				xaxis: {
-					lines: {
-						show: false
-					}
-				},
-				yaxis: {
-					lines: {
-						show: true
-					}
-				}
-			}
-		};
-
-		// @ts-ignore
-		chart = new ApexCharts(chartElement, options);
-		chart.render();
-	});
 	$: if (!isLoading) {
-		chart?.updateSeries([
-			{
-				name: 'Total Staked',
-				data: validatorWeights
-			}
-		]);
+		validatorWeights?.length > 0 && renderChart(validatorWeights);
 	}
-</script>
 
-<svelte:window bind:innerWidth />
+	const chartGradient = (ctx, chartArea) => {
+		const chartWidth = chartArea.right - chartArea.left;
+		const chartHeight = chartArea.bottom - chartArea.to;
+		if (!gradient || width !== chartWidth || height !== chartHeight) {
+			width = chartWidth;
+			height = chartHeight;
+			gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+			gradient.addColorStop(0, '#099B91');
+			gradient.addColorStop(1, '#1737A3');
+			renderChart;
+		}
+		return gradient;
+	};
+
+	const renderChart = (chartData: [{ x?: Date; y?: number }]) => {
+		chart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				datasets: [
+					{
+						label: 'Staked',
+						data: chartData,
+						backgroundColor: (context) => {
+							const chart = context.chart;
+							const { ctx, chartArea } = chart;
+
+							if (!chartArea) {
+								return;
+							}
+							return chartGradient(ctx, chartArea);
+						},
+						borderColor: 'transparent',
+						borderWidth: 2,
+						fill: 'start',
+						pointStyle: 'circle',
+						pointRadius: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				interaction: {
+					mode: 'index',
+					intersect: false
+				},
+				scales: {
+					x: {
+						adapters: {
+							date: {}
+						},
+						type: 'time',
+						time: {
+							unit: 'day'
+						},
+						grid: {
+							display: false
+						},
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 20,
+							maxRotation: 0,
+							minRotation: 0
+						}
+					},
+					y: {
+						type: 'linear',
+						display: true,
+						position: 'left',
+						beginAtZero: false,
+						grid: {
+							drawOnChartArea: true
+						}
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						enabled: false,
+						position: 'nearest'
+						// external: externalTooltipHandler
+					},
+					zoom: {
+						pan: {
+							enabled: true,
+							mode: 'x',
+							threshold: 5
+						},
+						zoom: {
+							wheel: {
+								enabled: true
+							},
+							drag: {
+								enabled: false
+							},
+							pinch: {
+								enabled: true
+							},
+							mode: 'x'
+						}
+					}
+				}
+			}
+		});
+	};
+</script>
 
 <div class="container">
 	<div class="title">Validators Weights</div>
@@ -202,7 +128,10 @@
 		<div class="color" />
 		<div class="text">Total Staked</div>
 	</div>
-	<div class="chart" bind:this={chartElement} />
+	<ChartToolbar {chart}/>
+	<div class="chart">
+		<canvas bind:this={ctx} />
+	</div>
 </div>
 
 <style lang="postcss">
@@ -212,7 +141,7 @@
 	}
 
 	.container {
-		@apply md:h-[32vw] min-w-max;
+		@apply min-w-max;
 		@apply flex flex-col items-center justify-center;
 		@apply my-[clamp(16px,0.95vw,0.95vw)];
 	}
