@@ -1,22 +1,22 @@
 <script>
 	import Button from '$lib/components/Reusables/Button.svelte';
-import CloudDownloadIcon from '$lib/icons/CloudDownloadIcon.svelte';
-import Smudge from '$lib/icons/Smudge.svelte';
+	import CloudDownloadIcon from '$lib/icons/CloudDownloadIcon.svelte';
+	import Smudge from '$lib/icons/Smudge.svelte';
 
-    const wallets = [
-        {
-            name: "Casper Signer",
-            info: "Connect and sign in via Google Chrome extension"
-        },
-        {
-            name: "Ledger",
-            info: "Connect and sign in with your Ledger wallet"
-        },
-        {
-            name: "Torus Wallet",
-            info: "Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more)."
-        },
-    ]
+	const wallets = [
+		{
+			name: 'Casper Signer',
+			info: 'Connect and sign in via Google Chrome extension'
+		},
+		{
+			name: 'Ledger',
+			info: 'Connect and sign in with your Ledger wallet'
+		},
+		{
+			name: 'Torus Wallet',
+			info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
+		}
+	];
 </script>
 
 <div class="sign-in-page">
@@ -26,31 +26,30 @@ import Smudge from '$lib/icons/Smudge.svelte';
 
 	{#each wallets as wallet}
 		<div class="container">
-            <img src="/images/png/{wallet.name.toLowerCase().replace(" ", "-")}.png" alt={wallet.name.toLowerCase().replace(" ", "-")}>
-            <div class="title">
-                {wallet.name}
-            </div>
-            <div class="info">
-                {wallet.info}
-            </div>
-            <div class="button">
-                <Button gradient wide>
-                    {wallet.name.toLowerCase().includes('ledger') ? "Connect" : "Sign In"}
-                </Button>
-            </div>
-            {#if wallet.name.toLowerCase().includes('casper')}
-                    <div class="download" on:click={() => {
-
-                    }}>
-                        <div class="icon">
-                            <CloudDownloadIcon />
-                        </div>
-                        <div class="text">
-                            Download Signer
-                        </div>
-                    </div>
-                {/if}
-        </div>
+			<img
+				src="/images/png/{wallet.name.toLowerCase().replace(' ', '-')}.png"
+				alt={wallet.name.toLowerCase().replace(' ', '-')}
+			/>
+			<div class="title">
+				{wallet.name}
+			</div>
+			<div class="info">
+				{wallet.info}
+			</div>
+			<div class="button">
+				<Button gradient wide>
+					{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
+				</Button>
+			</div>
+			{#if wallet.name.toLowerCase().includes('casper')}
+				<div class="download" on:click={() => {}}>
+					<div class="icon">
+						<CloudDownloadIcon />
+					</div>
+					<div class="text">Download Signer</div>
+				</div>
+			{/if}
+		</div>
 	{/each}
 </div>
 
@@ -67,26 +66,26 @@ import Smudge from '$lib/icons/Smudge.svelte';
 		@apply shadow-[0px_0px_11px] shadow-color-shadow-black;
 		@apply flex flex-col items-center;
 		@apply bg-white;
-        @apply relative;
+		@apply relative;
 	}
 
-    img {
-        @apply w-[7.38vh] h-[7.38vh] md:w-[7.38vw] md:h-[7.38vw];
-        @apply mb-[clamp(16px,1.19vw,1.19vw)];
-    }
+	img {
+		@apply w-[7.38vh] h-[7.38vh] md:w-[7.38vw] md:h-[7.38vw];
+		@apply mb-[clamp(16px,1.19vw,1.19vw)];
+	}
 
-    .title {
-        @apply text-[clamp(20px,1.43vw,1.43vw)] text-color-table-header font-medium;
-    }
+	.title {
+		@apply text-[clamp(20px,1.43vw,1.43vw)] text-color-table-header font-medium;
+	}
 
-    .info {
-        @apply text-[clamp(16px,1.07vw,1.07vw)] text-color-grey-footer-label text-center;
-        @apply md:max-w-[17vw];
-    }
+	.info {
+		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-grey-footer-label text-center;
+		@apply md:max-w-[17vw];
+	}
 
-    .button {
-        @apply md:absolute md:bottom-[6vw];
-    }
+	.button {
+		@apply md:absolute md:bottom-[6vw];
+	}
 
 	.bg-special {
 		@apply absolute;
@@ -95,17 +94,17 @@ import Smudge from '$lib/icons/Smudge.svelte';
 		@apply md:w-[90vw];
 	}
 
-    .download {
-        @apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
-    }
+	.download {
+		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
+	}
 
-    .icon {
-        @apply h-[0.95vh] w-[0.95vh] md:h-[0.95vw] md:w-[0.95vw];
-    }
+	.icon {
+		@apply h-[0.95vh] w-[0.95vh] md:h-[0.95vw] md:w-[0.95vw];
+	}
 
-    .download {
-        @apply md:absolute md:bottom-[3vw];
-        @apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link;
-        @apply cursor-pointer;
-    }
+	.download {
+		@apply md:absolute md:bottom-[3vw];
+		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link;
+		@apply cursor-pointer;
+	}
 </style>

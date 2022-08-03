@@ -5,7 +5,7 @@
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 
-	import "../../../styles/custom.css";
+	import '../../../styles/custom.css';
 
 	let validator = '';
 	let amount = '';

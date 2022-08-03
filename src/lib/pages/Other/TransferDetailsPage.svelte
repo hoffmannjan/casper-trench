@@ -1,25 +1,25 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-    
+
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 
-	import "../../../styles/custom.css";
+	import '../../../styles/custom.css';
 
 	let recipient = '';
 	let amount = '';
 	let txID = '';
 	let sendMax = false;
-    let signedIn = true;
-    let step: 0 | 1 | 2 | 3 = 0;
+	let signedIn = true;
+	let step: 0 | 1 | 2 | 3 = 0;
 
-    let csprFee = 0.1;
-    let cashFee = 0.00257199;
+	let csprFee = 0.1;
+	let cashFee = 0.00257199;
 </script>
 
 <div class="transfer-details">
 	<div class="container">
-		<StepProgress page="Transfer Details" bind:step/>
+		<StepProgress page="Transfer Details" bind:step />
 
 		<div class="title">Transfer Details</div>
 		{#if !signedIn}
