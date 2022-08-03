@@ -137,7 +137,7 @@
 
 	.container {
 		@apply min-w-max max-w-[37.86vw];
-		@apply flex flex-col items-center justify-center;
+		@apply flex flex-col items-center;
 		@apply my-[clamp(16px,0.95vw,0.95vw)];
 	}
 
