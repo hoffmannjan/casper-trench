@@ -50,9 +50,6 @@
 							date: {}
 						},
 						type: 'time',
-						time: {
-							unit: 'day'
-						},
 						grid: {
 							display: false,
 							drawBorder: false
