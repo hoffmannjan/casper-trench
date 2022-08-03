@@ -27,7 +27,9 @@
 				<tr>
 					<td class="label"> Public Key </td>
 					<td class="value key">
-						{proof.public_key || ''}
+						<a href="/accounts/{proof.public_key}">
+							{proof.public_key || ''}
+						</a>
 					</td>
 				</tr>
 				<tr>

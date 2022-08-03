@@ -53,9 +53,9 @@
 					<td>
 						<div class="right-flex">
 							<FromToAccountHash
-								isFrom
 								cspr={parseStringValue(transfer.from_balance)}
 								hash={transfer.from_address}
+								link="/accounts/{transfer.from_address}"
 							/>
 						</div>
 					</td>
