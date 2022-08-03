@@ -1,15 +1,16 @@
 <script lang="ts">
-	import AreaChart from '$lib/components/Charts/AreaChart.svelte';
-	import ComboChart from '$lib/components/Charts/ComboChart.svelte';
-	import PoNegAreaChart from '$lib/components/Charts/PoNegAreaChart.svelte';
-	import StackedChart from '$lib/components/Charts/StackedChart.svelte';
+	import ComboChart from '$lib/components/Charts/New/ComboChart.svelte';
+	// import StackedChart from '$lib/components/Charts/StackedChart.svelte';
+	import StackedChart from '$lib/components/Charts/New/StackedChart.svelte';
+	import AreaChart from '$lib/components/Charts/New/AreaChart.svelte';
+	import PoNegAreaChart from '$lib/components/Charts/New/PoNegAreaChart.svelte';
 	// import { isLoading } from '$stores/loading';
-	import SvelteLoader from '$components/SvelteLoader/index.svelte';
 	import { getEraData, getLatestBlocks, getMarketPrices } from '$utils/api';
 	import type { Block } from '$utils/types/block';
 	import type { EraData } from '$utils/types/era';
 	import { onMount } from 'svelte';
 	import type { MarketPrices } from '$utils/types/price';
+
 	let eraData: EraData[];
 	let transfersData = [];
 	let transactionsData = [];
@@ -27,34 +28,40 @@
 		marketPrices = await getMarketPrices();
 		eraData &&
 			eraData.forEach((data) => {
-				transfersData.push([data.end, data.transfersCount]);
-				transactionsData.push([data.end, data.deploysCount]);
-				delegatedData.push([data.end, data.stakedThisEra]);
-				unbondedData.push([data.end, -data.undelegatedThisEra]);
-				validatorWeights.push([data.end, data.validatorsWeights]);
+				transfersData.push({x: data.end, y: data.transfersCount});
+				transactionsData.push({x: data.end, y: data.deploysCount});
+				delegatedData.push({x: data.end, y: data.stakedThisEra});
+				unbondedData.push({x: data.end, y: -data.undelegatedThisEra});
+				validatorWeights.push({x: data.end, y: data.validatorsWeights});
 			});
 		marketPrices &&
 			marketPrices.forEach((price) => {
-				priceData.push([price.date, price.close]);
-				volumeData.push([price.date, price.volumeTo]);
+				priceData.push({x: price.date, y: price.close});
+				volumeData.push({x: price.date, y: price.volumeTo});
 			});
 		isLoading = false;
 	});
 </script>
 
 <div class="charts-page">
-	<div class:loading={isLoading} class="wrapper">
-		<StackedChart {transfersData} {transactionsData} bind:isLoading />
-	</div>
-	<div class:loading={isLoading} class="wrapper">
-		<ComboChart {priceData} {volumeData} bind:isLoading />
-	</div>
-	<div class:loading={isLoading} class="wrapper">
-		<PoNegAreaChart {delegatedData} {unbondedData} bind:isLoading />
-	</div>
-	<div class:loading={isLoading} class="wrapper">
-		<AreaChart {validatorWeights} bind:isLoading />
-	</div>
+	{#if !isLoading}
+		<div class:loading={isLoading} class="wrapper">
+			<StackedChart {transfersData} {transactionsData} />
+			<!-- <StackedChart {transfersData} {transactionsData} bind:isLoading /> -->
+		</div>
+		<div class:loading={isLoading} class="wrapper">
+			<!-- <ComboChart {priceData} {volumeData} bind:isLoading /> -->
+			<ComboChart {priceData} {volumeData} />
+		</div>
+		<div class:loading={isLoading} class="wrapper">
+			<PoNegAreaChart {delegatedData} {unbondedData} />
+			<!-- <PoNegAreaChart {delegatedData} {unbondedData} bind:isLoading /> -->
+		</div>
+		<div class:loading={isLoading} class="wrapper">
+			<AreaChart {validatorWeights} />
+			<!-- <AreaChart {validatorWeights} bind:isLoading /> -->
+		</div>
+	{/if}
 </div>
 
 <style lang="postcss">
