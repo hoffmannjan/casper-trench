@@ -10,13 +10,13 @@
 	import type { EraData } from '$utils/types/era';
 	import { onMount } from 'svelte';
 	import type { MarketPrices } from '$utils/types/price';
-
+	
 	let eraData: EraData[];
 	let transfersData = [];
 	let transactionsData = [];
 	let delegatedData = [];
 	let unbondedData = [];
-	let validatorWeights = [];
+	let validatorWeights: [{ x?: Date; y?: number }] = [{}];
 	let priceData = [];
 	let volumeData = [];
 	let marketPrices: MarketPrices[];
@@ -32,7 +32,7 @@
 				transactionsData.push({x: data.end, y: data.deploysCount});
 				delegatedData.push({x: data.end, y: data.stakedThisEra});
 				unbondedData.push({x: data.end, y: -data.undelegatedThisEra});
-				validatorWeights.push({x: data.end, y: data.validatorsWeights});
+				validatorWeights.push({x: new Date(data.end), y: data.validatorsWeights});
 			});
 		marketPrices &&
 			marketPrices.forEach((price) => {
@@ -45,20 +45,17 @@
 
 <div class="charts-page">
 	{#if !isLoading}
-		<div class:loading={isLoading} class="wrapper">
-			<StackedChart {transfersData} {transactionsData} />
-			<!-- <StackedChart {transfersData} {transactionsData} bind:isLoading /> -->
+		<!-- <div class:loading={isLoading} class="wrapper">
+			<StackedChart {transfersData} {transactionsData} bind:isLoading/>
 		</div>
 		<div class:loading={isLoading} class="wrapper">
-			<!-- <ComboChart {priceData} {volumeData} bind:isLoading /> -->
-			<ComboChart {priceData} {volumeData} />
+			<ComboChart {priceData} {volumeData} bind:isLoading/>
 		</div>
 		<div class:loading={isLoading} class="wrapper">
-			<PoNegAreaChart {delegatedData} {unbondedData} />
-			<!-- <PoNegAreaChart {delegatedData} {unbondedData} bind:isLoading /> -->
-		</div>
+			<PoNegAreaChart {delegatedData} {unbondedData} bind:isLoading/>
+		</div> -->
 		<div class:loading={isLoading} class="wrapper">
-			<AreaChart {validatorWeights} />
+			<AreaChart {validatorWeights} bind:isLoading/>
 			<!-- <AreaChart {validatorWeights} bind:isLoading /> -->
 		</div>
 	{/if}
