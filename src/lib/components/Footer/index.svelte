@@ -22,7 +22,7 @@
 				<a href="/" class="link"> Privacy Policy </a>
 			</div>
 			<div class="links">
-				<div class="title">About Casper.trench</div>
+				<div class="title">About Casper.info</div>
 				<a href="/" class="link"> Github </a>
 				<a href="/" class="link"> License </a>
 				<a href="/" class="link"> Changelog </a>
@@ -84,7 +84,7 @@
 	}
 
 	.casper-live > .logo {
-		@apply h-[clamp(25px,2.44vw,2.44vw)] w-[clamp(90px,10.42vw,10.42vw)];
+		@apply h-[clamp(25px,2.44vw,2.44vw)] w-[clamp(90px,9vw,9vw)];
 		@apply mb-[clamp(16px,2.26vw,2.26vw)];
 	}
 

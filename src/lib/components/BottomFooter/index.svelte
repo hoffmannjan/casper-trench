@@ -1,7 +1,7 @@
 <div class="bottom-footer">
 	<img src="/images/png/b-footer-bg.png" alt="bg" class="bg" draggable="false" />
 	<div class="versions">
-		<div>Casper.trench version: 1.10.0 (4287b143)</div>
+		<div>Casper.info version: 1.10.0 (4287b143)</div>
 		<div>Casper Network Node version: 1.4.6 (72b698e89)</div>
 		<div>Quote Data provided by CoinGecko API</div>
 	</div>
