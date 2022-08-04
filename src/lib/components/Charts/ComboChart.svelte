@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PriceLegendIcon from '$lib/icons/PriceLegendIcon.svelte';
+	import { externalTooltipHandler } from '$utils/tooltip';
 	import ChartToolbar from './ChartToolbar.svelte';
 
 	let ctx: HTMLCanvasElement;
@@ -81,19 +82,22 @@
 						ticks: {
 							callback: function (val, index) {
 								const lookup = [
-									{ value: 1, symbol: "" },
-									{ value: 1e3, symbol: "k" },
-									{ value: 1e6, symbol: "M" },
-									{ value: 1e9, symbol: "G" },
-									{ value: 1e12, symbol: "T" },
-									{ value: 1e15, symbol: "P" },
-									{ value: 1e18, symbol: "E" }
+									{ value: 1, symbol: '' },
+									{ value: 1e3, symbol: 'k' },
+									{ value: 1e6, symbol: 'M' },
+									{ value: 1e9, symbol: 'G' },
+									{ value: 1e12, symbol: 'T' },
+									{ value: 1e15, symbol: 'P' },
+									{ value: 1e18, symbol: 'E' }
 								];
 								const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-								var item = lookup.slice().reverse().find(function(item) {
-									return val >= item.value;
-								});
-								return item ? (val / item.value).toFixed(2).replace(rx, "$1") + item.symbol : "0";
+								var item = lookup
+									.slice()
+									.reverse()
+									.find(function (item) {
+										return val >= item.value;
+									});
+								return item ? (val / item.value).toFixed(2).replace(rx, '$1') + item.symbol : '0';
 							}
 						}
 					},
@@ -118,8 +122,9 @@
 					},
 					tooltip: {
 						enabled: false,
-						position: 'nearest'
-						// external: externalTooltipHandler
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16
 					},
 					zoom: {
 						pan: {
@@ -162,9 +167,12 @@
 			<div class="text">Volume</div>
 		</div>
 	</div>
-	<ChartToolbar {chart} on:update-cursor={() => {
-		pan = chart.options.plugins.zoom.pan.enabled
-	}}/>
+	<ChartToolbar
+		{chart}
+		on:update-cursor={() => {
+			pan = chart.options.plugins.zoom.pan.enabled;
+		}}
+	/>
 	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>

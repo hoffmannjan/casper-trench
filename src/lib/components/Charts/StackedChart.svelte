@@ -1,5 +1,6 @@
 <script lang="ts">
-import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
+	import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
+	import { externalTooltipHandler } from '$utils/tooltip';
 	let ctx: HTMLCanvasElement;
 	let chart;
 
@@ -72,8 +73,9 @@ import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
 					},
 					tooltip: {
 						enabled: false,
-						position: 'nearest'
-						// external: externalTooltipHandler
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16
 					},
 					zoom: {
 						pan: {

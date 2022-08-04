@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
+	import { externalTooltipHandler } from '$utils/tooltip';
 
 	let height = 0;
 	let width = 0;
@@ -94,8 +95,9 @@
 					},
 					tooltip: {
 						enabled: false,
-						position: 'nearest'
-						// external: externalTooltipHandler
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16
 					},
 					zoom: {
 						pan: {
