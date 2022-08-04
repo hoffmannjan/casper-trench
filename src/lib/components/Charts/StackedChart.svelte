@@ -1,5 +1,5 @@
 <script lang="ts">
-import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
+	import ChartToolbar from '$components/Charts/ChartToolbar.svelte';
 	let ctx: HTMLCanvasElement;
 	let chart;
 
@@ -25,14 +25,14 @@ import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
 						data: chartData1,
 						backgroundColor: '#0021A5',
 						borderColor: '#0021A5',
-						borderWidth: 2,
+						borderWidth: 2
 					},
 					{
 						label: 'Transactions',
 						data: chartData2,
 						backgroundColor: '#099B91',
 						borderColor: '#099B91',
-						borderWidth: 2,
+						borderWidth: 2
 					}
 				]
 			},
@@ -112,7 +112,7 @@ import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
 			<div class="text">Transactions</div>
 		</div>
 	</div>
-	<ChartToolbar {chart}/>
+	<ChartToolbar {chart} />
 	<div class="chart">
 		<canvas bind:this={ctx} />
 	</div>

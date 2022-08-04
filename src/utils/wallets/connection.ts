@@ -1,7 +1,7 @@
 import { account } from '$stores/account';
 import { CLPublicKey } from 'casper-js-sdk';
 
-export const connectCasperSigner = async () => {
+export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'casper-test') => {
 	if (await window.casperlabsHelper.isConnected()) {
 		window.casperlabsHelper
 			.getActivePublicKey()
@@ -9,14 +9,7 @@ export const connectCasperSigner = async () => {
 				const accountHash = CLPublicKey.fromHex(publicKey)
 					.toAccountHashStr()
 					.substring('account-hash-'.length);
-				localStorage.setItem(
-					'account',
-					JSON.stringify({
-						publicKey,
-						accountHash
-					})
-				);
-				account.set({ publicKey, accountHash });
+				account.set({ publicKey, accountHash, network });
 			})
 			.catch((err) => {
 				console.log(`Public Key Error: ${err}`);
@@ -28,6 +21,5 @@ export const connectCasperSigner = async () => {
 
 export const disconnectWallet = async () => {
 	window.casperlabsHelper.disconnectFromSite();
-	localStorage.removeItem('account');
 	account.set(null);
 };
