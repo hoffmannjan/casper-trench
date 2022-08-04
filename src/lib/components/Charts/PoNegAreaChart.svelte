@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChartToolbar from "./ChartToolbar.svelte";
+	import ChartToolbar from './ChartToolbar.svelte';
 
 	let ctx;
 	let chart;
@@ -123,7 +123,7 @@
 			<div class="text">Unbonded</div>
 		</div>
 	</div>
-	<ChartToolbar {chart}/>
+	<ChartToolbar {chart} />
 	<div class="chart">
 		<canvas bind:this={ctx} />
 	</div>

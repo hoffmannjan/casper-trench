@@ -8,7 +8,7 @@
 	import type { EraData } from '$utils/types/era';
 	import { onMount } from 'svelte';
 	import type { MarketPrices } from '$utils/types/price';
-	
+
 	let eraData: EraData[];
 	let transfersData: [{ x?: Date; y?: number }] = [{}];
 	let transactionsData: [{ x?: Date; y?: number }] = [{}];
@@ -26,16 +26,16 @@
 		marketPrices = await getMarketPrices();
 		eraData &&
 			eraData.forEach((data) => {
-				transfersData.push({x: new Date(data.end), y: data.transfersCount});
-				transactionsData.push({x: new Date(data.end), y: data.deploysCount});
-				delegatedData.push({x: new Date(data.end), y: data.stakedThisEra});
-				unbondedData.push({x: new Date(data.end), y: -data.undelegatedThisEra});
-				validatorWeights.push({x: new Date(data.end), y: data.validatorsWeights});
+				transfersData.push({ x: new Date(data.end), y: data.transfersCount });
+				transactionsData.push({ x: new Date(data.end), y: data.deploysCount });
+				delegatedData.push({ x: new Date(data.end), y: data.stakedThisEra });
+				unbondedData.push({ x: new Date(data.end), y: -data.undelegatedThisEra });
+				validatorWeights.push({ x: new Date(data.end), y: data.validatorsWeights });
 			});
 		marketPrices &&
 			marketPrices.forEach((price) => {
-				priceData.push({x: new Date(price.date), y: price.close});
-				volumeData.push({x: new Date(price.date), y: price.volumeTo});
+				priceData.push({ x: new Date(price.date), y: price.close });
+				volumeData.push({ x: new Date(price.date), y: price.volumeTo });
 			});
 		isLoading = false;
 	});
@@ -43,16 +43,16 @@
 
 <div class="charts-page">
 	<div class:loading={isLoading} class="wrapper">
-		<StackedChart {transfersData} {transactionsData} bind:isLoading/>
+		<StackedChart {transfersData} {transactionsData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
-		<ComboChart {priceData} {volumeData} bind:isLoading/>
+		<ComboChart {priceData} {volumeData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
-		<PoNegAreaChart {delegatedData} {unbondedData} bind:isLoading/>
+		<PoNegAreaChart {delegatedData} {unbondedData} bind:isLoading />
 	</div>
 	<div class:loading={isLoading} class="wrapper">
-		<AreaChart {validatorWeights} bind:isLoading/>
+		<AreaChart {validatorWeights} bind:isLoading />
 	</div>
 </div>
 

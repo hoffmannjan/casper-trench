@@ -1,16 +1,32 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
+	import Button from '$lib/components/Reusables/Button.svelte';
+	import Hash from '$lib/components/TableData/Hash.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
+	import { account } from '$stores/account';
+	import { getStats } from '$utils/api';
+	import { getAccountBalance } from '$utils/wallets/balance';
+	import { transferCasper } from '$utils/wallets/transfer';
+	import { onMount } from 'svelte';
 
 	let recipient = '';
-	let amount = '';
-	let txID = '';
+	let amount = '2.5'; // Minimum CSPR transferrable is 2.5
+	let txID = 1659607320459;
 	let sendMax = false;
-	let signedIn = true;
 	let step: 0 | 1 | 2 | 3 = 0;
 	let csprFee = 0.1;
-	let cashFee = 0.00257199;
+	let balance: string;
+	onMount(async () => {
+		balance = await getAccountBalance();
+	});
+	$: amount = sendMax ? (parseFloat(balance) - csprFee).toString() : '2.5';
+
+	const transfer = async () => {
+		await transferCasper(recipient, amount, 'casper-test', txID, csprFee.toString());
+	};
+	// TO 0203b380d730238dcb2240192b46a91df732541874072f5b9901edc56f8be13d30ac
+	// FROM 0202912502ddb9773903185afcccee1dc930c7af44b1a5990423910b128fc1718c9d
 </script>
 
 <div class="transfer-details">
@@ -18,7 +34,7 @@
 		<StepProgress page="Transfer Details" bind:step />
 
 		<div class="title">Transfer Details</div>
-		{#if !signedIn}
+		{#if !$account}
 			<div class="sign-in-alert">
 				<div class="icon">
 					<YellowWarningIcon black />
@@ -27,7 +43,7 @@
 					You’re not signed in. <span
 						class="green"
 						on:click={() => {
-							goto('/signin');
+							goto('/sign-in');
 						}}>Sign in</span
 					> with a compatible wallet like Signer or Ledger to continue.
 				</div>
@@ -39,7 +55,18 @@
 				<div>Sender</div>
 				<div>Balance</div>
 			</div>
-			<div class="value">01c377281132044bd3278b039925eeb3efdb9d99dd5f46d9ec6a764add34581af7</div>
+			<div class="value">
+				<span
+					><Hash start color="black" noOfCharacters={20} hash={$account?.publicKey || ''} /></span
+				>
+				<span
+					>{#await getAccountBalance()}
+						Loading ...
+					{:then balance}
+						{balance} CSPR
+					{/await}</span
+				>
+			</div>
 		</div>
 
 		<div class="input-wrapper">
@@ -64,7 +91,7 @@
 		<div class="input-wrapper">
 			<div class="top">Amount</div>
 			<div class="input">
-				<input type="number" bind:value={amount} placeholder="Enter amount" />
+				<input type="text" bind:value={amount} placeholder="Enter amount" min="2.5" />
 				<div>CSPR</div>
 			</div>
 			<label>
@@ -84,7 +111,14 @@
 			<div class="left">Transaction Fee</div>
 			<div class="right">
 				<div class="cspr">{csprFee.toFixed(4)} CSPR</div>
-				<div class="cash">${cashFee.toFixed(8)}</div>
+				{#await getStats()}
+					Loading ...
+				{:then stats}
+					<!-- TODO Get price from CoinGecko -->
+					<div class="cash">
+						${Math.floor(csprFee * stats.price * 100000000) / 100000000 || '0'}
+					</div>
+				{/await}
 			</div>
 		</div>
 
@@ -92,6 +126,9 @@
 			By using Casper.info, you acknowledge that you have read, understood and accepted our. <span
 				class="green">Terms of Service.</span
 			>
+		</div>
+		<div class="mt-5">
+			<Button wide gradient on:click={transfer}>Sign and Transfer</Button>
 		</div>
 	</div>
 </div>
