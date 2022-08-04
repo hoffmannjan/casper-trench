@@ -41,7 +41,6 @@
 	"dependencies": {
 		"@zerodevx/svelte-toast": "^0.7.2",
 		"axios": "^0.27.2",
-		"casper-js-sdk": "^2.9.1",
-		"html2pdf.js": "^0.10.1"
+		"casper-js-sdk": "^2.9.1"
 	}
 }
