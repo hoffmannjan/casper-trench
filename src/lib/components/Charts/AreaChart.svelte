@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
+	import ChartToolbar from '$components/Charts/ChartToolbar.svelte';
 
 	let height = 0;
 	let width = 0;
@@ -128,7 +128,7 @@
 		<div class="color" />
 		<div class="text">Total Staked</div>
 	</div>
-	<ChartToolbar {chart}/>
+	<ChartToolbar {chart} />
 	<div class="chart">
 		<canvas bind:this={ctx} />
 	</div>

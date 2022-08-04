@@ -3,9 +3,9 @@
 	import UserIcon from '$lib/icons/UserIcon.svelte';
 	import NavbarDropdown from './NavbarDropdown.svelte';
 	import { page } from '$app/stores';
-import { account } from '$stores/account';
-import Hash from '../TableData/Hash.svelte';
-import { disconnectWallet } from '$utils/wallets/connection';
+	import { account } from '$stores/account';
+	import Hash from '../TableData/Hash.svelte';
+	import { disconnectWallet } from '$utils/wallets/connection';
 
 	let navItems: {
 		text: string;
@@ -108,16 +108,16 @@ import { disconnectWallet } from '$utils/wallets/connection';
 			</div>
 		{/each}
 		{#if $account}
-		<button on:click={disconnectWallet}>
-		<Hash hash={$account.publicKey}/>
-	</button>
+			<button on:click={disconnectWallet}>
+				<Hash hash={$account.publicKey} />
+			</button>
 		{:else}
-		<a href="/sign-in" class="signin">
-			<div class="user-icon">
-				<UserIcon />
-			</div>
-			<div class="text">Sign In</div>
-		</a>
+			<a href="/sign-in" class="signin">
+				<div class="user-icon">
+					<UserIcon />
+				</div>
+				<div class="text">Sign In</div>
+			</a>
 		{/if}
 	</div>
 </div>
