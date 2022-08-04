@@ -9,6 +9,7 @@
 	export let block = false;
 	export let active = false;
 	export let red = false;
+	export let wide = false;
 </script>
 
 {#if block}
@@ -31,6 +32,7 @@
 		class:translucent
 		class:red
 		class:button-border-gradient={gradient}
+		class:wide
 		on:click
 	>
 		<div class="content">
@@ -41,7 +43,7 @@
 
 <style lang="postcss">
 	.button {
-		@apply w-max h-max;
+		@apply min-w-max h-max;
 		@apply text-[clamp(10px,1vw,1vw)];
 		@apply cursor-pointer;
 	}
@@ -106,5 +108,9 @@
 
 	.red > .content {
 		@apply border-none;
+	}
+
+	.wide {
+		@apply md:w-[11.25vw];
 	}
 </style>

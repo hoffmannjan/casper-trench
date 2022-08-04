@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<title>Casper.trench</title>
+	<title>Casper.info</title>
 </svelte:head>
 
 <Header />
@@ -23,7 +23,7 @@
 
 <Toast />
 {#if $isLoading}
-	<SvelteLoader />
+	<!-- <SvelteLoader /> -->
 {/if}
 
 <style lang="postcss">

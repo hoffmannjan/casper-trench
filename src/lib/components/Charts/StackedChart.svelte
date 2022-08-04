@@ -26,14 +26,14 @@
 						data: chartData1,
 						backgroundColor: '#0021A5',
 						borderColor: '#0021A5',
-						borderWidth: 2,
+						borderWidth: 2
 					},
 					{
 						label: 'Transactions',
 						data: chartData2,
 						backgroundColor: '#099B91',
 						borderColor: '#099B91',
-						borderWidth: 2,
+						borderWidth: 2
 					}
 				]
 			},
