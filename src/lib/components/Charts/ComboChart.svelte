@@ -18,6 +18,7 @@
 		chartData1: [{ x?: Date; y?: number }],
 		chartData2: [{ x?: Date; y?: number }]
 	) => {
+		// @ts-ignore
 		chart = new Chart(ctx, {
 			type: 'line',
 			data: {
@@ -40,7 +41,7 @@
 						borderWidth: 2,
 						order: 0,
 						yAxisID: 'y1',
-						stepped: true,
+						stepped: false,
 						pointStyle: 'circle',
 						pointRadius: 0
 					}

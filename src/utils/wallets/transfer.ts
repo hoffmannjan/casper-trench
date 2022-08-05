@@ -1,9 +1,8 @@
 import { account } from '$stores/account';
 import { notifyError, notifySuccess } from '$utils/toast';
-import CasperSDK from 'casper-js-sdk';
+import { CasperClient, CLPublicKey, DeployUtil } from 'casper-js-sdk';
 import { ethers } from 'ethers';
 import { get } from 'svelte/store';
-const { CasperClient, CLPublicKey, CLURef, DeployUtil } = CasperSDK;
 export const transferCasper = async (
 	toPublicKey: string,
 	amount: string,

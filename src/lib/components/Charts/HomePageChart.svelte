@@ -25,6 +25,7 @@
 	});
 
 	const renderChart = (chartData1: { x?: Date; y?: number }[]) => {
+		// @ts-ignore
 		const chart = new Chart(ctx, {
 			type: 'line',
 			data: {

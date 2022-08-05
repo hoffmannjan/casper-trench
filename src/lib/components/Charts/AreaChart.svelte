@@ -30,6 +30,7 @@
 	};
 
 	const renderChart = (chartData: [{ x?: Date; y?: number }]) => {
+		// @ts-ignore
 		chart = new Chart(ctx, {
 			type: 'line',
 			data: {
