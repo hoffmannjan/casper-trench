@@ -12,7 +12,7 @@
             {max}
         </div>
     </div>
-	<input type="range" {max} bind:value class="slider" on:change/>
+	<input type="range" {max} bind:value class="slider" on:change on:mouseup/>
 </div>
 
 <style lang="postcss">

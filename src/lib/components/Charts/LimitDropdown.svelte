@@ -1,6 +1,10 @@
 <script>
 	import ShowRowChevron from '$lib/icons/ShowRowChevron.svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
+
+	const dispatch = createEventDispatcher();
+
 	export let limit = 10;
 	let dropdown = false;
 	const limits = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200];
@@ -27,6 +31,7 @@
 						on:click={() => {
 							limit = item;
 							dropdown = false;
+                            dispatch('change');
 						}}
 					>
 						{item}
@@ -45,9 +50,9 @@
 	.dropdown-header {
 		@apply flex items-center gap-[clamp(10px,1.07vw,1.07vw)];
 		@apply cursor-pointer;
-        @apply border-color-progress-bg border-[clamp(1px,0.06vw,0.06vw)];
+		@apply border-color-progress-bg border-[clamp(1px,0.06vw,0.06vw)];
 		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
-        @apply p-[clamp(8px,0.71vw,0.71vw)];
+		@apply p-[clamp(8px,0.71vw,0.71vw)];
 	}
 	.dropdown {
 		@apply absolute z-50;

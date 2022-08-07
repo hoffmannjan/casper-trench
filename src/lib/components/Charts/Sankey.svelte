@@ -15,11 +15,20 @@
 	let pan = true;
 	let transferFlow: TransferFlow;
 	let data: { from: string; to: string; flow: number }[] = [];
+	let limit = 20;
+	let totalTxAccount = 51;
+
+	let dateFrom = new Date('Jul 7, 2022, 16:34:01');
+	let dateTo = new Date('Jul 7, 2022, 18:33');
 
 	onMount(async () => {
 		// @ts-ignore
 		Chart.defaults.font.size = 16;
-		transferFlow = await getTransferFlow(5908, 100);
+		const latestBlocks: Block[] = await getLatestBlocks(1);
+		transferFlow = await getTransferFlow(await latestBlocks[0].header.era_id, limit);
+		totalTxAccount = transferFlow.count;
+		dateFrom = new Date(transferFlow.eraStart);
+		dateTo = transferFlow.eraEnd ? new Date(transferFlow.eraEnd) : new Date();
 		transferFlow &&
 			transferFlow.transfers.forEach((flow) => {
 				data.push({
@@ -52,14 +61,14 @@
 		return color.toUpperCase();
 	};
 
-	const renderChart = (data: { from: string; to: string; flow: number }[]) => {
+	const renderChart = async (data: { from: string; to: string; flow: number }[]) => {
 		// @ts-ignore
 		chart = new Chart(ctx, {
 			type: 'sankey',
 			data: {
 				datasets: [
 					{
-						data,
+						data: await data,
 						colorFrom: (c) => getColor(c.dataset.data[c.dataIndex].from),
 						colorTo: (c) => getColor(c.dataset.data[c.dataIndex].to),
 						colorMode: 'gradient',
@@ -96,13 +105,6 @@
 		return latestBlocks[0].header.era_id;
 	}
 
-	let limit = 20;
-
-	let totalTxAccount = 51;
-
-	let dateFrom = new Date('Jul 7, 2022, 16:34:01');
-	let dateTo = new Date('Jul 7, 2022, 18:33');
-
 	const formatDate = (date: Date): string => {
 		const month = [
 			'Jan',
@@ -121,6 +123,25 @@
 		return `${
 			month[date.getMonth()]
 		} ${date.getDate()}, ${date.getFullYear()} ${date.toLocaleTimeString()}`;
+	};
+
+	const updateSankey = async () => {
+		console.log();
+		data = [];
+		transferFlow = await getTransferFlow(eraValue, limit);
+		totalTxAccount = await transferFlow.count;
+		dateFrom = new Date(await transferFlow.eraStart);
+		dateTo = await transferFlow.eraEnd ? new Date(await transferFlow.eraEnd) : new Date();
+		transferFlow &&
+			transferFlow.transfers.forEach((flow) => {
+				data.push({
+					from: `${flow.from.substring(0, 6)}...${flow.from.substring(flow.from.length - 6)}`,
+					to: `${flow.to.substring(0, 6)}...${flow.to.substring(flow.to.length - 6)}`,
+					flow: flow.denomAmount
+				});
+			});
+		chart.destroy();
+		data.length > 0 && renderChart(data);
 	};
 </script>
 
@@ -150,6 +171,9 @@
 					eraValue = await currentEra;
 				}
 			}}
+			on:mouseup={() => {
+				updateSankey();
+			}}
 		/>
 		<div class="footer">
 			<div class="era">
@@ -162,6 +186,7 @@
 						if (eraValue > (await currentEra)) {
 							eraValue = await currentEra;
 						}
+						updateSankey();
 					}}
 				/>
 			</div>
@@ -174,7 +199,12 @@
 					{totalTxAccount}
 				</div>
 			</div>
-			<LimitDropdown {limit} />
+			<LimitDropdown
+				bind:limit
+				on:change={() => {
+					updateSankey();
+				}}
+			/>
 		</div>
 	{/await}
 </div>
