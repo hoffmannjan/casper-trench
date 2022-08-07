@@ -2,6 +2,7 @@
 	import ChartsPage from '$lib/pages/Charts/ChartsPage.svelte';
 
 	import { getTransferFlow } from '$utils/api';
+	import { externalSankeyTooltipHandler } from '$utils/tooltip';
 	import type { TransferFlow } from '$utils/types/transfer';
 	import { onMount } from 'svelte';
 	import ChartToolbar from './ChartToolbar.svelte';
@@ -68,13 +69,16 @@
 				responsive: true,
 				plugins: {
 					tooltip: {
+						enabled: false,
 						callbacks: {
 							label(c) {
 								return [c.dataset.data[c.dataIndex].flow.toLocaleString('en') + ' CSPR'];
 							}
 						},
 						position: 'average',
-						usePointStyle: false
+						usePointStyle: false,
+						external: externalSankeyTooltipHandler,
+						padding: 8
 					}
 				}
 			}
