@@ -1,12 +1,14 @@
 <script lang="ts">
 	import ChartsPage from '$lib/pages/Charts/ChartsPage.svelte';
 
-	import { getTransferFlow } from '$utils/api';
+	import { getLatestBlocks, getTransferFlow } from '$utils/api';
 	import { externalSankeyTooltipHandler } from '$utils/tooltip';
+	import type { Block } from '$utils/types/block';
 	import type { TransferFlow } from '$utils/types/transfer';
 	import { onMount } from 'svelte';
 	import ChartToolbar from './ChartToolbar.svelte';
 	import EraSlider from './EraSlider.svelte';
+	import LimitDropdown from './LimitDropdown.svelte';
 
 	let ctx: HTMLCanvasElement;
 	let chart;
@@ -86,13 +88,40 @@
 		});
 	};
 
-	// TODO Get current Era from API
-	const currentEra = 5544;
-
-	let eraValue = currentEra;
-	$: if (eraValue > currentEra) {
-		eraValue = currentEra;
+	const currentEra = getCurrentEra();
+	let eraValue = 0;
+	async function getCurrentEra() {
+		const latestBlocks: Block[] = await getLatestBlocks(1);
+		eraValue = latestBlocks[0].header.era_id;
+		return latestBlocks[0].header.era_id;
 	}
+
+	let limit = 20;
+
+	let totalTxAccount = 51;
+
+	let dateFrom = new Date('Jul 7, 2022, 16:34:01');
+	let dateTo = new Date('Jul 7, 2022, 18:33');
+
+	const formatDate = (date: Date): string => {
+		const month = [
+			'Jan',
+			'Feb',
+			'Mar',
+			'Apr',
+			'May',
+			'Jun',
+			'Jul',
+			'Aug',
+			'Sep',
+			'Oct',
+			'Nov',
+			'Dec'
+		];
+		return `${
+			month[date.getMonth()]
+		} ${date.getDate()}, ${date.getFullYear()} ${date.toLocaleTimeString()}`;
+	};
 </script>
 
 <svelte:head>
@@ -110,13 +139,44 @@
 	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
-	<EraSlider bind:value={eraValue} max={currentEra}/>
-	<div class="footer">
-		<div class="era">
-			<div class="label">Era ID</div>
-			<input type="number" max={currentEra} bind:value={eraValue} />
+	{#await currentEra}
+		<div />
+	{:then value}
+		<EraSlider
+			bind:value={eraValue}
+			max={value}
+			on:change={async () => {
+				if (eraValue > (await currentEra)) {
+					eraValue = await currentEra;
+				}
+			}}
+		/>
+		<div class="footer">
+			<div class="era">
+				<div class="label">Era ID</div>
+				<input
+					type="number"
+					max={value}
+					bind:value={eraValue}
+					on:change={async () => {
+						if (eraValue > (await currentEra)) {
+							eraValue = await currentEra;
+						}
+					}}
+				/>
+			</div>
+			<div class="date">
+				{`${formatDate(dateFrom)} - ${formatDate(dateTo)}`}
+			</div>
+			<div class="total">
+				<div class="label">Total TX Account</div>
+				<div class="value">
+					{totalTxAccount}
+				</div>
+			</div>
+			<LimitDropdown {limit} />
 		</div>
-	</div>
+	{/await}
 </div>
 
 <style lang="postcss">
@@ -143,8 +203,9 @@
 
 	.footer {
 		@apply flex items-center justify-between;
-		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
 		@apply mt-[clamp(16px,1.07vw,1.07vw)];
+		@apply w-full;
 	}
 
 	.era {
@@ -160,5 +221,9 @@
 	input[type='number']::-webkit-inner-spin-button,
 	input[type='number']::-webkit-outer-spin-button {
 		-webkit-appearance: textfield;
+	}
+
+	.total {
+		@apply flex gap-[clamp(16px,1.07vw,1.07vw)];
 	}
 </style>
