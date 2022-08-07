@@ -8,6 +8,7 @@
 	import type { EraData } from '$utils/types/era';
 	import { onMount } from 'svelte';
 	import type { MarketPrices } from '$utils/types/price';
+	import Sankey from '$lib/components/Charts/Sankey.svelte';
 
 	let eraData: EraData[];
 	let transfersData: [{ x?: Date; y?: number }] = [{}];
@@ -42,6 +43,9 @@
 </script>
 
 <div class="charts-page">
+	<div class:loading={isLoading} class="wrapper">
+		<Sankey />
+	</div>
 	<div class:loading={isLoading} class="wrapper">
 		<StackedChart {transfersData} {transactionsData} bind:isLoading />
 	</div>
