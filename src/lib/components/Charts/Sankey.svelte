@@ -6,6 +6,7 @@
 	import type { TransferFlow } from '$utils/types/transfer';
 	import { onMount } from 'svelte';
 	import ChartToolbar from './ChartToolbar.svelte';
+	import EraSlider from './EraSlider.svelte';
 
 	let ctx: HTMLCanvasElement;
 	let chart;
@@ -84,6 +85,14 @@
 			}
 		});
 	};
+
+	// TODO Get current Era from API
+	const currentEra = 5544;
+
+	let eraValue = currentEra;
+	$: if (eraValue > currentEra) {
+		eraValue = currentEra;
+	}
 </script>
 
 <svelte:head>
@@ -100,6 +109,13 @@
 	/>
 	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
+	</div>
+	<EraSlider bind:value={eraValue} max={currentEra}/>
+	<div class="footer">
+		<div class="era">
+			<div class="label">Era ID</div>
+			<input type="number" max={currentEra} bind:value={eraValue} />
+		</div>
 	</div>
 </div>
 
@@ -118,9 +134,31 @@
 	.chart {
 		@apply w-full;
 		@apply cursor-crosshair;
+		@apply mb-[clamp(16px,2.08vw,2.08vw)];
 	}
 
 	.pan {
 		@apply cursor-grab;
+	}
+
+	.footer {
+		@apply flex items-center justify-between;
+		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply mt-[clamp(16px,1.07vw,1.07vw)];
+	}
+
+	.era {
+		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
+	}
+
+	input[type='number'] {
+		@apply p-[clamp(8px,0.71vw,0.71vw)];
+		@apply border-color-progress-bg border-[clamp(1px,0.06vw,0.06vw)];
+		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
+		@apply w-[clamp(75px,5.06vw,5.06vw)];
+	}
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: textfield;
 	}
 </style>
