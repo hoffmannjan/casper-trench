@@ -44,9 +44,9 @@
 		transferFlow &&
 			transferFlow.transfers.forEach((flow) => {
 				data.push({
-					from: `${flow.from.substring(0, 6)}...${flow.from.substring(flow.from.length - 6)}`,
-					to: `${flow.to.substring(0, 6)}...${flow.to.substring(flow.to.length - 6)}`,
-					flow: flow.denomAmount
+					from: `#${flow.fromHash.substring(0, 6)}...${flow.fromHash.substring(flow.fromHash.length - 6)}`,
+					to: `#${flow.toHash.substring(0, 6)}...${flow.toHash.substring(flow.toHash.length - 6)}`,
+					flow: flow.denomAmount || 0
 				});
 			});
 		data.length > 0 && renderChart(data);
@@ -136,12 +136,6 @@
 
 <div class="container">
 	<div class="title">Transfer Flow</div>
-	<ChartToolbar
-		{chart}
-		on:update-cursor={() => {
-			pan = chart.options.plugins.zoom.pan.enabled;
-		}}
-	/>
 	<div class="chart" class:pan>
 		{#key data}
 			<canvas bind:this={ctx} />
