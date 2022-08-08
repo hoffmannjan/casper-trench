@@ -1,9 +1,8 @@
 import { account } from '$stores/account';
-import CasperSDK from 'casper-js-sdk';
 import { get } from 'svelte/store';
 import { ethers } from 'ethers';
-const { CasperClient, CLPublicKey } = CasperSDK;
 export const getAccountBalance = async (): Promise<string> => {
+	const { CasperClient, CLPublicKey } = window.CasperSDK;
 	const casperClient = new CasperClient(
 		get(account)?.network === 'casper'
 			? `${import.meta.env.VITE_MAINNET_RPC_URL}`
