@@ -48,7 +48,17 @@
 						wide
 						on:click={async () => {
 							if (wallet.name.toLowerCase().includes('casper')) {
-								await connectCasperSigner();
+								if(browser){
+									if(window.casperlabsHelper){
+										await connectCasperSigner();
+									}
+									else{
+										console.log('No signer')
+									}
+								}
+								else{
+									console.log('Not browser')
+								}	
 							}
 						}}
 					>
