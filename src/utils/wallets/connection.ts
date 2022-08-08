@@ -1,4 +1,5 @@
 import { account } from '$stores/account';
+import { notifyError } from '$utils/toast';
 export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'casper-test') => {
 	const { CLPublicKey } = window.CasperSDK;
 	if (await window.casperlabsHelper.isConnected()) {
@@ -11,7 +12,7 @@ export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'c
 				account.set({ publicKey, accountHash, network });
 			})
 			.catch((err) => {
-				console.log(`Public Key Error: ${err}`);
+				notifyError('Failed to get public key.');
 			});
 	} else {
 		window.casperlabsHelper.requestConnection();

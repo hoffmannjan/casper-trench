@@ -48,7 +48,6 @@
 	onMount(async () => {
 		$isLoading = true;
 		transaction = await getDeploy($page.params.hash);
-		console.log(transaction);
 		$isLoading = false;
 	});
 </script>
