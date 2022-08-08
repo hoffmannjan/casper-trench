@@ -21,12 +21,7 @@
 <div class="components">
 	<div class="flex gap-[1vw]">
 		<Tooltip text="Hello World" />
-		<TableSorter
-			on:sort-ascend={() => {
-			}}
-			on:sort-descend={() => {
-			}}
-		/>
+		<TableSorter on:sort-ascend={() => {}} on:sort-descend={() => {}} />
 	</div>
 	<TabMenu {menuOptions} />
 </div>

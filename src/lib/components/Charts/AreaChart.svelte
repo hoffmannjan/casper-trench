@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChartToolbar from '$components/Charts/ChartToolbar.svelte'
+	import ChartToolbar from '$components/Charts/ChartToolbar.svelte';
 	import { externalTooltipHandler } from '$utils/tooltip';
 
 	let height = 0;
@@ -133,9 +133,12 @@
 		<div class="color" />
 		<div class="text">Total Staked</div>
 	</div>
-	<ChartToolbar {chart} on:update-cursor={() => {
-		pan = chart.options.plugins.zoom.pan.enabled
-	}}/>
+	<ChartToolbar
+		{chart}
+		on:update-cursor={() => {
+			pan = chart.options.plugins.zoom.pan.enabled;
+		}}
+	/>
 	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>

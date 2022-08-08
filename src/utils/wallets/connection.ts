@@ -12,7 +12,7 @@ export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'c
 				account.set({ publicKey, accountHash, network });
 			})
 			.catch((err) => {
-				notifyError('Failed to get public key.');
+				notifyError('Failed to get public key. Please check your wallet');
 			});
 	} else {
 		window.casperlabsHelper.requestConnection();

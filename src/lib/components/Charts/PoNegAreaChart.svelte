@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { externalTooltipHandler } from "$utils/tooltip";
+	import { externalTooltipHandler } from '$utils/tooltip';
 
-	import ChartToolbar from "./ChartToolbar.svelte";
+	import ChartToolbar from './ChartToolbar.svelte';
 
 	let ctx;
 	let chart;
@@ -128,9 +128,12 @@
 			<div class="text">Unbonded</div>
 		</div>
 	</div>
-	<ChartToolbar {chart} on:update-cursor={() => {
-		pan = chart.options.plugins.zoom.pan.enabled
-	}}/>
+	<ChartToolbar
+		{chart}
+		on:update-cursor={() => {
+			pan = chart.options.plugins.zoom.pan.enabled;
+		}}
+	/>
 	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
