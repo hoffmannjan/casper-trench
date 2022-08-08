@@ -1,6 +1,7 @@
 import { account } from '$stores/account';
 import { get } from 'svelte/store';
 import { ethers } from 'ethers';
+// import { CasperClient, CLPublicKey } from 'casper-js-sdk'
 export const getAccountBalance = async (): Promise<string> => {
 	const { CasperClient, CLPublicKey } = window.CasperSDK;
 	const casperClient = new CasperClient(
