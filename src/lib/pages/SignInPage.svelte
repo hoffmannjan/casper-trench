@@ -43,35 +43,35 @@
 			</div>
 			<div class="button">
 				{#if wallet.name.toLowerCase().includes('casper')}
-						<Button
-							gradient
-							wide
-							on:click={async () => {
-								if (wallet.name.toLowerCase().includes('casper')) {
-									await connectCasperSigner();
-								}
-							}}
-						>
-							{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
-						</Button>
+					<Button
+						gradient
+						wide
+						on:click={async () => {
+							if (wallet.name.toLowerCase().includes('casper')) {
+								await connectCasperSigner();
+							}
+						}}
+					>
+						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
+					</Button>
 				{:else}
 					<Button gradient wide>
 						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
 					</Button>
 				{/if}
+				{#if wallet.name.toLowerCase().includes('casper')}
+					<a
+						href="https://chrome.google.com/webstore/detail/casper-signer/djhndpllfiibmcdbnmaaahkhchcoijce"
+						target="_blank"
+						class="download"
+					>
+						<div class="icon">
+							<CloudDownloadIcon />
+						</div>
+						<div class="text">Download Signer</div>
+					</a>
+				{/if}
 			</div>
-			{#if wallet.name.toLowerCase().includes('casper')}
-			<a
-			href="https://chrome.google.com/webstore/detail/casper-signer/djhndpllfiibmcdbnmaaahkhchcoijce"
-			target="_blank"
-			class="download"
-		>
-			<div class="icon">
-				<CloudDownloadIcon />
-			</div>
-			<div class="text">Download Signer</div>
-		</a>
-			{/if}
 		</div>
 	{/each}
 </div>

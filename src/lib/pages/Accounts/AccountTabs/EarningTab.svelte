@@ -30,7 +30,7 @@
 				if (e[0] === null) {
 					e[0] = eraRewards[i - 1][0] - 1;
 				}
-				data.push({x: new Date(e[0]), y: e[1]});
+				data.push({ x: new Date(e[0]), y: e[1] });
 			});
 		$isLoading = false;
 	};
@@ -85,7 +85,7 @@
 			on:load-page={async () => await fetchRewards()}
 		/>
 	</div>
-	<EarningChart {data} isLoading={$isLoading}/>
+	<EarningChart {data} isLoading={$isLoading} />
 </div>
 
 <style lang="postcss">
