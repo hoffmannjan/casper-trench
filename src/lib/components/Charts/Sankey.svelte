@@ -40,7 +40,7 @@
 		transferFlow = await getTransferFlow(mount ? await currentEra : eraValue, limit);
 		totalTxAccount = await transferFlow.count;
 		dateFrom = new Date(await transferFlow.eraStart);
-		dateTo = await transferFlow.eraEnd ? new Date(await transferFlow.eraEnd) : new Date();
+		dateTo = (await transferFlow.eraEnd) ? new Date(await transferFlow.eraEnd) : new Date();
 		transferFlow &&
 			transferFlow.transfers.forEach((flow) => {
 				data.push({
@@ -49,9 +49,6 @@
 					flow: flow.denomAmount
 				});
 			});
-		if (!mount) {
-			chart.destroy();
-		}
 		data.length > 0 && renderChart(data);
 	};
 
@@ -83,7 +80,7 @@
 			data: {
 				datasets: [
 					{
-						data: await data,
+						data,
 						colorFrom: (c) => getColor(c.dataset.data[c.dataIndex].from),
 						colorTo: (c) => getColor(c.dataset.data[c.dataIndex].to),
 						colorMode: 'gradient',
@@ -146,7 +143,9 @@
 		}}
 	/>
 	<div class="chart" class:pan>
-		<canvas bind:this={ctx} />
+		{#key data}
+			<canvas bind:this={ctx} />
+		{/key}
 	</div>
 	{#await currentEra}
 		<div />
