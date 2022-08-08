@@ -50,19 +50,48 @@
 		transaction = await getDeploy($page.params.hash);
 		$isLoading = false;
 	});
+
+	let toDownload;
 </script>
+
+<svelte:head>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+		integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer"></script>
+</svelte:head>
 
 <div class="transaction-details">
 	<div class="top">
 		<span class="green">Transaction</span> / Transaction Details
 	</div>
 	{#if transaction}
-		<div class="wrapper">
+		<div class="wrapper" bind:this={toDownload}>
 			<button
 				class="download-button"
 				type="button"
 				on:click={() => {
-					//TODO Download Functionality
+					var opt = {
+						margin: 1,
+						filename: `${transaction.deploy.hash}.pdf`,
+						image: { type: 'jpeg', quality: 1 },
+						html2canvas: { scale: 2, width: "2800", height: "1920"},
+						jsPDF: { unit: 'px', format: 'a4', orientation: 'portrait' }
+					};
+
+					// New Promise-based usage:
+					html2pdf().set(opt).from(toDownload).save();
+
+					// const divContents = toDownload.innerHTML;
+					// var a = window.open('', '', 'height=500, width=500');
+					// a.document.write('<html>');
+					// a.document.write('<body > <h1>Casper Info <br>');
+					// a.document.write(divContents);
+					// a.document.write('</body></html>');
+					// a.document.write('<style ✂prettier:content✂="LmRvd25sb2FkLWJ1dHRvbiB7ZGlzcGxheTogbm9uZTsgfSBib2R5ID4gZGl2IHtkaXNwbGF5OiBmbGV4OyBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyBhbGlnbi1pdGVtczogY2VudGVyO30="></style>');
+					// a.document.close();
+					// a.print();
 				}}
 			>
 				<DownloadIcon />
