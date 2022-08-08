@@ -21,14 +21,26 @@
 	let dateFrom = new Date('Jul 7, 2022, 16:34:01');
 	let dateTo = new Date('Jul 7, 2022, 18:33');
 
+	const currentEra = getCurrentEra();
+	let eraValue = 0;
+	async function getCurrentEra() {
+		const latestBlocks: Block[] = await getLatestBlocks(1);
+		eraValue = latestBlocks[0].header.era_id;
+		return latestBlocks[0].header.era_id;
+	}
+
 	onMount(async () => {
 		// @ts-ignore
 		Chart.defaults.font.size = 16;
-		const latestBlocks: Block[] = await getLatestBlocks(1);
-		transferFlow = await getTransferFlow(await latestBlocks[0].header.era_id, limit);
-		totalTxAccount = transferFlow.count;
-		dateFrom = new Date(transferFlow.eraStart);
-		dateTo = transferFlow.eraEnd ? new Date(transferFlow.eraEnd) : new Date();
+		updateSankey(true);
+	});
+
+	const updateSankey = async (mount = false) => {
+		data = [];
+		transferFlow = await getTransferFlow(mount ? await currentEra : eraValue, limit);
+		totalTxAccount = await transferFlow.count;
+		dateFrom = new Date(await transferFlow.eraStart);
+		dateTo = await transferFlow.eraEnd ? new Date(await transferFlow.eraEnd) : new Date();
 		transferFlow &&
 			transferFlow.transfers.forEach((flow) => {
 				data.push({
@@ -37,8 +49,11 @@
 					flow: flow.denomAmount
 				});
 			});
+		if (!mount) {
+			chart.destroy();
+		}
 		data.length > 0 && renderChart(data);
-	});
+	};
 
 	const getColor = (str) => {
 		let hash = 0;
@@ -97,14 +112,6 @@
 		});
 	};
 
-	const currentEra = getCurrentEra();
-	let eraValue = 0;
-	async function getCurrentEra() {
-		const latestBlocks: Block[] = await getLatestBlocks(1);
-		eraValue = latestBlocks[0].header.era_id;
-		return latestBlocks[0].header.era_id;
-	}
-
 	const formatDate = (date: Date): string => {
 		const month = [
 			'Jan',
@@ -123,25 +130,6 @@
 		return `${
 			month[date.getMonth()]
 		} ${date.getDate()}, ${date.getFullYear()} ${date.toLocaleTimeString()}`;
-	};
-
-	const updateSankey = async () => {
-		console.log();
-		data = [];
-		transferFlow = await getTransferFlow(eraValue, limit);
-		totalTxAccount = await transferFlow.count;
-		dateFrom = new Date(await transferFlow.eraStart);
-		dateTo = await transferFlow.eraEnd ? new Date(await transferFlow.eraEnd) : new Date();
-		transferFlow &&
-			transferFlow.transfers.forEach((flow) => {
-				data.push({
-					from: `${flow.from.substring(0, 6)}...${flow.from.substring(flow.from.length - 6)}`,
-					to: `${flow.to.substring(0, 6)}...${flow.to.substring(flow.to.length - 6)}`,
-					flow: flow.denomAmount
-				});
-			});
-		chart.destroy();
-		data.length > 0 && renderChart(data);
 	};
 </script>
 
@@ -172,7 +160,7 @@
 				}
 			}}
 			on:mouseup={() => {
-				updateSankey();
+				updateSankey(false);
 			}}
 		/>
 		<div class="footer">
@@ -186,7 +174,7 @@
 						if (eraValue > (await currentEra)) {
 							eraValue = await currentEra;
 						}
-						updateSankey();
+						updateSankey(false);
 					}}
 				/>
 			</div>
@@ -202,7 +190,7 @@
 			<LimitDropdown
 				bind:limit
 				on:change={() => {
-					updateSankey();
+					updateSankey(false);
 				}}
 			/>
 		</div>
