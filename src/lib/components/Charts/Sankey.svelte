@@ -12,7 +12,7 @@
 
 	let ctx: HTMLCanvasElement;
 	let chart;
-	let pan = true;
+	let pan = false;
 	let transferFlow: TransferFlow;
 	let data: { from: string; to: string; flow: number }[] = [];
 	let limit = 20;
@@ -210,7 +210,7 @@
 
 	.chart {
 		@apply w-full;
-		@apply cursor-crosshair;
+		@apply cursor-auto;
 		@apply mb-[clamp(16px,2.08vw,2.08vw)];
 	}
 
