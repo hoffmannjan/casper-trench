@@ -1,6 +1,6 @@
 import { account } from '$stores/account';
-import { CasperClient, CLPublicKey } from 'casper-js-sdk';
 export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'casper-test') => {
+	const { CLPublicKey } = window.CasperSDK;
 	if (await window.casperlabsHelper.isConnected()) {
 		window.casperlabsHelper
 			.getActivePublicKey()
