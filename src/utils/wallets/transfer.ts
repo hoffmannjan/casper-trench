@@ -1,9 +1,7 @@
 import { account } from '$stores/account';
 import { notifyError, notifySuccess } from '$utils/toast';
-import CasperSDK from 'casper-js-sdk';
 import { ethers } from 'ethers';
 import { get } from 'svelte/store';
-const { CasperClient, CLPublicKey, CLURef, DeployUtil } = CasperSDK;
 export const transferCasper = async (
 	toPublicKey: string,
 	amount: string,
@@ -11,6 +9,7 @@ export const transferCasper = async (
 	id: number,
 	fee: string
 ) => {
+	const { CasperClient, CLPublicKey, DeployUtil } = window.CasperSDK;
 	const fromPublicKey = CLPublicKey.fromHex(get(account)?.publicKey);
 	const params = new DeployUtil.DeployParams(fromPublicKey, networkName, 1, 1800000);
 	const session = DeployUtil.ExecutableDeployItem.newTransfer(

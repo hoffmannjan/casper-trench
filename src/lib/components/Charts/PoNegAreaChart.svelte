@@ -1,5 +1,7 @@
 <script lang="ts">
-	import ChartToolbar from './ChartToolbar.svelte';
+	import { externalTooltipHandler } from "$utils/tooltip";
+
+	import ChartToolbar from "./ChartToolbar.svelte";
 
 	let ctx;
 	let chart;
@@ -18,6 +20,7 @@
 		chartData1: [{ x?: Date; y?: number }],
 		chartData2: [{ x?: Date; y?: number }]
 	) => {
+		// @ts-ignore
 		chart = new Chart(ctx, {
 			type: 'line',
 			data: {
@@ -83,8 +86,9 @@
 					},
 					tooltip: {
 						enabled: false,
-						position: 'nearest'
-						// external: externalTooltipHandler
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16
 					},
 					zoom: {
 						pan: {
@@ -109,6 +113,7 @@
 			}
 		});
 	};
+	let pan = true;
 </script>
 
 <div class="container">
@@ -123,8 +128,10 @@
 			<div class="text">Unbonded</div>
 		</div>
 	</div>
-	<ChartToolbar {chart} />
-	<div class="chart">
+	<ChartToolbar {chart} on:update-cursor={() => {
+		pan = chart.options.plugins.zoom.pan.enabled
+	}}/>
+	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
 </div>
@@ -132,6 +139,7 @@
 <style lang="postcss">
 	.chart {
 		@apply w-full;
+		@apply cursor-crosshair;
 	}
 
 	.title {
@@ -162,5 +170,9 @@
 
 	.delegated > .color {
 		@apply bg-color-arcadia-blue;
+	}
+
+	.pan {
+		@apply cursor-grab;
 	}
 </style>

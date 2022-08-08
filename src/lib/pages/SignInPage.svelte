@@ -22,7 +22,6 @@
 	$: if (browser) {
 		isCasperSignerAvailable = window.casperlabsHelper ? true : false;
 	}
-	$: console.log(isCasperSignerAvailable);
 </script>
 
 <div class="sign-in-page">

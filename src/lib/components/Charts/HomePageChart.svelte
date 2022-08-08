@@ -1,110 +1,115 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
+
+	let ctx: HTMLCanvasElement;
 
 	export let totalTransactions = 588675;
 	export let data = [
-		[1658918045000, 73625],
-		[1658923545000, 41625],
-		[1658927645000, 70724],
-		[1658929545000, 91525],
-		[1658933545000, 125246],
-		[1658936545000, 30123]
+		{ x: new Date(1658918045000), y: 73625 },
+		{ x: new Date(1658923545000), y: 41625 },
+		{ x: new Date(1658927645000), y: 70724 },
+		{ x: new Date(1658929545000), y: 91525 },
+		{ x: new Date(1658933545000), y: 125246 },
+		{ x: new Date(1658936545000), y: 30123 }
 	];
 
-	let options = {
-		chart: {
-			type: 'line',
-			toolbar: {
-				show: false
-			},
-			zoom: {
-				enabled: false
-			},
-			height: '100%'
-		},
-		stroke: {
-			curve: 'smooth',
-			width: 2
-		},
-		series: [
-			{
-				name: 'transactions',
-				data
-			}
-		],
-		xaxis: {
-			type: 'datetime',
-			axisBorder: {
-				show: false
-			},
-			axisTicks: {
-				show: false
-			},
-			labels: {
-				formatter: (value) => {
-					const monthNames = [
-						'January',
-						'February',
-						'March',
-						'April',
-						'May',
-						'June',
-						'July',
-						'August',
-						'September',
-						'October',
-						'November',
-						'December'
-					];
-					let date = new Date(value);
-					return `${date.getDate()} ${monthNames[date.getMonth()]}`;
-				},
-				style: {
-					fontSize: '0.83vw',
-					colors: '#CFCFCF'
-				},
-				offsetX: 8
-			},
-			tickAmount: 3
-		},
-		yaxis: {
-			labels: {
-				formatter: (value) => {
-					return `${Math.round(value / 1000)}k`;
-				},
-				style: {
-					fontSize: '0.83vw',
-					colors: ['#CFCFCF']
-				},
-				offsetX: -16
-			},
-			tickAmount: 2
-		},
-		colors: ['#099B91'],
-		tooltip: {
-			enabled: false
-		},
-		grid: {
-			xaxis: {
-				lines: {
-					show: false
-				}
-			},
-			yaxis: {
-				lines: {
-					show: false
-				},
-				min: 0
-			}
-		}
-	};
+	export let isLoading = true;
 
-	let chartElement;
+	$: if (!isLoading) {
+		data?.length > 0 && renderChart(data);
+	}
 
+	// TODO Remove the onMount Function
 	onMount(() => {
-		let chart = new ApexCharts(chartElement, options);
-		chart.render();
+		isLoading = false;
 	});
+
+	const renderChart = (chartData1: { x?: Date; y?: number }[]) => {
+		// @ts-ignore
+		const chart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				datasets: [
+					{
+						label: 'Era Rewards',
+						data: chartData1,
+						backgroundColor: '#099B91',
+						borderColor: '#099B91',
+						borderWidth: 2,
+						order: 1,
+						pointStyle: 'circle',
+						pointRadius: 0,
+						tension: 0.5
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				scales: {
+					x: {
+						adapters: {
+							date: {}
+						},
+						type: 'time',
+						grid: {
+							display: false,
+							drawBorder: false
+						},
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 3,
+							maxRotation: 0,
+							minRotation: 0,
+							color: '#CFCFCF'
+						}
+					},
+					y: {
+						type: 'linear',
+						display: true,
+						beginAtZero: false,
+						grid: {
+							drawOnChartArea: false,
+							drawBorder: false
+						},
+						ticks: {
+							callback: function (val, index) {
+								const lookup = [
+									{ value: 1, symbol: '' },
+									{ value: 1e3, symbol: 'k' },
+									{ value: 1e6, symbol: 'M' },
+									{ value: 1e9, symbol: 'G' },
+									{ value: 1e12, symbol: 'T' },
+									{ value: 1e15, symbol: 'P' },
+									{ value: 1e18, symbol: 'E' }
+								];
+								const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+								var item = lookup
+									.slice()
+									.reverse()
+									.find(function (item) {
+										return val >= item.value;
+									});
+								return item ? (val / item.value).toFixed(2).replace(rx, '$1') + item.symbol : '0';
+							},
+							autoSkip: true,
+							maxTicksLimit: 3,
+							color: '#CFCFCF'
+						}
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						enabled: false,
+						position: 'nearest'
+						// external: externalTooltipHandler
+					}
+				}
+			}
+		});
+	};
 </script>
 
 <div class="container">
@@ -114,7 +119,9 @@
 			{totalTransactions.toLocaleString()}
 		</div>
 	</div>
-	<div class="chart" bind:this={chartElement} />
+	<div class="chart">
+		<canvas bind:this={ctx} />
+	</div>
 </div>
 
 <style lang="postcss">
@@ -126,10 +133,15 @@
 	.title {
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-white;
 		@apply flex items-center justify-between;
+		@apply mb-[clamp(12px,0.95vw,0.95vw)];
 	}
 
 	.label {
 		@apply font-medium;
+	}
+
+	.chart {
+		@apply md:w-[20vw];
 	}
 
 	.value {

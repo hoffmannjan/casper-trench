@@ -23,10 +23,8 @@
 		<Tooltip text="Hello World" />
 		<TableSorter
 			on:sort-ascend={() => {
-				console.log('Sort Ascending Order');
 			}}
 			on:sort-descend={() => {
-				console.log('Sort Ascending Order');
 			}}
 		/>
 	</div>

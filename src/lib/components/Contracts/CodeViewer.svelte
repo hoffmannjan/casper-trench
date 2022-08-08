@@ -20,7 +20,6 @@
 	for (let index = 0; index < lines; index++) {
 		lineString += `${index + 1}\n`;
 	}
-	console.log(lineString);
 
 	let outlineOptions = ['Outline', 'Test 2', 'Test 3', 'Test 4'];
 	let showOutlineDropdown = false;
