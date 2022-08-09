@@ -1,12 +1,10 @@
 <script lang="ts">
-	import ChartsPage from '$lib/pages/Charts/ChartsPage.svelte';
-
 	import { getLatestBlocks, getTransferFlow } from '$utils/api';
 	import { externalSankeyTooltipHandler } from '$utils/tooltip';
+	import { truncateString } from '$utils/truncate';
 	import type { Block } from '$utils/types/block';
 	import type { TransferFlow } from '$utils/types/transfer';
 	import { onMount } from 'svelte';
-	import ChartToolbar from './ChartToolbar.svelte';
 	import EraSlider from './EraSlider.svelte';
 	import LimitDropdown from './LimitDropdown.svelte';
 
@@ -42,13 +40,18 @@
 		dateFrom = new Date(await transferFlow.eraStart);
 		dateTo = (await transferFlow.eraEnd) ? new Date(await transferFlow.eraEnd) : new Date();
 		transferFlow &&
-			transferFlow.transfers.forEach((flow) => {
+			transferFlow.transfers.forEach((flow, i) => {
 				data.push({
-					from: `#${flow.fromHash.substring(0, 6)}...${flow.fromHash.substring(flow.fromHash.length - 6)}`,
-					to: `#${flow.toHash.substring(0, 6)}...${flow.toHash.substring(flow.toHash.length - 6)}`,
+					from: truncateString(flow.from || flow.fromHash.replace('account-hash-', '#')) || '',
+					to: truncateString(flow.to || flow.toHash.replace('account-hash-', '#')) || '',
 					flow: flow.denomAmount || 0
 				});
 			});
+		for (let i = 0; i < data.length; i++) {
+			if (data[i]?.to === data[i + 1]?.from) {
+				data.splice(i, 2);
+			}
+		}
 		data.length > 0 && renderChart(data);
 	};
 

@@ -31,7 +31,7 @@
 						on:click={() => {
 							limit = item;
 							dropdown = false;
-                            dispatch('change');
+							dispatch('change');
 						}}
 					>
 						{item}
