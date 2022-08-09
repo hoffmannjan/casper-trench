@@ -29,7 +29,8 @@
 
 	onMount(async () => {
 		// @ts-ignore
-		Chart.defaults.font.size = 16;
+		Chart.defaults.font.size = 14;
+		Chart.defaults.font.lineHeight = 26;
 		updateSankey(true);
 	});
 
