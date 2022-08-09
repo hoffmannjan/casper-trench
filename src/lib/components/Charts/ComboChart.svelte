@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PriceLegendIcon from '$lib/icons/PriceLegendIcon.svelte';
+	import { externalTooltipHandler } from '$utils/tooltip';
 	import ChartToolbar from './ChartToolbar.svelte';
 
 	let ctx: HTMLCanvasElement;
@@ -17,6 +18,7 @@
 		chartData1: [{ x?: Date; y?: number }],
 		chartData2: [{ x?: Date; y?: number }]
 	) => {
+		// @ts-ignore
 		chart = new Chart(ctx, {
 			type: 'line',
 			data: {
@@ -39,7 +41,7 @@
 						borderWidth: 2,
 						order: 0,
 						yAxisID: 'y1',
-						stepped: true,
+						stepped: false,
 						pointStyle: 'circle',
 						pointRadius: 0
 					}
@@ -121,8 +123,9 @@
 					},
 					tooltip: {
 						enabled: false,
-						position: 'nearest'
-						// external: externalTooltipHandler
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16
 					},
 					zoom: {
 						pan: {
@@ -147,6 +150,8 @@
 			}
 		});
 	};
+
+	let pan = true;
 </script>
 
 <div class="container">
@@ -163,8 +168,13 @@
 			<div class="text">Volume</div>
 		</div>
 	</div>
-	<ChartToolbar {chart} />
-	<div class="chart">
+	<ChartToolbar
+		{chart}
+		on:update-cursor={() => {
+			pan = chart.options.plugins.zoom.pan.enabled;
+		}}
+	/>
+	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
 </div>
@@ -183,6 +193,7 @@
 
 	.chart {
 		@apply w-full;
+		@apply cursor-crosshair;
 	}
 
 	.legend {
@@ -202,5 +213,9 @@
 
 	.icon {
 		@apply w-[clamp(16px,1.19vw,1.19vw)];
+	}
+
+	.pan {
+		@apply cursor-grab;
 	}
 </style>

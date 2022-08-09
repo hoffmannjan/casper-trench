@@ -15,7 +15,7 @@
 	let earningsPerPage = 10;
 	let startIndex = 0;
 	let stats: Stats;
-	let data = [];
+	let data: [{ x?: Date; y?: number }] = [{}];
 	onMount(async () => {
 		stats = await getStats();
 		await fetchRewards();
@@ -30,8 +30,7 @@
 				if (e[0] === null) {
 					e[0] = eraRewards[i - 1][0] - 1;
 				}
-				data.push(e);
-				console.log(i, e);
+				data.push({ x: new Date(e[0]), y: e[1] });
 			});
 		$isLoading = false;
 	};
@@ -86,17 +85,15 @@
 			on:load-page={async () => await fetchRewards()}
 		/>
 	</div>
-	{#if eraRewards && eraRewards.length > 0}
-		<EarningChart {data} />
-	{/if}
+	<EarningChart {data} isLoading={$isLoading} />
 </div>
 
 <style lang="postcss">
 	.earning {
-		@apply md:flex;
+		@apply md:flex md:justify-between;
 	}
 	.earnings-tab {
-		@apply md:w-[44.88vw];
+		@apply md:min-w-[44.88vw];
 		@apply border-[clamp(1px,0.15vw,0.15vw)] border-color-tooltip-border border-opacity-100;
 		@apply rounded-[0.95vh] md:rounded-[0.95vw];
 		@apply px-[clamp(16px,2.02vw,2.02vw)] pt-[clamp(16px,2.14vw,2.14vw)] pb-[clamp(16px,2.5vw,2.5vw)];

@@ -8,10 +8,12 @@
 
 	import '$styles/tailwind.css';
 	import '$styles/custom.css';
+	import nodePackages from '$utils/nodePackages?url';
 </script>
 
 <svelte:head>
 	<title>Casper.info</title>
+	<script src={nodePackages}></script>
 </svelte:head>
 
 <Header />

@@ -10,7 +10,6 @@ export const getEconomics = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch economics');
 		});
 };
@@ -22,7 +21,6 @@ export const getStats = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch stats');
 		});
 };
@@ -33,7 +31,6 @@ export const getTopValidators = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch top validators');
 		});
 };
@@ -45,7 +42,6 @@ export const getLatestBlocks = async (number: number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch latest blocks');
 		});
 };
@@ -62,7 +58,6 @@ export const getRangeBlocks = async (start: number, end: number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch blocks');
 		});
 };
@@ -74,7 +69,6 @@ export const getEraValidators = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch era validators');
 		});
 };
@@ -86,7 +80,6 @@ export const getAuctionBids = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch auction bids');
 		});
 };
@@ -98,7 +91,6 @@ export const getValidator = async (address: string) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch validator details');
 		});
 };
@@ -110,7 +102,6 @@ export const getAccount = async (address: string) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch account details');
 		});
 };
@@ -121,7 +112,6 @@ export const getType = async (address: string) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch type');
 		});
 };
@@ -139,7 +129,6 @@ export const getProposerBlocks = async (address: string, count: number, start: n
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch verified blocks');
 		});
 };
@@ -156,7 +145,6 @@ export const getTopAccounts = async (count: number, start: number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch top accounts');
 		});
 };
@@ -174,7 +162,6 @@ export const getAccountTransfers = async (account: string, count: number, start:
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch account transfers');
 		});
 };
@@ -192,7 +179,6 @@ export const getAccountDeploys = async (account: string, count: number, start: n
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch account transactions');
 		});
 };
@@ -208,7 +194,6 @@ export const getAccountDelegation = async (account: string) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch account staking delegations');
 		});
 };
@@ -226,7 +211,6 @@ export const getAccountUndelegations = async (account: string, count: number, st
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch account staking undelegations');
 		});
 };
@@ -244,7 +228,6 @@ export const getAccountRewards = async (account: string, count: number, start: n
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch account earnings');
 		});
 };
@@ -261,7 +244,6 @@ export const getAccountEraRewards = async (account: string, count: number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch account era earnings');
 		});
 };
@@ -278,7 +260,6 @@ export const getTransactions = async (count: number, start: number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch transactions');
 		});
 };
@@ -290,7 +271,6 @@ export const getDeploy = async (address: string) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch transactions details');
 		});
 };
@@ -302,7 +282,6 @@ export const getBlock = async (address: string | number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch block details');
 		});
 };
@@ -314,7 +293,6 @@ export const getBlockTransfers = async (address: string | number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch block tranfers');
 		});
 };
@@ -332,7 +310,6 @@ export const getEraData = async (order: string, skip: number, limit: number) => 
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch era data');
 		});
 };
@@ -344,7 +321,6 @@ export const getMarketPrices = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log(err);
 			notifyError('Could not fetch market data');
 		});
 };

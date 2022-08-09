@@ -1,164 +1,140 @@
-<script>
-	import { browser } from '$app/env';
+<script lang="ts">
+	import { externalTooltipHandler } from '$utils/tooltip';
 
-	import { onMount } from 'svelte';
-	export let data = [];
+	import ChartToolbar from './ChartToolbar.svelte';
 
-	let options = {
-		chart: {
+	let ctx: HTMLCanvasElement;
+	let chart;
+
+	export let data: [{ x?: Date; y?: number }];
+	export let isLoading = true;
+
+	$: if (!isLoading) {
+		data?.length > 0 && renderChart(data);
+	}
+
+	const renderChart = (chartData1: [{ x?: Date; y?: number }]) => {
+		// @ts-ignore
+		chart = new Chart(ctx, {
 			type: 'line',
-			toolbar: {
-				show: true,
-				offsetY: -12
+			data: {
+				datasets: [
+					{
+						label: 'Era Rewards',
+						data: chartData1,
+						backgroundColor: '#099B91',
+						borderColor: '#099B91',
+						borderWidth: 2,
+						order: 1,
+						pointStyle: 'circle',
+						pointRadius: 0
+					}
+				]
 			},
-			zoom: {
-				enabled: true,
-				zoomedArea: {
-					fill: {
-						color: '#099B91',
-						opacity: 0.4
+			options: {
+				responsive: true,
+				interaction: {
+					mode: 'index',
+					intersect: false
+				},
+				scales: {
+					x: {
+						adapters: {
+							date: {}
+						},
+						type: 'time',
+						time: {
+							unit: 'day'
+						},
+						grid: {
+							display: false
+						},
+						ticks: {
+							autoSkip: true,
+							maxTicksLimit: 10,
+							maxRotation: 0,
+							minRotation: 0
+						}
 					},
-					stroke: {
-						color: '#099B91',
-						opacity: 0.4,
-						width: 1
+					y: {
+						type: 'linear',
+						display: true,
+						position: 'right',
+						beginAtZero: false,
+						grid: {
+							drawOnChartArea: true
+						},
+						ticks: {
+							callback: function (val, index) {
+								const lookup = [
+									{ value: 1, symbol: '' },
+									{ value: 1e3, symbol: 'k' },
+									{ value: 1e6, symbol: 'M' },
+									{ value: 1e9, symbol: 'G' },
+									{ value: 1e12, symbol: 'T' },
+									{ value: 1e15, symbol: 'P' },
+									{ value: 1e18, symbol: 'E' }
+								];
+								const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+								var item = lookup
+									.slice()
+									.reverse()
+									.find(function (item) {
+										return val >= item.value;
+									});
+								return item ? (val / item.value).toFixed(2).replace(rx, '$1') + item.symbol : '0';
+							}
+						}
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						enabled: false,
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16
+					},
+					zoom: {
+						pan: {
+							enabled: true,
+							mode: 'x',
+							threshold: 5
+						},
+						zoom: {
+							wheel: {
+								enabled: true
+							},
+							drag: {
+								enabled: false
+							},
+							pinch: {
+								enabled: true
+							},
+							mode: 'x'
+						}
 					}
 				}
 			}
-		},
-		stroke: {
-			curve: 'straight',
-			width: 2
-		},
-		series: [
-			{
-				name: 'CSPR Received',
-				data
-			}
-		],
-		xaxis: {
-			type: 'datetime',
-			axisBorder: {
-				show: true
-			},
-			axisTicks: {
-				show: true
-			},
-			labels: {
-				datetimeFormatter: {
-					year: 'yyyy',
-					month: 'MMM yy',
-					day: 'dd MMM',
-					hour: 'HH:mm'
-				},
-				style: {
-					fontSize: '0.83vw',
-					colors: '#8F9398'
-				}
-			},
-			tickAmount: 3
-		},
-		yaxis: {
-			labels: {
-				formatter: (value) => {
-					if (value > 1000) {
-						return `${Math.round(value / 1000)}k`;
-					}
-				},
-				style: {
-					fontSize: '0.83vw',
-					colors: ['#8F9398']
-				}
-			},
-			tickAmount: 4,
-			opposite: true
-		},
-		colors: ['#099B91'],
-		tooltip: {
-			enabled: true,
-			style: {
-				fontSize: '0.83vw'
-			},
-			x: {
-				show: false,
-				format: 'dddd, d MMM, HH:mm'
-			},
-			y: {
-				formatter: (value) => {
-					return value.toLocaleString();
-				}
-			},
-			custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-				const monthNames = [
-					'January',
-					'February',
-					'March',
-					'April',
-					'May',
-					'June',
-					'July',
-					'August',
-					'September',
-					'October',
-					'November',
-					'December'
-				];
-				const date = new Date(w.globals.seriesX[seriesIndex][dataPointIndex]);
-
-				return (
-					'<div style="padding: clamp(4px, 0.83vw, 0.83vw); font-size: clamp(10px,0.83vw,0.83vw)">' +
-					'<div style="font-weight: bold;">' +
-					String(date.getDate()).padStart(2, '0') +
-					' ' +
-					monthNames[date.getMonth()] +
-					'</div>' +
-					'<div style="display: flex; gap: clamp(8px,0.83vw,0.83vw); justify-content: space-between">' +
-					'<span style="display: flex; align-items: center;">' +
-					'<div style="border-radius: 100%; height: clamp(8px,0.6vw,0.6vw); width: clamp(8px,0.6vw,0.6vw); margin-right: clamp(4px,0.24vw,0.24vw); background-color:' +
-					w.globals.colors[seriesIndex] +
-					';"></div>' +
-					w.globals.initialSeries[seriesIndex].name +
-					' : ' +
-					'</span>' +
-					'<span style="font-weight: bold;">' +
-					series[seriesIndex][dataPointIndex].toLocaleString() +
-					'</span>' +
-					'</div>' +
-					'</div>'
-				);
-			}
-		},
-		grid: {
-			xaxis: {
-				lines: {
-					show: false
-				}
-			},
-			yaxis: {
-				lines: {
-					show: true
-				},
-				min: 0
-			}
-		}
+		});
 	};
 
-	let chartElement;
-	let chart;
-	onMount(() => {
-		// console.log('Starting Data:  ', data);
-		chart = browser && new ApexCharts(chartElement, options);
-		chart.render();
-	});
+	let pan = true;
 </script>
 
 <div class="container">
 	<div class="title">Latest 1000 Era rewards (CSPR)</div>
-	<div class="legend">
-		<div class="color" />
-		<div class="text">CSPR Received</div>
+	<ChartToolbar
+		{chart}
+		on:update-cursor={() => {
+			pan = chart.options.plugins.zoom.pan.enabled;
+		}}
+	/>
+	<div class="chart" class:pan>
+		<canvas bind:this={ctx} />
 	</div>
-	<div class="chart" bind:this={chartElement} />
 </div>
 
 <style lang="postcss">
@@ -168,23 +144,17 @@
 	}
 
 	.container {
-		@apply md:max-w-[38.1vw];
-		@apply flex items-center flex-col;
-		@apply mx-[clamp(16px,3.75vw,3.75vw)];
+		@apply min-w-max max-w-[37.86vw];
+		@apply flex flex-col items-center;
+		@apply my-[clamp(16px,0.95vw,0.95vw)];
 	}
 
 	.chart {
 		@apply w-full;
+		@apply cursor-crosshair;
 	}
 
-	.legend {
-		@apply flex gap-[clamp(4px,0.6vw,0.6vw)] items-center;
-		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
-	}
-
-	.color {
-		@apply bg-color-hover-footer-link;
-		@apply h-[clamp(12px,0.95vw,0.95vw)] w-[clamp(12px,0.95vw,0.95vw)];
-		@apply rounded-full;
+	.pan {
+		@apply cursor-grab;
 	}
 </style>

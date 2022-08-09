@@ -70,8 +70,14 @@ export const externalTooltipHandler = (context) => {
 			const bodyData = body.toString().split(' ');
 
 			const span = document.createElement('span');
-			span.style.background = colors.backgroundColor;
-			span.style.borderColor = colors.borderColor;
+			span.style.background =
+				typeof colors.backgroundColor === 'string'
+					? colors.backgroundColor
+					: 'linear-gradient(180deg, #099B91 0%, #1737A3 100%)';
+			span.style.borderColor =
+				typeof colors.borderColor === 'string'
+					? colors.borderColor
+					: 'linear-gradient(180deg, #099B91 0%, #1737A3 100%)';
 			span.style.borderWidth = '2px';
 			span.style.marginRight = '10px';
 			span.style.borderRadius = '50%';

@@ -25,8 +25,6 @@
 		$isLoading = true;
 		block = await getBlock($page.params.hash);
 		transfers = block && (await getBlockTransfers(block.result?.block?.header?.height));
-		console.log(block);
-		console.log(transfers);
 		$isLoading = false;
 	});
 </script>

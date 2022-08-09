@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ChartToolbar from '$components/Charts/ChartToolbar.svelte';
+	import { externalTooltipHandler } from '$utils/tooltip';
 
 	let height = 0;
 	let width = 0;
@@ -29,6 +30,7 @@
 	};
 
 	const renderChart = (chartData: [{ x?: Date; y?: number }]) => {
+		// @ts-ignore
 		chart = new Chart(ctx, {
 			type: 'line',
 			data: {
@@ -94,8 +96,9 @@
 					},
 					tooltip: {
 						enabled: false,
-						position: 'nearest'
-						// external: externalTooltipHandler
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16
 					},
 					zoom: {
 						pan: {
@@ -120,6 +123,8 @@
 			}
 		});
 	};
+
+	let pan = true;
 </script>
 
 <div class="container">
@@ -128,8 +133,13 @@
 		<div class="color" />
 		<div class="text">Total Staked</div>
 	</div>
-	<ChartToolbar {chart} />
-	<div class="chart">
+	<ChartToolbar
+		{chart}
+		on:update-cursor={() => {
+			pan = chart.options.plugins.zoom.pan.enabled;
+		}}
+	/>
+	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
 </div>
@@ -148,6 +158,7 @@
 
 	.chart {
 		@apply w-full;
+		@apply cursor-crosshair;
 	}
 
 	.legend {
@@ -159,5 +170,9 @@
 		@apply bg-gradient-to-b from-color-hover-footer-link to-color-chart-blue bg-opacity-80;
 		@apply h-[clamp(12px,0.95vw,0.95vw)] w-[clamp(12px,0.95vw,0.95vw)];
 		@apply rounded-full;
+	}
+
+	.pan {
+		@apply cursor-grab;
 	}
 </style>

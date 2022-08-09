@@ -5,6 +5,10 @@
 	import ZoomOutIcon from '$lib/icons/ZoomOutIcon.svelte';
 	import ZoomResetIcon from '$lib/icons/ZoomResetIcon.svelte';
 
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
 	export let chart;
 </script>
 
@@ -37,6 +41,8 @@
 					// Enable Drag zoom
 					chart.options.plugins.zoom.zoom.drag.enabled = true;
 					chart.update();
+
+					dispatch('update-cursor');
 				}
 			}}
 		>
@@ -52,6 +58,8 @@
 					// Enable panning
 					chart.options.plugins.zoom.pan.enabled = true;
 					chart.update();
+
+					dispatch('update-cursor');
 				}
 			}}
 		>
