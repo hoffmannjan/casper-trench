@@ -14,11 +14,11 @@
 			iconClass = 'translate-x-[-0.5vw]';
 			break;
 		case 1:
-			progressClass = 'w-[16.5vw]';
+			progressClass = 'w-[12vw]';
 			iconClass = 'translate-x-[11.5vw]';
 			break;
 		case 2:
-			progressClass = 'w-[25.5vw]';
+			progressClass = 'w-[21vw]';
 			iconClass = 'translate-x-[20.75vw]';
 			break;
 		default:
@@ -51,36 +51,24 @@
 		<div
 			class="text"
 			class:selected={step === 0}
-			on:click={() => {
-				step = 0;
-			}}
 		>
 			{page}
 		</div>
 		<div
 			class="text"
 			class:selected={step === 1}
-			on:click={() => {
-				step = 1;
-			}}
 		>
 			Confirm
 		</div>
 		<div
 			class="text"
 			class:selected={step === 2}
-			on:click={() => {
-				step = 2;
-			}}
 		>
 			Sign
 		</div>
 		<div
 			class="text"
 			class:selected={step === 3}
-			on:click={() => {
-				step = 3;
-			}}
 		>
 			Done
 		</div>
@@ -91,10 +79,6 @@
 	.step-text {
 		@apply flex items-center md:gap-[7vw];
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
-	}
-
-	.text {
-		@apply cursor-pointer;
 	}
 
 	.step-progress {

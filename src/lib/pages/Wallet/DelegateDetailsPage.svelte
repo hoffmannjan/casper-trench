@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelte';
-	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
+	import AmountInput from '$lib/components/Other/AmountInput.svelte';
+	import StepProgress from '$lib/components/Other/StepProgress.svelte';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
@@ -92,7 +92,9 @@
 			<div class="text">Search for a validator by public key</div>
 		</div>
 
-		<AmountInput bind:amount {limit} bind:sendMax />
+		<AmountInput bind:amount {limit} bind:sendMax>
+			Delegate max
+		</AmountInput>
 
 		<div class="warning">
 			<div class="header">
