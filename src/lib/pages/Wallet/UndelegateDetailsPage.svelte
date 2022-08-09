@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelte';
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
@@ -24,6 +25,8 @@
 		await delegateUndelegateCasper(validatorPublicKey, amount, 'undelegate');
 	};
 	$: amount = sendMax ? parseFloat(balance) : 0;
+
+	const limit = 500;
 </script>
 
 <div class="transfer-details">
@@ -83,17 +86,7 @@
 			<div class="text">Search for a validator by public key</div>
 		</div>
 
-		<div class="input-wrapper">
-			<div class="top">Amount</div>
-			<div class="input">
-				<input type="number" bind:value={amount} placeholder="Enter amount" />
-				<div>CSPR</div>
-			</div>
-			<label>
-				<input type="checkbox" bind:checked={sendMax} />
-				Delegate max
-			</label>
-		</div>
+		<AmountInput bind:amount {limit} bind:sendMax/>
 
 		<div class="warning">
 			<div class="header">

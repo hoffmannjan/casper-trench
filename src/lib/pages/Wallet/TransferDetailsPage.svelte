@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelte';
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
@@ -27,6 +28,7 @@
 	};
 	// TO 0203fdbddc1c8e93678f0b19644adbfd2989962a909029bf8172a9ded1ae7d9a4cf3
 	// FROM 013e85a9c63da2877b923455e776d0d3ed98030a6a4737f93e19ab0a3a62258ed0
+	const limit = 500;
 </script>
 
 <div class="transfer-details">
@@ -88,17 +90,7 @@
 			</div>
 		</div>
 
-		<div class="input-wrapper">
-			<div class="top">Amount</div>
-			<div class="input">
-				<input type="number" bind:value={amount} placeholder="Enter amount" min="2.5" />
-				<div>CSPR</div>
-			</div>
-			<label>
-				<input type="checkbox" bind:checked={sendMax} />
-				Send max amount
-			</label>
-		</div>
+		<AmountInput bind:amount {limit} bind:sendMax/>
 
 		<div class="input-wrapper">
 			<div class="top">Transfer ID (Memo)</div>
@@ -194,17 +186,12 @@
 		@apply w-[90%];
 	}
 
-	label > input {
-		@apply cursor-pointer;
-	}
-
 	.warning {
 		@apply mb-[clamp(16px,1.43vw,1.43vw)];
 		@apply text-[clamp(10px,0.77vw,0.77vw)];
 	}
 
 	.terms,
-	label,
 	.warning,
 	.left,
 	.cspr {
