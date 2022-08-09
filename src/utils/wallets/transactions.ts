@@ -1,6 +1,6 @@
 import { account } from '$stores/account';
 import { notifyError, notifySuccess } from '$utils/toast';
-import { CasperClient, CLPublicKey, CLValueBuilder, DeployUtil, RuntimeArgs } from 'casper-js-sdk';
+// import { CasperClient, CLPublicKey, CLValueBuilder, DeployUtil, RuntimeArgs } from 'casper-js-sdk';
 import { ethers } from 'ethers';
 import { get } from 'svelte/store';
 
@@ -48,6 +48,7 @@ export const delegateUndelegateCasper = async (
 	transactionType: 'delegate' | 'undelegate',
 	networkName: 'casper' | 'casper-test' = 'casper-test'
 ) => {
+	const { CasperClient, CLPublicKey, CLValueBuilder, DeployUtil, RuntimeArgs } = window.CasperSDK;
 	const fromPublicKey = CLPublicKey.fromHex(get(account)?.publicKey);
 	const params = new DeployUtil.DeployParams(fromPublicKey, networkName);
 	const args = RuntimeArgs.fromMap({

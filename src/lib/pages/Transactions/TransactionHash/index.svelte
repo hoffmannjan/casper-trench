@@ -89,7 +89,7 @@
 					// a.document.write('<body > <h1>Casper Info <br>');
 					// a.document.write(divContents);
 					// a.document.write('</body></html>');
-					// a.document.write('<style ✂prettier:content✂="LmRvd25sb2FkLWJ1dHRvbiB7ZGlzcGxheTogbm9uZTsgfSBib2R5ID4gZGl2IHtkaXNwbGF5OiBmbGV4OyBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyBhbGlnbi1pdGVtczogY2VudGVyO30=" ✂prettier:content✂="" ✂prettier:content✂="" ✂prettier:content✂=""></style>');
+					// a.document.write('<style ✂prettier:content✂="LmRvd25sb2FkLWJ1dHRvbiB7ZGlzcGxheTogbm9uZTsgfSBib2R5ID4gZGl2IHtkaXNwbGF5OiBmbGV4OyBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyBhbGlnbi1pdGVtczogY2VudGVyO30=" ✂prettier:content✂="" ✂prettier:content✂="" ✂prettier:content✂="" ✂prettier:content✂=""></style>');
 					// a.document.close();
 					// a.print();
 				}}
