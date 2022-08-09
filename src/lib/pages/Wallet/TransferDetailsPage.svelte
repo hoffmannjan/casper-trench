@@ -125,9 +125,8 @@
 				class="green">Terms of Service.</span
 			>
 		</div>
-		<!-- TODO style as in design -->
 		<div class="next-button">
-			<Button wide gradient on:click={transfer}>Next</Button>
+			<Button wider gradient on:click={transfer}>Next</Button>
 		</div>
 	</div>
 </div>
@@ -256,7 +255,7 @@
 	}
 
 	.next-button {
-		@apply mt-5;
+		@apply mt-[clamp(16px,2.92vw,2.92vw)];
 		@apply flex justify-center;
 	}
 </style>

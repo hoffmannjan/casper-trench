@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelte';
+	import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelte';
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
+	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 	import { account } from '$stores/account';
@@ -55,9 +56,14 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 				<div>Account</div>
 				<div>Balance</div>
 			</div>
-			<div class="value">
+			<div class="value grey">
 				<span
-					><Hash start color="black" noOfCharacters={20} hash={$account?.publicKey || ''} /></span
+					><Hash start color="grey" noOfCharacters={20} hash={$account?.publicKey || ''} />
+					<div class="copy-icon">
+						{#if $account?.publicKey}
+							<CopyIcon text={$account?.publicKey || ''} />
+						{/if}
+					</div></span
 				>
 				<span
 					>{#await getAccountBalance()}
@@ -86,7 +92,7 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 			<div class="text">Search for a validator by public key</div>
 		</div>
 
-		<AmountInput bind:amount {limit} bind:sendMax/>
+		<AmountInput bind:amount {limit} bind:sendMax />
 
 		<div class="warning">
 			<div class="header">
@@ -104,7 +110,7 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 		<div class="fee">
 			<div class="left">Transaction Fee</div>
 			<div class="right">
-				<div class="cspr">{csprFee.toFixed(4)} CSPR</div>
+				<div class="cspr"><span class="cspr-fee">{csprFee.toFixed(5)}</span> CSPR</div>
 				{#await getStats()}
 					Loading ...
 				{:then stats}
@@ -121,9 +127,8 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 				class="green">Terms of Service.</span
 			>
 		</div>
-		<!-- TODO style as in design -->
-		<div class="mt-5">
-			<Button wide gradient on:click={delegate}>Sign and Delegate</Button>
+		<div class="next-button">
+			<Button wider gradient on:click={delegate}>Next</Button>
 		</div>
 	</div>
 </div>
@@ -133,9 +138,17 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 		@apply text-color-table-header;
 	}
 
+	.copy-icon {
+		@apply w-[clamp(12px,1.2vw,1.2vw)] h-[clamp(12px,1.2vw,1.2vw)];
+	}
+
 	.title {
 		@apply text-color-table-header font-bold text-[clamp(20px,1.43vw,1.43vw)];
 		@apply mb-[clamp(12px,0.83vw,0.83vw)] mt-[clamp(16px,2.26vw,2.26vw)];
+	}
+
+	.value > span {
+		@apply flex items-center;
 	}
 
 	.container {
@@ -188,8 +201,17 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 	.warning,
 	.left,
 	.cspr,
-	.search {
+	.grey {
 		@apply text-color-grey-footer-label;
+	}
+
+	.cspr {
+		@apply text-[clamp(10px,0.71vw,0.71vw)];
+		@apply flex items-center justify-end gap-[clamp(4px,0.24vw,0.24vw)];
+	}
+
+	.cspr-fee {
+		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)];
 	}
 
 	.terms {
@@ -198,7 +220,7 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 
 	.header {
 		@apply flex items-center gap-[clamp(4px,0.3vw,0.3vw)];
-		@apply text-color-arcadia-yellow;
+		@apply text-color-table-header font-medium;
 		@apply mb-[clamp(4px,0.48px,0.48px)];
 	}
 
@@ -218,7 +240,7 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 	}
 
 	.cash {
-		@apply text-color-table-header text-[clamp(28px,1.90vw,1.90vw)] font-bold;
+		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-bold;
 	}
 
 	.right {
@@ -241,5 +263,10 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 
 	.search > .icon {
 		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+	}
+
+	.next-button {
+		@apply mt-[clamp(16px,2.92vw,2.92vw)];
+		@apply flex justify-center;
 	}
 </style>
