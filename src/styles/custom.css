@@ -24,6 +24,7 @@
 .button-border-gradient {
 	background: linear-gradient(279.34deg, #1737a380 -24.82%, #099b9180 96.63%);
 }
+
 /* Hide Arrows on Number input */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

@@ -324,3 +324,20 @@ export const getMarketPrices = async () => {
 			notifyError('Could not fetch market data');
 		});
 };
+
+export const getTransferFlow = async (eraId: number, limit: number) => {
+	return await axios
+		.get(`${art3misBaseURL}/transfersByEraId`, {
+			params: {
+				eraId,
+				limit
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.log(err);
+			notifyError('Could not fetch market data');
+		});
+};
