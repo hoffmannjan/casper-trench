@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ProgressCheckMarkIcon from '$lib/icons/ProgressCheckMarkIcon.svelte';
 	import ProgressMarker from '$lib/icons/ProgressMarker.svelte';
 
 	export let step: 0 | 1 | 2 | 3 = 0;
@@ -29,6 +30,18 @@
 
 <div class="step-progress">
 	<div class="progress-bar">
+		<div class="icon translate-x-[-0.5vw] check-mark" class:checked={step > 0}>
+			<ProgressCheckMarkIcon />
+		</div>
+		<div class="icon translate-x-[11.5vw] check-mark" class:checked={step > 1}>
+			<ProgressCheckMarkIcon />
+		</div>
+		<div class="icon translate-x-[20.75vw] check-mark" class:checked={step > 2}>
+			<ProgressCheckMarkIcon />
+		</div>
+		<div class="icon translate-x-[29.25vw] check-mark" class:checked={step > 3}>
+			<ProgressCheckMarkIcon />
+		</div>
 		<div class="icon {iconClass}">
 			<ProgressMarker />
 		</div>
@@ -108,5 +121,14 @@
 	.progress {
 		@apply h-full bg-color-hover-footer-link;
 		@apply transition-all;
+	}
+
+	.check-mark {
+		@apply transform scale-0;
+		@apply transition-all;
+	}
+
+	.checked {
+		@apply scale-100;
 	}
 </style>
