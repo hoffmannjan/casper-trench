@@ -7,11 +7,11 @@
 	import { account } from '$stores/account';
 	import { getStats } from '$utils/api';
 	import { getAccountBalance } from '$utils/wallets/balance';
-	import { transferCasper } from '$utils/wallets/transfer';
+	import { transferCasper } from '$utils/wallets/transactions';
 	import { onMount } from 'svelte';
 
 	let recipient = '';
-	let amount = '2.5'; // Minimum CSPR transferrable is 2.5
+	let amount = 2.5; // Minimum CSPR transferrable is 2.5
 	let txID = 1659607320459;
 	let sendMax = false;
 	let step: 0 | 1 | 2 | 3 = 0;
@@ -20,13 +20,13 @@
 	onMount(async () => {
 		balance = await getAccountBalance();
 	});
-	$: amount = sendMax ? (parseFloat(balance) - csprFee).toString() : '2.5';
+	$: amount = sendMax ? parseFloat(balance) - csprFee : 2.5;
 
 	const transfer = async () => {
-		await transferCasper(recipient, amount, 'casper-test', txID, csprFee.toString());
+		await transferCasper(recipient, amount, 'casper-test', txID);
 	};
-	// TO 0203b380d730238dcb2240192b46a91df732541874072f5b9901edc56f8be13d30ac
-	// FROM 0202912502ddb9773903185afcccee1dc930c7af44b1a5990423910b128fc1718c9d
+	// TO 0203fdbddc1c8e93678f0b19644adbfd2989962a909029bf8172a9ded1ae7d9a4cf3
+	// FROM 013e85a9c63da2877b923455e776d0d3ed98030a6a4737f93e19ab0a3a62258ed0
 </script>
 
 <div class="transfer-details">
@@ -91,7 +91,7 @@
 		<div class="input-wrapper">
 			<div class="top">Amount</div>
 			<div class="input">
-				<input type="text" bind:value={amount} placeholder="Enter amount" min="2.5" />
+				<input type="number" bind:value={amount} placeholder="Enter amount" min="2.5" />
 				<div>CSPR</div>
 			</div>
 			<label>
@@ -127,6 +127,7 @@
 				class="green">Terms of Service.</span
 			>
 		</div>
+		<!-- TODO style as in design -->
 		<div class="mt-5">
 			<Button wide gradient on:click={transfer}>Sign and Transfer</Button>
 		</div>

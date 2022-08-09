@@ -5,17 +5,7 @@ import path from 'path';
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [sveltekit()],
-	optimizeDeps: {
-		include: ['casper-js-sdk']
-	},
-	build: {
-		commonjsOptions: {
-			include: [/casper-js-sdk/, /node_modules/]
-		}
-	},
-	// ssr: {
-	// 	noExternal: ['casper-js-sdk']
-	// },
+
 	resolve: {
 		alias: {
 			$stores: path.resolve('./src/stores'),
