@@ -1,16 +1,29 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import StepProgress from '$lib/components/Other/TransferDetails/StepProgress.svelte';
+	import Button from '$lib/components/Reusables/Button.svelte';
+	import Hash from '$lib/components/TableData/Hash.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
+	import { account } from '$stores/account';
+	import { getStats } from '$utils/api';
+	import { getAccountBalance } from '$utils/wallets/balance';
+	import { delegateUndelegateCasper } from '$utils/wallets/transactions';
+	import { onMount } from 'svelte';
 
-	let validator = '';
-	let amount = '';
+	let validatorPublicKey: string;
+	let amount = 500; // Minimum CSPR delegatable
 	let sendMax = false;
-	let signedIn = false;
 	let step: 0 | 1 | 2 | 3 = 0;
-	let csprFee = 0.1;
-	let cashFee = 0.00257199;
+	let csprFee = 2.5;
+	let balance: string;
+	onMount(async () => {
+		balance = await getAccountBalance();
+	});
+	const delegate = async () => {
+		await delegateUndelegateCasper(validatorPublicKey, amount, 'delegate');
+	};
+	$: amount = sendMax ? parseFloat(balance) - csprFee : 500;
 </script>
 
 <div class="transfer-details">
@@ -18,7 +31,7 @@
 		<StepProgress page="Delegation details" bind:step />
 
 		<div class="title">Delegation details</div>
-		{#if !signedIn}
+		{#if !$account}
 			<div class="sign-in-alert">
 				<div class="icon">
 					<YellowWarningIcon black />
@@ -27,7 +40,7 @@
 					You’re not signed in. <span
 						class="green"
 						on:click={() => {
-							goto('/signin');
+							goto('/sign-in');
 						}}>Sign in</span
 					> with a compatible wallet like Signer or Ledger to continue.
 				</div>
@@ -39,13 +52,28 @@
 				<div>Account</div>
 				<div>Balance</div>
 			</div>
-			<div class="value">01c377281132044bd3278b039925eeb3efdb9d99dd5f46d9ec6a764add34581af7</div>
+			<div class="value">
+				<span
+					><Hash start color="black" noOfCharacters={20} hash={$account?.publicKey || ''} /></span
+				>
+				<span
+					>{#await getAccountBalance()}
+						Loading ...
+					{:then balance}
+						{balance} CSPR
+					{/await}</span
+				>
+			</div>
 		</div>
 
 		<div class="input-wrapper">
 			<div class="top">Validator</div>
 			<div class="input">
-				<input type="text" bind:value={validator} placeholder="Enter address or contract" />
+				<input
+					type="text"
+					bind:value={validatorPublicKey}
+					placeholder="Enter address or contract"
+				/>
 			</div>
 		</div>
 		<div class="search">
@@ -84,7 +112,14 @@
 			<div class="left">Transaction Fee</div>
 			<div class="right">
 				<div class="cspr">{csprFee.toFixed(4)} CSPR</div>
-				<div class="cash">${cashFee.toFixed(8)}</div>
+				{#await getStats()}
+					Loading ...
+				{:then stats}
+					<!-- TODO Get price from CoinGecko -->
+					<div class="cash">
+						${Math.floor(csprFee * stats.price * 100000000) / 100000000 || '0'}
+					</div>
+				{/await}
 			</div>
 		</div>
 
@@ -92,6 +127,10 @@
 			By using Casper.info, you acknowledge that you have read, understood and accepted our. <span
 				class="green">Terms of Service.</span
 			>
+		</div>
+		<!-- TODO style as in design -->
+		<div class="mt-5">
+			<Button wide gradient on:click={delegate}>Sign and Delegate</Button>
 		</div>
 	</div>
 </div>
