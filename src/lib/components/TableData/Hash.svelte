@@ -3,7 +3,7 @@
 
 	export let hash = '';
 	export let variant: 'center' | 'right' = 'center';
-	export let color: 'green' | 'yellow' | 'text' | 'black' = 'text';
+	export let color: 'green' | 'yellow' | 'text' | 'black' | 'grey' = 'text';
 	export let noOfCharacters = 5;
 	export let start = false;
 	export let bold = false;
@@ -50,6 +50,10 @@
 
 	.black {
 		@apply text-color-table-header;
+	}
+
+	.grey {
+		@apply text-color-grey-footer-label;
 	}
 
 	.tooltip {
