@@ -179,17 +179,12 @@ import AmountInput from '$lib/components/Other/TransferDetails/AmountInput.svelt
 		@apply w-[90%];
 	}
 
-	label > input {
-		@apply cursor-pointer;
-	}
-
 	.warning {
 		@apply mb-[clamp(16px,1.43vw,1.43vw)];
 		@apply text-[clamp(10px,0.77vw,0.77vw)];
 	}
 
 	.terms,
-	label,
 	.warning,
 	.left,
 	.cspr,
