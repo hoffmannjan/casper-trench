@@ -43,44 +43,45 @@
 			</div>
 			<div class="button">
 				{#if wallet.name.toLowerCase().includes('casper')}
-					{#if isCasperSignerAvailable}
-						<Button
-							gradient
-							wide
-							on:click={async () => {
-								if (wallet.name.toLowerCase().includes('casper')) {
-									await connectCasperSigner();
+					<Button
+						gradient
+						wide
+						on:click={async () => {
+							if (wallet.name.toLowerCase().includes('casper')) {
+								if(browser){
+									if(window.casperlabsHelper){
+										await connectCasperSigner();
+									}
+									else{
+										console.log('No signer')
+									}
 								}
-							}}
-						>
-							{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
-						</Button>
-					{:else}
-						<a
-							href="https://chrome.google.com/webstore/detail/casper-signer/djhndpllfiibmcdbnmaaahkhchcoijce"
-							target="_blank"
-							class="download"
-						>
-							<div class="icon">
-								<CloudDownloadIcon />
-							</div>
-							<div class="text">Download Signer</div>
-						</a>
-					{/if}
+								else{
+									console.log('Not browser')
+								}	
+							}
+						}}
+					>
+						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
+					</Button>
 				{:else}
 					<Button gradient wide>
 						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
 					</Button>
 				{/if}
+				{#if wallet.name.toLowerCase().includes('casper')}
+					<a
+						href="https://chrome.google.com/webstore/detail/casper-signer/djhndpllfiibmcdbnmaaahkhchcoijce"
+						target="_blank"
+						class="download"
+					>
+						<div class="icon">
+							<CloudDownloadIcon />
+						</div>
+						<div class="text">Download Signer</div>
+					</a>
+				{/if}
 			</div>
-			<!-- {#if wallet.name.toLowerCase().includes('casper') && !isCasperSignerAvailable}
-				<div class="download" on:click={() => {}}>
-					<div class="icon">
-						<CloudDownloadIcon />
-					</div>
-					<div class="text">Download Signer</div>
-				</div>
-			{/if} -->
 		</div>
 	{/each}
 </div>

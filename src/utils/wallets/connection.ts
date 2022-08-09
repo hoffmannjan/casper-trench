@@ -2,6 +2,7 @@ import { account } from '$stores/account';
 import { notifyError } from '$utils/toast';
 export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'casper-test') => {
 	const { CLPublicKey } = window.CasperSDK;
+	console.log('SIgner: ', window.casperlabsHelper);
 	if (await window.casperlabsHelper.isConnected()) {
 		window.casperlabsHelper
 			.getActivePublicKey()
