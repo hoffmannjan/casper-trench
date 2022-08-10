@@ -36,3 +36,9 @@
 		/>
 	</svg>
 {/if}
+
+<style lang='postcss'>
+	svg {
+		@apply cursor-pointer;
+	}
+</style>

@@ -53,7 +53,8 @@ module.exports = {
 					'sender-background': '#F5F6F7',
 					'input-border': '#DEDEDE',
 					'step-progress-bar-bg': '#E3E3E3',
-					'slider-line': '#D3D3D3'
+					'slider-line': '#D3D3D3',
+					'transfer-details-border': 'E4E4E4'
 				}
 			},
 			fontFamily: {

@@ -10,6 +10,7 @@
 	export let active = false;
 	export let red = false;
 	export let wide = false;
+	export let wider = false;
 </script>
 
 {#if block}
@@ -33,6 +34,7 @@
 		class:red
 		class:button-border-gradient={gradient}
 		class:wide
+		class:wider
 		on:click
 	>
 		<div class="content">
@@ -112,5 +114,9 @@
 
 	.wide {
 		@apply md:w-[11.25vw];
+	}
+
+	.wider {
+		@apply md:w-[21.07vw];
 	}
 </style>
