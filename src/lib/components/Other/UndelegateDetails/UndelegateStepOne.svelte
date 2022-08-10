@@ -27,10 +27,9 @@
 	let validatorImg = 'https://foreststaking.com/static/media/logo.3392a286.svg';
 	let validatorCSPRPerc = 0.12;
 	let delegatorPerc = 0.0123;
-	let numberOfDelegators = 14;
 </script>
 
-<div class="title">Delegation details</div>
+<div class="title">Undelegation details</div>
 {#if !$account}
 	<div class="sign-in-alert">
 		<div class="icon">
@@ -110,9 +109,8 @@
 			</div>
 			<div class="validator-cspr">
 				<div class="cspr">
-					<span class="cspr-fee">{Math.round(delegatorPerc * 10000) / 100}%</span>
+					<span class="cspr-fee grey">{Math.round(delegatorPerc * 10000) / 100}%</span>
 				</div>
-				<div class="perc">({numberOfDelegators} delegators)</div>
 			</div>
 			<div class="validator-cspr">
 				<div class="cspr"><span class="cspr-fee">{(amount + csprFee).toFixed(5)}</span> CSPR</div>
@@ -122,20 +120,7 @@
 	</div>
 {/if}
 
-<AmountInput bind:amount {limit} bind:sendMax>Delegate max</AmountInput>
-
-<div class="warning">
-	<div class="header">
-		<div class="icon">
-			<YellowWarningIcon />
-		</div>
-		<div class="text">WARNING!</div>
-	</div>
-	<div class="info">
-		Delegating max will zero your liquid balance. You won’t be able to undergate, because
-		undelegation requires 2.5 CSPR minimum liquid balance.
-	</div>
-</div>
+<AmountInput bind:amount {limit} bind:sendMax>Undelegate max</AmountInput>
 
 <div class="fee">
 	<div class="left">Transaction Fee</div>
@@ -206,7 +191,7 @@
 
 	.validator-display {
 		@apply bg-white;
-        @apply py-[clamp(12px,0.71vw,0.71vw)];
+		@apply py-[clamp(12px,0.71vw,0.71vw)];
 	}
 
 	.validator-hash {
@@ -230,14 +215,6 @@
 	.warning {
 		@apply mb-[clamp(16px,1.43vw,1.43vw)];
 		@apply text-[clamp(10px,0.77vw,0.77vw)];
-	}
-
-	.terms,
-	.warning,
-	.left,
-	.cspr,
-	.grey {
-		@apply text-color-grey-footer-label;
 	}
 
 	.cspr {
@@ -272,7 +249,7 @@
 		@apply flex justify-between items-center;
 		@apply text-[clamp(16px,1.07vw,1.07vw)];
 		@apply py-[clamp(16px,1.43vw,1.43vw)];
-        @apply border-t-color-transfer-details-border border-t-[clamp(1px,0.12vw,0.12vw)];
+		@apply border-t-color-transfer-details-border border-t-[clamp(1px,0.12vw,0.12vw)];
 	}
 
 	.cash {
@@ -299,5 +276,13 @@
 
 	.perc {
 		@apply text-[clamp(12px,0.83vw,0.83vw)] text-right;
+	}
+
+	.terms,
+	.warning,
+	.left,
+	.cspr,
+	.grey {
+		@apply text-color-grey-footer-label;
 	}
 </style>
