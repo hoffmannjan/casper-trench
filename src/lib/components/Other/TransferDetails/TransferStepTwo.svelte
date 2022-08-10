@@ -91,7 +91,7 @@
 			Loading ...
 		{:then stats}
 			<!-- TODO Get price from CoinGecko -->
-			<div class="cash">
+			<div class="cash total">
 				${Math.floor((amount + csprFee) * stats.price * 100000000) / 100000000 || '0'}
 			</div>
 		{/await}
@@ -165,11 +165,15 @@
 		@apply flex justify-between items-center;
 		@apply text-[clamp(16px,1.07vw,1.07vw)];
 		@apply py-[clamp(16px,1.43vw,1.43vw)];
-		@apply border-b-color-transfer-details-border border-b-[clamp(1px,0.24vw,0.24vw)];
+		@apply border-b-color-transfer-details-border border-b-[clamp(1px,0.12vw,0.12vw)];
 	}
 
 	.cash {
 		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-bold;
+	}
+
+	.cash.total {
+		@apply text-[clamp(20px,1.31vw,1.31vw)];
 	}
 
 	.right {

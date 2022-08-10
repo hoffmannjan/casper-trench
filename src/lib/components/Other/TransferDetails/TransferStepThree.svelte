@@ -69,10 +69,10 @@
 	</div>
 	<div class="value">
 		<span>
-			{amount}
+			{(amount * 1000000000).toLocaleString()}
 			<div class="copy-icon">
 				{#if amount}
-					<CopyIcon text={amount.toLocaleString() || ''} />
+					<CopyIcon text={(amount * 1000000000).toLocaleString() || ''} />
 				{/if}
 			</div></span
 		>
@@ -197,6 +197,6 @@
 	}
 
 	.bot-alert > .text {
-		@apply text-[clamp(12px,0.83vw,0.83vw)] text-color-table-header;
+		@apply text-[clamp(12px,0.83vw,0.83vw)] text-color-table-header font-medium;
 	}
 </style>

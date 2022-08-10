@@ -1,17 +1,10 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import AmountInput from '$lib/components/Other/AmountInput.svelte';
 	import StepProgress from '$lib/components/Other/StepProgress.svelte';
-import TransferStepFour from '$lib/components/Other/TransferDetails/TransferStepFour.svelte';
+	import TransferStepFour from '$lib/components/Other/TransferDetails/TransferStepFour.svelte';
 	import TransferStepOne from '$lib/components/Other/TransferDetails/TransferStepOne.svelte';
 	import TransferStepThree from '$lib/components/Other/TransferDetails/TransferStepThree.svelte';
 	import TransferStepTwo from '$lib/components/Other/TransferDetails/TransferStepTwo.svelte';
-	import Button from '$lib/components/Reusables/Button.svelte';
-	import Hash from '$lib/components/TableData/Hash.svelte';
-	import CopyIcon from '$lib/icons/CopyIcon.svelte';
-	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 	import { account } from '$stores/account';
-	import { getStats } from '$utils/api';
 	import { getAccountBalance } from '$utils/wallets/balance';
 	import { transferCasper } from '$utils/wallets/transactions';
 	import { onMount } from 'svelte';
@@ -65,7 +58,9 @@ import TransferStepFour from '$lib/components/Other/TransferDetails/TransferStep
 				{recipient}
 				{amount}
 				on:click={() => {
+					// transfer().then(() => {
 					step = 3;
+					// });
 				}}
 			/>
 		{:else}
@@ -73,6 +68,9 @@ import TransferStepFour from '$lib/components/Other/TransferDetails/TransferStep
 				account={$account}
 				{recipient}
 				{amount}
+				on:click={() => {
+					step = 0;
+				}}
 			/>
 		{/if}
 	</div>

@@ -1,7 +1,9 @@
 <script lang="ts">
+import { goto } from '$app/navigation';
+
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
-import CircleCheckMarkIcon from '$lib/icons/CircleCheckMarkIcon.svelte';
+	import CircleCheckMarkIcon from '$lib/icons/CircleCheckMarkIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { getStats } from '$utils/api';
 
@@ -11,7 +13,6 @@ import CircleCheckMarkIcon from '$lib/icons/CircleCheckMarkIcon.svelte';
 	export let csprFee = 0.1;
 
 	let deployHash = '8942387832758946362390840927389589274384374937984738297489238';
-	let recipientHash = '8942387832758946362390840927389589274384374937984738297489238';
 </script>
 
 <div class="title">Transfer Completed!</div>
@@ -118,7 +119,12 @@ import CircleCheckMarkIcon from '$lib/icons/CircleCheckMarkIcon.svelte';
 	After inclusion in a new block, you can review the <span class="green">Deploy Details.</span>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Confirm and transfer</Button>
+	<Button wider gradient on:click>Make Another Delegation</Button>
+	<button class="home-button" on:click={()=> {
+		goto('/');
+	}}>
+		Back to Home
+	</button>
 </div>
 
 <style lang="postcss">
@@ -201,7 +207,7 @@ import CircleCheckMarkIcon from '$lib/icons/CircleCheckMarkIcon.svelte';
 
 	.next-button {
 		@apply mt-[clamp(16px,2.92vw,2.92vw)];
-		@apply flex justify-center;
+		@apply flex items-center flex-col;
 	}
 
 	.deploy {
@@ -221,4 +227,9 @@ import CircleCheckMarkIcon from '$lib/icons/CircleCheckMarkIcon.svelte';
         @apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
         @apply text-color-arcadia-green text-[clamp(16px,1.07vw,1.07vw)];
     }
+
+	.home-button {
+		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-medium;
+		@apply mt-[clamp(16px,2.08vw,2.08vw)];
+	}
 </style>
