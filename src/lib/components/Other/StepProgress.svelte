@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ProgressCheckMarkIcon from '$lib/icons/ProgressCheckMarkIcon.svelte';
 	import ProgressMarker from '$lib/icons/ProgressMarker.svelte';
 
 	export let step: 0 | 1 | 2 | 3 = 0;
@@ -13,11 +14,11 @@
 			iconClass = 'translate-x-[-0.5vw]';
 			break;
 		case 1:
-			progressClass = 'w-[16.5vw]';
+			progressClass = 'w-[12vw]';
 			iconClass = 'translate-x-[11.5vw]';
 			break;
 		case 2:
-			progressClass = 'w-[25.5vw]';
+			progressClass = 'w-[21vw]';
 			iconClass = 'translate-x-[20.75vw]';
 			break;
 		default:
@@ -29,6 +30,18 @@
 
 <div class="step-progress">
 	<div class="progress-bar">
+		<div class="icon translate-x-[-0.5vw] check-mark" class:checked={step > 0}>
+			<ProgressCheckMarkIcon />
+		</div>
+		<div class="icon translate-x-[11.5vw] check-mark" class:checked={step > 1}>
+			<ProgressCheckMarkIcon />
+		</div>
+		<div class="icon translate-x-[20.75vw] check-mark" class:checked={step > 2}>
+			<ProgressCheckMarkIcon />
+		</div>
+		<div class="icon translate-x-[29.25vw] check-mark" class:checked={step > 3}>
+			<ProgressCheckMarkIcon />
+		</div>
 		<div class="icon {iconClass}">
 			<ProgressMarker />
 		</div>
@@ -38,36 +51,24 @@
 		<div
 			class="text"
 			class:selected={step === 0}
-			on:click={() => {
-				step = 0;
-			}}
 		>
 			{page}
 		</div>
 		<div
 			class="text"
 			class:selected={step === 1}
-			on:click={() => {
-				step = 1;
-			}}
 		>
 			Confirm
 		</div>
 		<div
 			class="text"
 			class:selected={step === 2}
-			on:click={() => {
-				step = 2;
-			}}
 		>
 			Sign
 		</div>
 		<div
 			class="text"
 			class:selected={step === 3}
-			on:click={() => {
-				step = 3;
-			}}
 		>
 			Done
 		</div>
@@ -78,10 +79,6 @@
 	.step-text {
 		@apply flex items-center md:gap-[7vw];
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
-	}
-
-	.text {
-		@apply cursor-pointer;
 	}
 
 	.step-progress {
@@ -108,5 +105,14 @@
 	.progress {
 		@apply h-full bg-color-hover-footer-link;
 		@apply transition-all;
+	}
+
+	.check-mark {
+		@apply transform scale-0;
+		@apply transition-all;
+	}
+
+	.checked {
+		@apply scale-100;
 	}
 </style>
