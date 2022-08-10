@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { isLoading } from '$stores/loading';
-	import { getEconomics, getStats } from '$utils/api';
-	import { parseStringValue } from '$utils/converters';
+	import { getEconomics, getLatestBlocks, getStats } from '$utils/api';
+	import { aTimeAgo, parseStringValue } from '$utils/converters';
+	import type { Block } from '$utils/types/block';
 	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
 
@@ -9,10 +10,12 @@
 	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	let stats: Stats;
 	let economics: Economics;
+	let blocks: Block[];
 	onMount(async () => {
 		$isLoading = true;
 		stats = await getStats();
 		economics = await getEconomics();
+		blocks = await getLatestBlocks(1);
 		$isLoading = false;
 	});
 </script>
@@ -21,12 +24,12 @@
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>
 		<div class="value">
-			{(economics && economics.block_height.toLocaleString('en')) || ''}
+			{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
 		</div>
-		<!-- TODO get latest block time -->
 		<div class="detail flex">
-			{'55 sec ago'}
-			<PlaceHolderIndicator />
+			{aTimeAgo(
+				Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
+			) || '0'}
 		</div>
 	</div>
 

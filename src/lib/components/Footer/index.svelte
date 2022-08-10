@@ -41,7 +41,7 @@
 				<a href="/" class="link"> CasperLabs </a>
 				<a href="/" class="link"> Casper Association </a>
 				<a href="/" class="link"> Highway protocol </a>
-				<a href="/" class="link"> Techinical design </a>
+				<a href="/" class="link"> Technical design </a>
 			</div>
 			<div class="links">
 				<div class="title">Developer Resources</div>

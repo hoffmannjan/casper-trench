@@ -7,6 +7,7 @@
 	import { getTopValidators } from '$utils/api';
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
+	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	let validators;
 	onMount(async () => {
 		$isLoading = true;
@@ -22,10 +23,10 @@
 		<table>
 			<tr>
 				<th>Validator</th>
-				<!-- TODO confirm if Fees are delegation rates -->
 				<th>Fee</th>
 				<th>Total Stake</th>
-				<th>Performance</th>
+				<!-- Only available from make services -->
+				<th><PlaceHolderIndicator /> Performance</th>
 			</tr>
 			<div class="divider table-header-border" />
 			{#each validators.era_validators.validators as validator}
@@ -41,7 +42,6 @@
 					<td class="text-color-table-header"
 						>{parseFloat(validator.bid?.total_stake.substring(0, 9)).toLocaleString('en')} CSPR</td
 					>
-					<!-- TODO confirm what perfomance is -->
 					<td><CircleProgressBar progress={1} /></td>
 				</tr>
 			{/each}

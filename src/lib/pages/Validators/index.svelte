@@ -33,6 +33,9 @@
 		delegators: number;
 		name: string;
 		icon: string;
+		delegation_rate?: number;
+		selfStake?: string;
+		networkPercentage?: string;
 	}[] = [];
 
 	let displayedValidators: {
@@ -41,6 +44,9 @@
 		delegators: number;
 		name: string;
 		icon: string;
+		delegation_rate?: number;
+		selfStake?: string;
+		networkPercentage?: string;
 	}[] = [];
 	let bids: {
 		public_key: string;
@@ -55,6 +61,8 @@
 		total_delegated: string;
 		name: string;
 		icon: string;
+		selfStake?: string;
+		networkPercentage?: string;
 	}[] = [];
 	let displayedBids: {
 		public_key: string;
@@ -69,6 +77,14 @@
 		total_delegated: string;
 		name: string;
 		icon: string;
+		selfStake?: string;
+		networkPercentage?: string;
+	}[] = [];
+	let sharedDataPoints: {
+		public_key: string;
+		fee: number;
+		selfStake: string;
+		networkPercentage?: string;
 	}[] = [];
 	let totalEraStake: string;
 	let eraValidators: EraValidator;
@@ -88,17 +104,60 @@
 		}
 		validatorAuction = await getAuctionBids();
 		bids = validatorAuction && validatorAuction.auction_state.bids;
+		setSharedDataPoints();
+		bids && validators && mergeValidatorData();
 		$isLoading = false;
 	});
-
-	const calculateNetworkPercentage = (weight: string): string => {
-		const networkPercentage = (parseFloat(weight) / parseFloat(totalEraStake)) * 100;
-		return networkPercentage.toFixed(2);
+	const setSharedDataPoints = () => {
+		bids &&
+			bids.forEach((bid) => {
+				sharedDataPoints.push({
+					public_key: bid.public_key,
+					fee: bid.bid.delegation_rate,
+					selfStake: (
+						(parseFloat(bid.bid.staked_amount) / parseFloat(bid.total_bid)) *
+						100
+					).toFixed(2)
+				});
+			});
+		validators &&
+			validators.forEach((validator) => {
+				sharedDataPoints &&
+					sharedDataPoints.forEach((sharedDataPoint) => {
+						if (sharedDataPoint.public_key == validator.public_key) {
+							sharedDataPoint.networkPercentage = (
+								(parseFloat(validator.weight) / parseFloat(totalEraStake)) *
+								100
+							).toFixed(2);
+						}
+					});
+			});
 	};
 
-	const calculateSelfStake = (stakedAmount: string, totalBid: string): string => {
-		const networkPercentage = (parseFloat(stakedAmount) / parseFloat(totalBid)) * 100;
-		return networkPercentage.toFixed(2);
+	const mergeValidatorData = () => {
+		bids &&
+			bids.forEach((bid) => {
+				validators &&
+					validators.forEach((validator) => {
+						if (validator.public_key === bid.public_key) {
+							validator.delegation_rate = bid.bid.delegation_rate;
+							validator.selfStake = bid.selfStake = (
+								(parseFloat(bid.bid.staked_amount) / parseFloat(bid.total_bid)) *
+								100
+							).toFixed(2);
+							bid.networkPercentage = validator.networkPercentage = (
+								(parseFloat(validator.weight) / parseFloat(totalEraStake)) *
+								100
+							).toFixed(2);
+						}
+					});
+			});
+	};
+
+	const getSharedDatapoint = (
+		publicKey: string
+	): { public_key: string; fee: number; selfStake: string; networkPercentage?: string } => {
+		return sharedDataPoints.find((sharedDataPoint) => sharedDataPoint.public_key === publicKey);
 	};
 
 	const setValidatorsByEra = (eraId: number) => {
@@ -117,6 +176,8 @@
 	const sortBids = (direction: 'asc' | 'desc', field: string) => {
 		bids = tableSort(direction, bids, field);
 	};
+	$: validators && bids && setSharedDataPoints();
+	$: validators && bids && mergeValidatorData();
 </script>
 
 <div class="content">
@@ -137,7 +198,7 @@
 	/>
 
 	{#if currentPage === 0}
-		{#if displayedValidators && displayedValidators.length > 0}
+		{#if displayedValidators && displayedValidators.length > 0 && sharedDataPoints && sharedDataPoints.length > 0}
 			<table>
 				<tr>
 					<th class="rank">Rank</th>
@@ -145,7 +206,9 @@
 					<th class="fee">
 						<div class="header-wrapper">
 							<div class="text">Fee</div>
-							<TableSorter />
+							<TableSorter
+								on:sort={(e) => sortValidators(e.detail?.direction, 'delegation_rate')}
+							/>
 						</div>
 					</th>
 					<th>
@@ -181,13 +244,13 @@
 								name={validator.name}
 							/></td
 						>
-						<td class="grey">{10}%</td>
+						<td class="grey">{validator.delegation_rate}%</td>
 						<td>{validator.delegators.toLocaleString()}</td>
 						<td class="stake"
 							>{parseFloat(validator.weight.substring(0, 9)).toLocaleString('en')} CSPR</td
 						>
-						<td class="grey self">{0.04}%</td>
-						<td class="grey network-perc">{calculateNetworkPercentage(validator.weight)}%</td>
+						<td class="grey self">{validator.selfStake}%</td>
+						<td class="grey network-perc">{validator.networkPercentage}%</td>
 						<td class="performance"><CircleProgressBar progress={0.25} /></td>
 					</tr>
 				{/each}
@@ -195,7 +258,7 @@
 		{/if}
 		<Paginator bind:items={validators} bind:pagedItems={displayedValidators} />
 	{:else}
-		{#if displayedBids && displayedBids.length > 0}
+		{#if displayedBids && displayedBids.length > 0 && sharedDataPoints && sharedDataPoints.length > 0}
 			<table>
 				<tr>
 					<th class="rank">Rank</th>
@@ -244,8 +307,8 @@
 						<td class="stake"
 							>{parseFloat(bid.total_bid.substring(0, 9)).toLocaleString('en')} CSPR</td
 						>
-						<td class="grey self">{calculateSelfStake(bid.bid.staked_amount, bid.total_bid)}%</td>
-						<td class="grey network-perc">{(6.5).toFixed(2)}%</td>
+						<td class="grey self">{bid.selfStake}%</td>
+						<td class="grey network-perc">{bid.networkPercentage}%</td>
 						<td class="performance"><CircleProgressBar progress={0.7} /></td>
 					</tr>
 				{/each}

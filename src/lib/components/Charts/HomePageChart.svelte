@@ -1,26 +1,28 @@
 <script lang="ts">
+import { getVolumes } from '$utils/api';
+
 	import { onMount } from 'svelte';
 
 	let ctx: HTMLCanvasElement;
 
-	export let totalTransactions = 588675;
-	export let data = [
-		{ x: new Date(1658918045000), y: 73625 },
-		{ x: new Date(1658923545000), y: 41625 },
-		{ x: new Date(1658927645000), y: 70724 },
-		{ x: new Date(1658929545000), y: 91525 },
-		{ x: new Date(1658933545000), y: 125246 },
-		{ x: new Date(1658936545000), y: 30123 }
+	export let totalTransactions = 0;
+	export let data:{x:Date,y:number}[] = [
 	];
 
 	export let isLoading = true;
+	let transactionVolumes=[]
 
 	$: if (!isLoading) {
 		data?.length > 0 && renderChart(data);
 	}
 
 	// TODO Remove the onMount Function
-	onMount(() => {
+	onMount(async() => {
+		transactionVolumes=await getVolumes(14)
+		transactionVolumes && transactionVolumes.forEach((volume)=>{
+			data.push({x:new Date(volume[0]),y:volume[1]})
+			totalTransactions+=volume[1]
+		})
 		isLoading = false;
 	});
 

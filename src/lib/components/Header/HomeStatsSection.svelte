@@ -1,27 +1,35 @@
 <script lang="ts">
-	import { getEconomics, getStats } from '$utils/api';
+	import { getAuctionBids, getEconomics, getLatestBlocks, getStats } from '$utils/api';
 	import { onMount } from 'svelte';
 	import { isLoading } from '$stores/loading';
 	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
-	import { millisToFormat, timeAgo } from '$utils/converters';
+	import { aTimeAgo, parseStringValue } from '$utils/converters';
 	import HomePageChart from '$lib/components/Charts/HomePageChart.svelte';
-	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
+	import type { Block } from '$utils/types/block';
+	import type { ValidatorAuction } from '$utils/types/validator';
 	let economics: Economics;
 	let stats: Stats;
 	let totalTransfers = 0;
-	let lastBlockHeightUpdate;
+	let blocks: Block[];
+	let totalStakeBonded = 0;
 	onMount(async () => {
 		$isLoading = true;
 		economics = await getEconomics();
 		stats = await getStats();
-		lastBlockHeightUpdate = timeAgo(millisToFormat(Date.now()));
+		blocks = await getLatestBlocks(1);
+
 		// Calculate total transfers
 		if (stats && stats.transfers.length > 0) {
 			stats.transfers.forEach((transfer) => {
 				totalTransfers += transfer[1];
 			});
 		}
+		const bidValidators: ValidatorAuction = await getAuctionBids();
+		bidValidators &&
+			bidValidators.auction_state.bids.forEach((bid) => {
+				totalStakeBonded += parseFloat(bid.bid.staked_amount);
+			});
 		$isLoading = false;
 	});
 </script>
@@ -31,11 +39,12 @@
 		<div class="top">
 			<div class="title">BLOCK HEIGHT</div>
 			<div class="value">
-				{(economics && economics.block_height.toLocaleString('en')) || ''}
+				{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
 			</div>
 			<div class="detail">
-				<!-- TODO get latest block time -->
-				{'55 sec ago'}
+				{aTimeAgo(
+					Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
+				) || 0}
 			</div>
 		</div>
 		<div class="bottom">
@@ -83,15 +92,17 @@
 	<div class="vt" />
 
 	<div class="stat-column">
-		<!-- TODO Get total stake bonded -->
 		<div class="top">
-			<PlaceHolderIndicator />
 			<div class="title">TOTAL STAKE BONDED</div>
 			<div class="value">
-				{'8,255,902,991'}
+				{(totalStakeBonded && parseStringValue(totalStakeBonded.toString()).toLocaleString('en')) ||
+					0}
 			</div>
 			<div class="detail">
-				{'75.50% of Total Supply'}
+				{totalStakeBonded &&
+					economics &&
+					((totalStakeBonded / parseFloat(economics.total_supply)) * 100).toFixed(2)}% of Total
+				supply
 			</div>
 		</div>
 		<div class="bottom">
