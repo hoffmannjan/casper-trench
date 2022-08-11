@@ -27,7 +27,9 @@
 		<!-- TODO get latest block time -->
 		<div class="detail flex">
 			{'55 sec ago'}
-			<PlaceHolderIndicator />
+			<div class="side">
+				<PlaceHolderIndicator />
+			</div>
 		</div>
 	</div>
 
@@ -57,7 +59,7 @@
 
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
-		{#if !$isLoading}
+		{#if !$isLoading && economics}
 			<div class="value">
 				{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
 					'en'
@@ -108,5 +110,10 @@
 
 	.detail {
 		@apply text-[clamp(8px,0.75vw,0.75vw)] text-white;
+	}
+
+	.side {
+		@apply absolute;
+		@apply transform translate-x-[3.5vw] translate-y-[-0.2vw];
 	}
 </style>
