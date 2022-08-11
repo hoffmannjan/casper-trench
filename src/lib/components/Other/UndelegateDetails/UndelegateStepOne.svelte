@@ -5,12 +5,11 @@
 
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
-	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 	import { getStats } from '$utils/api';
 	import { getAccountBalance } from '$utils/wallets/balance';
-	import AmountInput from '../AmountInput.svelte';
+	import NumberInput from '$lib/components/Reusables/NumberInput.svelte';
 
 	export let validatorPublicKey: string;
 	export let amount = 500; // Minimum CSPR delegatable
@@ -120,7 +119,7 @@
 	</div>
 {/if}
 
-<AmountInput bind:amount {limit} bind:sendMax>Undelegate max</AmountInput>
+<NumberInput bind:amount {limit} bind:sendMax>Undelegate max</NumberInput>
 
 <div class="fee">
 	<div class="left">Transaction Fee</div>

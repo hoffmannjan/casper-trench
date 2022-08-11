@@ -11,6 +11,7 @@ specifiers:
   browserify: ^17.0.0
   bufferutil: ^4.0.6
   casper-js-sdk: ^2.9.1
+  coingecko-api: ^1.0.10
   cssnano: ^5.0.17
   eslint: ^8.16.0
   eslint-config-prettier: ^8.3.0
@@ -40,6 +41,7 @@ dependencies:
   browserify: 17.0.0
   bufferutil: 4.0.6
   casper-js-sdk: 2.9.1_inarmznlfjx5xhvb62mbmeiwiy
+  coingecko-api: 1.0.10
   ethers: 5.6.9_22kvxa7zeyivx4jp72v2w3pkvy
   secp256k1: 4.0.3
   utf-8-validate: 5.0.9
@@ -2005,6 +2007,13 @@ packages:
     dependencies:
       inherits: 2.0.4
       safe-buffer: 5.2.1
+    dev: false
+
+  /coingecko-api/1.0.10:
+    resolution:
+      {
+        integrity: sha512-7YLLC85+daxAw5QlBWoHVBVpJRwoPr4HtwanCr8V/WRjoyHTa1Lb9DQAvv4MDJZHiz4no6HGnDQnddtjV35oRA==
+      }
     dev: false
 
   /color-convert/1.9.3:

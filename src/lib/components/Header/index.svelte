@@ -15,7 +15,7 @@
 		<HomeStatsSection />
 	{:else}
 		<div class="header-flex">
-			<OtherStatsSection />
+			<!-- <OtherStatsSection /> -->
 			<Filter />
 		</div>
 	{/if}

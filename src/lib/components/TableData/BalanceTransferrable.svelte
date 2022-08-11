@@ -1,15 +1,9 @@
 <script lang="ts">
+	import { price } from '$stores/price';
 	import { getStats } from '$utils/api';
-	import type { Stats } from '$utils/types/stats';
-	import { onMount } from 'svelte';
 
 	export let cspr: number;
-	let cashValue: number = 0;
 	export let selfStakePercentage: number = 0;
-	onMount(async () => {
-		const stats: Stats = await getStats();
-		cashValue = stats && cspr * stats.price;
-	});
 </script>
 
 <div class="crypto-cash">
@@ -24,15 +18,9 @@
 			{selfStakePercentage || '0'}%
 		</div>
 	{:else}
-		{#await getStats()}
-			<div class="value-cash">
-				<!-- ${parseFloat(cashValue.toFixed(2)).toLocaleString('en')||'0'} -->
-			</div>
-		{:then stats}
-			<div class="value-cash">
-				${parseFloat((cspr * stats.price).toFixed(2)).toLocaleString('en') || '0'}
-			</div>
-		{/await}
+		<div class="value-cash">
+			${parseFloat((cspr * $price).toFixed(2)).toLocaleString('en') || '0'}
+		</div>
 	{/if}
 </div>
 

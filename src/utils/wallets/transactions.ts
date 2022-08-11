@@ -1,27 +1,17 @@
 import { account } from '$stores/account';
 import { notifyError, notifySuccess } from '$utils/toast';
-// import { CasperClient, CLPublicKey, CLValueBuilder, DeployUtil, RuntimeArgs } from 'casper-js-sdk';
 import { ethers } from 'ethers';
 import { get } from 'svelte/store';
 
-export const transferCasper = async (
+export const signTransfer = async (
+	deploy: any,
 	toPublicKey: string,
-	amount: number,
-	networkName: 'casper' | 'casper-test' = 'casper-test',
-	id: number
+	networkName: 'casper' | 'casper-test' = 'casper-test'
 ) => {
-	const { CasperClient, CLPublicKey, DeployUtil } = window.CasperSDK;
-	const fromPublicKey = CLPublicKey.fromHex(get(account)?.publicKey);
-	const params = new DeployUtil.DeployParams(fromPublicKey, networkName, 1, 1800000);
-	const session = DeployUtil.ExecutableDeployItem.newTransfer(
-		ethers.utils.parseUnits(amount.toString(), 9),
-		CLPublicKey.fromHex(toPublicKey),
-		null,
-		id
-	);
-	const deploy = DeployUtil.makeDeploy(params, session, DeployUtil.standardPayment(100000000));
+	// @ts-ignore
+	const { CasperClient, DeployUtil } = window.CasperSDK;
 	const json = DeployUtil.deployToJson(deploy);
-	await window.casperlabsHelper
+	return await window.casperlabsHelper
 		.sign(json, get(account).publicKey, toPublicKey)
 		.then(async (signature) => {
 			const casperClient = new CasperClient(
@@ -35,12 +25,27 @@ export const transferCasper = async (
 					? notifySuccess('Transfer successful')
 					: notifyError(`Failed to make your transfer`);
 			}
-		})
-		.catch((err) => {
-			notifyError('Could not sign your request');
 		});
 };
 
+export const getTransferDeploy = (
+	toPublicKey: string,
+	amount: number,
+	networkName: 'casper' | 'casper-test' = 'casper-test',
+	id: number
+) => {
+	// @ts-ignore
+	const { CLPublicKey, DeployUtil } = window.CasperSDK;
+	const fromPublicKey = CLPublicKey.fromHex(get(account)?.publicKey);
+	const params = new DeployUtil.DeployParams(fromPublicKey, networkName, 1, 1800000);
+	const session = DeployUtil.ExecutableDeployItem.newTransfer(
+		ethers.utils.parseUnits(amount.toString(), 9),
+		CLPublicKey.fromHex(toPublicKey),
+		null,
+		id
+	);
+	return DeployUtil.makeDeploy(params, session, DeployUtil.standardPayment(100000000));
+};
 // Validator public key 01028e248170a7f328bf7a04696d8f271a1debb54763e05e537eefc1cf24531bc7
 export const delegateUndelegateCasper = async (
 	validatorPublicKey: string,
@@ -48,6 +53,7 @@ export const delegateUndelegateCasper = async (
 	transactionType: 'delegate' | 'undelegate',
 	networkName: 'casper' | 'casper-test' = 'casper-test'
 ) => {
+	// @ts-ignore
 	const { CasperClient, CLPublicKey, CLValueBuilder, DeployUtil, RuntimeArgs } = window.CasperSDK;
 	const fromPublicKey = CLPublicKey.fromHex(get(account)?.publicKey);
 	const params = new DeployUtil.DeployParams(fromPublicKey, networkName);

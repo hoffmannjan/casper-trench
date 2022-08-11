@@ -5,25 +5,41 @@
 	import TransferStepThree from '$lib/components/Other/TransferDetails/TransferStepThree.svelte';
 	import TransferStepTwo from '$lib/components/Other/TransferDetails/TransferStepTwo.svelte';
 	import { account } from '$stores/account';
+	import { notifyError } from '$utils/toast';
 	import { getAccountBalance } from '$utils/wallets/balance';
-	import { transferCasper } from '$utils/wallets/transactions';
+	import { getTransferDeploy, signTransfer } from '$utils/wallets/transactions';
 	import { onMount } from 'svelte';
-
-	let recipient = '';
+	let recipientPublicKey = '';
 	let amount = 2.5; // Minimum CSPR transferrable is 2.5
 	let txID = 1659607320459;
 	let step: 0 | 1 | 2 | 3 = 0;
 	let csprFee = 0.1;
 	let balance: string;
+	let deployHash = '';
+	let recipientAccountHash = '';
+	let deploy: any;
 	onMount(async () => {
 		balance = await getAccountBalance();
 	});
 
-	const transfer = async () => {
-		await transferCasper(recipient, amount, 'casper-test', txID);
+	const signAndDeploy = async () => {
+		await signTransfer(deploy, recipientPublicKey)
+			.then(() => {
+				step = 3;
+			})
+			.catch(() => {
+				notifyError('Could not sign your request');
+			});
 	};
-	// TO 0203fdbddc1c8e93678f0b19644adbfd2989962a909029bf8172a9ded1ae7d9a4cf3
-	// FROM 013e85a9c63da2877b923455e776d0d3ed98030a6a4737f93e19ab0a3a62258ed0
+	const setDeployAndRecipientHash = () => {
+		// @ts-ignore
+		const { CLPublicKey } = window.CasperSDK;
+		deploy = getTransferDeploy(recipientPublicKey, amount, 'casper-test', txID);
+		deployHash = window.Buffer.from(deploy?.hash).toString('hex');
+		recipientAccountHash = window.Buffer.from(
+			CLPublicKey.fromHex(recipientPublicKey).toAccountHash()
+		).toString('hex');
+	};
 </script>
 
 <div class="transfer-details">
@@ -33,7 +49,7 @@
 		{#if step === 0}
 			<TransferStepOne
 				account={$account}
-				bind:recipient
+				bind:recipientPublicKey
 				bind:amount
 				bind:txID
 				bind:csprFee
@@ -44,30 +60,30 @@
 			/>
 		{:else if step === 1}
 			<TransferStepTwo
-				account={$account}
-				{recipient}
+				{recipientPublicKey}
 				{amount}
 				{csprFee}
 				on:click={() => {
+					setDeployAndRecipientHash();
 					step = 2;
 				}}
 			/>
 		{:else if step === 2}
 			<TransferStepThree
-				account={$account}
-				{recipient}
+				{recipientPublicKey}
+				{recipientAccountHash}
+				{deployHash}
 				{amount}
-				on:click={() => {
-					// transfer().then(() => {
-					step = 3;
-					// });
+				on:click={async () => {
+					await signAndDeploy();
 				}}
 			/>
 		{:else}
 			<TransferStepFour
-				account={$account}
-				{recipient}
+				{recipientPublicKey}
+				{deployHash}
 				{amount}
+				{csprFee}
 				on:click={() => {
 					step = 0;
 				}}

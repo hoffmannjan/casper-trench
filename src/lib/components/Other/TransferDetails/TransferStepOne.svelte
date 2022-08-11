@@ -1,27 +1,28 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
 
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import { getStats } from '$utils/api';
 	import { getAccountBalance } from '$utils/wallets/balance';
-	import AmountInput from '../AmountInput.svelte';
-
+	import NumberInput from '$lib/components/Reusables/NumberInput.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
+	import { isPublicKey } from '$utils/wallets/verifications';
+	import TextInput from '$lib/components/Reusables/TextInput.svelte';
+	import { price } from '$stores/price';
 
 	export let account;
-	export let recipient = '';
-	export let amount = 2.5;
+	let minimumAmount = 2.5;
+	export let recipientPublicKey = '';
+	export let amount = minimumAmount;
 	export let txID = 1659607320459;
 	export let csprFee = 0.1;
 	export let balance: string;
 
-	$: amount = sendMax ? parseFloat(balance) - csprFee : 2.5;
+	$: amount = sendMax ? parseFloat(balance) - csprFee : minimumAmount;
 
 	let sendMax = false;
-	const limit = 500;
 </script>
 
 <div class="title">Transfer Details</div>
@@ -64,13 +65,14 @@
 		>
 	</div>
 </div>
-
-<div class="input-wrapper">
-	<div class="top">Recipient</div>
-	<div class="input">
-		<input type="text" bind:value={recipient} placeholder="Enter address or contract" />
-	</div>
-</div>
+<TextInput
+	label={'Recipient'}
+	bind:value={recipientPublicKey}
+	error={recipientPublicKey && !isPublicKey(recipientPublicKey)
+		? 'Please enter a valid public key.'
+		: ''}
+	placeholder={'Enter address or contract'}
+/>
 <div class="warning">
 	<div class="header">
 		<div class="icon">
@@ -84,7 +86,7 @@
 	</div>
 </div>
 
-<AmountInput bind:amount {limit} bind:sendMax>Send max amount</AmountInput>
+<NumberInput bind:amount bind:limit={minimumAmount} bind:sendMax>Send max amount</NumberInput>
 
 <div class="input-wrapper">
 	<div class="top">Transfer ID (Memo)</div>
@@ -97,24 +99,28 @@
 	<div class="left">Transaction Fee</div>
 	<div class="right">
 		<div class="cspr"><span class="cspr-fee">{csprFee.toFixed(5)}</span> CSPR</div>
-		{#await getStats()}
-			Loading ...
-		{:then stats}
-			<!-- TODO Get price from CoinGecko -->
-			<div class="cash">
-				${Math.floor(csprFee * stats.price * 100000000) / 100000000 || '0'}
-			</div>
-		{/await}
+		<div class="cash">
+			${Math.floor(csprFee * $price * 100000000) / 100000000 || '0'}
+		</div>
 	</div>
 </div>
 
 <div class="terms">
-	By using Casper.info, you acknowledge that you have read, understood and accepted our. <span
-		class="green">Terms of Service.</span
+	By using Casper.info, you acknowledge that you have read, understood and accepted our. <a
+		href="/"
+		class="green">Terms of Service.</a
 	>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Next</Button>
+	<Button
+		disabled={amount > parseFloat(balance && balance) ||
+			amount < minimumAmount ||
+			!recipientPublicKey ||
+			!isPublicKey(recipientPublicKey)}
+		wider
+		gradient
+		on:click>Next</Button
+	>
 </div>
 
 <style lang="postcss">

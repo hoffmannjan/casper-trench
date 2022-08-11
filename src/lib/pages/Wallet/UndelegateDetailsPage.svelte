@@ -22,8 +22,6 @@
 		await delegateUndelegateCasper(validatorPublicKey, amount, 'undelegate');
 	};
 	$: amount = sendMax ? parseFloat(balance) : 0;
-
-	const limit = 500;
 	$: amount = sendMax ? parseFloat(balance) - csprFee : 500;
 </script>
 
