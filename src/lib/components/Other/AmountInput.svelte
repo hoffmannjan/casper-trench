@@ -20,14 +20,18 @@
 		<div class:cspr-red={amount < limit}>CSPR</div>
 	</div>
 	<div class="label">
-		<div class="checkbox" class:checked={sendMax} on:click={() => {
-            sendMax = !sendMax
-        }}>
+		<div
+			class="checkbox"
+			class:checked={sendMax}
+			on:click={() => {
+				sendMax = !sendMax;
+			}}
+		>
 			<div class="check-mark-icon">
 				<WhiteCheckMarkIcon />
 			</div>
 		</div>
-		<div class="text" class:checked={sendMax}><slot/></div>
+		<div class="text" class:checked={sendMax}><slot /></div>
 	</div>
 </div>
 
@@ -46,7 +50,7 @@
 
 	.label {
 		@apply text-color-grey-footer-label text-[clamp(12px,0.83vw,0.83v)];
-        @apply flex items-center gap-[clamp(2px,0.24vw,0.24vw)];
+		@apply flex items-center gap-[clamp(2px,0.24vw,0.24vw)];
 	}
 
 	.input-wrapper {
@@ -77,19 +81,19 @@
 		@apply w-[clamp(4px,0.48vw,0.48vw)] h-[clamp(4px,0.48vw,0.48vw)];
 	}
 
-    .checkbox {
-        @apply border-color-grey-footer-label border-[clamp(1px,0.12vw,0.12vw)];
-        @apply rounded-[0.24vw] md:rounded-[0.24vw];
-    }
+	.checkbox {
+		@apply border-color-grey-footer-label border-[clamp(1px,0.12vw,0.12vw)];
+		@apply rounded-[0.24vw] md:rounded-[0.24vw];
+	}
 
-    .checked.checkbox {
-        @apply bg-color-hover-footer-link;
-        @apply border-color-hover-footer-link;
-    }
+	.checked.checkbox {
+		@apply bg-color-hover-footer-link;
+		@apply border-color-hover-footer-link;
+	}
 
-    .checked.text {
-        @apply text-color-hover-footer-link;
-    }
+	.checked.text {
+		@apply text-color-hover-footer-link;
+	}
 
 	.red {
 		@apply border-color-arcadia-red;

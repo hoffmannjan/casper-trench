@@ -23,6 +23,7 @@ specifiers:
   prettier: ^2.6.2
   prettier-plugin-svelte: ^2.7.0
   pretty-quick: ^3.1.3
+  secp256k1: ^4.0.3
   svelte: ^3.46.4
   svelte-check: ^2.7.1
   svelte-loading-spinners: ^0.1.7
@@ -40,6 +41,7 @@ dependencies:
   bufferutil: 4.0.6
   casper-js-sdk: 2.9.1_inarmznlfjx5xhvb62mbmeiwiy
   ethers: 5.6.9_22kvxa7zeyivx4jp72v2w3pkvy
+  secp256k1: 4.0.3
   utf-8-validate: 5.0.9
 
 devDependencies:

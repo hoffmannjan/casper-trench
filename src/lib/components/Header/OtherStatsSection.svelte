@@ -1,36 +1,43 @@
 <script lang="ts">
-	import { isLoading } from '$stores/loading';
-	import { getEconomics, getStats } from '$utils/api';
-	import { parseStringValue } from '$utils/converters';
+	import { getEconomics, getLatestBlocks, getStats } from '$utils/api';
+	import { aTimeAgo, parseStringValue } from '$utils/converters';
+	import type { Block } from '$utils/types/block';
 	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
-
 	import { onMount } from 'svelte';
-	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
+	import SvelteLoader from '$components/SvelteLoader/index.svelte';
+
 	let stats: Stats;
 	let economics: Economics;
-
+	let blocks: Block[];
+	let isLoading = true;
 	onMount(async () => {
-		$isLoading = true;
 		stats = await getStats();
 		economics = await getEconomics();
-		$isLoading = false;
+		blocks = await getLatestBlocks(1);
+		isLoading = false;
 	});
 </script>
 
+{#if isLoading}
+	<SvelteLoader />
+{/if}
 <div class="home-stats-section header-stats-background">
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>
-		<div class="value">
-			{(economics && economics.block_height.toLocaleString('en')) || ''}
-		</div>
-		<!-- TODO get latest block time -->
-		<div class="detail flex">
-			{'55 sec ago'}
-			<div class="side">
-				<PlaceHolderIndicator />
+		{#if !isLoading && blocks}
+			<div class="value">
+				{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
 			</div>
-		</div>
+			<div class="detail flex">
+				{`${aTimeAgo(
+					Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
+				)} ` || '0 seconds '} ago
+			</div>
+		{:else}
+			<div class="value">0</div>
+			<div class="detail flex">0</div>
+		{/if}
 	</div>
 
 	<div class="vt" />
@@ -59,7 +66,7 @@
 
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
-		{#if !$isLoading && economics}
+		{#if !isLoading && economics}
 			<div class="value">
 				{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
 					'en'
@@ -75,12 +82,8 @@
 				).toLocaleString('en') || ''}
 			</div>
 		{:else}
-			<div class="value">
-				0
-			</div>
-			<div class="detail">
-				0% of 0
-			</div>
+			<div class="value">0</div>
+			<div class="detail">0% of 0</div>
 		{/if}
 	</div>
 </div>

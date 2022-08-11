@@ -206,7 +206,7 @@
 
 	.validator-display {
 		@apply bg-white;
-        @apply py-[clamp(12px,0.71vw,0.71vw)];
+		@apply py-[clamp(12px,0.71vw,0.71vw)];
 	}
 
 	.validator-hash {
@@ -272,7 +272,7 @@
 		@apply flex justify-between items-center;
 		@apply text-[clamp(16px,1.07vw,1.07vw)];
 		@apply py-[clamp(16px,1.43vw,1.43vw)];
-        @apply border-t-color-transfer-details-border border-t-[clamp(1px,0.12vw,0.12vw)];
+		@apply border-t-color-transfer-details-border border-t-[clamp(1px,0.12vw,0.12vw)];
 	}
 
 	.cash {
