@@ -85,7 +85,9 @@
 	<div class="stat-column">
 		<!-- TODO Get total stake bonded -->
 		<div class="top">
-			<PlaceHolderIndicator />
+			<div class="side">
+				<PlaceHolderIndicator />
+			</div>
 			<div class="title">TOTAL STAKE BONDED</div>
 			<div class="value">
 				{'8,255,902,991'}
@@ -146,5 +148,10 @@
 
 	.detail {
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-white;
+	}
+
+	.side {
+		@apply absolute;
+		@apply transform translate-x-[-1.5vw] translate-y-[-0.2vw];
 	}
 </style>

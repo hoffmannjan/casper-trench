@@ -9,6 +9,7 @@
 	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	let stats: Stats;
 	let economics: Economics;
+
 	onMount(async () => {
 		$isLoading = true;
 		stats = await getStats();
@@ -56,20 +57,29 @@
 
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
-		<div class="value">
-			{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
-				'en'
-			) || ''}
-		</div>
-		<div class="detail">
-			{(
-				(parseFloat(economics && economics.circulating_supply) /
-					parseFloat(economics && economics.total_supply)) *
-				100
-			).toFixed(2)}% of {parseFloat(
-				economics && economics.total_supply.substring(0, 11)
-			).toLocaleString('en') || ''}
-		</div>
+		{#if !$isLoading}
+			<div class="value">
+				{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
+					'en'
+				) || ''}
+			</div>
+			<div class="detail">
+				{(
+					(parseFloat(economics && economics.circulating_supply) /
+						parseFloat(economics && economics.total_supply)) *
+					100
+				).toFixed(2)}% of {parseFloat(
+					economics && economics.total_supply.substring(0, 11)
+				).toLocaleString('en') || ''}
+			</div>
+		{:else}
+			<div class="value">
+				0
+			</div>
+			<div class="detail">
+				0% of 0
+			</div>
+		{/if}
 	</div>
 </div>
 
