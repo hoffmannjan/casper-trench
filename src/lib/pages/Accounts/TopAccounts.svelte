@@ -8,7 +8,7 @@
 	import Rank from '$lib/components/TableData/Rank.svelte';
 	import { isLoading } from '$stores/loading';
 	import { getAccountDeploys, getTopAccounts } from '$utils/api';
-import { parseStringValue } from '$utils/converters';
+	import { parseStringValue } from '$utils/converters';
 	import { tableSort } from '$utils/sort';
 	import type { TopAccount } from '$utils/types/account';
 	import type { AccountTransaction } from '$utils/types/transaction';
@@ -18,15 +18,16 @@ import { parseStringValue } from '$utils/converters';
 
 	const fetchTopAccounts = async () => {
 		$isLoading = true;
-		topAccounts=await getTopAccounts(accountsPerPage, startIndex);
-			topAccounts && topAccounts.forEach(async(account)=>{
+		topAccounts = await getTopAccounts(accountsPerPage, startIndex);
+		topAccounts &&
+			topAccounts.forEach(async (account) => {
 				const accountTransactions: AccountTransaction[] = await getAccountDeploys(
 					account.account_hash,
 					1000000,
 					0
 				);
-				account.txnCount = accountTransactions?.length ||0;
-			})
+				account.txnCount = accountTransactions?.length || 0;
+			});
 		$isLoading = false;
 	};
 
@@ -73,7 +74,7 @@ import { parseStringValue } from '$utils/converters';
 			</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#if !$isLoading&& topAccounts && topAccounts.length > 0 }
+		{#if !$isLoading && topAccounts && topAccounts.length > 0}
 			{#each topAccounts as account, i}
 				<tr>
 					<td class="block">
@@ -97,10 +98,8 @@ import { parseStringValue } from '$utils/converters';
 					>
 					<td><BalanceTransferrable cspr={parseStringValue(account.balance)} /></td>
 					<td><BalanceTransferrable cspr={parseStringValue(account.transferrable)} /></td>
-					<td>{account.txnCount?.toLocaleString('en')||0}</td>
-					<td class="right"
-						>{parseStringValue(account.staked_amount).toLocaleString('en')}</td
-					>
+					<td>{account.txnCount?.toLocaleString('en') || 0}</td>
+					<td class="right">{parseStringValue(account.staked_amount).toLocaleString('en')}</td>
 				</tr>
 			{/each}
 		{/if}
