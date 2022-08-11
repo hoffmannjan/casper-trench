@@ -1,21 +1,18 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
-	import AmountCost from '$lib/components/TableData/AmountCost.svelte';
 	import ContractText from '$lib/components/TableData/ContractText.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import TxHash from '$lib/components/TableData/TxHash.svelte';
 	import { millisToFormat, parseStringValue, timeAgo } from '$utils/converters';
-	// import type { Transaction } from '$utils/types/transaction';
 	import { onMount } from 'svelte';
-	import { getTransactions } from '$utils/api';
+	import { getDeploy, getTransactions } from '$utils/api';
 	import { isLoading } from '$stores/loading';
 	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { tableSort } from '$utils/sort';
-
-	// let transactions: Transaction[];
-	let transactions;
+	import type { Transaction } from '$utils/types/transaction';
+	let transactions: Transaction[];
 	let transactionsPerPage = 10;
 	let startIndex = 0;
 	onMount(async () => {
@@ -32,7 +29,6 @@
 			await fetchTransactions();
 		}, 1);
 	}
-
 	const sortTransactions = (direction: 'asc' | 'desc', field: string) => {
 		transactions = tableSort(direction, transactions, field);
 	};
@@ -44,9 +40,9 @@
 		<tr>
 			<th class="block">Tx Hash</th>
 			<!-- TODO remove placeholder -->
-			<th class="">Block Hash <PlaceHolderIndicator /></th>
+			<th class="">Block Hash</th>
 			<!-- TODO remove placeholder -->
-			<th class="">Public Key <PlaceHolderIndicator /></th>
+			<th class="">Public Key</th>
 			<th class="center sorter">
 				<div class="text">Age</div>
 				<TableSorter on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
@@ -67,14 +63,25 @@
 							</a>
 						</div>
 					</td>
-					<!-- TODO remove placeholder -->
-					<td>
-						<Hash hash={'a6df6167d8a99379d9a7sd7389ads7d6as90sd1693'} />
-					</td>
-					<!-- TODO remove placeholder -->
-					<td>
-						<Hash hash={'a6df6167d8a99379d9a7sd7389ads7d6as90sd1693'} />
-					</td>
+					{#await getDeploy(transaction.deploy_hash)}
+						<td>
+							<div class="loader" />
+						</td>
+						<td>
+							<div class="loader" />
+						</td>
+					{:then tx}
+						<td>
+							<a href="/blocks/{tx.deploy.header.block_hash}">
+								<Hash hash={tx.deploy.header.block_hash} /></a
+							>
+						</td>
+						<td>
+							<a href="/accounts/{tx.deploy.header.account}">
+								<Hash hash={tx.deploy.header.account} />
+							</a>
+						</td>
+					{/await}
 					<td class="center age">
 						{`${timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago`}
 					</td>
@@ -160,5 +167,8 @@
 	.wrapper-center {
 		@apply flex items-center;
 		@apply md:h-[3vw];
+	}
+	td > .loader {
+		@apply w-full h-[clamp(10px,1.2vw,1.2vw)] rounded-[clamp(2px,0.1vw,0.1vw)] animate-pulse bg-gray-200;
 	}
 </style>

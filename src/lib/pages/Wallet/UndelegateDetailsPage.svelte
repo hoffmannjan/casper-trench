@@ -1,8 +1,8 @@
 <script lang="ts">
 	import StepProgress from '$lib/components/Other/StepProgress.svelte';
-import UndelegateStepFour from '$lib/components/Other/UndelegateDetails/UndelegateStepFour.svelte';
+	import UndelegateStepFour from '$lib/components/Other/UndelegateDetails/UndelegateStepFour.svelte';
 	import UndelegateStepOne from '$lib/components/Other/UndelegateDetails/UndelegateStepOne.svelte';
-import UndelegateStepThree from '$lib/components/Other/UndelegateDetails/UndelegateStepThree.svelte';
+	import UndelegateStepThree from '$lib/components/Other/UndelegateDetails/UndelegateStepThree.svelte';
 	import UnelegateStepTwo from '$lib/components/Other/UndelegateDetails/UnelegateStepTwo.svelte';
 	import { account } from '$stores/account';
 	import { getAccountBalance } from '$utils/wallets/balance';

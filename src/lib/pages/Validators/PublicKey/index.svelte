@@ -4,7 +4,6 @@
 	import ValidatorCard from '$lib/components/Validators/ValidatorCard.svelte';
 	import VerifiedBlocksTab from '$lib/components/Validators/VerifiedBlocksTab.svelte';
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
-	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import type { ValidatorDetails } from '$utils/types/validator';
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
@@ -30,7 +29,6 @@
 			props: { validatorPublicKey: $page.params.public_key }
 		}
 	];
-
 	let validator: ValidatorDetails;
 	onMount(async () => {
 		$isLoading = true;
@@ -44,8 +42,12 @@
 		});
 		menuOptions[0].props['totalStake'] = validator && validator.bid.total_stake;
 		menuOptions[0].props['validatorPublicKey'] = validator && validator.public_key;
+		await getRewards();
 		$isLoading = false;
 	});
+
+	// TODO get delegator and validator rewards
+	const getRewards = async (network: 'casper' | 'casper-test' = 'casper-test') => {};
 </script>
 
 <div class="main">
@@ -54,33 +56,11 @@
 			<ValidatorCard inactive={validator.bid.inactive} information={validator.information} />
 			<StatisticsCard {validator} />
 		</div>
-
 		<TabMenu {menuOptions} />
 	{/if}
 </div>
 
 <style lang="postcss">
-	.address {
-		@apply text-color-table-header;
-		@apply mb-[1.79vw];
-	}
-	.address > .value {
-		@apply flex items-center gap-[0.24vw];
-	}
-
-	.address > .title {
-		@apply font-bold text-[1.19vw];
-	}
-
-	.address > .value {
-		@apply text-[0.95vw];
-	}
-
-	.copy-icon {
-		@apply w-[1.96vw] h-[1.96vw];
-		@apply cursor-pointer;
-	}
-
 	.header-content {
 		@apply flex flex-col md:flex-row gap-y-[clamp(10px,1vw,1vw)] justify-between;
 		@apply mb-[3.51vw];

@@ -48,30 +48,12 @@
 		<div class="progress {progressClass}" />
 	</div>
 	<div class="step-text">
-		<div
-			class="text"
-			class:selected={step === 0}
-		>
+		<div class="text" class:selected={step === 0}>
 			{page}
 		</div>
-		<div
-			class="text"
-			class:selected={step === 1}
-		>
-			Confirm
-		</div>
-		<div
-			class="text"
-			class:selected={step === 2}
-		>
-			Sign
-		</div>
-		<div
-			class="text"
-			class:selected={step === 3}
-		>
-			Done
-		</div>
+		<div class="text" class:selected={step === 1}>Confirm</div>
+		<div class="text" class:selected={step === 2}>Sign</div>
+		<div class="text" class:selected={step === 3}>Done</div>
 	</div>
 </div>
 

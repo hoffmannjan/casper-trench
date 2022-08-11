@@ -5,6 +5,7 @@ export type TopAccount = {
 	active_date: string;
 	transferrable: string;
 	staked_amount: string;
+	txnCount: number;
 };
 
 export type Account = {

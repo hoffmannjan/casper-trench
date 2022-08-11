@@ -1,34 +1,43 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import Paginator from '$lib/components/Paginator/index.svelte';
-	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
+	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import Contract from '$lib/components/TableData/Contract.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import PublicKey from '$lib/components/TableData/PublicKey.svelte';
 	import Rank from '$lib/components/TableData/Rank.svelte';
 	import { isLoading } from '$stores/loading';
-	import { getTopAccounts } from '$utils/api';
+	import { getAccountDeploys, getTopAccounts } from '$utils/api';
+import { parseStringValue } from '$utils/converters';
+	import { tableSort } from '$utils/sort';
 	import type { TopAccount } from '$utils/types/account';
-	import { onMount } from 'svelte';
+	import type { AccountTransaction } from '$utils/types/transaction';
 	let accountsPerPage = 10;
 	let startIndex = 0;
 	let topAccounts: TopAccount[];
 
-	onMount(async () => {
-		await fetchTopAccounts();
-	});
-
 	const fetchTopAccounts = async () => {
 		$isLoading = true;
-		topAccounts = await getTopAccounts(accountsPerPage, startIndex);
+		topAccounts=await getTopAccounts(accountsPerPage, startIndex);
+			topAccounts && topAccounts.forEach(async(account)=>{
+				const accountTransactions: AccountTransaction[] = await getAccountDeploys(
+					account.account_hash,
+					1000000,
+					0
+				);
+				account.txnCount = accountTransactions?.length ||0;
+			})
 		$isLoading = false;
 	};
+
 	$: if (accountsPerPage) {
 		setTimeout(async () => {
 			await fetchTopAccounts();
 		}, 1);
 	}
+	const sortTopAccounts = (direction: 'asc' | 'desc', field: string) => {
+		topAccounts = tableSort(direction, topAccounts, field);
+	};
 </script>
 
 <div class="delegators-tab">
@@ -38,19 +47,39 @@
 			<th class="block">Rank</th>
 			<th>Public key</th>
 			<th>Account hash</th>
-			<th>Balance</th>
-			<th>Transferable</th>
-			<th class="right flex items-center gap-1">Txn count <PlaceHolderIndicator /></th>
-			<th class="right">Staked</th>
+			<th>
+				<div class="sorter">
+					<div>Balance</div>
+					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'balance')} />
+				</div>
+			</th>
+			<th>
+				<div class="sorter">
+					<div>Transferrable</div>
+					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'transferrable')} />
+				</div>
+			</th>
+			<th>
+				<div class="sorter">
+					<div>Txn Count</div>
+					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'txnCount')} />
+				</div>
+			</th>
+			<th>
+				<div class="sorter">
+					<div>Staked</div>
+					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'staked_amount')} />
+				</div>
+			</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#if topAccounts && topAccounts.length > 0}
+		{#if !$isLoading&& topAccounts && topAccounts.length > 0 }
 			{#each topAccounts as account, i}
 				<tr>
 					<td class="block">
 						<div class="wrapper">
 							<Rank rank={i + 1} />
-							<Contract text="" />
+							<Contract text="CONTRACT" />
 						</div>
 					</td>
 					<td>
@@ -61,13 +90,16 @@
 							/>
 						</a>
 					</td>
-					<td><Hash hash={account.account_hash} noOfCharacters={10} /></td>
-					<td><BalanceTransferrable cspr={parseFloat(account.balance.substring(0, 10))} /></td>
-					<td><BalanceTransferrable cspr={parseFloat(account.transferrable.substring(0, 9))} /></td>
-					<!-- TODO Remove placeholder -->
-					<td class="right">{'4,819,627'}</td>
+					<td>
+						<a href="/accounts/{account.account_hash}"
+							><Hash hash={account.account_hash} noOfCharacters={10} /></a
+						></td
+					>
+					<td><BalanceTransferrable cspr={parseStringValue(account.balance)} /></td>
+					<td><BalanceTransferrable cspr={parseStringValue(account.transferrable)} /></td>
+					<td>{account.txnCount?.toLocaleString('en')||0}</td>
 					<td class="right"
-						>{parseFloat(account.staked_amount.substring(0, 9)).toLocaleString('en')}</td
+						>{parseStringValue(account.staked_amount).toLocaleString('en')}</td
 					>
 				</tr>
 			{/each}
@@ -119,5 +151,8 @@
 
 	.wrapper {
 		@apply flex gap-[2.26vw];
+	}
+	.sorter {
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
 	}
 </style>

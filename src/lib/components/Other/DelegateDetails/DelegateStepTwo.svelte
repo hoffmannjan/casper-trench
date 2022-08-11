@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Button from '$lib/components/Reusables/Button.svelte';
+	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
@@ -191,7 +191,7 @@
 
 	.terms {
 		@apply text-[clamp(10px,0.77vw,0.77vw)];
-        @apply mb-[clamp(16px,1.43vw,1.43vw)];
+		@apply mb-[clamp(16px,1.43vw,1.43vw)];
 	}
 
 	.green {
@@ -223,7 +223,7 @@
 		@apply text-[clamp(12px,0.83vw,0.83vw)] text-right;
 	}
 
-    .bot-alert {
+	.bot-alert {
 		@apply flex items-center gap-[clamp(4px,0.24vw,0.24vw)];
 		@apply mb-[clamp(4px,0.24vw,0.24vw)];
 	}

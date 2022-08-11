@@ -3,6 +3,7 @@
 	import type { ValidatorDetails } from '$utils/types/validator';
 	import BalanceTransferrable from '$components/TableData/BalanceTransferrable.svelte';
 	import CircleProgressBar from '$components/TableData/CircleProgressBar.svelte';
+	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 
 	export let validator: Partial<ValidatorDetails>;
 	const selfStakePercentage = parseFloat(
@@ -29,12 +30,12 @@
 		<tr>
 			<td class="label">Total Validator Rewards</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><BalanceTransferrable cspr={156324232.03423} />PH</td>
+			<td class="value"><BalanceTransferrable cspr={156324232.03423} /><PlaceHolderIndicator /></td>
 		</tr>
 		<tr>
 			<td class="label">Total Delegator Rewards</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><BalanceTransferrable cspr={156324232.03423} />PH</td>
+			<td class="value"><BalanceTransferrable cspr={156324232.03423} /><PlaceHolderIndicator /></td>
 		</tr>
 		<tr>
 			<td class="label">Total Stake</td>
@@ -54,12 +55,12 @@
 		<tr>
 			<td class="label">Commission Rate</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value commission">{(5).toFixed(2)}% PH</td>
+			<td class="value commission">{validator.bid.delegation_rate.toFixed(2)}%</td>
 		</tr>
 		<tr>
 			<td class="label">Performance</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><CircleProgressBar progress={1} />PH</td>
+			<td class="value"><CircleProgressBar progress={1} /><PlaceHolderIndicator /></td>
 		</tr>
 	</table>
 </div>

@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
+	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	let blocks: Block[];
 	onMount(async () => {
 		$isLoading = true;
@@ -26,7 +27,7 @@
 				<th>Block Height</th>
 				<th>Era</th>
 				<th>Block Hash</th>
-				<th>Deploys</th>
+				<th>Deploys <PlaceHolderIndicator /></th>
 			</tr>
 			<div class="divider table-header-border" />
 			{#each blocks as block}

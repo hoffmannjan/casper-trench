@@ -293,7 +293,7 @@ export const getBlockTransfers = async (address: string | number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch block tranfers');
+			notifyError('Could not fetch block transfers');
 		});
 };
 
@@ -339,5 +339,16 @@ export const getTransferFlow = async (eraId: number, limit: number) => {
 		.catch((err) => {
 			console.log(err);
 			notifyError('Could not fetch market data');
+		});
+};
+
+export const getVolumes = async (count: number) => {
+	return await axios
+		.get(`${casperStatsBaseURL}/info/get-transfer-volume/${count}`)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			notifyError('Could not fetch transaction volumes');
 		});
 };

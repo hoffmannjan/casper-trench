@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Weight from '$components/TableData/Weight.svelte';
+	import { parseStringValue } from '$utils/converters';
 
 	export let props: {
 		delegators: {
@@ -52,7 +53,7 @@
 					<td class="to">
 						<div class="value-crypto">
 							<div class="crypto">
-								{delegator.staked_amount.toLocaleString('en')}
+								{parseStringValue(delegator.staked_amount).toLocaleString('en')}
 							</div>
 							<div class="cspr">CSPR</div>
 						</div>
