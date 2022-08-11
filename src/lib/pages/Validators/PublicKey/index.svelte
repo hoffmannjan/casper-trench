@@ -42,13 +42,12 @@
 		});
 		menuOptions[0].props['totalStake'] = validator && validator.bid.total_stake;
 		menuOptions[0].props['validatorPublicKey'] = validator && validator.public_key;
-		await getRewards()
+		await getRewards();
 		$isLoading = false;
 	});
 
 	// TODO get delegator and validator rewards
-	const getRewards = async (network: 'casper' | 'casper-test' = 'casper-test') => {
-	};
+	const getRewards = async (network: 'casper' | 'casper-test' = 'casper-test') => {};
 </script>
 
 <div class="main">

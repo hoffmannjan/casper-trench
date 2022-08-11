@@ -1,20 +1,20 @@
 <script lang="ts">
 	import { getAuctionBids, getEconomics, getLatestBlocks, getStats } from '$utils/api';
 	import { onMount } from 'svelte';
-	import { isLoading } from '$stores/loading';
 	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
 	import { aTimeAgo, parseStringValue } from '$utils/converters';
 	import HomePageChart from '$lib/components/Charts/HomePageChart.svelte';
 	import type { Block } from '$utils/types/block';
 	import type { ValidatorAuction } from '$utils/types/validator';
+	import SvelteLoader from '$components/SvelteLoader/index.svelte';
 	let economics: Economics;
 	let stats: Stats;
 	let totalTransfers = 0;
 	let blocks: Block[];
 	let totalStakeBonded = 0;
+	let isLoading = true;
 	onMount(async () => {
-		$isLoading = true;
 		economics = await getEconomics();
 		stats = await getStats();
 		blocks = await getLatestBlocks(1);
@@ -30,10 +30,13 @@
 			bidValidators.auction_state.bids.forEach((bid) => {
 				totalStakeBonded += parseFloat(bid.bid.staked_amount);
 			});
-		$isLoading = false;
+		isLoading = false;
 	});
 </script>
 
+{#if isLoading}
+	<SvelteLoader />
+{/if}
 <div class="home-stats-section header-stats-background">
 	<div class="stat-column">
 		<div class="top">

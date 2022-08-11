@@ -5,21 +5,24 @@
 	import type { Block } from '$utils/types/block';
 	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
-
 	import { onMount } from 'svelte';
-	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
+	import SvelteLoader from '$components/SvelteLoader/index.svelte';
+
 	let stats: Stats;
 	let economics: Economics;
 	let blocks: Block[];
+	let isLoading = true;
 	onMount(async () => {
-		$isLoading = true;
 		stats = await getStats();
 		economics = await getEconomics();
 		blocks = await getLatestBlocks(1);
-		$isLoading = false;
+		isLoading = false;
 	});
 </script>
 
+{#if isLoading}
+	<SvelteLoader />
+{/if}
 <div class="home-stats-section header-stats-background">
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>

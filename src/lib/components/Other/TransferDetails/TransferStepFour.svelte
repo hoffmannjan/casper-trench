@@ -1,5 +1,5 @@
 <script lang="ts">
-import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
@@ -21,21 +21,21 @@ import { goto } from '$app/navigation';
 		<div class="label grey">Deploy Hash</div>
 		<div class="hash-value">
 			<div>
-                <Hash start color="black" noOfCharacters={10} hash={deployHash || ''} />
+				<Hash start color="black" noOfCharacters={10} hash={deployHash || ''} />
 				<div class="copy-icon">
 					{#if deployHash}
 						<CopyIcon text={deployHash || ''} />
 					{/if}
 				</div>
-            </div>
+			</div>
 		</div>
 	</div>
 
 	<div class="status">
 		<div class="text">Successfully Sent</div>
 		<div class="icon">
-            <CircleCheckMarkIcon />
-        </div>
+			<CircleCheckMarkIcon />
+		</div>
 	</div>
 </div>
 <div class="sender">
@@ -120,9 +120,12 @@ import { goto } from '$app/navigation';
 </div>
 <div class="next-button">
 	<Button wider gradient on:click>Make Another Delegation</Button>
-	<button class="home-button" on:click={()=> {
-		goto('/');
-	}}>
+	<button
+		class="home-button"
+		on:click={() => {
+			goto('/');
+		}}
+	>
 		Back to Home
 	</button>
 </div>
@@ -155,15 +158,15 @@ import { goto } from '$app/navigation';
 		@apply mb-[clamp(16px,1.9vw,1.9vw)];
 		@apply flex items-center justify-between;
 	}
-    
-    .hash-value {
+
+	.hash-value {
 		@apply text-[clamp(16px,1.07vw,1.07vw)];
 		@apply flex items-center justify-between;
-    }
+	}
 
-    .hash {
-        @apply flex items-center gap-[clamp(16px,0.95vw,0.95vw)];
-    }
+	.hash {
+		@apply flex items-center gap-[clamp(16px,0.95vw,0.95vw)];
+	}
 
 	.terms,
 	.left,
@@ -215,18 +218,18 @@ import { goto } from '$app/navigation';
 		@apply mb-[clamp(16px,1.9vw,1.9vw)];
 	}
 
-    .hash-value > div {
+	.hash-value > div {
 		@apply flex items-center gap-[clamp(4px,0.24vw,0.24vw)];
-    }
+	}
 
-    .status > .icon {
-        @apply w-[clamp(16px,1.19vw,1.19vw)] h-[clamp(16px,1.19vw,1.19vw)];
-    }
+	.status > .icon {
+		@apply w-[clamp(16px,1.19vw,1.19vw)] h-[clamp(16px,1.19vw,1.19vw)];
+	}
 
-    .status {
-        @apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
-        @apply text-color-arcadia-green text-[clamp(16px,1.07vw,1.07vw)];
-    }
+	.status {
+		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
+		@apply text-color-arcadia-green text-[clamp(16px,1.07vw,1.07vw)];
+	}
 
 	.home-button {
 		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-medium;

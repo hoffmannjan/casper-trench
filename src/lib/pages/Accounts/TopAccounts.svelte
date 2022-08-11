@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import Paginator from '$lib/components/Paginator/index.svelte';
-	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import Contract from '$lib/components/TableData/Contract.svelte';
@@ -9,23 +7,29 @@
 	import PublicKey from '$lib/components/TableData/PublicKey.svelte';
 	import Rank from '$lib/components/TableData/Rank.svelte';
 	import { isLoading } from '$stores/loading';
-	import { getTopAccounts } from '$utils/api';
+	import { getAccountDeploys, getTopAccounts } from '$utils/api';
+import { parseStringValue } from '$utils/converters';
 	import { tableSort } from '$utils/sort';
 	import type { TopAccount } from '$utils/types/account';
-	import { onMount } from 'svelte';
+	import type { AccountTransaction } from '$utils/types/transaction';
 	let accountsPerPage = 10;
 	let startIndex = 0;
 	let topAccounts: TopAccount[];
 
-	onMount(async () => {
-		await fetchTopAccounts();
-	});
-
 	const fetchTopAccounts = async () => {
 		$isLoading = true;
-		topAccounts = await getTopAccounts(accountsPerPage, startIndex);
+		topAccounts=await getTopAccounts(accountsPerPage, startIndex);
+			topAccounts && topAccounts.forEach(async(account)=>{
+				const accountTransactions: AccountTransaction[] = await getAccountDeploys(
+					account.account_hash,
+					1000000,
+					0
+				);
+				account.txnCount = accountTransactions?.length ||0;
+			})
 		$isLoading = false;
 	};
+
 	$: if (accountsPerPage) {
 		setTimeout(async () => {
 			await fetchTopAccounts();
@@ -55,12 +59,10 @@
 					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'transferrable')} />
 				</div>
 			</th>
-			<!-- TODO remove placeholder -->
 			<th>
 				<div class="sorter">
 					<div>Txn Count</div>
-					<TableSorter />
-					<PlaceHolderIndicator />
+					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'txnCount')} />
 				</div>
 			</th>
 			<th>
@@ -71,7 +73,7 @@
 			</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#if topAccounts && topAccounts.length > 0}
+		{#if !$isLoading&& topAccounts && topAccounts.length > 0 }
 			{#each topAccounts as account, i}
 				<tr>
 					<td class="block">
@@ -93,12 +95,11 @@
 							><Hash hash={account.account_hash} noOfCharacters={10} /></a
 						></td
 					>
-					<td><BalanceTransferrable cspr={parseFloat(account.balance.substring(0, 10))} /></td>
-					<td><BalanceTransferrable cspr={parseFloat(account.transferrable.substring(0, 9))} /></td>
-					<!-- TODO Remove placeholder -->
-					<td class="right">{'4,819,627'}</td>
+					<td><BalanceTransferrable cspr={parseStringValue(account.balance)} /></td>
+					<td><BalanceTransferrable cspr={parseStringValue(account.transferrable)} /></td>
+					<td>{account.txnCount?.toLocaleString('en')||0}</td>
 					<td class="right"
-						>{parseFloat(account.staked_amount.substring(0, 9)).toLocaleString('en')}</td
+						>{parseStringValue(account.staked_amount).toLocaleString('en')}</td
 					>
 				</tr>
 			{/each}

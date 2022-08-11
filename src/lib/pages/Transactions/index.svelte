@@ -22,7 +22,6 @@
 	const fetchTransactions = async () => {
 		$isLoading = true;
 		transactions = await getTransactions(transactionsPerPage, startIndex);
-		// console.table(transactions)
 		$isLoading = false;
 	};
 	$: if (transactionsPerPage) {
@@ -30,7 +29,6 @@
 			await fetchTransactions();
 		}, 1);
 	}
-
 	const sortTransactions = (direction: 'asc' | 'desc', field: string) => {
 		transactions = tableSort(direction, transactions, field);
 	};
