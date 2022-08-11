@@ -1,26 +1,19 @@
 <script lang="ts">
 	import type { Reward } from '$utils/types/reward';
-	import { onMount } from 'svelte';
 	import { isLoading } from '$stores/loading';
 	import { getAccountEraRewards, getAccountRewards, getStats } from '$utils/api';
 	import { page } from '$app/stores';
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import { parseStringValue } from '$utils/converters';
-	import type { Stats } from '$utils/types/stats';
 	import EarningChart from '$lib/components/Charts/EarningChart.svelte';
+	import { price } from '$stores/price';
 
 	let earnings: Reward[];
 	let eraRewards = [];
 	let eraRewardsPerPage = 1000;
 	let earningsPerPage = 10;
 	let startIndex = 0;
-	let stats: Stats;
 	let data: [{ x?: Date; y?: number }] = [{}];
-	onMount(async () => {
-		stats = await getStats();
-		await fetchRewards();
-	});
-
 	const fetchRewards = async () => {
 		$isLoading = true;
 		earnings = await getAccountRewards($page.params?.address, earningsPerPage, startIndex);
@@ -39,8 +32,8 @@
 			await fetchRewards();
 		}, 1);
 	}
-	1653477343232;
-	1653052014592;
+	// 1653477343232;
+	// 1653052014592;
 </script>
 
 <div class="earning">
@@ -67,7 +60,7 @@
 								<div class="cspr">CSPR</div>
 								<div class="cash">
 									${parseFloat(
-										(parseStringValue(earning.reward) * stats.price).toFixed(2)
+										(parseStringValue(earning.reward) * $price).toFixed(2)
 									).toLocaleString('en')}
 								</div>
 							</div>

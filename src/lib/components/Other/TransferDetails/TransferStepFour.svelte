@@ -1,18 +1,16 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-
+	import { account } from '$stores/account';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import CircleCheckMarkIcon from '$lib/icons/CircleCheckMarkIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
-	import { getStats } from '$utils/api';
+	import { price } from '$stores/price';
 
-	export let recipient = '';
-	export let amount = 2.5;
-	export let account;
-	export let csprFee = 0.1;
-
-	let deployHash = '8942387832758946362390840927389589274384374937984738297489238';
+	export let recipientPublicKey: string;
+	export let amount: number;
+	export let csprFee: number;
+	export let deployHash: string;
 </script>
 
 <div class="title">Transfer Completed!</div>
@@ -44,10 +42,10 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={account?.publicKey || ''} />
+			><Hash start color="black" noOfCharacters={100} hash={$account?.publicKey || ''} />
 			<div class="copy-icon">
-				{#if account?.publicKey}
-					<CopyIcon text={account?.publicKey || ''} />
+				{#if $account?.publicKey}
+					<CopyIcon text={$account?.publicKey || ''} />
 				{/if}
 			</div></span
 		>
@@ -60,10 +58,10 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={recipient || ''} />
+			><Hash start color="black" noOfCharacters={100} hash={recipientPublicKey || ''} />
 			<div class="copy-icon">
-				{#if recipient}
-					<CopyIcon text={recipient || ''} />
+				{#if recipientPublicKey}
+					<CopyIcon text={recipientPublicKey || ''} />
 				{/if}
 			</div></span
 		>
@@ -74,14 +72,9 @@
 	<div class="left">You'll send</div>
 	<div class="right">
 		<div class="cspr"><span class="cspr-fee">{amount.toFixed(5)}</span> CSPR</div>
-		{#await getStats()}
-			Loading ...
-		{:then stats}
-			<!-- TODO Get price from CoinGecko -->
-			<div class="cash">
-				${Math.floor(amount * stats.price * 100000000) / 100000000 || '0'}
-			</div>
-		{/await}
+		<div class="cash">
+			${Math.floor(amount * $price * 100000000) / 100000000 || '0'}
+		</div>
 	</div>
 </div>
 
@@ -89,14 +82,9 @@
 	<div class="left">Transaction fee</div>
 	<div class="right">
 		<div class="cspr"><span class="cspr-fee">{csprFee.toFixed(5)}</span> CSPR</div>
-		{#await getStats()}
-			Loading ...
-		{:then stats}
-			<!-- TODO Get price from CoinGecko -->
-			<div class="cash">
-				${Math.floor(csprFee * stats.price * 100000000) / 100000000 || '0'}
-			</div>
-		{/await}
+		<div class="cash">
+			${Math.floor(csprFee * $price * 100000000) / 100000000 || '0'}
+		</div>
 	</div>
 </div>
 
@@ -104,22 +92,17 @@
 	<div class="left">Total</div>
 	<div class="right">
 		<div class="cspr"><span class="cspr-fee">{(amount + csprFee).toFixed(5)}</span> CSPR</div>
-		{#await getStats()}
-			Loading ...
-		{:then stats}
-			<!-- TODO Get price from CoinGecko -->
-			<div class="cash">
-				${Math.floor((amount + csprFee) * stats.price * 100000000) / 100000000 || '0'}
-			</div>
-		{/await}
+		<div class="cash">
+			${Math.floor((amount + csprFee) * $price * 100000000) / 100000000 || '0'}
+		</div>
 	</div>
 </div>
 
 <div class="terms">
-	After inclusion in a new block, you can review the <span class="green">Deploy Details.</span>
+	After inclusion in a new block, you can review the <a href="/transactions/{deployHash}" class="green">Deploy Details.</a>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Make Another Delegation</Button>
+	<Button wider gradient on:click>Make Another Transfer</Button>
 	<button
 		class="home-button"
 		on:click={() => {

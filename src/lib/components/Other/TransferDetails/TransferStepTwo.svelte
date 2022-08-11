@@ -3,7 +3,7 @@
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { account } from '$stores/account';
-	import { getStats } from '$utils/api';
+	import { price } from '$stores/price';
 	import { getAccountBalance } from '$utils/wallets/balance';
 
 	export let recipientPublicKey = '';
@@ -56,14 +56,9 @@
 	<div class="left">You'll send</div>
 	<div class="right">
 		<div class="cspr"><span class="cspr-fee">{amount.toFixed(5)}</span> CSPR</div>
-		{#await getStats()}
-			Loading ...
-		{:then stats}
-			<!-- TODO Get price from CoinGecko -->
-			<div class="cash">
-				${Math.floor(amount * stats.price * 100000000) / 100000000 || '0'}
-			</div>
-		{/await}
+		<div class="cash">
+			${Math.floor(amount * $price * 100000000) / 100000000 || '0'}
+		</div>
 	</div>
 </div>
 
@@ -71,14 +66,9 @@
 	<div class="left">Transaction fee</div>
 	<div class="right">
 		<div class="cspr"><span class="cspr-fee">{csprFee.toFixed(5)}</span> CSPR</div>
-		{#await getStats()}
-			Loading ...
-		{:then stats}
-			<!-- TODO Get price from CoinGecko -->
-			<div class="cash">
-				${Math.floor(csprFee * stats.price * 100000000) / 100000000 || '0'}
-			</div>
-		{/await}
+		<div class="cash">
+			${Math.floor(csprFee * $price * 100000000) / 100000000 || '0'}
+		</div>
 	</div>
 </div>
 
@@ -86,14 +76,9 @@
 	<div class="left">Total</div>
 	<div class="right">
 		<div class="cspr"><span class="cspr-fee">{(amount + csprFee).toFixed(5)}</span> CSPR</div>
-		{#await getStats()}
-			Loading ...
-		{:then stats}
-			<!-- TODO Get price from CoinGecko -->
-			<div class="cash total">
-				${Math.floor((amount + csprFee) * stats.price * 100000000) / 100000000 || '0'}
-			</div>
-		{/await}
+		<div class="cash total">
+			${Math.floor((amount + csprFee) * $price * 100000000) / 100000000 || '0'}
+		</div>
 	</div>
 </div>
 

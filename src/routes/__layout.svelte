@@ -9,9 +9,13 @@
 	import { isLoading } from '$stores/loading';
 	import nodePackages from '$utils/nodePackages?url';
 	import { account } from '$stores/account';
-	import { browser } from '$app/env';
+	import { beforeUpdate } from 'svelte';
+	import { setCSPRPrice } from '$utils';
 
-	$: $account = browser && JSON.parse(localStorage.getItem('account'));
+	beforeUpdate(async () => {
+		$account = JSON.parse(localStorage.getItem('account'));
+		await setCSPRPrice();
+	});
 </script>
 
 <svelte:head>
