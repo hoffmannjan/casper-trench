@@ -11,10 +11,11 @@
 	export let red = false;
 	export let wide = false;
 	export let wider = false;
+	export let disabled = false;
 </script>
 
 {#if block}
-	<button class="block" type="button" class:active on:click>
+	<button {disabled} class="block" type="button" class:active on:click>
 		<div class="icon">
 			{#if active}
 				<ActiveBlockIcon />
@@ -26,6 +27,7 @@
 	</button>
 {:else}
 	<button
+		{disabled}
 		class="button"
 		class:gradient
 		class:outline
@@ -47,7 +49,7 @@
 	.button {
 		@apply min-w-max h-max;
 		@apply text-[clamp(10px,1vw,1vw)];
-		@apply cursor-pointer;
+		@apply disabled:cursor-not-allowed cursor-pointer;
 	}
 
 	.gradient {

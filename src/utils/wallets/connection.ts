@@ -1,8 +1,9 @@
 import { account } from '$stores/account';
-import { CLPublicKey } from 'casper-js-sdk';
 import { notifyError } from '$utils/toast';
+import { get } from 'svelte/store';
 
 export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'casper-test') => {
+	// @ts-ignore
 	const { CLPublicKey } = window.CasperSDK;
 	console.log('SIgner: ', window.casperlabsHelper);
 	if (await window.casperlabsHelper.isConnected()) {
@@ -13,6 +14,7 @@ export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'c
 					.toAccountHashStr()
 					.substring('account-hash-'.length);
 				account.set({ publicKey, accountHash, network });
+				window.localStorage.setItem('account', JSON.stringify(get(account)));
 			})
 			.catch((err) => {
 				notifyError('Failed to get public key. Please check your wallet');
@@ -25,4 +27,5 @@ export const connectCasperSigner = async (network: 'casper' | 'casper-test' = 'c
 export const disconnectWallet = async () => {
 	window.casperlabsHelper.disconnectFromSite();
 	account.set(null);
+	window.localStorage.removeItem('account');
 };

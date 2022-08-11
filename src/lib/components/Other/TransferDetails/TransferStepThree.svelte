@@ -1,17 +1,15 @@
 <script>
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/Reusables/Button.svelte';
-
+	import { account } from '$stores/account';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import YellowWarningIcon from '$lib/icons/YellowWarningIcon.svelte';
 
-	export let recipient = '';
+	export let recipientPublicKey = '';
+	export let deployHash = '';
+	export let recipientAccountHash = '';
 	export let amount = 2.5;
-	export let account;
-
-	let deployHash = '8942387832758946362390840927389589274384374937984738297489238';
-	let recipientHash = '8942387832758946362390840927389589274384374937984738297489238';
 </script>
 
 <div class="title">Sign Transaction</div>
@@ -37,10 +35,10 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={recipient || ''} />
+			><Hash start color="black" noOfCharacters={100} hash={recipientPublicKey || ''} />
 			<div class="copy-icon">
-				{#if recipient}
-					<CopyIcon text={recipient || ''} />
+				{#if recipientPublicKey}
+					<CopyIcon text={recipientPublicKey || ''} />
 				{/if}
 			</div></span
 		>
@@ -53,10 +51,10 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={recipientHash || ''} />
+			><Hash start color="black" noOfCharacters={100} hash={recipientAccountHash || ''} />
 			<div class="copy-icon">
-				{#if recipientHash}
-					<CopyIcon text={recipientHash || ''} />
+				{#if recipientAccountHash}
+					<CopyIcon text={recipientAccountHash || ''} />
 				{/if}
 			</div></span
 		>
@@ -69,10 +67,10 @@
 	</div>
 	<div class="value">
 		<span>
-			{(amount * 1000000000).toLocaleString()}
+			{(amount * 1e9).toLocaleString()}
 			<div class="copy-icon">
 				{#if amount}
-					<CopyIcon text={(amount * 1000000000).toLocaleString() || ''} />
+					<CopyIcon text={(amount * 1e9).toLocaleString() || ''} />
 				{/if}
 			</div></span
 		>
@@ -80,7 +78,7 @@
 	</div>
 </div>
 
-{#if !account}
+{#if !$account}
 	<div class="sign-in-alert">
 		<div class="icon">
 			<YellowWarningIcon black />

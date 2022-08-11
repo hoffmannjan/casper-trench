@@ -6,21 +6,26 @@
 	import TransferStepTwo from '$lib/components/Other/TransferDetails/TransferStepTwo.svelte';
 	import { account } from '$stores/account';
 	import { getAccountBalance } from '$utils/wallets/balance';
-	import { transferCasper } from '$utils/wallets/transactions';
+	import { getTransferDeploy, transferCasper } from '$utils/wallets/transactions';
+import { CLPublicKey } from 'casper-js-sdk';
 	import { onMount } from 'svelte';
 
 	let recipient = '';
+	// TODO remocve placeholder public key
+	let recipientPublicKey = '0203fdbddc1c8e93678f0b19644adbfd2989962a909029bf8172a9ded1ae7d9a4cf3';
 	let amount = 2.5; // Minimum CSPR transferrable is 2.5
 	let txID = 1659607320459;
 	let step: 0 | 1 | 2 | 3 = 0;
 	let csprFee = 0.1;
 	let balance: string;
+	let deployHash = '';
+	let recipientAccountHash = '';
 	onMount(async () => {
 		balance = await getAccountBalance();
 	});
 
 	const transfer = async () => {
-		await transferCasper(recipient, amount, 'casper-test', txID);
+		await transferCasper(recipientPublicKey, amount, 'casper-test', txID);
 	};
 	// TO 0203fdbddc1c8e93678f0b19644adbfd2989962a909029bf8172a9ded1ae7d9a4cf3
 	// FROM 013e85a9c63da2877b923455e776d0d3ed98030a6a4737f93e19ab0a3a62258ed0
@@ -33,7 +38,7 @@
 		{#if step === 0}
 			<TransferStepOne
 				account={$account}
-				bind:recipient
+				bind:recipientPublicKey
 				bind:amount
 				bind:txID
 				bind:csprFee
@@ -44,23 +49,30 @@
 			/>
 		{:else if step === 1}
 			<TransferStepTwo
-				account={$account}
-				{recipient}
+				{recipientPublicKey}
 				{amount}
 				{csprFee}
 				on:click={() => {
-					step = 2;
+					const { deploy, toAccountHash } = getTransferDeploy(
+						recipientPublicKey,
+						amount,
+						'casper-test',
+						txID
+					);
+					// console.log(deploy, toAccountHash);
+					// deploy?.hash;
+					// recipientAccountHash = toAccountHash;
+					// step = 2;
 				}}
 			/>
 		{:else if step === 2}
 			<TransferStepThree
-				account={$account}
-				{recipient}
+				{recipientPublicKey}
+				{recipientAccountHash}
+				{deployHash}
 				{amount}
 				on:click={() => {
-					// transfer().then(() => {
 					step = 3;
-					// });
 				}}
 			/>
 		{:else}
