@@ -8,6 +8,7 @@
 	import type { Block } from '$utils/types/block';
 	import type { ValidatorAuction } from '$utils/types/validator';
 	import SvelteLoader from '$components/SvelteLoader/index.svelte';
+	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 	let economics: Economics;
 	let stats: Stats;
 	let totalTransfers = 0;
@@ -41,14 +42,19 @@
 	<div class="stat-column">
 		<div class="top">
 			<div class="title">BLOCK HEIGHT</div>
-			<div class="value">
-				{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
-			</div>
-			<div class="detail">
-				{aTimeAgo(
-					Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
-				) || 0}
-			</div>
+			{#if !isLoading && blocks}
+				<div class="value">
+					{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
+				</div>
+				<div class="detail flex">
+					{`${aTimeAgo(
+						Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
+					)} ` || '0 seconds '} ago
+				</div>
+			{:else}
+				<div class="value">0</div>
+				<div class="detail flex">0</div>
+			{/if}
 		</div>
 		<div class="bottom">
 			<div class="title">CSPR PRICE</div>
@@ -96,6 +102,9 @@
 
 	<div class="stat-column">
 		<div class="top">
+			<div class="side">
+				<PlaceHolderIndicator />
+			</div>
 			<div class="title">TOTAL STAKE BONDED</div>
 			<div class="value">
 				{(totalStakeBonded && parseStringValue(totalStakeBonded.toString()).toLocaleString('en')) ||
@@ -160,5 +169,10 @@
 
 	.detail {
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-white;
+	}
+
+	.side {
+		@apply absolute;
+		@apply transform translate-x-[-1.5vw] translate-y-[-0.2vw];
 	}
 </style>

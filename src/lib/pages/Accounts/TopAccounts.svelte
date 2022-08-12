@@ -137,7 +137,8 @@
 
 	td {
 		@apply py-[clamp(8px,1.19vw,1.19vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header align-top;
+		@apply min-w-max h-full;
 	}
 
 	.block {

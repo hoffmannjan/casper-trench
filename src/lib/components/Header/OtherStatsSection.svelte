@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { isLoading } from '$stores/loading';
 	import { getEconomics, getLatestBlocks, getStats } from '$utils/api';
 	import { aTimeAgo, parseStringValue } from '$utils/converters';
 	import type { Block } from '$utils/types/block';
@@ -26,14 +25,19 @@
 <div class="home-stats-section header-stats-background">
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>
-		<div class="value">
-			{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
-		</div>
-		<div class="detail flex">
-			{aTimeAgo(
-				Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
-			) || '0'}
-		</div>
+		{#if !isLoading && blocks}
+			<div class="value">
+				{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
+			</div>
+			<div class="detail flex">
+				{`${aTimeAgo(
+					Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
+				)} ` || '0 seconds '} ago
+			</div>
+		{:else}
+			<div class="value">0</div>
+			<div class="detail flex">0</div>
+		{/if}
 	</div>
 
 	<div class="vt" />
@@ -62,20 +66,25 @@
 
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
-		<div class="value">
-			{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
-				'en'
-			) || ''}
-		</div>
-		<div class="detail">
-			{(
-				(parseFloat(economics && economics.circulating_supply) /
-					parseFloat(economics && economics.total_supply)) *
-				100
-			).toFixed(2)}% of {parseFloat(
-				economics && economics.total_supply.substring(0, 11)
-			).toLocaleString('en') || ''}
-		</div>
+		{#if !isLoading && economics}
+			<div class="value">
+				{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
+					'en'
+				) || ''}
+			</div>
+			<div class="detail">
+				{(
+					(parseFloat(economics && economics.circulating_supply) /
+						parseFloat(economics && economics.total_supply)) *
+					100
+				).toFixed(2)}% of {parseFloat(
+					economics && economics.total_supply.substring(0, 11)
+				).toLocaleString('en') || ''}
+			</div>
+		{:else}
+			<div class="value">0</div>
+			<div class="detail">0% of 0</div>
+		{/if}
 	</div>
 </div>
 
@@ -104,5 +113,10 @@
 
 	.detail {
 		@apply text-[clamp(8px,0.75vw,0.75vw)] text-white;
+	}
+
+	.side {
+		@apply absolute;
+		@apply transform translate-x-[3.5vw] translate-y-[-0.2vw];
 	}
 </style>
