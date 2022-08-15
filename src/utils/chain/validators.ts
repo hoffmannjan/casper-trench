@@ -1,6 +1,7 @@
 import { rpcUrl } from '$stores/chain';
 import { parseStringValue } from '$utils/converters';
 import type { Bid, EraValidator } from '$utils/types/validator';
+import type { ValidatorsInfoResult } from 'casper-js-sdk';
 // import { CasperServiceByJsonRPC } from 'casper-js-sdk';
 import { get } from 'svelte/store';
 export const queryValidators = async (): Promise<{
@@ -32,11 +33,25 @@ export const queryValidators = async (): Promise<{
 				bids.forEach((bid) => {
 					const selfStake = parseStringValue(bid.bid.staked_amount);
 					let totalDelegated = 0;
+					let delegators: {
+						publicKey: string;
+						stakedAmount: number;
+						bondingPurse: string;
+						delegatee: string;
+					}[] = [];
+
 					bid?.bid?.delegators?.forEach((delegator) => {
+						delegators.push({
+							publicKey: delegator.public_key,
+							stakedAmount: parseStringValue(delegator.staked_amount),
+							bondingPurse: delegator.bonding_purse,
+							delegatee: delegator.delegatee
+						});
 						totalDelegated += parseStringValue(delegator.staked_amount);
 					});
 					let totalBid = selfStake + totalDelegated;
 					const selfStakePercentage = (selfStake / totalBid) * 100;
+
 					bidValidators.push({
 						publicKey: bid.public_key,
 						numOfDelegators: bid?.bid?.delegators?.length,
@@ -44,6 +59,7 @@ export const queryValidators = async (): Promise<{
 						totalBid,
 						totalDelegated,
 						selfStake,
+						delegators,
 						selfStakePercentage,
 						networkPercentage: 0,
 						inactive: bid.bid.inactive
@@ -120,7 +136,6 @@ export const getTopValidators = async (
 	numberOfValidators: number
 ): Promise<Partial<EraValidator>[]> => {
 	let { _bidValidators, _currentEraValidators } = await queryValidators();
-	// console.table(_currentEraValidators)
 	let topValidators: Partial<EraValidator>[];
 
 	if (_currentEraValidators) {
@@ -131,15 +146,12 @@ export const getTopValidators = async (
 			validator.totalBid = bid && bid.totalBid;
 		});
 		const currentEraValidators = _currentEraValidators.sort((a, b) => b.totalBid - a.totalBid);
-		console.table(currentEraValidators);
-		//   const currentEraValidators = _currentEraValidators.sort((a,b)=>b.selfStake-a.selfStake);
 		topValidators = currentEraValidators.slice(0, numberOfValidators);
 	}
 	return topValidators ?? null;
 };
-export const queryValidator = async (publicKey: string) => {
-	// @ts-ignore
-	const { CasperServiceByJsonRPC } = window.CasperSDK;
-	const casperService = new CasperServiceByJsonRPC(get(rpcUrl));
-	// return await casperService.
+export const getValidatorDetails = async (publicKey: string): Promise<Bid> => {
+	const { _bidValidators } = await queryValidators();
+	const validator = _bidValidators.find((bid) => bid.publicKey == publicKey);
+	return validator;
 };

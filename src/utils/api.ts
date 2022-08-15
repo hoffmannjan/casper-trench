@@ -24,16 +24,6 @@ export const getStats = async () => {
 			notifyError('Could not fetch stats');
 		});
 };
-export const getTopValidators = async () => {
-	return await axios
-		.get(`${casperStatsBaseURL}/state/get-validators/10`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch top validators');
-		});
-};
 
 export const getLatestBlocks = async (number: number) => {
 	return await axios
