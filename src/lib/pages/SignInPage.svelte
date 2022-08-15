@@ -9,15 +9,15 @@
 		{
 			name: 'Casper Signer',
 			info: 'Connect and sign in via Google Chrome extension'
+		},
+		{
+			name: 'Ledger',
+			info: 'Connect and sign in with your Ledger wallet'
+		},
+		{
+			name: 'Torus Wallet',
+			info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
 		}
-		// {
-		// 	name: 'Ledger',
-		// 	info: 'Connect and sign in with your Ledger wallet'
-		// },
-		// {
-		// 	name: 'Torus Wallet',
-		// 	info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
-		// }
 	];
 	$: if (browser) {
 		isCasperSignerAvailable = window.casperlabsHelper ? true : false;
@@ -86,13 +86,13 @@
 
 <style lang="postcss">
 	.sign-in-page {
-		@apply px-4 pt-[clamp(16px,5.95vw,5.95vw)] pb-[clamp(16px,7.74vw,7.74vw)];
-		@apply flex justify-center items-center gap-[clamp(16px,4.46vw,4.46vw)];
+		@apply px-4 pt-[clamp(16px,5.95vw,5.95vw)] pb-[clamp(16px,7.74vw,7.74vw)] md:min-h-[30vw];
+		@apply flex flex-col md:flex-row justify-center items-center gap-[clamp(16px,4.46vw,4.46vw)];
 	}
 
 	.container {
-		@apply md:max-w-[21vw] md:h-[30vw];
-		@apply pb-[clamp(16px,4.82vw,4.82vw)] pt-[clamp(16px,2.32vw,2.32vw)] px-[16px];
+		@apply md:max-w-[21vw] h-full md:min-h-[32vw];
+		@apply pt-[clamp(16px,2.32vw,2.32vw)] px-[16px];
 		@apply rounded-[1.19vh] md:rounded-[1.19vw];
 		@apply shadow-[0px_0px_11px] shadow-color-shadow-black;
 		@apply flex flex-col items-center;
@@ -111,11 +111,11 @@
 
 	.info {
 		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-grey-footer-label text-center;
-		@apply md:max-w-[17vw];
+		@apply md:max-w-[17vw] md:min-h-[8vw];
 	}
 
 	.button {
-		@apply md:absolute md:bottom-[6vw];
+		@apply flex flex-col items-center;
 	}
 
 	.bg-special {
@@ -133,5 +133,6 @@
 		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
 		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link whitespace-nowrap;
 		@apply cursor-pointer;
+		@apply mt-[clamp(16px,1.79vw,1.79vw)] mx-auto;
 	}
 </style>
