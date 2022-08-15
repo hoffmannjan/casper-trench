@@ -1,7 +1,7 @@
 import { rpcUrl } from '$stores/chain';
 import { parseStringValue } from '$utils/converters';
 import type { Bid, EraValidator } from '$utils/types/validator';
-import { CasperServiceByJsonRPC, ValidatorsInfoResult } from 'casper-js-sdk';
+// import { CasperServiceByJsonRPC, ValidatorsInfoResult } from 'casper-js-sdk';
 import { get } from 'svelte/store';
 export const queryValidators = async (): Promise<{
 	_bidValidators: Bid[];
@@ -14,7 +14,7 @@ export const queryValidators = async (): Promise<{
 	const casperService = new CasperServiceByJsonRPC(get(rpcUrl));
 	return await casperService
 		.getValidatorsInfo()
-		.then((validatorsInfoResult: ValidatorsInfoResult) => {
+		.then((validatorsInfoResult) => {
 			const { bids } = validatorsInfoResult.auction_state;
 			const eraValidatorsInfo = validatorsInfoResult.auction_state.era_validators;
 			let totalStakes: number[] = [0, 0];
@@ -47,7 +47,7 @@ export const queryValidators = async (): Promise<{
 						selfStake,
 						selfStakePercentage,
 						networkPercentage: 0,
-						inactive: true
+						inactive: bid.bid.inactive
 					});
 				});
 
@@ -93,6 +93,7 @@ export const queryValidators = async (): Promise<{
 				_bidValidators.forEach((bid, i) => {
 					bid.rank = i + 1;
 				});
+			console.table(_bidValidators);
 
 			const _currentEraValidators = currentEraValidators.sort((a, b) => b.selfStake - a.selfStake);
 			_currentEraValidators &&
