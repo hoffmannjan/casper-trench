@@ -8,9 +8,16 @@
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
-	import type { EraValidator, ValidatorAuction } from '$utils/types/validator';
-	import { getAuctionBids, getEraValidators } from '$utils/api';
+	import type { EraValidator, Bid } from '$utils/types/validator';
 	import { tableSort } from '$utils/sort';
+	import { queryValidators } from '$utils/chain/validators';
+
+	let bidValidators: Bid[] = [];
+	let currentEraValidators: EraValidator[] = [];
+	let nextEraValidators: EraValidator[] = [];
+	let eraValidators: EraValidator[];
+	let displayedBidValidators: Bid[] = [];
+	let displayedEraValidators: EraValidator[] = [];
 
 	let pageOptions: { name: string; dropdown?: string[]; selectedDropdown?: string }[] = [
 		{
@@ -26,158 +33,29 @@
 	];
 
 	let currentPage = 0;
-
-	let validators: {
-		public_key: string;
-		weight: string;
-		delegators: number;
-		name: string;
-		icon: string;
-		delegation_rate?: number;
-		selfStake?: string;
-		networkPercentage?: string;
-	}[] = [];
-
-	let displayedValidators: {
-		public_key: string;
-		weight: string;
-		delegators: number;
-		name: string;
-		icon: string;
-		delegation_rate?: number;
-		selfStake?: string;
-		networkPercentage?: string;
-	}[] = [];
-	let bids: {
-		public_key: string;
-		bid: {
-			bonding_purse: string;
-			staked_amount: string;
-			delegation_rate: number;
-			inactive: boolean;
-			number_of_delegators: number;
-		};
-		total_bid: string;
-		total_delegated: string;
-		name: string;
-		icon: string;
-		selfStake?: string;
-		networkPercentage?: string;
-	}[] = [];
-	let displayedBids: {
-		public_key: string;
-		bid: {
-			bonding_purse: string;
-			staked_amount: string;
-			delegation_rate: number;
-			inactive: boolean;
-			number_of_delegators: number;
-		};
-		total_bid: string;
-		total_delegated: string;
-		name: string;
-		icon: string;
-		selfStake?: string;
-		networkPercentage?: string;
-	}[] = [];
-	let sharedDataPoints: {
-		public_key: string;
-		fee: number;
-		selfStake: string;
-		networkPercentage?: string;
-	}[] = [];
-	let totalEraStake: string;
-	let eraValidators: EraValidator;
-	let validatorAuction: ValidatorAuction;
 	onMount(async () => {
 		$isLoading = true;
-		eraValidators = await getEraValidators();
-		if (eraValidators) {
-			// Populate the dropdown with era IDs as the items
-			eraValidators.auction_state.era_validators.forEach((eraValidator, i) => {
-				const dropdownItem =
-					i == 0 ? `Current Era ${eraValidator.era_id}` : `Next Era ${eraValidator.era_id}`;
+		const { _bidValidators, _currentEraValidators, _nextEraValidators, _eraIDs } =
+			await queryValidators();
+		if (_bidValidators && _currentEraValidators && _nextEraValidators && _eraIDs) {
+			bidValidators = _bidValidators;
+			currentEraValidators = eraValidators = _currentEraValidators;
+			nextEraValidators = _nextEraValidators;
+			_eraIDs.forEach((eraID, i) => {
+				const dropdownItem = i == 0 ? `Current Era ${eraID}` : `Next Era ${eraID}`;
 				pageOptions && pageOptions[0].dropdown.push(dropdownItem);
 			});
-
-			setValidatorsByEra(eraValidators.auction_state.era_validators[0].era_id);
 		}
-		validatorAuction = await getAuctionBids();
-		bids = validatorAuction && validatorAuction.auction_state.bids;
-		setSharedDataPoints();
-		bids && validators && mergeValidatorData();
 		$isLoading = false;
 	});
-	const setSharedDataPoints = () => {
-		bids &&
-			bids.forEach((bid) => {
-				sharedDataPoints.push({
-					public_key: bid.public_key,
-					fee: bid.bid.delegation_rate,
-					selfStake: (
-						(parseFloat(bid.bid.staked_amount) / parseFloat(bid.total_bid)) *
-						100
-					).toFixed(2)
-				});
-			});
-		validators &&
-			validators.forEach((validator) => {
-				sharedDataPoints &&
-					sharedDataPoints.forEach((sharedDataPoint) => {
-						if (sharedDataPoint.public_key == validator.public_key) {
-							sharedDataPoint.networkPercentage = (
-								(parseFloat(validator.weight) / parseFloat(totalEraStake)) *
-								100
-							).toFixed(2);
-						}
-					});
-			});
-	};
-
-	const mergeValidatorData = () => {
-		bids &&
-			bids.forEach((bid) => {
-				validators &&
-					validators.forEach((validator) => {
-						if (validator.public_key === bid.public_key) {
-							validator.delegation_rate = bid.bid.delegation_rate;
-							validator.selfStake = bid.selfStake = (
-								(parseFloat(bid.bid.staked_amount) / parseFloat(bid.total_bid)) *
-								100
-							).toFixed(2);
-							bid.networkPercentage = validator.networkPercentage = (
-								(parseFloat(validator.weight) / parseFloat(totalEraStake)) *
-								100
-							).toFixed(2);
-						}
-					});
-			});
-	};
-
-	const getSharedDatapoint = (
-		publicKey: string
-	): { public_key: string; fee: number; selfStake: string; networkPercentage?: string } => {
-		return sharedDataPoints.find((sharedDataPoint) => sharedDataPoint.public_key === publicKey);
-	};
-
-	const setValidatorsByEra = (eraId: number) => {
-		eraValidators.auction_state.era_validators.forEach((era) => {
-			if (era.era_id === eraId) {
-				validators = era.validator_weights;
-				totalEraStake = era.total_stake;
-			}
-		});
-	};
 
 	const sortValidators = (direction: 'asc' | 'desc', field: string) => {
-		validators = tableSort(direction, validators, field);
+		eraValidators = tableSort(direction, eraValidators, field);
 	};
 
 	const sortBids = (direction: 'asc' | 'desc', field: string) => {
-		bids = tableSort(direction, bids, field);
+		bidValidators = tableSort(direction, bidValidators, field);
 	};
-	$: validators && bids && setSharedDataPoints();
-	$: validators && bids && mergeValidatorData();
 </script>
 
 <div class="content">
@@ -190,15 +68,15 @@
 				return;
 			}
 			if (e.detail.dropdownIndex === 0) {
-				setValidatorsByEra(parseFloat(pageOptions[0].dropdown[0].substring('Current Era '.length)));
+				eraValidators = currentEraValidators && currentEraValidators;
 			} else {
-				setValidatorsByEra(parseFloat(pageOptions[0].dropdown[1].substring('Next Era '.length)));
+				eraValidators = nextEraValidators && nextEraValidators;
 			}
 		}}
 	/>
 
 	{#if currentPage === 0}
-		{#if displayedValidators && displayedValidators.length > 0 && sharedDataPoints && sharedDataPoints.length > 0}
+		{#if displayedEraValidators && displayedEraValidators.length > 0}
 			<table>
 				<tr>
 					<th class="rank">Rank</th>
@@ -206,22 +84,22 @@
 					<th class="fee">
 						<div class="header-wrapper">
 							<div class="text">Fee</div>
-							<TableSorter
-								on:sort={(e) => sortValidators(e.detail?.direction, 'delegation_rate')}
-							/>
+							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'delegationRate')} />
 						</div>
 					</th>
 					<th>
 						<div class="header-wrapper">
 							<div class="text">Delegators</div>
-							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'delegators')} />
+							<TableSorter
+								on:sort={(e) => sortValidators(e.detail?.direction, 'numOfDelegators')}
+							/>
 						</div>
 					</th>
 					<th class="stake">
 						<div class="header-wrapper justify-center">
 							<div class="text">Total Stake</div>
 							<Tooltip text="Total Stake tooltip" />
-							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'weight')} />
+							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'selfStake')} />
 						</div>
 					</th>
 					<th class="self">Self %</th>
@@ -234,31 +112,29 @@
 					</th>
 				</tr>
 				<div class="divider table-header-border" />
-				{#each displayedValidators as validator, i}
+				{#each displayedEraValidators as validator, i}
 					<tr>
-						<td class="rank-val">{i + 1}</td>
+						<td class="rank-val">{validator.rank}</td>
 						<td class="validators"
 							><Validator
 								imgUrl={validator.icon}
-								hash={validator.public_key}
+								hash={validator.publicKey}
 								name={validator.name}
 							/></td
 						>
-						<td class="grey">{validator.delegation_rate}%</td>
-						<td>{validator.delegators.toLocaleString()}</td>
-						<td class="stake"
-							>{parseFloat(validator.weight.substring(0, 9)).toLocaleString('en')} CSPR</td
-						>
-						<td class="grey self">{validator.selfStake}%</td>
-						<td class="grey network-perc">{validator.networkPercentage}%</td>
+						<td class="grey">{validator.delegationRate}%</td>
+						<td>{validator.numOfDelegators.toLocaleString('en')}</td>
+						<td class="stake">{validator.selfStake.toLocaleString('en')} CSPR</td>
+						<td class="grey self">{validator.selfStakePercentage.toFixed(2)}%</td>
+						<td class="grey network-perc">{validator.networkPercentage.toFixed(2)}%</td>
 						<td class="performance"><CircleProgressBar progress={0.25} /></td>
 					</tr>
 				{/each}
 			</table>
 		{/if}
-		<Paginator bind:items={validators} bind:pagedItems={displayedValidators} />
+		<Paginator bind:items={eraValidators} bind:pagedItems={displayedEraValidators} />
 	{:else}
-		{#if displayedBids && displayedBids.length > 0 && sharedDataPoints && sharedDataPoints.length > 0}
+		{#if displayedBidValidators && displayedBidValidators.length > 0}
 			<table>
 				<tr>
 					<th class="rank">Rank</th>
@@ -267,22 +143,20 @@
 					<th class="fee">
 						<div class="header-wrapper">
 							<div class="text">Fee</div>
-							<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'bid.delegation_rate')} />
+							<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'delegationRate')} />
 						</div>
 					</th>
 					<th>
 						<div class="header-wrapper">
 							<div class="text">Delegators</div>
-							<TableSorter
-								on:sort={(e) => sortBids(e.detail?.direction, 'bid.number_of_delegators')}
-							/>
+							<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'numOfDelegators')} />
 						</div>
 					</th>
 					<th class="stake">
 						<div class="header-wrapper justify-center">
 							<div class="text">Total Stake</div>
 							<Tooltip text="Total Stake tooltip" />
-							<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'total_bid')} />
+							<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'totalBid')} />
 						</div>
 					</th>
 					<th class="self">Self %</th>
@@ -295,26 +169,24 @@
 					</th>
 				</tr>
 				<div class="divider table-header-border" />
-				{#each displayedBids as bid, i}
+				{#each displayedBidValidators as bid, i}
 					<tr>
-						<td class="rank-val">{i + 1}</td>
+						<td class="rank-val">{bid.rank}</td>
 						<td class="validators"
 							><Validator imgUrl={bid.icon} hash={bid.public_key} name={bid.name} /></td
 						>
-						<td class="status"><Status inactive={bid.bid.inactive} /></td>
-						<td class="grey">{bid.bid.delegation_rate.toFixed(2)}%</td>
-						<td>{bid.bid.number_of_delegators.toLocaleString('en')}</td>
-						<td class="stake"
-							>{parseFloat(bid.total_bid.substring(0, 9)).toLocaleString('en')} CSPR</td
-						>
-						<td class="grey self">{bid.selfStake}%</td>
-						<td class="grey network-perc">{bid.networkPercentage}%</td>
+						<td class="status"><Status inactive={bid.inactive} /></td>
+						<td class="grey">{bid.delegationRate.toFixed(2)}%</td>
+						<td>{bid.numOfDelegators.toLocaleString('en')}</td>
+						<td class="stake">{bid.totalBid.toLocaleString('en')} CSPR</td>
+						<td class="grey self">{bid.selfStakePercentage.toFixed(2)}%</td>
+						<td class="grey network-perc">{bid.networkPercentage.toFixed(2)}%</td>
 						<td class="performance"><CircleProgressBar progress={0.7} /></td>
 					</tr>
 				{/each}
 			</table>
 		{/if}
-		<Paginator bind:items={bids} bind:pagedItems={displayedBids} />
+		<Paginator bind:items={bidValidators} bind:pagedItems={displayedBidValidators} />
 	{/if}
 </div>
 

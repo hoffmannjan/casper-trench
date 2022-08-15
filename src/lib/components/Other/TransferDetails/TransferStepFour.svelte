@@ -99,7 +99,10 @@
 </div>
 
 <div class="terms">
-	After inclusion in a new block, you can review the <a href="/transactions/{deployHash}" class="green">Deploy Details.</a>
+	After inclusion in a new block, you can review the <a
+		href="/transactions/{deployHash}"
+		class="green">Deploy Details.</a
+	>
 </div>
 <div class="next-button">
 	<Button wider gradient on:click>Make Another Transfer</Button>
