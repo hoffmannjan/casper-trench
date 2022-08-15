@@ -10,14 +10,14 @@
 			name: 'Casper Signer',
 			info: 'Connect and sign in via Google Chrome extension'
 		},
-		{
-			name: 'Ledger',
-			info: 'Connect and sign in with your Ledger wallet'
-		},
-		{
-			name: 'Torus Wallet',
-			info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
-		}
+		// {
+		// 	name: 'Ledger',
+		// 	info: 'Connect and sign in with your Ledger wallet'
+		// },
+		// {
+		// 	name: 'Torus Wallet',
+		// 	info: 'Sign in or setup a new account via Torus Wallet (using OAuth with google, facebook, twitch, reddit, discord and more).'
+		// }
 	];
 	$: if (browser) {
 		isCasperSignerAvailable = window.casperlabsHelper ? true : false;
