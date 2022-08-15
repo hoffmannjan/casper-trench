@@ -1,17 +1,21 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
 	import ValidatorElement from '$lib/components/TableData/Validator.svelte';
-	import { getTopValidators } from '$utils/api';
+	// import { getTopValidators } from '$utils/api';
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
 	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
+import type { EraValidator } from '$utils/types/validator';
+import { getTopValidators } from '$utils/chain/validators';
 	let validators;
+	let topValidators:Partial<EraValidator>[]=[]
 	onMount(async () => {
 		$isLoading = true;
-		validators = await getTopValidators();
+		// validators = await getTopValidators();
+		topValidators=await getTopValidators(10)
 		$isLoading = false;
 	});
 </script>
@@ -19,7 +23,7 @@
 <div class="top-validators">
 	<h3>Top</h3>
 	<h2>Validators</h2>
-	{#if validators && validators.era_validators.validators.length > 0}
+	{#if topValidators && topValidators.length > 0}
 		<table>
 			<tr>
 				<th>Validator</th>
@@ -29,18 +33,18 @@
 				<th><PlaceHolderIndicator /> Performance</th>
 			</tr>
 			<div class="divider table-header-border" />
-			{#each validators.era_validators.validators as validator}
+			{#each topValidators as validator}
 				<tr>
 					<td
 						><ValidatorElement
-							imgUrl={validator.information?.icon}
-							name={validator.information?.name}
-							hash={validator.public_key}
+							imgUrl={validator?.icon}
+							name={validator?.name}
+							hash={validator.publicKey}
 						/></td
 					>
-					<td class="text-color-grey-footer-label">{validator.bid?.delegation_rate}%</td>
+					<td class="text-color-grey-footer-label">{validator.delegationRate.toFixed(2)}%</td>
 					<td class="text-color-table-header"
-						>{parseFloat(validator.bid?.total_stake.substring(0, 9)).toLocaleString('en')} CSPR</td
+						>{validator.selfStake.toLocaleString('en')} CSPR</td
 					>
 					<td><CircleProgressBar progress={1} /></td>
 				</tr>

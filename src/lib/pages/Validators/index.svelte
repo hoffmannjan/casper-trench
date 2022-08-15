@@ -42,8 +42,9 @@
 			currentEraValidators = eraValidators = _currentEraValidators;
 			nextEraValidators = _nextEraValidators;
 			_eraIDs.forEach((eraID, i) => {
-				const dropdownItem = i == 0 ? `Current Era ${eraID}` : `Next Era ${eraID}`;
-				pageOptions && pageOptions[0].dropdown.push(dropdownItem);
+				if(i<2){
+				const dropdownItem = i == 0 ? `Next Era ${eraID}` : `Current Era ${eraID}`;
+				pageOptions && pageOptions[0].dropdown.push(dropdownItem);}
 			});
 		}
 		$isLoading = false;
@@ -173,7 +174,7 @@
 					<tr>
 						<td class="rank-val">{bid.rank}</td>
 						<td class="validators"
-							><Validator imgUrl={bid.icon} hash={bid.public_key} name={bid.name} /></td
+							><Validator imgUrl={bid.icon} hash={bid.publicKey} name={bid.name} /></td
 						>
 						<td class="status"><Status inactive={bid.inactive} /></td>
 						<td class="grey">{bid.delegationRate.toFixed(2)}%</td>
