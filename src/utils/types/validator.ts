@@ -35,7 +35,7 @@ export type Validator = {
 	total_supply: string;
 };
 
-export type EraValidator = {
+export type EraValidators = {
 	api_version: string;
 	auction_state: {
 		state_root_hash: string;
@@ -52,6 +52,19 @@ export type EraValidator = {
 			total_stake: string;
 		}[];
 	};
+};
+
+export type EraValidator = {
+	publicKey: string;
+	selfStake: number;
+	delegationRate: number;
+	numOfDelegators: number;
+	totalStake: number;
+	selfStakePercentage: number;
+	networkPercentage: number;
+	rank?: number;
+	icon?: string;
+	name?: string;
 };
 
 export type ValidatorAuction = {
@@ -74,6 +87,20 @@ export type ValidatorAuction = {
 			icon: string;
 		}[];
 	};
+};
+export type Bid = {
+	public_key: string;
+	numOfDelegators: number;
+	delegationRate: number;
+	totalBid: number;
+	totalDelegated: number;
+	selfStake: number;
+	selfStakePercentage: number;
+	inactive: boolean;
+	networkPercentage?: number;
+	rank?: number;
+	icon?: string;
+	name?: string;
 };
 
 export type ValidatorDetails = {

@@ -6,7 +6,6 @@
 	import { aTimeAgo, parseStringValue } from '$utils/converters';
 	import HomePageChart from '$lib/components/Charts/HomePageChart.svelte';
 	import type { Block } from '$utils/types/block';
-	import type { ValidatorAuction } from '$utils/types/validator';
 	import SvelteLoader from '$components/SvelteLoader/index.svelte';
 	let economics: Economics;
 	let stats: Stats;
@@ -25,11 +24,12 @@
 				totalTransfers += transfer[1];
 			});
 		}
-		const bidValidators: ValidatorAuction = await getAuctionBids();
-		bidValidators &&
-			bidValidators.auction_state.bids.forEach((bid) => {
-				totalStakeBonded += parseFloat(bid.bid.staked_amount);
-			});
+		// TODO update total stake bonded
+		// const bidValidators: ValidatorAuction = await getAuctionBids();
+		// bidValidators &&
+		// 	bidValidators.auction_state.bids.forEach((bid) => {
+		// 		totalStakeBonded += parseFloat(bid.bid.staked_amount);
+		// 	});
 		isLoading = false;
 	});
 </script>
