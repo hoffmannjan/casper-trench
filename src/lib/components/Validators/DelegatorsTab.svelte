@@ -1,13 +1,12 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Weight from '$components/TableData/Weight.svelte';
-	import { parseStringValue } from '$utils/converters';
 
 	export let props: {
 		delegators: {
-			public_key: string;
-			staked_amount: number;
-			bonding_purse: string;
+			publicKey: string;
+			stakedAmount: number;
+			bondingPurse: string;
 			delegatee: string;
 		}[];
 		totalStake: string;
@@ -15,9 +14,9 @@
 	};
 
 	let displayedDelegators: {
-		public_key: string;
-		staked_amount: number;
-		bonding_purse: string;
+		publicKey: string;
+		stakedAmount: number;
+		bondingPurse: string;
 		delegatee: string;
 	}[];
 	let delegators = props.delegators;
@@ -44,22 +43,22 @@
 		{#if displayedDelegators && displayedDelegators.length > 0}
 			{#each displayedDelegators as delegator, i}
 				<tr>
-					{#if props.validatorPublicKey === delegator.public_key}
+					{#if props.validatorPublicKey === delegator.publicKey}
 						<td>Self Stake</td>
 					{:else}
 						<td class:rank-val={i === 0}>{i}</td>
 					{/if}
-					<td class="key">{delegator.public_key}</td>
+					<td class="key">{delegator.publicKey}</td>
 					<td class="to">
 						<div class="value-crypto">
 							<div class="crypto">
-								{parseStringValue(delegator.staked_amount).toLocaleString('en')}
+								{delegator.stakedAmount.toLocaleString('en')}
 							</div>
 							<div class="cspr">CSPR</div>
 						</div>
 					</td>
 					<td class="weight"
-						><Weight value={delegator.staked_amount / parseFloat(props.totalStake)} /></td
+						><Weight value={delegator.stakedAmount / parseFloat(props.totalStake)} /></td
 					>
 				</tr>
 			{/each}

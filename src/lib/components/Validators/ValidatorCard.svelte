@@ -6,75 +6,82 @@
 	import TelegramGreenLogo from '$lib/icons/TelegramGreenLogo.svelte';
 	import TwitterGreenLogo from '$lib/icons/TwitterGreenLogo.svelte';
 	import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
+	import type { Bid } from '$utils/types/validator';
 
 	import Button from '../Reusables/Button.svelte';
-
-	export let inactive: boolean;
-	export let information: {
-		name: string;
-		email: string;
-		icon: string;
-		website: string;
-		links: {
-			tag: string;
-			link: string;
-		}[];
-		details: string;
-	};
+	export let validator: Bid;
 </script>
 
-{#if information}
+{#if validator}
 	<div class="validator-card">
-		<div class="logo" class:inactive>
-			<img src={information.icon} alt="validator-logo" />
-			{#if !inactive}
+		<div class="logo" class:inactive={validator.inactive}>
+			{#if validator.icon}
+				<img src={validator.icon} alt="validator-logo" />
+			{:else}
+				<img src="/images/png/validator-placeholder.png" alt="validator-logo" />
+			{/if}
+			{#if !validator.inactive}
 				<div class="online-dot" />
 			{/if}
 		</div>
 		<div class="name-wrapper">
-			<div class="name">{information.name}</div>
-			<div class="verified-icon">
-				<VerifiedIcon />
-			</div>
+			{#if validator.name}
+				<div class="name">{validator.name}</div>
+				<div class="verified-icon">
+					<VerifiedIcon />
+				</div>
+			{/if}
 		</div>
 		<div class="details">
-			{information.details}
+			{validator.details || ''}
 		</div>
 		<div class="extras">
 			<div class="labels-values">
-				<div class="label">Website</div>
-				<div class="label">Email</div>
-				<div class="label">Socials</div>
+				{#if validator.website}
+					<div class="label">Website</div>
+				{/if}
+				{#if validator.email}
+					<div class="label">Email</div>
+				{/if}
+				{#if validator.links}
+					<div class="label">Socials</div>
+				{/if}
 			</div>
 			<div class="validator-values">
-				<a class="value" href={information.website}>
-					<div class="text">
-						{information.website}
-					</div>
-					<div class="open-icon">
-						<OpenIcon />
-					</div>
-				</a>
-				<div class="value">
-					<a href="mailto:{information.email}" class="text">
-						{information.email}
+				{#if validator.website}
+					<a class="value" href={validator.website}>
+						<div class="text">
+							{validator.website}
+						</div>
+						<div class="open-icon">
+							<OpenIcon />
+						</div>
 					</a>
-				</div>
+				{/if}
+				{#if validator.email}
+					<div class="value">
+						<a href="mailto:{validator.email}" class="text">
+							{validator.email}
+						</a>
+					</div>
+				{/if}
 				<div class="socials">
-					{#each information.links as link}
-						{#if link.tag === 'Twitter'}
-							<a href={link.link} class="social"><TwitterGreenLogo /></a>
-						{/if}
-						{#if link.tag === 'Facebook'}
-							<a href={link.link} class="social"><FacebookGreenLogo /></a>
-						{/if}
-						{#if link.tag === 'Telegram'}
-							<a href={link.link} class="social"><TelegramGreenLogo /></a>
-						{/if}
-						{#if link.tag === 'Github'}
-							<a href={link.link} class="social"><GithubGreenLogo /></a>
-						{/if}
-					{/each}
+					{#if validator?.links && validator?.links.length > 0}
+						{#each validator.links as link}
+							{#if link.tag === 'Twitter'}
+								<a href={link.link} class="social"><TwitterGreenLogo /></a>
+							{/if}
+							{#if link.tag === 'Facebook'}
+								<a href={link.link} class="social"><FacebookGreenLogo /></a>
+							{/if}
+							{#if link.tag === 'Telegram'}
+								<a href={link.link} class="social"><TelegramGreenLogo /></a>
+							{/if}
+							{#if link.tag === 'Github'}
+								<a href={link.link} class="social"><GithubGreenLogo /></a>
+							{/if}
+						{/each}
+					{/if}
 				</div>
 			</div>
 		</div>

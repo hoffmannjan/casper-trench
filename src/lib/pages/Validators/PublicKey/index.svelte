@@ -4,16 +4,16 @@
 	import ValidatorCard from '$lib/components/Validators/ValidatorCard.svelte';
 	import VerifiedBlocksTab from '$lib/components/Validators/VerifiedBlocksTab.svelte';
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
-	import type { ValidatorDetails } from '$utils/types/validator';
+	import type { Bid } from '$utils/types/validator';
 	import { isLoading } from '$stores/loading';
+	import { getValidatorDetails } from '$utils/chain/validators';
 	import { onMount } from 'svelte';
-	import { getValidator } from '$utils/api';
 	import { page } from '$app/stores';
 
 	let delegators: {
-		public_key: string;
-		staked_amount: number;
-		bonding_purse: string;
+		publicKey: string;
+		stakedAmount: number;
+		bondingPurse: string;
 		delegatee: string;
 	}[] = [];
 
@@ -29,19 +29,22 @@
 			props: { validatorPublicKey: $page.params.public_key }
 		}
 	];
-	let validator: ValidatorDetails;
+
+	let validator: Bid;
 	onMount(async () => {
 		$isLoading = true;
-		validator = await getValidator($page.params.public_key);
-		menuOptions[0].props.delegators = validator && validator.bid.delegators;
+		validator = await getValidatorDetails($page.params.public_key);
+		// console.log(validator);
+		menuOptions[0].props.delegators = validator.delegators ?? null;
+		menuOptions[0].props.delegators=menuOptions[0].props.delegators.sort((a,b)=>b.stakedAmount-a.stakedAmount)
 		menuOptions[0].props.delegators.unshift({
-			public_key: validator.public_key,
-			staked_amount: parseFloat(validator.bid.staked_amount),
-			bonding_purse: validator.bid.bonding_purse,
+			publicKey: validator.publicKey,
+			stakedAmount: validator.selfStake,
+			bondingPurse: '',
 			delegatee: ''
 		});
-		menuOptions[0].props['totalStake'] = validator && validator.bid.total_stake;
-		menuOptions[0].props['validatorPublicKey'] = validator && validator.public_key;
+		menuOptions[0].props['totalStake'] = validator && validator.totalBid;
+		menuOptions[0].props['validatorPublicKey'] = validator && validator.publicKey;
 		await getRewards();
 		$isLoading = false;
 	});
@@ -53,7 +56,7 @@
 <div class="main">
 	{#if validator}
 		<div class="header-content">
-			<ValidatorCard inactive={validator.bid.inactive} information={validator.information} />
+			<ValidatorCard {validator} />
 			<StatisticsCard {validator} />
 		</div>
 		<TabMenu {menuOptions} />

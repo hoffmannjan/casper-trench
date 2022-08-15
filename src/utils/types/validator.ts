@@ -55,11 +55,24 @@ export type Bid = {
 	totalDelegated: number;
 	selfStake: number;
 	selfStakePercentage: number;
+	delegators: {
+		publicKey: string;
+		stakedAmount: number;
+		bondingPurse: string;
+		delegatee: string;
+	}[];
 	inactive: boolean;
 	networkPercentage?: number;
 	rank?: number;
 	icon?: string;
 	name?: string;
+	email?: string;
+	website?: string;
+	links?: {
+		tag: string;
+		link: string;
+	}[];
+	details?: string;
 };
 
 export type ValidatorDetails = {

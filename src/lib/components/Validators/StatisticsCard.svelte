@@ -1,17 +1,11 @@
 <script lang="ts">
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
-	import type { ValidatorDetails } from '$utils/types/validator';
+	import type { Bid, ValidatorDetails } from '$utils/types/validator';
 	import BalanceTransferrable from '$components/TableData/BalanceTransferrable.svelte';
 	import CircleProgressBar from '$components/TableData/CircleProgressBar.svelte';
 	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
 
-	export let validator: Partial<ValidatorDetails>;
-	const selfStakePercentage = parseFloat(
-		(
-			(parseFloat(validator.bid.staked_amount) / parseFloat(validator.bid.total_stake)) *
-			100
-		).toFixed(2)
-	);
+	export let validator: Partial<Bid>;
 </script>
 
 <div class="statistics-card">
@@ -20,10 +14,10 @@
 			<td class="label">Public Key</td>
 			<td class="value"
 				><div class="text">
-					{validator.public_key}
+					{validator.publicKey}
 				</div>
 				<div class="copy-icon">
-					<CopyIcon text={validator.public_key} />
+					<CopyIcon text={validator.publicKey} />
 				</div></td
 			>
 		</tr>
@@ -39,23 +33,15 @@
 		</tr>
 		<tr>
 			<td class="label">Total Stake</td>
-			<td class="value"
-				><BalanceTransferrable cspr={parseFloat(validator.bid.total_stake.substring(0, 9))} /></td
-			>
+			<td class="value"><BalanceTransferrable cspr={validator.totalBid} /></td>
 		</tr>
 		<tr>
 			<td class="label">Self Stake</td>
-			<td class="value"
-				><BalanceTransferrable
-					cspr={parseFloat(validator.bid.staked_amount.substring(0, 9))}
-					{selfStakePercentage}
-				/></td
-			>
+			<td class="value"><BalanceTransferrable cspr={validator.selfStake} /></td>
 		</tr>
 		<tr>
 			<td class="label">Commission Rate</td>
-			<!-- TODO update - remove place holder -->
-			<td class="value commission">{validator.bid.delegation_rate.toFixed(2)}%</td>
+			<td class="value commission">{validator.delegationRate.toFixed(2)}%</td>
 		</tr>
 		<tr>
 			<td class="label">Performance</td>

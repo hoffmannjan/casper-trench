@@ -9,7 +9,7 @@
 		{
 			name: 'Casper Signer',
 			info: 'Connect and sign in via Google Chrome extension'
-		},
+		}
 		// {
 		// 	name: 'Ledger',
 		// 	info: 'Connect and sign in with your Ledger wallet'
