@@ -86,14 +86,14 @@
 
 <style lang="postcss">
 	.sign-in-page {
-		@apply px-4 pt-[clamp(16px,5.95vw,5.95vw)] pb-[clamp(16px,7.74vw,7.74vw)] md:min-h-[30vw];
-		@apply flex flex-col md:flex-row justify-center items-center gap-[clamp(16px,4.46vw,4.46vw)];
+		@apply px-4 pt-[clamp(16px,5.95vw,5.95vw)] pb-[clamp(16px,7.74vw,7.74vw)] lg:min-h-[30vw];
+		@apply flex flex-col lg:flex-row justify-center items-center gap-[clamp(16px,4.46vw,4.46vw)];
 	}
 
 	.container {
-		@apply md:max-w-[21vw] h-full md:min-h-[32vw];
+		@apply lg:max-w-[21vw] h-full lg:min-h-[32vw];
 		@apply pt-[clamp(16px,2.32vw,2.32vw)] px-[16px];
-		@apply rounded-[1.19vh] md:rounded-[1.19vw];
+		@apply rounded-[1.19vh] lg:rounded-[1.19vw];
 		@apply shadow-[0px_0px_11px] shadow-color-shadow-black;
 		@apply flex flex-col items-center;
 		@apply bg-white;
@@ -101,7 +101,7 @@
 	}
 
 	img {
-		@apply w-[7.38vh] h-[7.38vh] md:w-[7.38vw] md:h-[7.38vw];
+		@apply w-[7.38vh] h-[7.38vh] lg:w-[7.38vw] lg:h-[7.38vw];
 		@apply mb-[clamp(16px,1.19vw,1.19vw)];
 	}
 
@@ -111,22 +111,23 @@
 
 	.info {
 		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-grey-footer-label text-center;
-		@apply md:max-w-[17vw] md:min-h-[8vw];
+		@apply lg:max-w-[17vw] lg:min-h-[8vw];
 	}
 
 	.button {
 		@apply flex flex-col items-center;
+		@apply mb-[clamp(16px,2.98vw,2.98vw)];
 	}
 
 	.bg-special {
 		@apply absolute;
 		@apply mx-auto;
 		@apply -z-10;
-		@apply md:w-[90vw];
+		@apply lg:w-[90vw];
 	}
 
 	.icon {
-		@apply h-[0.95vh] w-[0.95vh] md:h-[0.95vw] md:w-[0.95vw];
+		@apply h-[0.95vh] w-[0.95vh] lg:h-[0.95vw] lg:w-[0.95vw];
 	}
 
 	.download {
