@@ -84,15 +84,15 @@
 					<th class="fee">
 						<div class="header-wrapper">
 							<div class="text">Fee</div>
-							<TableSorter
-								on:sort={(e) => sortValidators(e.detail?.direction, 'delegationRate')}
-							/>
+							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'delegationRate')} />
 						</div>
 					</th>
 					<th>
 						<div class="header-wrapper">
 							<div class="text">Delegators</div>
-							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'numOfDelegators')} />
+							<TableSorter
+								on:sort={(e) => sortValidators(e.detail?.direction, 'numOfDelegators')}
+							/>
 						</div>
 					</th>
 					<th class="stake">
@@ -114,7 +114,7 @@
 				<div class="divider table-header-border" />
 				{#each displayedEraValidators as validator, i}
 					<tr>
-						<td class="rank-val">{i + 1}</td>
+						<td class="rank-val">{validator.rank}</td>
 						<td class="validators"
 							><Validator
 								imgUrl={validator.icon}
@@ -149,9 +149,7 @@
 					<th>
 						<div class="header-wrapper">
 							<div class="text">Delegators</div>
-							<TableSorter
-								on:sort={(e) => sortBids(e.detail?.direction, 'numOfDelegators')}
-							/>
+							<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'numOfDelegators')} />
 						</div>
 					</th>
 					<th class="stake">
@@ -173,7 +171,7 @@
 				<div class="divider table-header-border" />
 				{#each displayedBidValidators as bid, i}
 					<tr>
-						<td class="rank-val">{i + 1}</td>
+						<td class="rank-val">{bid.rank}</td>
 						<td class="validators"
 							><Validator imgUrl={bid.icon} hash={bid.public_key} name={bid.name} /></td
 						>

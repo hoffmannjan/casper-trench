@@ -87,13 +87,28 @@ export const queryValidators = async (): Promise<{
 					});
 				});
 
-			// console.table(currentEraValidators)
-			// console.table(nextEraValidators)
-			// console.table(bidValidators)
+			// Rank by total stake
+			const _bidValidators = bidValidators.sort((a, b) => b.totalBid - a.totalBid);
+			_bidValidators &&
+				_bidValidators.forEach((bid, i) => {
+					bid.rank = i + 1;
+				});
+
+			const _currentEraValidators = currentEraValidators.sort((a, b) => b.selfStake - a.selfStake);
+			_currentEraValidators &&
+				_currentEraValidators.forEach((bid, i) => {
+					bid.rank = i + 1;
+				});
+
+			const _nextEraValidators = nextEraValidators.sort((a, b) => b.selfStake - a.selfStake);
+			_nextEraValidators &&
+				_nextEraValidators.forEach((bid, i) => {
+					bid.rank = i + 1;
+				});
 			return {
-				_bidValidators: bidValidators,
-				_currentEraValidators: currentEraValidators,
-				_nextEraValidators: nextEraValidators,
+				_bidValidators,
+				_currentEraValidators,
+				_nextEraValidators,
 				_eraIDs: eraIDs
 			};
 		})
