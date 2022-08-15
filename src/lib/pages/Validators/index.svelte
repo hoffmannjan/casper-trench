@@ -42,9 +42,10 @@
 			currentEraValidators = eraValidators = _currentEraValidators;
 			nextEraValidators = _nextEraValidators;
 			_eraIDs.forEach((eraID, i) => {
-				if(i<2){
-				const dropdownItem = i == 0 ? `Next Era ${eraID}` : `Current Era ${eraID}`;
-				pageOptions && pageOptions[0].dropdown.push(dropdownItem);}
+				if (i < 2) {
+					const dropdownItem = i == 0 ? `Next Era ${eraID}` : `Current Era ${eraID}`;
+					pageOptions && pageOptions[0].dropdown.push(dropdownItem);
+				}
 			});
 		}
 		$isLoading = false;

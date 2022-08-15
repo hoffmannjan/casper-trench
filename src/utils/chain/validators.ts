@@ -1,8 +1,7 @@
 import { rpcUrl } from '$stores/chain';
 import { parseStringValue } from '$utils/converters';
 import type { Bid, EraValidator } from '$utils/types/validator';
-import { bind } from 'svelte/internal';
-import { CasperServiceByJsonRPC } from 'casper-js-sdk';
+// import { CasperServiceByJsonRPC } from 'casper-js-sdk';
 import { get } from 'svelte/store';
 export const queryValidators = async (): Promise<{
 	_bidValidators: Bid[];
@@ -139,6 +138,8 @@ export const getTopValidators = async (
 	return topValidators ?? null;
 };
 export const queryValidator = async (publicKey: string) => {
+	// @ts-ignore
+	const { CasperServiceByJsonRPC } = window.CasperSDK;
 	const casperService = new CasperServiceByJsonRPC(get(rpcUrl));
 	// return await casperService.
 };

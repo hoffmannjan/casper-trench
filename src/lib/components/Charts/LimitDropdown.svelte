@@ -1,6 +1,6 @@
 <script>
 	import ShowRowChevron from '$lib/icons/ShowRowChevron.svelte';
-import { clickOutside } from '$utils/clickOutside';
+	import { clickOutside } from '$utils/clickOutside';
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 
@@ -9,12 +9,15 @@ import { clickOutside } from '$utils/clickOutside';
 	export let limit = 10;
 	let dropdown = false;
 	const limits = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200];
-
 </script>
 
-<div class="show-row" use:clickOutside on:click_outside={() => {
-	dropdown = false;
-}}>
+<div
+	class="show-row"
+	use:clickOutside
+	on:click_outside={() => {
+		dropdown = false;
+	}}
+>
 	<div class="title">Limit</div>
 	<div>
 		<button type="button" on:click={() => (dropdown = !dropdown)} class="dropdown-header">

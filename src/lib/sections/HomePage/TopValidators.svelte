@@ -8,14 +8,14 @@
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
 	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
-import type { EraValidator } from '$utils/types/validator';
-import { getTopValidators } from '$utils/chain/validators';
+	import type { EraValidator } from '$utils/types/validator';
+	import { getTopValidators } from '$utils/chain/validators';
 	let validators;
-	let topValidators:Partial<EraValidator>[]=[]
+	let topValidators: Partial<EraValidator>[] = [];
 	onMount(async () => {
 		$isLoading = true;
 		// validators = await getTopValidators();
-		topValidators=await getTopValidators(10)
+		topValidators = await getTopValidators(10);
 		$isLoading = false;
 	});
 </script>
@@ -43,9 +43,7 @@ import { getTopValidators } from '$utils/chain/validators';
 						/></td
 					>
 					<td class="text-color-grey-footer-label">{validator.delegationRate.toFixed(2)}%</td>
-					<td class="text-color-table-header"
-						>{validator.selfStake.toLocaleString('en')} CSPR</td
-					>
+					<td class="text-color-table-header">{validator.selfStake.toLocaleString('en')} CSPR</td>
 					<td><CircleProgressBar progress={1} /></td>
 				</tr>
 			{/each}
