@@ -131,7 +131,7 @@
 
 <style lang="postcss">
 	.copy-icon {
-		@apply w-[clamp(16px,1.6vw,1.6vw)] h-[clamp(16px,1.6vw,1.6vw)];
+		@apply w-[clamp(16px,2vw,2vw)] h-[clamp(16px,2vw,2vw)];
 	}
 
 	.title {
