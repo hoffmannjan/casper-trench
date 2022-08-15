@@ -43,7 +43,8 @@
 		transferFlow &&
 			transferFlow.transfers.forEach((flow, i) => {
 				data.push({
-					from: truncateString(flow.fromHash.replace('account-hash-', '#').replace('dub-', ' ')) || '',
+					from:
+						truncateString(flow.fromHash.replace('account-hash-', '#').replace('dub-', ' ')) || '',
 					to: truncateString(flow.toHash.replace('account-hash-', '#').replace('dub-', ' ')) || '',
 					flow: flow.denomAmount || 0
 				});

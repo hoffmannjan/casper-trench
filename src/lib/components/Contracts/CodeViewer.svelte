@@ -6,7 +6,7 @@
 	import ChainIcon from '$lib/icons/ChainIcon.svelte';
 	import MaximizeIcon from '$lib/icons/MaximizeIcon.svelte';
 	import OpenIcon from '$lib/icons/OpenIcon.svelte';
-import { clickOutside } from '$utils/clickOutside';
+	import { clickOutside } from '$utils/clickOutside';
 
 	export let outlineDropdown = false;
 	export let moreOptionsDropdown = false;
@@ -52,9 +52,13 @@ import { clickOutside } from '$utils/clickOutside';
 
 		<div class="drop-downs">
 			{#if outlineCodeHeader}
-				<div class="wrapper" use:clickOutside on:click_outside={() => {
-					showOutlineDropdown = false;
-				}}>
+				<div
+					class="wrapper"
+					use:clickOutside
+					on:click_outside={() => {
+						showOutlineDropdown = false;
+					}}
+				>
 					<div class="button" on:click={() => (showOutlineDropdown = !showOutlineDropdown)}>
 						<div class="text">
 							{outlineOptions[selectedOutlineDropdown]}
@@ -90,9 +94,13 @@ import { clickOutside } from '$utils/clickOutside';
 			{/if}
 
 			{#if outlineDropdown}
-				<div class="wrapper" use:clickOutside on:click_outside={() => {
-					showOutlineDropdown = false;
-				}}>
+				<div
+					class="wrapper"
+					use:clickOutside
+					on:click_outside={() => {
+						showOutlineDropdown = false;
+					}}
+				>
 					<div class="button" on:click={() => (showOutlineDropdown = !showOutlineDropdown)}>
 						<div class="text">
 							{outlineOptions[selectedOutlineDropdown]}
@@ -139,9 +147,13 @@ import { clickOutside } from '$utils/clickOutside';
 			{/if}
 
 			{#if moreOptionsDropdown}
-				<div class="wrapper" use:clickOutside on:click_outside={() => {
-					showMoreOptionsDropdown = false;
-				}}>
+				<div
+					class="wrapper"
+					use:clickOutside
+					on:click_outside={() => {
+						showMoreOptionsDropdown = false;
+					}}
+				>
 					<div class="button" on:click={() => (showMoreOptionsDropdown = !showMoreOptionsDropdown)}>
 						<div class="text">
 							{moreOptions[selectedMoreOptionsDropdown]}
