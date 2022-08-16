@@ -15,6 +15,7 @@
 		stakedAmount: number;
 		bondingPurse: string;
 		delegatee: string;
+		rank?: number;
 	}[] = [];
 
 	let menuOptions = [
@@ -34,9 +35,15 @@
 	onMount(async () => {
 		$isLoading = true;
 		validator = await getValidatorDetails($page.params.public_key);
-		// console.log(validator);
 		menuOptions[0].props.delegators = validator.delegators ?? null;
-		menuOptions[0].props.delegators=menuOptions[0].props.delegators.sort((a,b)=>b.stakedAmount-a.stakedAmount)
+		// Sort delegators
+		menuOptions[0].props.delegators = menuOptions[0].props.delegators.sort(
+			(a, b) => b.stakedAmount - a.stakedAmount
+		);
+		// Add ranks
+		menuOptions[0].props.delegators.forEach((delegator, i) => {
+			delegator.rank = i + 1;
+		});
 		menuOptions[0].props.delegators.unshift({
 			publicKey: validator.publicKey,
 			stakedAmount: validator.selfStake,

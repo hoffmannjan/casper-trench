@@ -10,21 +10,24 @@
 	import SwitchChevron from '$lib/icons/SwitchChevron.svelte';
 	import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
 	import { isLoading } from '$stores/loading';
-	import { getBlock, getBlockTransfers } from '$utils/api';
+	import { getBlock, getCurrentBlockHeight, getBlockTransfers } from '$utils/chain/blocks';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
-	import type { BlockDetail } from '$utils/types/block';
+	import type { Block } from '$utils/types/block';
 	import type { BlockTransfer } from '$utils/types/transfer';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 
 	let showTransfers = false;
 	let showProofs = false;
-	let block: BlockDetail;
-	let transfers: BlockTransfer[];
+	let block: Block;
+	// let transfers: BlockTransfer[];
+	let transfers;
+	let currentHeight = 0;
 	onMount(async () => {
 		$isLoading = true;
 		block = await getBlock($page.params.hash);
-		transfers = block && (await getBlockTransfers(block.result?.block?.header?.height));
+		currentHeight = await getCurrentBlockHeight();
+		transfers = block && (await getBlockTransfers(block.hash));
 		$isLoading = false;
 	});
 </script>
@@ -35,23 +38,23 @@
 			<div class="block-buttons">
 				<Button
 					on:click={() => {
-						goto(`/blocks/${block.result?.block?.header?.height - 1}`);
+						goto(`/blocks/${block.height - 1}`);
 						window.location.reload();
 					}}
-					block>Blocks #{block.result?.block?.header?.height - 1}</Button
+					block>Blocks #{block.height - 1}</Button
 				>
-				<Button block active>Blocks #{block.result?.block?.header?.height}</Button>
+				<Button block active>Blocks #{block.height}</Button>
 				<Button
 					on:click={() => {
-						if (block.result?.block?.header?.height + 1 <= block.result?.current_height) {
-							goto(`/blocks/${block.result?.block?.header?.height + 1}`);
+						if (block.height + 1 <= currentHeight) {
+							goto(`/blocks/${block.height + 1}`);
 							window.location.reload();
 						}
 					}}
 					block
 				>
-					{#if block.result?.block?.header?.height + 1 <= block.result?.current_height}
-						Blocks #{block.result?.block?.header?.height + 1}
+					{#if block.height + 1 <= currentHeight}
+						Blocks #{block.height + 1}
 					{:else}
 						Crunching...
 					{/if}
@@ -60,11 +63,11 @@
 
 			<div class="top">
 				<div class="title">
-					Blocks {block.result?.block?.header?.height}
+					Blocks {block.height}
 				</div>
 				<div class="sub-title">
 					<div class="blocks">
-						<span class="green">Blocks</span> / Blocks {block.result?.current_height}
+						<span class="green">Blocks</span> / Blocks {currentHeight}
 					</div>
 				</div>
 			</div>
@@ -73,33 +76,31 @@
 				<table class="extras">
 					<tr>
 						<td class="label">Block Height</td>
-						<td class="value">{block.result?.block?.header?.height}</td>
+						<td class="value">{block.height}</td>
 					</tr>
 					<tr>
 						<td class="label">Era ID</td>
-						<td class="value">{block.result?.block?.header?.era_id}</td>
+						<td class="value">{block.eraID}</td>
 					</tr>
 					<tr>
 						<td class="label">Timestamp</td>
 						<td class="value">
-							<div class="time">{new Date(block.result?.block?.header?.timestamp)}</div>
+							<div class="time">{new Date(block.timestamp)}</div>
 							<div class="ago">
-								{`${timeAgo(
-									millisToFormat(Date.now() - Date.parse(block.result?.block?.header?.timestamp))
-								)} ago`}
+								{`${timeAgo(millisToFormat(Date.now() - block.timestamp))} ago`}
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td class="label">Validated by</td>
 						<td class="value">
-							{#await getValidatorDetails(block.result?.block?.body?.proposer)}
+							{#await getValidatorDetails(block.validatorPublicKey)}
 								<div class="validator validator-placeholder" />
 							{:then validator}
 								<div class="validator">
 									<div class="logo">
-										{#if validator.icon}
-											<img src={validator.icon} alt="validator-icon" />
+										{#if validator?.icon}
+											<img src={validator?.icon} alt="validator-icon" />
 										{:else}
 											<div class="image-placeholder">
 												<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
@@ -107,16 +108,16 @@
 										{/if}
 									</div>
 									<div class="dets">
-										<div class="name {validator.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
+										<div class="name {validator?.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
 											<div class="text">
-												{validator.name || ''}
+												{validator?.name || ''}
 											</div>
 											<div class="verified-icon">
 												<VerifiedIcon />
 											</div>
 										</div>
 										<div class="hash">
-											{block.result?.block?.body?.proposer}
+											{block.validatorPublicKey}
 										</div>
 									</div>
 								</div>
@@ -125,7 +126,7 @@
 					</tr>
 					<tr>
 						<td class="label">Block Hash</td>
-						<td class="value">{block.result?.block?.hash}</td>
+						<td class="value">{block.hash}</td>
 					</tr>
 					<tr>
 						<td class="label">Transaction</td>
@@ -152,7 +153,7 @@
 					</tr>
 					<tr>
 						<td class="label">State Roof Hash</td>
-						<td class="value">{block.result?.block?.header?.state_root_hash}</td>
+						<td class="value">{block.stateRootHash}</td>
 					</tr>
 					<tr>
 						<td class="label">Proofs</td>
@@ -183,7 +184,7 @@
 								</div>
 							</div>
 							{#if showProofs}
-								<BlockProofs proofs={block && block.result?.block?.proofs} />
+								<BlockProofs proofs={block && block.proofs} />
 							{/if}
 						</td>
 					</tr>

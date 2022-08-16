@@ -12,7 +12,7 @@
 	<Navbar />
 	{#if isHome}
 		<Filter />
-		<HomeStatsSection />
+		<!-- <HomeStatsSection /> -->
 	{:else}
 		<div class="header-flex">
 			<!-- <OtherStatsSection /> -->
