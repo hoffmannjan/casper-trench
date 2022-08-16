@@ -26,49 +26,51 @@
 						</a>
 					</td>
 					<td>
-						<a href="/accounts/{transfer.from.substring('account-hash-'.length)}">
+						<a href="/accounts/{transfer.from}">
 							<div class="account">
-								{#await getValidatorDetails(transfer.from.substring('account-hash-'.length))}
+								{#await getValidatorDetails(transfer.from)}
 									<div class="image-placeholder">
 										<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
 									</div>
 								{:then validator}
-									{#if validator.icon}
-										<img src={validator.icon} alt="to-account-logo" />
+									{#if validator?.icon}
+										<img src={validator?.icon} alt="to-account-logo" />
 									{:else}
 										<div class="image-placeholder">
 											<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
 										</div>
 									{/if}
 								{/await}
-								<Hash hash={transfer.from.substring('account-hash-'.length)} noOfCharacters={10} />
+								<Hash hash={transfer.from} noOfCharacters={10} />
 							</div>
 						</a>
 					</td>
 					<td>
-						<a href="/accounts/{transfer.to.substring('account-hash-'.length)}">
-							<div class="account">
-								{#await getValidatorDetails(transfer.to.substring('account-hash-'.length))}
-									<div class="image-placeholder">
-										<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-									</div>
-								{:then validator}
-									{#if validator.icon}
-										<img src={validator.icon} alt="to-account-logo" />
-									{:else}
+						{#if transfer.to}
+							<a href="/accounts/{transfer.to}">
+								<div class="account">
+									{#await getValidatorDetails(transfer.to)}
 										<div class="image-placeholder">
 											<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
 										</div>
-									{/if}
-								{/await}
-								<Hash hash={transfer.to.substring('account-hash-'.length)} noOfCharacters={10} />
-							</div>
-						</a>
+									{:then validator}
+										{#if validator?.icon}
+											<img src={validator?.icon} alt="to-account-logo" />
+										{:else}
+											<div class="image-placeholder">
+												<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+											</div>
+										{/if}
+									{/await}
+									<Hash hash={transfer?.to} noOfCharacters={10} />
+								</div>
+							</a>
+						{/if}
 					</td>
 					<td>
 						<div class="value-crypto">
 							<div class="crypto">
-								{parseStringValue(transfer.amount).toLocaleString('en')}
+								{transfer.amount.toLocaleString('en')}
 							</div>
 							<div class="cspr">CSPR</div>
 						</div>

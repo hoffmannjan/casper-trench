@@ -19,7 +19,6 @@
 	onMount(async () => {
 		$isLoading = true;
 		const latestBlocks: Block[] = await getLatestBlocks(1);
-		console.log('Latest block: ', latestBlocks[0].height);
 		startIndex = latestBlocks && latestBlocks[0].height;
 		latestBlock = startIndex;
 		$isLoading = false;

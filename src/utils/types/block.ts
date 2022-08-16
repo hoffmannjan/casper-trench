@@ -30,6 +30,8 @@ export type Block = {
 	timestamp: number;
 	hash: string;
 	validatorPublicKey: string;
+	stateRootHash?: string;
+	proofs?: any[];
 };
 
 export type ProposerBlocks = {

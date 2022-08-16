@@ -74,7 +74,7 @@
 					of {totalPages.toLocaleString()}
 				{/if}
 				{#if isRangeBlock}
-					of {latestBlock.toLocaleString()}
+					of {parseFloat((latestBlock / itemsPerPage).toFixed()).toLocaleString()}
 				{/if}
 			</div>
 			<button

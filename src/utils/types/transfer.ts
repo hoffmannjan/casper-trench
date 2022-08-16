@@ -16,7 +16,7 @@ export type BlockTransfer = {
 	to: string;
 	source: string;
 	target: string;
-	amount: string;
+	amount: number;
 	gas: string;
 	id: any;
 };
