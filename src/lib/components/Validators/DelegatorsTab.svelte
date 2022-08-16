@@ -8,6 +8,7 @@
 			stakedAmount: number;
 			bondingPurse: string;
 			delegatee: string;
+			rank?: number;
 		}[];
 		totalStake: string;
 		validatorPublicKey: string;

@@ -3,13 +3,11 @@
 
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import BlockHeight from '$lib/components/TableData/BlockHeight.svelte';
-	import { getLatestBlocks } from '$utils/api';
+	import { getLatestBlocks } from '$utils/chain/blocks';
 	import { isLoading } from '$stores/loading';
 	import type { Block } from '$utils/types/block';
 	import { onMount } from 'svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
-	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
-	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	let blocks: Block[];
 	onMount(async () => {
 		$isLoading = true;
@@ -27,21 +25,20 @@
 				<th>Block Height</th>
 				<th>Era</th>
 				<th>Block Hash</th>
-				<th>Deploys <PlaceHolderIndicator /></th>
+				<th>Deploys</th>
 			</tr>
 			<div class="divider table-header-border" />
 			{#each blocks as block}
 				<tr>
 					<td
 						><BlockHeight
-							blockDate={Date.parse(block.header.timestamp)}
-							blockHeight={block.header.height.toLocaleString('en')}
+							blockDate={block.timestamp}
+							blockHeight={block.height.toLocaleString('en')}
 						/></td
 					>
-					<td class="text-color-table-header">{block.header.era_id}</td>
+					<td class="text-color-table-header">{block.eraID}</td>
 					<td> <a href="/blocks/{block.hash}"><Hash hash={block.hash} /></a></td>
-					<!-- TODO confirm deploys -->
-					<td><CircleProgressBar progress={0.97} /></td>
+					<td class="text-color-table-header">{block.transactions}</td>
 				</tr>
 			{/each}
 		</table>

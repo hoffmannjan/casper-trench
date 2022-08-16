@@ -1,26 +1,35 @@
+// export type Block = {
+// 	body: {
+// 		proposer: string;
+// 		deploy_hashes: string[];
+// 		transfer_hashes: string[];
+// 	};
+// 	hash: string;
+// 	header: {
+// 		accumulated_seed: string;
+// 		body_hash: string;
+// 		era_end: any;
+// 		era_id: number;
+// 		height: number;
+// 		parent_hash: string;
+// 		protocol_version: string;
+// 		random_bit: boolean;
+// 		state_root_hash: string;
+// 		timestamp: string;
+// 	};
+// 	proofs: {
+// 		public_key: string;
+// 		signature: string;
+// 	}[];
+// };
+
 export type Block = {
-	body: {
-		proposer: string;
-		deploy_hashes: string[];
-		transfer_hashes: string[];
-	};
+	height: number;
+	eraID: number;
+	transactions: number;
+	timestamp: number;
 	hash: string;
-	header: {
-		accumulated_seed: string;
-		body_hash: string;
-		era_end: any;
-		era_id: number;
-		height: number;
-		parent_hash: string;
-		protocol_version: string;
-		random_bit: boolean;
-		state_root_hash: string;
-		timestamp: string;
-	};
-	proofs: {
-		public_key: string;
-		signature: string;
-	}[];
+	validatorPublicKey: string;
 };
 
 export type ProposerBlocks = {
@@ -32,10 +41,10 @@ export type ProposerBlocks = {
 	transfers: number;
 };
 
-export type RangeBlock = {
-	current_height: number;
-	result: Block[];
-};
+// export type RangeBlock = {
+// 	current_height: number;
+// 	result: Block[];
+// };
 
 export type BlockDetail = {
 	jsonrpc: string;

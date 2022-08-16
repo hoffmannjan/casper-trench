@@ -2,7 +2,7 @@
 	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import ShowRow from './ShowRow.svelte';
-	import { getLatestBlocks } from '$utils/api';
+	import { getLatestBlocks } from '$utils/chain/blocks';
 	const dispatch = createEventDispatcher();
 	let page = 1;
 
@@ -44,7 +44,7 @@
 				on:click={async () => {
 					if (isRangeBlock) {
 						let latestBlock = await getLatestBlocks(1);
-						startIndex = latestBlock && latestBlock[0].header.height;
+						startIndex = latestBlock && latestBlock[0].height;
 					} else {
 						startIndex = 0;
 					}

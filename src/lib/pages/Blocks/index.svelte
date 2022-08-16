@@ -6,34 +6,32 @@
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import Validator from '$lib/components/TableData/Validator.svelte';
 	import { isLoading } from '$stores/loading';
-	import { getLatestBlocks, getRangeBlocks, getValidator } from '$utils/api';
+	// import { getLatestBlocks, getRangeBlocks, getValidator } from '$utils/api';
+	import { getBlocks, getLatestBlocks } from '$utils/chain/blocks';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
 	import { tableSort } from '$utils/sort';
-	import type { Block, RangeBlock } from '$utils/types/block';
+	import type { Block } from '$utils/types/block';
 	import { onMount } from 'svelte';
-
 	let blocks: Block[];
-	let rangeBlock: RangeBlock;
 	let latestBlock = 0;
 	let blocksPerPage = 10;
 	let startIndex = 0;
 	onMount(async () => {
 		$isLoading = true;
-		let latestBlocks: Block[] = await getLatestBlocks(1);
-		startIndex = latestBlocks && latestBlocks[0].header.height;
+		const latestBlocks: Block[] = await getLatestBlocks(1);
+		console.log('Latest block: ', latestBlocks[0].height);
+		startIndex = latestBlocks && latestBlocks[0].height;
 		latestBlock = startIndex;
-		await fetchBlocks();
 		$isLoading = false;
 	});
 
 	const fetchBlocks = async () => {
 		$isLoading = true;
 		// logic to invert the block heights for start and end query params.
-		rangeBlock = await getRangeBlocks(startIndex - blocksPerPage + 1, startIndex);
-		blocks = rangeBlock && rangeBlock.result;
+		blocks = await getBlocks(startIndex - blocksPerPage + 1, startIndex);
 		$isLoading = false;
 	};
-	$: if (blocksPerPage) {
+	$: if (blocksPerPage && startIndex) {
 		setTimeout(async () => {
 			await fetchBlocks();
 		}, 1);
@@ -79,16 +77,16 @@
 			{#each blocks as block, i}
 				<tr>
 					<td class="block black">
-						{block.header.height.toLocaleString()}
+						{block.height.toLocaleString()}
 					</td>
 					<td class="era">
-						{block.header.era_id}
+						{block.eraID}
 					</td>
 					<td class="center black">
-						{block.body.deploy_hashes.length || 0}
+						{block.transactions}
 					</td>
 					<td class="center age">
-						{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.header.timestamp)))} ago`}
+						{`${timeAgo(millisToFormat(Date.now() - block.timestamp))} ago`}
 					</td>
 					<td class="center">
 						<div class="wrapper">
@@ -98,17 +96,17 @@
 						</div>
 					</td>
 					<td>
-						{#await getValidatorDetails(block.body.proposer)}
-							<Validator imgUrl={''} name={''} hash={block.body.proposer} />
+						{#await getValidatorDetails(block.validatorPublicKey)}
+							<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
 						{:then validator}
 							{#if validator}
 								<Validator
 									imgUrl={validator.icon}
 									name={validator.name}
-									hash={block.body.proposer}
+									hash={block.validatorPublicKey}
 								/>
 							{:else}
-								<Validator imgUrl={''} name={''} hash={block.body.proposer} />
+								<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
 							{/if}
 						{/await}
 					</td>
