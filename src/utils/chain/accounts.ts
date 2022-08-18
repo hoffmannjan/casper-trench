@@ -2,11 +2,13 @@ import { bidStore, rpcUrl } from '$stores/chain';
 import { isLoading } from '$stores/loading';
 import { parseStringValue } from '$utils/converters';
 import type { TopAccount } from '$utils/types/account';
-import { CasperClient, CasperServiceByJsonRPC, CLPublicKey } from 'casper-js-sdk';
+// import { CasperClient} from 'casper-js-sdk';
 import { ethers } from 'ethers';
 import { get } from 'svelte/store';
 
 export const getTopAccounts = async (start: number, count: number): Promise<TopAccount[]> => {
+	// @ts-ignore
+	const { CasperClient } = window.CasperSDK;
 	let accounts: TopAccount[] = [];
 	const casperClient = new CasperClient(get(rpcUrl));
 	const bids = get(bidStore);

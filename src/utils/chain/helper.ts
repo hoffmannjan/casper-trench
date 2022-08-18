@@ -1,5 +1,5 @@
 import { csprService, rpcUrl } from '$stores/chain';
-import { CasperServiceByJsonRPC } from 'casper-js-sdk';
+// import { CasperServiceByJsonRPC } from 'casper-js-sdk';
 import { get } from 'svelte/store';
 
 export const QueryRPC = async (method: string, params: any) => {
@@ -26,5 +26,7 @@ export const QueryRPC = async (method: string, params: any) => {
 };
 
 export const setConstructors = () => {
+	// @ts-ignore
+	const { CasperServiceByJsonRPC } = window.CasperSDK;
 	csprService.set(new CasperServiceByJsonRPC(get(rpcUrl)));
 };

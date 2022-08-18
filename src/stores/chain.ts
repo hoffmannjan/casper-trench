@@ -1,5 +1,5 @@
 import type { Bid } from '$utils/types/validator';
-import type { CasperServiceByJsonRPC } from 'casper-js-sdk';
+// import type { CasperServiceByJsonRPC } from 'casper-js-sdk';
 import { get, writable } from 'svelte/store';
 
 export const network = writable<'casper' | 'casper-test'>('casper');
@@ -14,7 +14,7 @@ export const rpcUrl = writable<string>(
 // 		: 'http://testnet.gosuto.io:7777/rpc'
 // );
 
-export const csprService = writable<CasperServiceByJsonRPC>(null);
-// export const csprService=writable(null)
+// export const csprService = writable<CasperServiceByJsonRPC>(null);
+export const csprService = writable(null);
 export const bidStore = writable<Bid[]>(null);
 export const lastBidUpdateTime = writable<number>(0);

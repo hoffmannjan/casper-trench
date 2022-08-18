@@ -11,7 +11,6 @@
 	import { getTopAccounts } from '$utils/chain/accounts';
 	import { tableSort } from '$utils/sort';
 	import type { TopAccount } from '$utils/types/account';
-	import { CasperClient, CLPublicKey } from 'casper-js-sdk';
 	import { ethers } from 'ethers';
 	let accountsPerPage = 10;
 	let startIndex = 0;
