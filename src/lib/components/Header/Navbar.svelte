@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CasperTrenchLogo from '$lib/icons/CasperTrenchLogo.svelte';
+	// import CasperTrenchLogo from '$lib/icons/CasperTrenchLogo.svelte';
 	import UserIcon from '$lib/icons/UserIcon.svelte';
 	import NavbarDropdown from './NavbarDropdown.svelte';
 	import { page } from '$app/stores';
@@ -93,7 +93,7 @@
 
 <div class="navbar">
 	<a href="/" class="logo">
-		<CasperTrenchLogo />
+		<!-- <CasperTrenchLogo /> -->
 	</a>
 	<div class="nav-items">
 		{#each navItems as navItem}

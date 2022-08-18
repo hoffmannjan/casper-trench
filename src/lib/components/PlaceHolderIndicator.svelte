@@ -2,9 +2,9 @@
 	import Tooltip from './Reusables/Tooltip.svelte';
 </script>
 
-<div>
+<!-- <div>
 	<Tooltip text="Datapoint unavailable-Casperstats API" />
-</div>
+</div> -->
 
 <style lang="postcss">
 	div {
