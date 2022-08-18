@@ -16,32 +16,32 @@
 	import { page } from '$app/stores';
 	import type { Type } from '$utils/types/type';
 
+	//Old menu options 
+	//  {
+	// 		title: 'Transfers',
+	// 		component: TransferTab,
+	// 		props: {}
+	// 	},
+	// 	title: 'Staking',
+	// 	component: StakingTab,
+	// 	props: {}
+	// },
+	// {
+	// 	title: 'Earning',
+	// 	component: EarningTab,
+	// 	props: {}
+	// },
+	// {
+	// 	title: 'Tokens',
+	// 	component: TokensTab,
+	// 	props: {}
+	// }
 	let menuOptions = [
-		{
-			title: 'Transfers',
-			component: TransferTab,
-			props: {}
-		},
 		{
 			title: 'Transactions',
 			component: TransactionsTab,
 			props: {}
 		},
-		{
-			title: 'Staking',
-			component: StakingTab,
-			props: {}
-		},
-		{
-			title: 'Earning',
-			component: EarningTab,
-			props: {}
-		},
-		{
-			title: 'Tokens',
-			component: TokensTab,
-			props: {}
-		}
 	];
 	let account: Account;
 	let type: Type;

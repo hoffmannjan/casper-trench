@@ -15,12 +15,15 @@
 			<NavbarChevron />
 		</div>
 	</div>
-	-->
+
+	<!-- CHANGE -->
+
 
 	<input
 		type="text"
 		name="filter"
-		placeholder="Search by Address / Txn Hash / Block / Token / Ens"
+		
+		placeholder="Search blocks / transactions / contracts / accounts"
 		bind:value
 	/>
 
