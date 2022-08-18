@@ -15,9 +15,6 @@
 	let transactions: Transaction[];
 	let transactionsPerPage = 10;
 	let startIndex = 0;
-	onMount(async () => {
-		await fetchTransactions();
-	});
 
 	const fetchTransactions = async () => {
 		$isLoading = true;

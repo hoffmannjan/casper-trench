@@ -1,8 +1,7 @@
-import { rpcUrl } from '$stores/chain';
+import { browser } from '$app/env';
+import { bidStore, lastBidUpdateTime, rpcUrl } from '$stores/chain';
 import { parseStringValue } from '$utils/converters';
 import type { Bid, EraValidator } from '$utils/types/validator';
-import type { ValidatorsInfoResult } from 'casper-js-sdk';
-// import { CasperServiceByJsonRPC } from 'casper-js-sdk';
 import { get } from 'svelte/store';
 export const queryValidators = async (): Promise<{
 	_bidValidators: Bid[];
@@ -11,7 +10,8 @@ export const queryValidators = async (): Promise<{
 	_eraIDs: number[];
 }> => {
 	// @ts-ignore
-	const { CasperServiceByJsonRPC } = window.CasperSDK;
+	const { CasperServiceByJsonRPC } = browser && window.CasperSDK;
+	// console.log(CasperServiceByJsonRPC);
 	const casperService = new CasperServiceByJsonRPC(get(rpcUrl));
 	return await casperService
 		.getValidatorsInfo()
@@ -120,6 +120,13 @@ export const queryValidators = async (): Promise<{
 				_nextEraValidators.forEach((bid, i) => {
 					bid.rank = i + 1;
 				});
+
+			// TODO Clean up for bid persistence
+			// Update bidStore only if new validators are different
+			if (get(bidStore) !== _bidValidators) {
+				bidStore.set(_bidValidators);
+			}
+			lastBidUpdateTime.set(Date.now());
 			return {
 				_bidValidators,
 				_currentEraValidators,
@@ -154,4 +161,15 @@ export const getValidatorDetails = async (publicKey: string): Promise<Bid> => {
 	const { _bidValidators } = await queryValidators();
 	const validator = _bidValidators.find((bid) => bid.publicKey == publicKey);
 	return validator;
+};
+
+export const pollValidatorData = () => {
+	const bids = get(bidStore);
+	const timePassed = (Date.now() - get(lastBidUpdateTime)) / (1000 * 60); // time since last refresh in minutes
+	const interval = 3; //time in minutes to refresh the validators
+	if (!bids || timePassed >= interval) {
+		setTimeout(async () => {
+			await queryValidators();
+		}, 1);
+	}
 };

@@ -1,5 +1,5 @@
-import { rpcUrl } from '$stores/chain';
-import axios from 'axios';
+import { csprService, rpcUrl } from '$stores/chain';
+import { CasperServiceByJsonRPC } from 'casper-js-sdk';
 import { get } from 'svelte/store';
 
 export const QueryRPC = async (method: string, params: any) => {
@@ -23,4 +23,8 @@ export const QueryRPC = async (method: string, params: any) => {
 		.catch((err) => {
 			console.log('RPC Err:  ', err);
 		});
+};
+
+export const setConstructors = () => {
+	csprService.set(new CasperServiceByJsonRPC(get(rpcUrl)));
 };
