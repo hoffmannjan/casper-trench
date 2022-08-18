@@ -21,37 +21,20 @@
 			dropdown: []
 		},
 		{
-			text: 'Blockchain',
-			link: '',
-			dropdown: [
-				{
-					text: 'Top Accounts',
-					link: '/accounts/top-accounts'
-				},
-				{
-					text: 'View Txns',
-					link: '/transactions'
-				},
-				{
-					text: 'View Blocks',
-					link: '/blocks'
-				},
-				{
-					text: 'Contracts',
-					link: '/contracts'
-				}
-			]
-		},
-		{
-			text: 'Validators',
-			link: '/validators',
+			text: 'Transactions',
+			link: '/transactions',
 			dropdown: []
 		},
 		{
-			text: 'CSPR Live Charts & Stats',
-			link: '/charts',
+			text: 'Contracts',
+			link: '/contracts',
 			dropdown: []
 		},
+		{
+			text: 'Accounts',
+			link: '/sign-in',
+			dropdown: []
+		}
 		// {
 		// 	text: 'More',
 		// 	link: '',
@@ -70,24 +53,24 @@
 		// 		}
 		// 	]
 		// },
-		{
-			text: 'Wallet',
-			link: '',
-			dropdown: [
-				{
-					text: 'Transfer',
-					link: '/wallet/transfer'
-				},
-				{
-					text: 'Delegate Stake',
-					link: '/wallet/delegate'
-				},
-				{
-					text: 'Undelegate Stake',
-					link: '/wallet/undelegate'
-				}
-			]
-		}
+		//{
+		//	text: 'Wallet',
+		//	link: '',
+		//	dropdown: [
+		//		{
+		//			text: 'Transfer',
+		//			link: '/wallet/transfer'
+		//		},
+		//		{
+		//			text: 'Delegate Stake',
+		//			link: '/wallet/delegate'
+		//		},
+		//		{
+		//			text: 'Undelegate Stake',
+		//			link: '/wallet/undelegate'
+		//		}
+		//	]
+		//	}
 	];
 </script>
 
@@ -116,7 +99,7 @@
 				<div class="user-icon">
 					<UserIcon />
 				</div>
-				<div class="text">Sign In</div>
+				<div class="text">Connect Account</div>
 			</a>
 		{/if}
 	</div>

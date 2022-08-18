@@ -7,7 +7,7 @@
 	export let isLoading = true;
 </script>
 
-<div class:loading={isLoading} class="overview">
+<!-- <div class:loading={isLoading} class="overview">
 	<div class="title">STAKE INFO</div>
 	<div class="extras ">
 		<table>
@@ -31,8 +31,7 @@
 			</tr>
 		</table>
 	</div>
-</div>
-
+</div>  -->
 <style lang="postcss">
 	.overview {
 		@apply pt-[clamp(16px,1.73vw,1.73vw)] pb-[clamp(16px,2.08vw,2.08vw)] pl-[clamp(16px,1.43vw,1.43vw)] pr-[clamp(16px,1.90vw,1.90vw)];

@@ -3,7 +3,7 @@
 </script>
 
 <div>
-	<Tooltip text="Datapoint unavailable-Casperstats API" />
+	<Tooltip text="Data Not Available" />
 </div>
 
 <style lang="postcss">
