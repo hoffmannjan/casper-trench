@@ -1,3 +1,4 @@
+import { browser } from '$app/env';
 import { bidStore, rpcUrl } from '$stores/chain';
 import { isLoading } from '$stores/loading';
 import { parseStringValue } from '$utils/converters';
@@ -8,9 +9,9 @@ import { get } from 'svelte/store';
 
 export const getTopAccounts = async (start: number, count: number): Promise<TopAccount[]> => {
 	// @ts-ignore
-	const { CasperClient } = window.CasperSDK;
+	const { CasperClient, CLPublicKey } = browser && window.CasperSDK;
 	let accounts: TopAccount[] = [];
-	const casperClient = new CasperClient(get(rpcUrl));
+	const casperClient = CasperClient && new CasperClient(get(rpcUrl));
 	const bids = get(bidStore);
 	isLoading.set(true);
 	if (!bids) {

@@ -6,22 +6,20 @@
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import PublicKey from '$lib/components/TableData/PublicKey.svelte';
 	import Rank from '$lib/components/TableData/Rank.svelte';
-	import { bidStore, rpcUrl } from '$stores/chain';
+	import { bidStore } from '$stores/chain';
 	import { isLoading } from '$stores/loading';
 	import { getTopAccounts } from '$utils/chain/accounts';
 	import { tableSort } from '$utils/sort';
 	import type { TopAccount } from '$utils/types/account';
-	import { ethers } from 'ethers';
 	let accountsPerPage = 10;
 	let startIndex = 0;
 	let topAccounts: TopAccount[];
 
-	const fetchTopAccounts = async () => {
-	};
-	
+	const fetchTopAccounts = async () => {};
+
 	$: if (accountsPerPage || $bidStore) {
 		setTimeout(async () => {
-			topAccounts = await getTopAccounts(startIndex, accountsPerPage);			
+			topAccounts = await getTopAccounts(startIndex, accountsPerPage);
 			// await fetchTopAccounts();
 		}, 1);
 	}
@@ -78,7 +76,8 @@
 					</td>
 					<td>
 						<a href="/accounts/{account.publicKey}">
-							<PublicKey hash={account.publicKey} activeDate={Date.parse(account.activeDate)} />
+							<!-- TODO add actual active date -->
+							<PublicKey hash={account.publicKey} activeDate={Date.parse('1970/01/01')} />
 						</a>
 					</td>
 					<td>
@@ -88,6 +87,7 @@
 					>
 					<td><BalanceTransferrable cspr={account.balance} /></td>
 					<td><BalanceTransferrable cspr={account.transferrable} /></td>
+					<!-- TODO geadd actual txnCount -->
 					<td>{account.txnCount?.toLocaleString('en') || 0}</td>
 					<td class="right">{account.stakedAmount.toLocaleString('en')}</td>
 				</tr>

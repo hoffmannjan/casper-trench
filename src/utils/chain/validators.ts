@@ -166,7 +166,7 @@ export const getValidatorDetails = async (publicKey: string): Promise<Bid> => {
 export const pollValidatorData = () => {
 	const bids = get(bidStore);
 	const timePassed = (Date.now() - get(lastBidUpdateTime)) / (1000 * 60); // time since last refresh in minutes
-	const interval = 3; //time in minutes to refresh the validators
+	const interval = 5; //time in minutes to refresh the validators
 	if (!bids || timePassed >= interval) {
 		setTimeout(async () => {
 			await queryValidators();
