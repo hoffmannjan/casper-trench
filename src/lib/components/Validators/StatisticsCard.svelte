@@ -24,12 +24,14 @@
 		<tr>
 			<td class="label">Total Validator Rewards</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><BalanceTransferrable cspr={156324232.03423} /><PlaceHolderIndicator /></td>
+			<!--	ALTERED <td class="value"><BalanceTransferrable cspr={156324232.03423} /><PlaceHolderIndicator /></td> -->
+			<td class="value"><BalanceTransferrable cspr={156324232.03423} /></td>
 		</tr>
 		<tr>
 			<td class="label">Total Delegator Rewards</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><BalanceTransferrable cspr={156324232.03423} /><PlaceHolderIndicator /></td>
+			<!-- ALTERED <td class="value"><BalanceTransferrable cspr={156324232.03423} /><PlaceHolderIndicator /></td> -->
+			<td class="value"><BalanceTransferrable cspr={156324232.03423} /></td>
 		</tr>
 		<tr>
 			<td class="label">Total Stake</td>
@@ -46,7 +48,8 @@
 		<tr>
 			<td class="label">Performance</td>
 			<!-- TODO update - remove place holder -->
-			<td class="value"><CircleProgressBar progress={1} /><PlaceHolderIndicator /></td>
+			<!-- ALTERED <td class="value"><CircleProgressBar progress={1} /><PlaceHolderIndicator /></td> -->
+			<td class="value"><CircleProgressBar progress={1} /></td>
 		</tr>
 	</table>
 </div>

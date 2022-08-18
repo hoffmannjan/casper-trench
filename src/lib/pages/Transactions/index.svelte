@@ -48,7 +48,8 @@
 				<TableSorter on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
 			</th>
 			<!-- TODO remove placeholder -->
-			<th>Contract <PlaceHolderIndicator /></th>
+			<!--	<th>Contract <PlaceHolderIndicator /></th> -->
+			<th>Contract</th>
 			<th class="right">Amount</th>
 			<th class="right"> Cost</th>
 		</tr>

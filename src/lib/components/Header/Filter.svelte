@@ -6,13 +6,19 @@
 </script>
 
 <div class="filter">
-	<div class="filter-dropdown">
+
+	<!--TO DO: Temporarily Removed: Cannot Login ************************
+	<div class="filter-dropdown"> 
+	
 		<div class="text">Filter</div>
 		<div class="chevron">
 			<NavbarChevron />
 		</div>
 	</div>
+
 	<!-- CHANGE -->
+
+
 	<input
 		type="text"
 		name="filter"

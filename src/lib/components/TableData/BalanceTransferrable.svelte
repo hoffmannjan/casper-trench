@@ -11,16 +11,16 @@
 		<div class="crypto">
 			{(cspr && parseFloat(cspr.toFixed(5)).toLocaleString('en')) || '0'}
 		</div>
-		<div class="cspr">CSPR</div>
+		<div class="cspr">----</div>
 	</div>
 	{#if selfStakePercentage > 0}
-		<div class="value-cash">
+		<!--	<div class="value-cash">
 			{selfStakePercentage || '0'}%
-		</div>
+		</div> -->
 	{:else}
-		<div class="value-cash">
+		<!--	<div class="value-cash">
 			${parseFloat((cspr * $price).toFixed(2)).toLocaleString('en') || '0'}
-		</div>
+		</div> -->
 	{/if}
 </div>
 

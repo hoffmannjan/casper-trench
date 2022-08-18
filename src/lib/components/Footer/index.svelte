@@ -10,52 +10,55 @@
 	<img src="/images/png/t-footer-bg.png" alt="bg" class="bg" draggable="false" />
 	<div class="arcadia-section">
 		<div class="logo">
-			<ArcadiaLogo />
+		<!-- TO DO: FIND AND REPLACE LOGO******************************* --!>
+		<!-- <ArcadiaLogo /> -->
 		</div>
 		<div class="link-section">
 			<div class="links">
-				<div class="title">About Arcadia</div>
-				<a href="/" class="link"> About us </a>
-				<a href="/" class="link"> Stake with us </a>
-				<a href="/" class="link"> Contact us </a>
-				<a href="/" class="link"> Terms and Service </a>
-				<a href="/" class="link"> Privacy Policy </a>
+				<div class="title"></div>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
 			</div>
 			<div class="links">
-				<div class="title">About Casper.info</div>
-				<a href="/" class="link"> Github </a>
-				<a href="/" class="link"> License </a>
-				<a href="/" class="link"> Changelog </a>
-				<a href="/" class="link"> Feature Requests </a>
+				<div class="title"></div>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
 			</div>
 		</div>
 	</div>
 
 	<div class="casper-live">
 		<div class="logo">
-			<CasperTrenchLogo />
+		<!--TO DO: FIND AND REPLACE LOGO*********************************** -->
+		<!--	<CasperTrenchLogo /> -->
 		</div>
 		<div class="link-section">
 			<div class="links">
-				<div class="title">About Casper Network</div>
-				<a href="/" class="link"> CasperLabs </a>
-				<a href="/" class="link"> Casper Association </a>
-				<a href="/" class="link"> Highway protocol </a>
-				<a href="/" class="link"> Technical design </a>
+				<div class="title"></div>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
 			</div>
 			<div class="links">
-				<div class="title">Developer Resources</div>
-				<a href="/" class="link"> Documentation </a>
-				<a href="/" class="link"> Github </a>
+				<div class="title"></div>
+				<a href="/" class="link"></a>
+				<a href="/" class="link"></a>
 				<div class="socials">
+		<!--TO DO: FIND AND REPLACE LOGOS*********************************** -->
 					<a href="/" class="discord">
-						<DiscordIcon />
+					<!-- <DiscordIcon /> -->
 					</a>
 					<a href="/" class="telegram">
-						<TelegramIcon />
+					<!-- <TelegramIcon /> -->
 					</a>
 					<a href="/" class="twitter">
-						<TwitterIcon />
+					<!-- <TwitterIcon /> -->
 					</a>
 				</div>
 			</div>

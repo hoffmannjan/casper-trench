@@ -21,7 +21,7 @@
 	let otherSettings = {
 		text: 'Default evmVersion, BSD-3-Clause ',
 		link: {
-			text: 'lisence',
+			text: 'license',
 			url: ''
 		}
 	};
