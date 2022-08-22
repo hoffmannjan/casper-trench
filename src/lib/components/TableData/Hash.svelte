@@ -36,9 +36,9 @@
 		@apply max-w-max;
 	}
 
-	.text {
+	/* .text {
 		@apply text-color-hover-footer-link;
-	}
+	} */
 
 	.yellow {
 		@apply text-color-arcadia-yellow;
@@ -60,9 +60,9 @@
 		@apply relative flex justify-center;
 	}
 
-	.tooltip-icon {
+	/* .tooltip-icon {
 		@apply cursor-pointer;
-	}
+	} */
 
 	.tooltip-icon::before,
 	.tooltip-icon::after {
