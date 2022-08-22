@@ -41,9 +41,9 @@
 						goto(`/blocks/${block.height - 1}`);
 						window.location.reload();
 					}}
-					block>Blocks #{block.height - 1}</Button
+					block>Block #{block.height - 1}</Button
 				>
-				<Button block active>Blocks #{block.height}</Button>
+				<Button block active>Block #{block.height}</Button>
 				<Button
 					on:click={() => {
 						if (block.height + 1 <= currentHeight) {
@@ -54,7 +54,7 @@
 					block
 				>
 					{#if block.height + 1 <= currentHeight}
-						Blocks #{block.height + 1}
+						Block #{block.height + 1}
 					{:else}
 						Crunching...
 					{/if}
@@ -63,11 +63,11 @@
 
 			<div class="top">
 				<div class="title">
-					Blocks {block.height}
+					Block {block.height}
 				</div>
 				<div class="sub-title">
 					<div class="blocks">
-						<span class="green">Blocks</span> / Blocks {currentHeight}
+						<span class="green">Blocks</span> / Block {currentHeight}
 					</div>
 				</div>
 			</div>
@@ -152,7 +152,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="label">State Roof Hash</td>
+						<td class="label">State Root Hash</td>
 						<td class="value">{block.stateRootHash}</td>
 					</tr>
 					<tr>
@@ -293,7 +293,7 @@
 	}
 
 	.dets > .hash {
-		@apply text-color-hover-footer-link;
+		@apply text-color-table-header;
 	}
 
 	.transaction-button {
