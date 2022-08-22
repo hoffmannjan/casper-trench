@@ -103,7 +103,7 @@
 	<div class="stat-column">
 		<div class="top">
 			<div class="side">
-				<PlaceHolderIndicator />
+				<!-- <PlaceHolderIndicator /> -->
 			</div>
 			<div class="title">TOTAL STAKE BONDED</div>
 			<div class="value">

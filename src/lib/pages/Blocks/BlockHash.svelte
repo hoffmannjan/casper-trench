@@ -293,7 +293,7 @@
 	}
 
 	.dets > .hash {
-		@apply text-color-hover-footer-link;
+		@apply text-color-table-header;
 	}
 
 	.transaction-button {
