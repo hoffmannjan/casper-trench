@@ -16,8 +16,8 @@
 		}[];
 	}[] = [
 		{
-			text: 'Home',
-			link: '/',
+			text: 'Blocks',
+			link: '/blocks',
 			dropdown: []
 		},
 		{
@@ -31,8 +31,8 @@
 			dropdown: []
 		},
 		{
-			text: 'Accounts',
-			link: '/sign-in',
+			text: 'My Account',
+			link: '/accounts/ranking',
 			dropdown: []
 		}
 		// {
@@ -76,6 +76,7 @@
 
 <div class="navbar">
 	<a href="/" class="logo">
+		BlkExp
 		<!-- <CasperTrenchLogo /> -->
 	</a>
 	<div class="nav-items">

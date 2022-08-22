@@ -7,58 +7,58 @@
 </script>
 
 <div class="footer">
-	<img src="/images/png/t-footer-bg.png" alt="bg" class="bg" draggable="false" />
+	<img src="/images/png/temp-footer-bg.png" alt="bg" class="bg" draggable="false" />
 	<div class="arcadia-section">
 		<div class="logo">
-		<!-- TO DO: FIND AND REPLACE LOGO******************************* --!>
+			<!-- TO DO: FIND AND REPLACE LOGO******************************* --!>
 		<!-- <ArcadiaLogo /> -->
 		</div>
 		<div class="link-section">
 			<div class="links">
-				<div class="title"></div>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
+				<div class="title" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
 			</div>
 			<div class="links">
-				<div class="title"></div>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
+				<div class="title" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
 			</div>
 		</div>
 	</div>
 
 	<div class="casper-live">
 		<div class="logo">
-		<!--TO DO: FIND AND REPLACE LOGO*********************************** -->
-		<!--	<CasperTrenchLogo /> -->
+			<!--TO DO: FIND AND REPLACE LOGO*********************************** -->
+			<!--	<CasperTrenchLogo /> -->
 		</div>
 		<div class="link-section">
 			<div class="links">
-				<div class="title"></div>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
+				<div class="title" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
 			</div>
 			<div class="links">
-				<div class="title"></div>
-				<a href="/" class="link"></a>
-				<a href="/" class="link"></a>
+				<div class="title" />
+				<a href="/" class="link" />
+				<a href="/" class="link" />
 				<div class="socials">
-		<!--TO DO: FIND AND REPLACE LOGOS*********************************** -->
+					<!--TO DO: FIND AND REPLACE LOGOS*********************************** -->
 					<a href="/" class="discord">
-					<!-- <DiscordIcon /> -->
+						<!-- <DiscordIcon /> -->
 					</a>
 					<a href="/" class="telegram">
-					<!-- <TelegramIcon /> -->
+						<!-- <TelegramIcon /> -->
 					</a>
 					<a href="/" class="twitter">
-					<!-- <TwitterIcon /> -->
+						<!-- <TwitterIcon /> -->
 					</a>
 				</div>
 			</div>
