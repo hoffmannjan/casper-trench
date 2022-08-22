@@ -70,12 +70,12 @@
 			<th>Version</th>
 			<th>Balance</th>
 			<th>Txns</th>
-			<th>Setting</th>
+			<!-- <th>Setting</th> -->
 			<th>Verified</th>
 			<th>
 				<div class="tooltip">
 					<div class="text">Audited</div>
-					<Tooltip text="Test" />
+					<!-- <Tooltip text="Test" /> -->
 				</div>
 			</th>
 		</tr>
@@ -101,7 +101,7 @@
 				</td>
 				<td>{contract.balance} CSPR</td>
 				<td class="black">{contract.transactions}</td>
-				<td>
+				<!-- <td>
 					<div class="setting">
 						<button
 							type="button"
@@ -122,7 +122,7 @@
 							<SettingsIcon />
 						</button>
 					</div>
-				</td>
+				</td> -->
 				<td class="black">{new Date(contract.date).toLocaleDateString()}</td>
 				<td class="black">{contract.audited}</td>
 			</tr>
