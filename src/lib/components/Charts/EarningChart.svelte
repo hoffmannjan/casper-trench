@@ -125,7 +125,7 @@
 </script>
 
 <div class="container">
-	<div class="title">Latest 1000 Era rewards (CSPR)</div>
+	<div class="title">Latest 1000 Era rewards (----)</div>
 	<ChartToolbar
 		{chart}
 		on:update-cursor={() => {

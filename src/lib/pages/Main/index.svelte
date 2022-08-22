@@ -4,7 +4,7 @@
 </script>
 
 <section>
-	<TopValidators />
+	<!-- <TopValidators /> -->
 	<LatestBlocks />
 </section>
 

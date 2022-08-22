@@ -1,5 +1,5 @@
 <div class="bottom-footer">
-	<img src="/images/png/b-footer-bg.png" alt="bg" class="bg" draggable="false" />
+	<img src="/images/png/temp-b-footer-bg.png" alt="bg" class="bg" draggable="false" />
 	<div class="versions">
 		<div>1.10.0 (4287b143)</div>
 		<div>Node version: 1.4.6 (72b698e89)</div>
