@@ -99,7 +99,7 @@
 						</div>
 					</div>
 				</td>
-				<td>{contract.balance} CSPR</td>
+				<td>{contract.balance} ----</td>
 				<td class="black">{contract.transactions}</td>
 				<!-- <td>
 					<div class="setting">

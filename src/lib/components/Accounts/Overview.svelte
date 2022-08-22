@@ -15,7 +15,7 @@
 	<div class="extras">
 		<table>
 			<tr>
-				<td class="label"> Address type </td>
+				<td class="label"> Public Key Type </td>
 				<td class="value">
 					{processType(type?.type)}
 				</td>

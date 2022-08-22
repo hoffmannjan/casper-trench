@@ -129,7 +129,7 @@
 						<td class="value">{block.hash}</td>
 					</tr>
 					<tr>
-						<td class="label">Transaction</td>
+						<td class="label">Transactions</td>
 						<td class="value">
 							<div
 								class="transaction-button green"

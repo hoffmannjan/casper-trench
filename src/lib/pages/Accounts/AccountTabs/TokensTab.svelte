@@ -74,7 +74,8 @@
 
 <div class="tokens-tab">
 	<div class="total">
-		Latest {tokensPerPage} Transactions <PlaceHolderIndicator />
+		<!--	Latest {tokensPerPage} Transactions <PlaceHolderIndicator /> -->
+		Latest {tokensPerPage} Transactions
 	</div>
 	<table>
 		<tr>

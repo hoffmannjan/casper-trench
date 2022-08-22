@@ -7,9 +7,9 @@
 	<div class="value-crypto">
 		{parseFloat(cspr.toFixed(2)).toLocaleString('en')} CSPR
 	</div>
-	<div class="value-cash">
+	<!--	<div class="value-cash">
 		${parseFloat(cashValue.toFixed(2)).toLocaleString('en')}
-	</div>
+	</div> -->
 </div>
 
 <style lang="postcss">

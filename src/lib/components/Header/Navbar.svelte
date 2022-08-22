@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CasperTrenchLogo from '$lib/icons/CasperTrenchLogo.svelte';
+	// import CasperTrenchLogo from '$lib/icons/CasperTrenchLogo.svelte';
 	import UserIcon from '$lib/icons/UserIcon.svelte';
 	import NavbarDropdown from './NavbarDropdown.svelte';
 	import { page } from '$app/stores';
@@ -16,42 +16,25 @@
 		}[];
 	}[] = [
 		{
-			text: 'Home',
-			link: '/',
+			text: 'Blocks',
+			link: '/blocks',
 			dropdown: []
 		},
 		{
-			text: 'Blockchain',
-			link: '',
-			dropdown: [
-				{
-					text: 'Top Accounts',
-					link: '/accounts/top-accounts'
-				},
-				{
-					text: 'View Txns',
-					link: '/transactions'
-				},
-				{
-					text: 'View Blocks',
-					link: '/blocks'
-				},
-				{
-					text: 'Contracts',
-					link: '/contracts'
-				}
-			]
-		},
-		{
-			text: 'Validators',
-			link: '/validators',
+			text: 'Transactions',
+			link: '/transactions',
 			dropdown: []
 		},
 		{
-			text: 'CSPR Live Charts & Stats',
-			link: '/charts',
+			text: 'Contracts',
+			link: '/contracts',
 			dropdown: []
 		},
+		{
+			text: 'My Account',
+			link: '/accounts/ranking',
+			dropdown: []
+		}
 		// {
 		// 	text: 'More',
 		// 	link: '',
@@ -70,30 +53,31 @@
 		// 		}
 		// 	]
 		// },
-		{
-			text: 'Wallet',
-			link: '',
-			dropdown: [
-				{
-					text: 'Transfer',
-					link: '/wallet/transfer'
-				},
-				{
-					text: 'Delegate Stake',
-					link: '/wallet/delegate'
-				},
-				{
-					text: 'Undelegate Stake',
-					link: '/wallet/undelegate'
-				}
-			]
-		}
+		//{
+		//	text: 'Wallet',
+		//	link: '',
+		//	dropdown: [
+		//		{
+		//			text: 'Transfer',
+		//			link: '/wallet/transfer'
+		//		},
+		//		{
+		//			text: 'Delegate Stake',
+		//			link: '/wallet/delegate'
+		//		},
+		//		{
+		//			text: 'Undelegate Stake',
+		//			link: '/wallet/undelegate'
+		//		}
+		//	]
+		//	}
 	];
 </script>
 
 <div class="navbar">
 	<a href="/" class="logo">
-		<CasperTrenchLogo />
+		BlkExp
+		<!-- <CasperTrenchLogo /> -->
 	</a>
 	<div class="nav-items">
 		{#each navItems as navItem}
@@ -116,7 +100,7 @@
 				<div class="user-icon">
 					<UserIcon />
 				</div>
-				<div class="text">Sign In</div>
+				<div class="text">Connect Account</div>
 			</a>
 		{/if}
 	</div>
