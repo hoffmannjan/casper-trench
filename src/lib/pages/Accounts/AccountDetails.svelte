@@ -16,7 +16,7 @@
 	import { page } from '$app/stores';
 	import type { Type } from '$utils/types/type';
 
-	//Old menu options 
+	//Old menu options
 	//  {
 	// 		title: 'Transfers',
 	// 		component: TransferTab,
@@ -41,7 +41,7 @@
 			title: 'Transactions',
 			component: TransactionsTab,
 			props: {}
-		},
+		}
 	];
 	let account: Account;
 	let type: Type;
@@ -61,7 +61,7 @@
 		</div>
 		<div class="address">
 			<div class="title">
-				<div class="text">Address</div>
+				<div class="text">Public Key</div>
 			</div>
 			<div class="value">
 				<div class="text">
