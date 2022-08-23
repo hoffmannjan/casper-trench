@@ -14,12 +14,12 @@
 	<div class="title">OVERVIEW</div>
 	<div class="extras">
 		<table>
-			<tr>
+			<!-- <tr>
 				<td class="label"> Public Key Type </td>
 				<td class="value">
 					{processType(type?.type)}
 				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td class="label"> Available </td>
 				<td class="value">

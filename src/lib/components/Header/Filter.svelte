@@ -23,7 +23,7 @@
 		type="text"
 		name="filter"
 		
-		placeholder="Search blocks / transactions / contracts / accounts"
+		placeholder="Search blocks / transactions / accounts"
 		bind:value
 	/>
 

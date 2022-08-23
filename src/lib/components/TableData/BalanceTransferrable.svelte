@@ -11,7 +11,7 @@
 		<div class="crypto">
 			{(cspr && parseFloat(cspr.toFixed(5)).toLocaleString('en')) || '0'}
 		</div>
-		<div class="cspr">----</div>
+		<!-- remove mention of cspr -->
 	</div>
 	{#if selfStakePercentage > 0}
 		<!--	<div class="value-cash">
