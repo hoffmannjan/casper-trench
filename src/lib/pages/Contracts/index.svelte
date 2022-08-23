@@ -83,9 +83,10 @@
 		{#each contracts as contract}
 			<tr>
 				<td class="block hash">
-					<a href="/contracts/{contract.address}">
+					<!-- remove contracts redirect -->
+					<p>
 						<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
-					</a>
+					</p>
 				</td>
 				<td class="grey">{contract.name}</td>
 				<td>{contract.type}</td>
@@ -99,7 +100,8 @@
 						</div>
 					</div>
 				</td>
-				<td>{contract.balance} ----</td>
+				<!-- remove mention of cspr -->
+				<!-- <td>{contract.balance} ----</td> -->
 				<td class="black">{contract.transactions}</td>
 				<!-- <td>
 					<div class="setting">

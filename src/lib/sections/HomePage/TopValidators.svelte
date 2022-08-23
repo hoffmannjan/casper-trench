@@ -45,7 +45,7 @@
 					>
 					<td class="text-color-grey-footer-label">{validator.delegationRate.toFixed(2)}%</td>
 					<!-- TODO change ____ -->
-					<td class="text-color-table-header">{validator.selfStake.toLocaleString('en')} ____</td>
+					<td class="text-color-table-header">{validator.selfStake.toLocaleString('en')} </td>
 					<!-- <td><CircleProgressBar progress={1} /></td> -->
 				</tr>
 			{/each}
