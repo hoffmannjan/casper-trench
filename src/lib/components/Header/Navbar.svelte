@@ -25,11 +25,11 @@
 			link: '/transactions',
 			dropdown: []
 		},
-		{
-			text: 'Contracts',
-			link: '/contracts',
-			dropdown: []
-		},
+		// {
+		// 	text: 'Contracts',
+		// 	link: '/contracts',
+		// 	dropdown: []
+		// },
 		{
 			text: 'My Account',
 			link: '/accounts/ranking',
