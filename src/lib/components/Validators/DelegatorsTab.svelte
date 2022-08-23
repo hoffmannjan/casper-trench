@@ -55,7 +55,7 @@
 							<div class="crypto">
 								{delegator.stakedAmount.toLocaleString('en')}
 							</div>
-							<div class="cspr">----</div>
+							<!-- remove cspr -->
 						</div>
 					</td>
 					<td class="weight"

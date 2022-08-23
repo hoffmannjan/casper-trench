@@ -18,7 +18,7 @@
 		</div>
 	{/if}
 	<div class="details">
-		<a href="/validators/{hash}">
+		<!-- <a href="/validators/{hash}">
 			<Hash
 				{hash}
 				variant="right"
@@ -26,7 +26,13 @@
 					goto(`/validators/${hash}`);
 				}}
 			/>
-		</a>
+			</a> -->
+			<p>
+				<Hash
+					{hash}
+					variant="right"
+				/>
+				</p>
 		<div class="name">
 			{#if name}
 				{name}
