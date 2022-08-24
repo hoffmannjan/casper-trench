@@ -1,7 +1,7 @@
 <script>
 	import OtherStatsSection from './OtherStatsSection.svelte';
 	import Navbar from './Navbar.svelte';
-	import Filter from '$lib/components/Header/Filter.svelte';
+	//import Filter from '$lib/components/Header/Filter.svelte';
 	import HomeStatsSection from './HomeStatsSection.svelte';
 	import { page } from '$app/stores';
 
@@ -11,12 +11,13 @@
 <div class="header">
 	<Navbar />
 	{#if isHome}
-		<Filter />
+		<!-- Filter not working. Possibly remove -->
+		<!-- <Filter /> -->
 		<!-- <HomeStatsSection /> -->
 	{:else}
 		<div class="header-flex">
 			<!-- <OtherStatsSection /> -->
-			<Filter />
+			<!-- <Filter /> -->
 		</div>
 	{/if}
 </div>
