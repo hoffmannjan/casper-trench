@@ -6,6 +6,20 @@
 	import { account } from '$stores/account';
 	import Hash from '../TableData/Hash.svelte';
 	import { disconnectWallet } from '$utils/wallets/connection';
+	import { setContext } from 'svelte';
+	import { getContext } from 'svelte';
+
+	// const signedIn = false;
+
+	// setContext('isSignedIn', signedIn);
+
+	// function SignIn() {
+	// 	const currentState = getContext('isSignedIn')
+	// 	if (currentState === false) {
+	// 		setContext('isSignedIn', true)
+	// 	}
+	// }
+	
 
 	let navItems: {
 		text: string;
@@ -30,11 +44,11 @@
 		// 	link: '/contracts',
 		// 	dropdown: []
 		// },
-		{
-			text: 'My Account',
-			link: '/accounts/ranking',
-			dropdown: []
-		}
+		// {
+		// 	text: 'My Account',
+		// 	link: `/accounts/${$account.publicKey}`,
+		// 	dropdown: []
+		// }
 		// {
 		// 	text: 'More',
 		// 	link: '',
@@ -76,7 +90,6 @@
 
 <div class="navbar">
 	<a href="/" class="logo">
-		BlkExp
 		<!-- <CasperTrenchLogo /> -->
 	</a>
 	<div class="nav-items">
@@ -93,15 +106,16 @@
 		{/each}
 		{#if $account}
 			<button on:click={disconnectWallet}>
-				<Hash hash={$account.publicKey} />
+				<!-- <Hash hash={$account.publicKey} /> -->
+				Disconnect Account
 			</button>
 		{:else}
-			<a href="/sign-in" class="signin">
+			<!-- <a href="/sign-in" class="signin">
 				<div class="user-icon">
 					<UserIcon />
 				</div>
 				<div class="text">Connect Account</div>
-			</a>
+			</a> -->
 		{/if}
 	</div>
 </div>
@@ -112,8 +126,8 @@
 	}
 
 	.nav-items {
-		@apply hidden md:flex gap-[clamp(16px,1.79vw,1.79vw)];
-		@apply text-white text-opacity-50 text-[clamp(10px,0.83vw,0.83vw)];
+		@apply hidden md:flex gap-[clamp(1vw,2vw,3vw)];
+		@apply text-white text-opacity-50 text-[clamp(20px,1vw,1.5vw)];
 	}
 
 	.nav-item {
