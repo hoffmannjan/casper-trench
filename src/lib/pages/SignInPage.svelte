@@ -9,7 +9,7 @@
 		{
 			name: 'Casper Signer',
 			info: 'Connect and sign in via Google Chrome extension'
-		}
+		},
 		// {
 		// 	name: 'Ledger',
 		// 	info: 'Connect and sign in with your Ledger wallet'
@@ -60,11 +60,12 @@
 							}
 						}}
 					>
-						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
+						{wallet.name.toLowerCase().includes('casper signer') ? 'Connect' : 'Sign In'}
 					</Button>
 				{:else}
 					<Button gradient wide>
-						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
+						<!-- {wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'} -->
+						Connect
 					</Button>
 				{/if}
 				{#if wallet.name.toLowerCase().includes('casper')}
