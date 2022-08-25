@@ -6,35 +6,26 @@
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import PublicKey from '$lib/components/TableData/PublicKey.svelte';
 	import Rank from '$lib/components/TableData/Rank.svelte';
+	import { bidStore } from '$stores/chain';
 	import { isLoading } from '$stores/loading';
-	import { getAccountDeploys, getTopAccounts } from '$utils/api';
-	import { parseStringValue } from '$utils/converters';
+	import { getTopAccounts } from '$utils/chain/accounts';
 	import { tableSort } from '$utils/sort';
 	import type { TopAccount } from '$utils/types/account';
-	import type { AccountTransaction } from '$utils/types/transaction';
 	let accountsPerPage = 10;
 	let startIndex = 0;
 	let topAccounts: TopAccount[];
 
-	const fetchTopAccounts = async () => {
-		$isLoading = true;
-		topAccounts = await getTopAccounts(accountsPerPage, startIndex);
-		topAccounts &&
-			topAccounts.forEach(async (account) => {
-				const accountTransactions: AccountTransaction[] = await getAccountDeploys(
-					account.account_hash,
-					1000000,
-					0
-				);
-				account.txnCount = accountTransactions?.length || 0;
-			});
-		$isLoading = false;
-	};
+	const fetchTopAccounts = async () => {};
 
-	$: if (accountsPerPage) {
+	$: if (accountsPerPage || $bidStore) {
 		setTimeout(async () => {
-			await fetchTopAccounts();
+			topAccounts = await getTopAccounts(startIndex, accountsPerPage);
+			// await fetchTopAccounts();
 		}, 1);
+	}
+
+	$: if ($bidStore) {
+		console.log('New bids');
 	}
 	const sortTopAccounts = (direction: 'asc' | 'desc', field: string) => {
 		topAccounts = tableSort(direction, topAccounts, field);
@@ -79,27 +70,26 @@
 				<tr>
 					<td class="block">
 						<div class="wrapper">
-							<Rank rank={i + 1} />
+							<Rank rank={account.rank} />
 							<Contract text="CONTRACT" />
 						</div>
 					</td>
 					<td>
-						<a href="/accounts/{account.public_key_hex}">
-							<PublicKey
-								hash={account.public_key_hex}
-								activeDate={Date.parse(account.active_date)}
-							/>
+						<a href="/accounts/{account.publicKey}">
+							<!-- TODO add actual active date -->
+							<PublicKey hash={account.publicKey} activeDate={Date.parse('1970/01/01')} />
 						</a>
 					</td>
 					<td>
-						<a href="/accounts/{account.account_hash}"
-							><Hash hash={account.account_hash} noOfCharacters={10} /></a
+						<a href="/accounts/{account.accountHash}"
+							><Hash hash={account.accountHash} noOfCharacters={10} /></a
 						></td
 					>
-					<td><BalanceTransferrable cspr={parseStringValue(account.balance)} /></td>
-					<td><BalanceTransferrable cspr={parseStringValue(account.transferrable)} /></td>
+					<td><BalanceTransferrable cspr={account.balance} /></td>
+					<td><BalanceTransferrable cspr={account.transferrable} /></td>
+					<!-- TODO geadd actual txnCount -->
 					<td>{account.txnCount?.toLocaleString('en') || 0}</td>
-					<td class="right">{parseStringValue(account.staked_amount).toLocaleString('en')}</td>
+					<td class="right">{account.stakedAmount.toLocaleString('en')}</td>
 				</tr>
 			{/each}
 		{/if}

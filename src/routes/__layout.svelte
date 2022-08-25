@@ -11,10 +11,14 @@
 	import { account } from '$stores/account';
 	import { beforeUpdate } from 'svelte';
 	import { setCSPRPrice } from '$utils';
+	import { setConstructors } from '$utils/chain/helper';
+	import { pollValidatorData } from '$utils/chain/validators';
 
 	beforeUpdate(async () => {
+		setConstructors();
 		$account = JSON.parse(localStorage.getItem('account'));
 		await setCSPRPrice();
+		await pollValidatorData();
 	});
 </script>
 

@@ -1,11 +1,12 @@
 export type TopAccount = {
-	account_hash: string;
-	public_key_hex: string;
-	balance: string;
-	active_date: string;
-	transferrable: string;
-	staked_amount: string;
+	publicKey: string;
+	accountHash: string;
+	balance: number;
+	activeDate: string;
+	transferrable: number;
+	stakedAmount: number;
 	txnCount: number;
+	rank?: number;
 };
 
 export type Account = {
